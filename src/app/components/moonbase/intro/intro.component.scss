@@ -1,0 +1,99 @@
+@import "includes";
+
+.text-inherit {
+    text-transform: inherit;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.pt-5 {
+    padding-top: 3rem;
+}
+
+.normal_text {
+    line-height: 22px;
+    font-weight: normal;
+}
+
+.down_box {
+    border-bottom: 61px solid #d5a642;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    height: 0;
+    color: black
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.d_flex_content_between {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prizepool {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.pt-0 {
+    padding-top: 0;
+}
+
+.border-bottom-three {
+    border-bottom: 3px solid #d5a642;
+}
+
+.text-justify {
+    text-align: justify;
+    ;
+}
+
+@media only screen and (max-width: $md-header) {
+    .d-xs-flex a {
+        min-width: 185px;
+    }
+
+    .flex-xs-col .bottom-only {
+        border-bottom: none !important;
+    }
+
+    .px-3 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .d-xs-flex a.outlined-button {
+        min-width: 155px;
+    }
+
+    .d-xs-flex a.back_btn {
+        min-width: 140px;
+    }
+
+    .d-xs-flex {
+        justify-content: space-between;
+    }
+
+    .h-100.mobile-only {
+        align-self: flex-start;
+        flex: 1;
+    }
+
+    .scroller {
+        max-width: 100vw;
+        margin-top: 70px;
+        min-height: calc(100vh - 220px);
+    }
+
+    .scroller>div {
+        align-self: flex-start;
+    }
+}

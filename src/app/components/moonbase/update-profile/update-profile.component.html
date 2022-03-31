@@ -1,0 +1,209 @@
+<div class="inner">
+  <div class="landing-flex">
+    <div class="details__center center">
+      <div class="details__top">
+        <h1 class="details__title h2">Edit profile</h1>
+        <div class="details__info">
+          You can set preferred display name, create your profile URL and manage
+          other personal settings.
+        </div>
+      </div>
+      <form
+        class="needs-validation"
+        [formGroup]="updateProfile"
+        (ngSubmit)="updateProfileSubmit()"
+        #ff="ngForm"
+      >
+        <div class="details__row">
+          <div class="details__col">
+            <div class="details__user">
+              <div class="details__avatar">
+                <img
+                  src="{{imagePath}} " *ngIf="imagePath"
+                  alt="Avatar"
+                />
+                
+                <img
+                src="assets/images/default.jpg" *ngIf="!imagePath"
+              />
+              </div>
+              <div class="details__wrap">
+                <div class="details__stage">Profile photo</div>
+                <div class="details__text">
+                  We recommend an image of at least 400x400. Gifs work too
+                  <span role="img" aria-label="hooray">🙌</span>
+                </div>
+                <div class="details__file">
+                  <input
+                    ng-disabled="isUploadButtonDisabled"
+                    class="details__input"
+                    type="file"
+                    (change)="onLogoFile($event)"
+                  />
+                  <button
+                    *ngIf="!isUploadButtonDisabled"
+                    ng-disabled="isUploadButtonDisabled"
+                    class="button"
+                  >
+                    Upload
+                  </button>
+                  <button *ngIf="isUploadButtonDisabled" class="button">
+                    Uploading...
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="details__col">
+            <div class="details__list">
+              <div class="details__item">
+                <div class="details__category">Account info</div>
+                <div class="details__fieldset">
+                  <div class="field">
+                    <div class="field__label">display name</div>
+                    <div class="field__wrap">
+                      <input
+                        class="field__input"
+                        formControlName="name"
+                        type="text"
+                        name="name"
+                        placeholder="Enter your display name"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Custom url</div>
+                    <div class="field__wrap">
+                      <input
+                        class="field__input"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.customUrl.errors
+                        }"
+                        formControlName="customUrl"
+                        type="text"
+                        name="url"
+                        placeholder="Your custom URL"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="field field_textarea">
+                    <div class="field__label">Bio</div>
+                    <div class="field__wrap">
+                      <textarea
+                        class="field__textarea"
+                        formControlName="bio"
+                        name="bio"
+                        placeholder="About yourselt in a few words"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <div class="field__label">Referral Address</div>
+                    <div class="field__wrap">
+                      {{ referralAddress }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="details__item">
+                <div class="details__category">Social</div>
+                <div class="details__fieldset">
+                  <div class="field">
+                    <div class="field__label">portfolio or website</div>
+                    <div class="field__wrap">
+                      <input
+                        class="field__input"
+                        formControlName="portfolioWebsite"
+                        type="text"
+                        name="portfolio"
+                        placeholder="Enter URL"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Email id</div>
+                    <div class="field__wrap">
+                      <input
+                        class="field__input"
+                        formControlName="emailId"
+                        type="email"
+                        name="url"
+                        placeholder="nft@email.com"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Facebook Url</div>
+                    <div class="field__wrap">
+                      <input
+                        class="field__input"
+                        formControlName="facebook"
+                        type="text"
+                        name="url"
+                        placeholder="Your Facebook Url"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Discord Url</div>
+                    <div class="field__wrap">
+                      <input
+                        class="field__input"
+                        formControlName="discord"
+                        type="text"
+                        name="url"
+                        placeholder="Your Discord URL"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <!-- commeted for some time dont delete -->
+                  <!-- <div class="details__box">
+                    <div class="field">
+                      <div class="field__label">twitter</div>
+                      <div class="field__wrap">
+                        <input
+                          class="field__input"
+                          formControlName="twitterUsername"
+                          type="text"
+                          name="twitter"
+                          placeholder="@twitter username"
+                          required
+                        />
+                        <button class="button">Verify account</button>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="details__note">
+              To update your settings you should sign message through your
+              wallet. Click 'Update profile' then sign the message
+            </div>
+            <div
+              class="details__note alert alert-danger"
+              *ngIf="submitted && !updateProfile.valid"
+            >
+              Form validation error. Fix all mistakes and submit again
+            </div>
+          </div>
+        </div>
+
+        <div class="details__btns">
+          <button class="button button wp100" type="submit">
+            {{ updateBtnText }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

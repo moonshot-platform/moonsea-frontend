@@ -1,0 +1,53 @@
+<div class="landing-flex">
+    <div class="flex w-100 removeflex">
+        <div class="w-50">
+            <p class="orbitron font_size_30"><span class="color-white">Upload your collection</span> <br> here and now
+            </p>
+        </div>
+        <div class="w-50">
+            <p>Before you can upload your actual collection, you need to have made a collection of minimal 10.000 unique
+                NFT's. If you'd like to know more about creating a collection please read more on how to works.</p>
+        </div>
+    </div>
+
+
+    <div class="mt-30">
+        <div class="flex">
+            <div class="">
+                <button class="button back-button">
+                    <div class="small-round round-mini-button mr10">
+                        <svg version="1.1" id="prev" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                            style="enable-background: new 0 0 40 40" xml:space="preserve">
+                            <g>
+                                <circle class="stroke" cx="20" cy="20" r="18"></circle>
+                                <g>
+                                    <line class="stroke" x1="27.1" y1="20" x2="13.3" y2="20"></line>
+                                    <polyline class="stroke" points="19.7,13.2 12.9,20.1 19.6,26.8"></polyline>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    Back
+                </button>
+            </div>
+            <div class="w-100">
+                <mat-horizontal-stepper [linear]=true #stepper>
+                    <mat-step>
+                        <ng-template  matStepLabel>Choose a collection</ng-template>
+                      <app-collectioncreation></app-collectioncreation>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template  matStepLabel>Upload NFT's</ng-template>
+                        <app-uploadnfts></app-uploadnfts>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template  matStepLabel>Add specific details</ng-template>
+                       <app-uploadnfts></app-uploadnfts>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+
+    </div>
+</div>

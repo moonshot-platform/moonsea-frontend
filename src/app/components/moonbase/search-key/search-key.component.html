@@ -1,0 +1,118 @@
+<div class="landing-flex z-index-high">
+  <div class="orbitron p30">
+    <p class="max-word">
+      Show me
+      <span #searchText class="content_editable"
+      data-maxlength="5" data-minlength="5"
+      (keyup.enter)="searchClient(searchText.innerText)" [innerHTML]="searchKey" contenteditable="true"></span>
+      
+      <!-- <input
+        #searchText
+        (keyup.enter)="searchClient(searchText.value)"
+        class="search_word orbitron p3 color-secondary"
+        value="{{ searchKey }}"
+      /> -->
+
+      <span class="ml10">
+        <a (click)="clearSearch()" href="javascript:void(0)">
+          <svg
+            width="27px"
+            height="27px"
+            viewBox="0 0 27 27"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            style="width: 26px; height: 26px"
+          >
+            <title>Close</title>
+            <desc>Created with Sketch.</desc>
+            <g
+              id="Page-1"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                id="Combined-Shape"
+                fill="#c5e3ec"
+              ></path>
+            </g>
+          </svg>
+        </a>
+      </span>
+    </p>
+    <p>
+      regarding
+      <span class="color-secondary">
+        <!-- all items -->
+        <div class="dropdown">
+          <button (click)="myFunction()" class="dropbtn">All items</button>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="1">All items</a>
+            <a href="2">Buy now</a>
+            <a href="3">On auction</a>
+          </div>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          id="arrow_down"
+        >
+          <path
+            d="M23.677 18.52c.914 1.523-.183 3.472-1.967 3.472h-19.414c-1.784 0-2.881-1.949-1.967-3.472l9.709-16.18c.891-1.483 3.041-1.48 3.93 0l9.709 16.18z"
+          ></path>
+        </svg>
+      </span>
+      containing
+      <span class="color-secondary">
+        <!-- all categories -->
+        <div class="dropdown">
+          <button (click)="myFunction1()" class="dropbtn">
+            all categories
+          </button>
+          <div id="myDropdown1" class="dropdown-content" >
+           <a href="" *ngFor="let item of categotyList" >{{item.categoryName}}</a>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            id="arrow_down"
+          >
+            <path
+              d="M23.677 18.52c.914 1.523-.183 3.472-1.967 3.472h-19.414c-1.784 0-2.881-1.949-1.967-3.472l9.709-16.18c.891-1.483 3.041-1.48 3.93 0l9.709 16.18z"
+            ></path>
+          </svg>
+        </div>
+      </span>
+      added
+      <span class="color-secondary">
+        <!-- whenever  -->
+        <div class="dropdown">
+          <button (click)="myFunction2()" class="dropbtn">Recently</button>
+          <div id="myDropdown2" class="dropdown-content">
+            <a href="7">Recently</a>
+            <a href="8">Floor price high to low</a>
+            <a href="9">Floor price low to high</a>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            id="arrow_down"
+          >
+            <path
+              d="M23.677 18.52c.914 1.523-.183 3.472-1.967 3.472h-19.414c-1.784 0-2.881-1.949-1.967-3.472l9.709-16.18c.891-1.483 3.041-1.48 3.93 0l9.709 16.18z"
+            ></path>
+          </svg>
+        </div>
+      </span>
+    </p>
+  </div>
+</div>

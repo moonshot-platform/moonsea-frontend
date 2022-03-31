@@ -1,0 +1,123 @@
+@media only screen and (min-width: $md) {
+  .space-between-md-column {
+    flex-direction: column;
+  }
+  .removeShadow.cdk-overlay-pane {
+    min-width: 630px !important;
+    max-width: 630px !important;
+  }
+  // .new_collection {
+  //   flex-grow: 1;
+  // }
+}
+
+@media only screen and (max-width: $md) {
+  .inner.align-center {
+    align-items: center;
+  }
+  .p52 {
+    font-size: toRem(41px);
+  }
+  .new_collection {
+    flex-grow: 1;
+    margin-right: 0;
+    .mr30 {
+      margin-right: 0;
+    }
+  }
+  .logo-container {
+    max-width: toRem(280px) !important;
+  }
+  section.team {
+    padding-top: 0px;
+  }
+  .landing-flex {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+  section.team > .inner > div {
+    flex-direction: column;
+  }
+  .info-container-title-section {
+    margin-right: 0;
+    max-width: initial;
+  }
+  .info-container .futuristic-container {
+    border-top: 1;
+    padding-right: 0;
+  }
+  .round-mini-button {
+    display: none;
+  }
+  .border-top-full-width {
+    border-top: 0px solid $primary;
+    border-bottom: 1px solid $primary;
+  }
+  .info-container-title-section div > p {
+    padding-bottom: 0;
+  }
+  .info-container-title-section div > p:first-child {
+    padding-bottom: 20px;
+  }
+  .futuristic-info-container {
+    border-bottom: none;
+    margin-right: 0;
+  }
+  .collections__gallery {
+    &.mr30 {
+      margin-right: 0;
+    }
+  }
+
+  app-landing {
+    .discover_collection {
+      .swiper-slide {
+        flex-direction: column;
+        .flex1.flex-col.justify-center {
+          justify-content: flex-start;
+        }
+      }
+      .thumb__preview img {
+        max-height: 82px;
+        min-height: 82px;
+      }
+    }
+    .owner_name {
+      max-width: 70%;
+    }
+    .discover_collection .swiper .swiper-button-next {
+      right: 0;
+      bottom: 5px;
+    }
+    .discover_collection .swiper .swiper-button-prev {
+      right: auto;
+      bottom: 5px;
+    }
+    .discover_collection .swiper {
+      padding-bottom: 4rem;
+    } 
+  }
+
+  .search-input {
+    width: calc(100% - 30px);
+  }
+  .full-width {
+    width: 100%;
+  }
+
+  .removeShadow.cdk-overlay-pane {
+    width: 100% !important;
+    min-width: 90vw;
+    .modal-backgrond {
+      padding: toRem(25px);
+    }
+    .button {
+      width: 100%;
+      margin-bottom: 1rem;
+      &.bg-primary {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

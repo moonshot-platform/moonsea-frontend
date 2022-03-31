@@ -1,0 +1,37 @@
+@import "includes";
+
+.border-bottom {
+  border-bottom: 3px solid;
+}
+
+.box {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid;
+  flex: 1;
+  max-width: 33.33%;
+}
+.title-container {
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: row;
+}
+table {
+  th {
+    font-size: 12px;
+  }
+   svg {
+     width: 36px;
+     height: 36px;
+   } 
+}
+
+@media only screen and (max-width: $md) {
+  .box {
+  margin: 0.5rem 0;
+  flex: 0 0 100%;
+  }
+  .title-container {
+      flex-direction: column;
+  }
+}

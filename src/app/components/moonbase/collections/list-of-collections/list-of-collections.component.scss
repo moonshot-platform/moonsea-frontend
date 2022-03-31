@@ -1,0 +1,216 @@
+@import "includes";
+
+.Collection_card {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+// [contenteditable=true]:empty:not(:focus):before{
+//   content:attr(data-ph);
+//   color:#c5e3ec;
+// }
+section.hot-collection {
+  padding: 0.5rem 0 0;
+}
+.title-name {
+  position: absolute;
+  top: 67px;
+  left: 29px;
+}
+.form-control {
+  font-size: 1rem;
+  border: 1px solid #50aac5;
+  height: 54px;
+  padding: 1rem;
+  padding-right: 3rem;
+  background: transparent;
+  color: #50aac5;
+  width: 30%;
+  z-index: 10;
+  position: relative;
+  font-family: "Montserrat";
+  font-weight: 600;
+  margin: 10px 0 0 0;
+}
+.discover__center .center_search {
+  text-align: center;
+}
+
+.search-results {
+  height: 50rem;
+  overflow: scroll;
+}
+.collections__preview img {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.border-right.pr20.pt10.text-primary:last-child {
+  border-right: 0;
+}
+
+.border-right.pr20.pt10.text-primary {
+  flex: 0 0 25%;
+  text-align: center;
+  justify-content: center;
+  padding-right: 0;
+}
+
+@media only screen and (max-width: 62.5rem) {
+  .c-card {
+    width: 100%;
+  }
+  .form-control {
+    padding-right: 1rem;
+  }
+  .remove__flex {
+    display: inline-block;
+  }
+  .remove__w {
+    max-width: 100% !important;
+  }
+}
+
+// ****************************************************************
+
+.loadmore-button-pos {
+  text-align: center;
+}
+
+.loadmore-button-pos button {
+  border: 1px solid #50aac5;
+  width: 100%;
+  color: #50aac5;
+  padding: 10px;
+}
+.search-input {
+  position: relative;
+}
+.max-price {
+  top: 36px;
+  z-index: 100000000;
+}
+
+.search-input .form-control {
+  font-size: 1rem;
+  border: 1px solid $primary;
+  height: 54px;
+  background: #090d16;
+  color: #50aac5 !important;
+  width: 100%;
+
+  z-index: 10;
+  font-family: "Montserrat";
+  font-weight: 600;
+  padding-left: 5.5rem;
+}
+
+.search-box {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  border-color: #50aac5;
+  top: 50%;
+  z-index: -1;
+  border: 1px solid;
+}
+
+.position_01 {
+  position: initial !important;
+}
+
+.arrow_down:hover #down_arrow,
+#close:hover {
+  path {
+    fill: $white;
+  }
+} 
+
+#down_arrow {
+  width: 26px;
+  height: 26px;
+  margin-left: 5px;
+}
+
+// ==================================================
+input.search_word {
+  background: transparent;
+  font-size: 30px;
+  max-width: fit-content;
+}
+.max-word {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+//=============Dropdown css start here=============================================================//
+.dropbtn {
+  color: $secondary;
+  font-size: 27px;
+  border: none;
+  cursor: pointer;
+  font-family: "Orbitron";
+  font-weight: 900;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $black;
+  min-width: 160px;
+  width: max-content;
+  cursor: pointer;
+  max-width: 250px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+  z-index: 1;
+  border: solid 1px #fff;
+}
+
+.dropdown-content a {
+  color: $white;
+  padding: 18px 0;
+  text-decoration: none;
+  display: block;
+  margin: 0 1rem;
+  border-bottom: solid 1px $white;
+  font-family: $primary-font;
+  font-size: 14px;
+  font-weight: $semi-bold;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.dropdown a:hover {
+  color: $primary;
+}
+
+.show {
+  display: block;
+}
+.dropbtn:hover {
+  color: white;
+}
+.search_word.orbitron.p3.color-secondary:hover {
+  color: white;
+}
+
+input {
+  width: 100px;
+}
+.d-flex {
+  display: flex;
+}

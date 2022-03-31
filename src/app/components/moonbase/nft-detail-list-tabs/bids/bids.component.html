@@ -1,0 +1,34 @@
+<div class="item__users">
+  <div class="item__user mt20" *ngFor="let item of data; let i = index">
+    <div class="item__avatar">
+      <app-avatar
+        class="item__avatar"
+        [imagePath]="item.profilePic"
+      ></app-avatar>
+      <div class="item__reward" *ngIf="i == 0"></div>
+    </div>
+    <div class="item__description">
+      <div class="item__action">
+        Amount: <span>{{ item.price }} {{ item.currancy }}</span>
+      </div>
+      <div class="item__name">{{ item.name }}</div>
+    </div>
+    <!-- <button *ngIf="items.isListed && item.isAccepted == 0 && (item.isShowAcceptButton || item.typeOfSale==3)" class="button-stroke item__button" (click)="openDialog(i)"  data-effect="mfp-zoom-in">Accept</button> -->
+    <button
+      *ngIf="items.isListed && item.isAccepted == 0"
+      class="button-stroke item__button"
+      (click)="openDialog(i)"
+      data-effect="mfp-zoom-in"
+    >
+      Accept
+    </button>
+    <button
+      *ngIf="item.isAccepted == 1"
+      class="button-stroke item__button"
+      data-effect="mfp-zoom-in"
+    >
+      Rewarded
+    </button>
+  </div>
+  <span *ngIf="this.totalCount == 0">No data available</span>
+</div>

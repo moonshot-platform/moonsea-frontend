@@ -1,0 +1,33 @@
+@import "includes";
+
+.profile_cancel__button {
+  position: absolute;
+  right: 130px;
+  bottom: 16px;
+  z-index: 4;
+}
+.follower-info {
+  max-width: calc(326px - 108px);
+  width: 100%;
+  flex: 1;
+}
+.follow_btn {
+  width: 70px;
+}
+.follow_btn img {
+  height: 100%;
+  width: 100%;
+}
+.share_icon {
+  width: 6%;
+  position: relative;
+}
+.share_icon img {
+  // height: 100%;
+  width: 100%;
+}
+.details {
+  max-height: 286px;
+  overflow: auto;
+  padding-right: 10px;
+}

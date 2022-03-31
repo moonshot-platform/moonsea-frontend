@@ -1,0 +1,66 @@
+@import "./_fonts";
+
+// size
+$full: 100%;
+$half: 50%;
+$quarter: 50%;
+
+$max-width: toRem(1200px);
+$margin-auto: 0 auto;
+
+$md: toRem(1000px);
+$sm: toRem(600px);
+$xs: toRem(300px);
+
+// Header
+$md-header: toRem(1150px);
+
+// Sidebar
+$sidebar-width: toRem(64px);
+
+// Colors
+$primary: #50aac5;
+$secondary-dark: #2092b5;
+$secondary: #c5e3ec;
+
+$body-bg-color: #090d16;
+
+$white: #ffffff;
+
+$success: #00aa3e;
+$warning: #f17425;
+$info: #17a2b8;
+$danger: #ae3600;
+$dark: #3c4858;
+$black: #090d16;
+$muted: #8492a6;
+$light: #f8f9fc;
+$transparent: transparent;
+
+// fonts
+$primary-font: "Montserrat";
+$secondary-font: "Orbitron";
+
+$thin: 100;
+$extra-light: 200;
+$light: 300;
+$regular: 400;
+$medium: 500;
+$semi-bold: 600;
+$bold: 700;
+$extra-bold: 800;
+$black-bold: 900;
+
+$font-xs: 12px;
+$font-sm: 14px;
+$primary-fs: 16px;
+$font-md: 18px;
+$font-lg: 20px;
+
+$font-size-base: toRem($primary-fs);
+$font-weight-base: $medium;
+$font-color-base: $primary;
+$font-family-base: $primary-font, "Sans";
+$font-family-secondary: $secondary-font, "Arial";
+
+$letter-spacing-base: toRem(1px);

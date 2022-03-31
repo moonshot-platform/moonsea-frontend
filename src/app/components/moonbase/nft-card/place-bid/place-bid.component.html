@@ -1,0 +1,16 @@
+<a
+  *ngIf="fromPage == 0 && this.connectedAddress != items.ownerAddress"
+  class="button wp100"
+  href="javascript:void(0)"
+>
+  <span>Place a bid</span>
+</a>
+
+<!-- *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress" it is origina if condition -->
+<button
+  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress"
+  class="button wp100"
+  (click)="openDialog()"
+>
+  Place a bid
+</button>

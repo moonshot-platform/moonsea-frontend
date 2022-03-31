@@ -1,0 +1,36 @@
+.fb-logo {
+  height: 100%;
+  width: 100%;
+}
+.twitter-logo {
+  height: 80%;
+  width: 70%;
+}
+.instagram-logo {
+  height: 100%;
+  width: 100%;
+}
+.pintrest-logo {
+  height: 100%;
+  width: 100%;
+}
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+.linkedin {
+  fill: #026fa7;
+  background-color: white;
+}
+.cross_pos{
+  position: absolute;
+  top: 7px;
+  right: 12px
+}
+.cross_pos button{
+  color: #367386;
+}
+.steps__info {
+    font-size: 23px;
+}

@@ -1,0 +1,53 @@
+@import "includes";
+
+.red-fill path {
+  fill: red;
+}
+
+.cardOfProperty {
+  border: 1px solid $primary;
+  border-radius: 0px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title_name {
+  font-size: 12px;
+}
+
+.item__preview img {
+  width: 100%;
+  border-radius: 0px;
+  min-height: 650px;
+  max-height: 650px;
+  object-fit: cover;
+  border: 1px solid $primary;
+}
+.pos-notforsale {
+  position: relative;
+  left: 52px;
+  top: 2px;
+}
+.more_icon img {
+  background-color: $primary;
+  border-radius: 50px;
+  width: 38px;
+  padding: 8px;
+}
+.drop_container {
+  display: none;
+  width: 10rem;
+  position: absolute;
+  border: 1px solid $primary;
+  padding: 10px;
+  border-radius: 10px;
+}
+.more_icon:hover .drop_container {
+  display: block;
+ 
+}
+
+#chart path {
+  fill: $primary;
+}

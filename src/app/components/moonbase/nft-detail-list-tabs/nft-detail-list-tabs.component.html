@@ -1,0 +1,155 @@
+<div class="relative mt50 mb50">
+  <div class="search-box"></div>
+  <div class="flex landing-flex p-0">
+    <div class="z-index-high position_01 flex1">
+      <div class="profile__nav">
+        <a
+          href="javascript:void(0)"
+          class="profile__link js-tabs-link mr20 {{
+            this.type == '1' ? 'active' : ''
+          }}"
+          (click)="setList(1)"
+        >
+          Owners
+        </a>
+        <!-- <div class="profile__link js-tabs-link {{this.type == '2'?'active':''}}" (click)="getList(2)">Owners </div> -->
+        <a
+          href="javascript:void(0)"
+          class="profile__link js-tabs-link mr20 {{
+            this.type == '3' ? 'active' : ''
+          }}"
+          (click)="setList(3)"
+        >
+          History
+        </a>
+        <a
+          href="javascript:void(0)"
+          class="profile__link js-tabs-link mr20 {{
+            this.type == '4' ? 'active' : ''
+          }}"
+          (click)="setList(4)"
+        >
+          Bids
+        </a>
+      </div>
+      <div class="flex item__container">
+        <div class="item__box js-tabs-item showtab" *ngIf="this.type == '1'">
+          <div class="item__users">
+            <div class="item__user mt20" *ngFor="let item of data">
+              <div
+                class="item__avatar"
+                (click)="goToProfile(item.ownerAddress)"
+              >
+                <img
+                  src="{{
+                    item.profilePic != null && item.profilePic.length > 0 
+                      ? item.profilePic
+                      : 'http://codetentacles-006-site36.htempurl.com/nftTokenImages/637801690252196045bored6.png'
+                  }}"
+                  alt="Avatar"
+                />
+              </div>
+
+              <div class="item__description">
+                <a
+                  href="javascript:void(0)"
+                  *ngIf="item?.name != null && item?.name.length > 0"
+                  (click)="goToProfile(item.ownerAddress)"
+                  class="text-primary"
+                  >{{ item.name }}</a
+                >
+                <a
+                  *ngIf="item?.name == null || item?.name.length == 0"
+                  class="text-primary"
+                  (click)="goToProfile(item.ownerAddress)"
+                  >{{ item.ownerAddress.substring(0, 4) }}....{{
+                    item.ownerAddress.substring(38, 42)
+                  }}</a
+                >
+                <h4 class="item_position pb10" *ngIf="item.listingCurrentSupply > 0">
+                  {{ item.listingCurrentSupply }} edition
+                  <span *ngIf="item.typeOfSale == 1">
+                    on sale for {{ item.price }} BNB</span
+                  >
+                  <span *ngIf="item.typeOfSale == 2"> on auction</span>
+                  <span *ngIf="item.typeOfSale == 3"> open for bids</span>
+                  <!-- Original code and put it as it is  -->
+                </h4>
+
+                  <span *ngIf="item?.typeOfSale == 1">
+                    <app-purchase-now
+                      [fromPage]="1"
+                      [items]="item"
+                      [nftName]="items?.title"
+                      [blockchainId]="items?.blockchainId"
+                    ></app-purchase-now>
+                  </span>
+
+                  <span *ngIf="item?.typeOfSale == 3">
+                    <app-place-bid
+                      [fromPage]="1"
+                      [items]="item"
+                      [nftName]="items?.title"
+                    ></app-place-bid>
+                  </span>
+                <h4
+                  class="item_position"
+                  *ngIf="item.listingCurrentSupply <= 0"
+                >
+                  {{ item.currentSupply }} edition not for sale
+                </h4>
+              </div>
+            </div>
+            <div class="loader" *ngIf="isApiLoading"></div>
+          </div>
+        </div>
+
+        <!-- <div class="item__box js-tabs-item {{this.type == '2'?'showtab':'hidetab'}}">
+       <app-owners [ID]="ID"></app-owners>
+      </div> -->
+        <div *ngIf="this.type == '3'" class="item__box js-tabs-item showtab">
+          <app-history [ID]="ID" [nftAddress]="nftAddress"></app-history>
+        </div>
+        <div *ngIf="this.type == '4'" class="item__box js-tabs-item showtab">
+          <app-bids [ID]="ID" [items]="items" [nftAddress]="nftAddress"></app-bids>
+        </div>
+      </div>
+      <div class="">
+        <!-- <div class="item__head">
+        <div class="item__avatar">
+          <img src="{{data?.profilePic== null?'assets/img/content/avatar-4.jpg':data?.profilePic}}" alt="Avatar">
+        </div>
+        <div class="item__description">
+          <div class="item__info" *ngIf="data?.name!=null">Highest bid by <span>{{data?.name}}</span></div>
+          <div class="item__info" *ngIf="data?.name==null">No bids were received yet</div>
+          <div class="item__currency">
+            <div class="item__price"><span>{{data?.highestBid}}</span> BNB</div>
+            <div class="item__price">${{data?.highestBid*pricingApi.bnbPriceInUsd | number: '1.2-2'}}</div>
+          </div>
+        </div>
+      </div> -->
+
+        <!-- <div class="item__variants">Service fee <span class="item__percent">1.5%</span> <span>2.563 ETH</span> <span>$4,540.62</span></div> -->
+      </div>
+    </div>
+
+    <div class="flex1 js-tabs">
+      <div class="profile__nav">
+        <a href="javascript:void(0)" class="profile__link js-tabs-link active">
+          Attributes
+        </a>
+      </div>
+      <div class="item__container">
+        <div class="flex flex2 wrap">
+          <div class="box flex-col" *ngFor="let item of items?.properties">
+            <div class="flex justify-space-between p12">
+              <span>{{ item.size }} </span>
+              <!-- <span>{{item.properties}}</span> -->
+            </div>
+            <h3 class="break-word w-normal mt10">{{ item.properties }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="filter mt-100 mb50">
+  <div class="search-box"></div>
+  <div class="landing-flex pt-0 z-index-high">
+    <div class="flex justify-space-between flex100 gap15">
+      <a class="button lg-height-button text-inherit bg-primary button mt-auto" (click)="toggle()">
+        Filter NFT's
+        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;width: 30px;height: 30px;margin-left: 10px;" xml:space="preserve">
+          <polygon class="stroke_dark" points="35,5.5 5,5.5 17.5,22.2 17.5,34.5 22.5,34.5 22.5,22.2 "></polygon>
+          </svg>
+      </a>
+
+      <!-- commented don't delete the code it is important code. -->
+      <!-- <div class="search-input">
+        <input type="text" [(ngModel)]="searchKeyWord" (keyup)="searchAll()" (keyup.enter)="searchCollection()"
+          placeholder="Search collection" class="form-control" />
+        <a href="">
+          <svg version="1.1" id="search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve">
+            <style type="text/css">
+              .st0 {
+                fill: none;
+                stroke: #50aac5;
+                stroke-miterlimit: 10;
+              }
+            </style>
+            <g>
+              <circle class="st0" cx="22" cy="18" r="12.5"></circle>
+              <line class="st0" x1="13.2" y1="26.8" x2="5.5" y2="34.5"></line>
+            </g>
+          </svg>
+        </a>
+      </div> -->
+
+      <div class="flex mx-auto mw-30">
+        <div class="search-input">
+          <span class="max-price">Min Price:</span>
+          <input type="text" placeholder="0" [(ngModel)]="minPrice" (change)="filter()" class="form-control pr-3" />
+        </div>
+        <div class="search-input">
+          <span class="max-price">Max Price:</span>
+          <input type="text" placeholder="500000" [(ngModel)]="maxPrice" (change)="filter()"
+            class="form-control pr-3" />
+        </div>
+      </div>
+
+      <div class="field desk-width">
+        <select nice-select class="select sorted" #mySelectprice (change)="filter()"   [value]="sortingType">
+          <option value=2>Recently listed</option>
+          <option value=1>Oldest</option>
+          <option value=4>price: High to low</option>
+          <option value=3>price: Low to high</option>
+          <option value=8>Last price: High to low</option>
+          <option value=7>Last price: Low to high</option>
+          <option value=6>Most liked</option>
+          <option value=5>Least liked</option>
+        </select>
+      </div>
+
+      <div class="field desk-width relative">
+        <span class="max-price">Status:</span>
+        <select nice-select class="select sorted pl-65"  [value]="status" name="offer" (change)="filter()">
+          <option value="-1">All items</option>
+          <option value="1">Buy Now</option>
+          <option value="2">On Auction</option>
+          <option value="9">New</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container >
+  <div class="filter-menu" [ngClass]=" expanded ? 'fadeInDown showdiv' : 'hidediv'">
+    <!-- properties -->
+    <div class="landing-flex pt-0">
+      <div class="field">
+        <div class="wrap-filter">
+          <mat-form-field appearance="fill" *ngFor="let keys of uniqueNamesData; let i = index">
+            <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label>
+            <mat-select (selectionChange)="propertiesSelection(i)" [(ngModel)]="foo[i]" multiple>
+              <mat-option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
+                item.value }}({{ item.totalCount }})</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div class="landing-flex pt50">
+  <div class="outer__inner">
+    <div class="discover">
+      <div class="catalog__center">
+        <!-- <div class="catalog__sorting">
+          <select
+            nice-select
+            #mySelect
+            (change)="getNftList(1, 0, 100, mySelect.value, 12, '', '', 0, 0)"
+          >
+            <option value="DESC">Newest</option>
+            <option value="ASC">Oldest</option>
+          </select>
+
+          <div class="catalog__nav" *ngFor="let list of nftListNames">
+            <a
+              class="catalog__link active pointer_on_card"
+              (click)="
+                getNftList(
+                  collectionId,
+                  0,
+                  0,
+                  'DESC',
+                  12,
+                  '',
+                  '',
+                  list.categoryId,
+                  0
+                )
+              "
+              >{{ list.categoryName }}</a
+            >
+          </div>
+        </div> -->
+
+       
+        
+        <div class="catalog__row">
+          <div class="flex100">
+           
+            <div class="catalog__list">
+              <div class="card" *ngFor="let item of nftList">
+                <!-- <div class="loader" *ngIf="isApiLoading"></div> -->
+                <app-nft-card [items]="item"></app-nft-card>
+              </div>
+              <div *ngIf="nftList?.length == 0">
+                No such data found...
+              </div>
+            </div>
+
+
+            <div class="catalog__btns">
+              <button class="button wp100 mb100 mt50" (click)="loadmore()">
+                Load more
+              </button>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+</div>

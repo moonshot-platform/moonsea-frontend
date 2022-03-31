@@ -1,0 +1,121 @@
+<div class="popup popup_bid" *ngIf="wrongNetwork && step == 0">
+  <div class="flex justify-space-between">
+    <h5 class="orbitron p24 mb20">Place a bid</h5>
+    <a href="javascript:void(0)" (click)="closeDialog()">
+    <svg
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      viewBox="0 0 27 27"
+      height="24px"
+      width="24px"
+    >
+      <title>Close</title>
+      <desc>Created with Sketch.</desc>
+      <g
+        id="Page-1"
+        stroke="none"
+        stroke-width="1"
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+          id="Combined-Shape"
+          fill="#000000"
+        ></path>
+      </g>
+    </svg>
+    </a>
+  </div>
+  <div class="popup__info">Wrong Network</div>
+  <div class="popup__btns">
+    <button
+      [disabled]="invalidValue"
+      (click)="checkNetwork()"
+      class="button popup__button"
+      data-effect="mfp-zoom-in"
+    >
+      Try again
+    </button>
+  </div>
+</div>
+
+<div class="popup popup_bid" *ngIf="!wrongNetwork">
+  <div class="flex justify-space-between">
+    <h5 class="orbitron p24 mb20">Place a bid</h5>
+    <a href="javascript:void(0)" (click)="closeDialog()">
+    <svg
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      viewBox="0 0 27 27"
+      height="24px"
+      width="24px"
+    >
+      <title>Close</title>
+      <desc>Created with Sketch.</desc>
+      <g
+        id="Page-1"
+        stroke="none"
+        stroke-width="1"
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <path
+          d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+          id="Combined-Shape"
+          fill="#000000"
+        ></path>
+      </g>
+    </svg>
+  </a>
+  </div>
+  <div class="popup__info">
+    You are about to purchase {{ items?.nftName }} from {{ items?.name }}
+  </div>
+  <div class="popup__table">
+    <div class="popup__row">
+      <div class="p12">Enter bid :</div>
+      <div class="popup__col">
+        <div class="popup__bid">
+          <input
+            #amount
+            class="popup__rate"
+            value="price"
+            type="number"
+            (keyup)="validatePrice($event)"
+            name="bid"
+          />
+          <div class="popup__currency">BNB</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="p12 w-normal mt10 mb10">Minimum Bid {{ price }}</p>
+
+    <div class="popup__row">
+      <div class="popup__col">Your balance</div>
+      <div class="popup__col">{{ balanceInBNB }} BNB</div>
+    </div>
+    <div class="popup__row">
+      <div class="popup__col">Service fee</div>
+      <div class="popup__col">{{ serviceFees }}</div>
+    </div>
+    <div class="popup__row">
+      <div class="popup__col">Total bid amount</div>
+      <div class="popup__col">{{ total }} BNB</div>
+    </div>
+  </div>
+  <div class="popup__btns">
+    <button
+      [disabled]="invalidValue"
+      (click)="approveToken(amount.value)"
+      class="button text-inherit dark-button mb10 wp100"
+      data-effect="mfp-zoom-in"
+    >
+      {{ btnText }}
+    </button>
+    <button (click)="closeDialog()" class="button wp100">Cancel</button>
+  </div>
+</div>

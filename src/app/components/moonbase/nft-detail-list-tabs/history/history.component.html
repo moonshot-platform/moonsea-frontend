@@ -1,0 +1,33 @@
+<div class="item__users">
+  <div class="item__user mt20" *ngFor="let item of data">
+    <div class="item__avatar">
+      <app-avatar
+        class="item__avatar"
+        [imagePath]="item.profilePic"
+      ></app-avatar>
+      <!-- <img src="{{item.profilePic}}" alt="Avatar"> -->
+      <div class="item__reward">
+        <img src="assets/media/images/moonsea/profile.png" alt="Reward" />
+      </div>
+    </div>
+    <div class="item__description flex justify-space-between">
+      <!-- <div class="item__name">{{item.name}}</div> -->
+      <div>
+        <span class="text-primary"> {{ item.quantity }} Edition </span>
+        <span class="text-primary" *ngIf="item.activityType == 'Purchase'">Purchased By</span>
+        <span class="text-primary" *ngIf="item.activityType != 'Purchase'"
+          >{{ item.activityType }} To</span
+        >
+        :
+        <div
+          >{{ item.toAddress.substring(0, 4) }}....{{
+            item.toAddress.substring(38, 42)
+          }}</div
+        >
+      </div>
+      <div class="item__time text-secondary">{{ item.dateTime }}</div>
+    </div>
+  </div>
+  <div class="loader" *ngIf="isApiLoading"></div>
+  <span *ngIf="this.totalCount == 0">No data available</span>
+</div>

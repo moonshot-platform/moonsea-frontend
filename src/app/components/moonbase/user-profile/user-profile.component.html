@@ -1,0 +1,733 @@
+<section class="top-spacing">
+  <div class="landing-flex">
+    <div class="outer__inner">
+      <div class="profile">
+        <div class="flex">
+          <div class="flex1">
+            <div>
+              <button (click)="goBack()">
+                <svg
+                  version="1.1"
+                  id="back_btn"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 136 56"
+                  style="
+                    enable-background: new 0 0 136 56;
+                    width: 130px;
+                    height: 54px;
+                  "
+                  xml:space="preserve"
+                >
+                  <polygon
+                    class="st0"
+                    points="135,55 28.6,55 1.1,28 28.6,1 135,1 "
+                  />
+                  <g>
+                    <path
+                      class="st1"
+                      d="M82.2,29.9c0,1.9-1.4,3-4.2,3h-5.2V21.7h4.8c2.5,0,3.9,1.1,3.9,2.9c0,1.3-0.7,2.1-1.7,2.5
+          C81.4,27.4,82.2,28.4,82.2,29.9z M74.1,22.7v4.1h3.6c1.8,0,2.8-0.7,2.8-2s-1-2-2.8-2H74.1z M81.1,29.8c0-1.5-1.1-2.1-3-2.1h-4v4.2
+          h4C80,31.9,81.1,31.3,81.1,29.8z"
+                    />
+                    <path
+                      class="st1"
+                      d="M91.1,27.7v5.2H90v-1.3c-0.5,0.9-1.5,1.4-2.9,1.4c-1.9,0-3.1-1-3.1-2.4c0-1.3,0.8-2.4,3.2-2.4h2.7v-0.5
+          c0-1.4-0.8-2.2-2.4-2.2c-1.1,0-2.1,0.4-2.8,1l-0.5-0.8c0.8-0.7,2.1-1.1,3.4-1.1C89.8,24.4,91.1,25.5,91.1,27.7z M89.9,30.4V29h-2.6
+          c-1.6,0-2.2,0.6-2.2,1.5c0,1,0.8,1.6,2.1,1.6C88.5,32.1,89.5,31.5,89.9,30.4z"
+                    />
+                    <path
+                      class="st1"
+                      d="M93.3,28.7c0-2.5,1.8-4.3,4.3-4.3c1.4,0,2.6,0.6,3.3,1.7l-0.8,0.6c-0.6-0.8-1.5-1.2-2.4-1.2
+          c-1.8,0-3.2,1.3-3.2,3.3c0,2,1.3,3.3,3.2,3.3c1,0,1.9-0.4,2.4-1.2l0.8,0.6c-0.7,1.1-1.9,1.7-3.3,1.7C95.2,33,93.3,31.2,93.3,28.7z"
+                    />
+                    <path
+                      class="st1"
+                      d="M106.2,28.7l-2,1.8v2.4h-1.1V21h1.1v8.1l5-4.6h1.4l-3.6,3.4l3.9,5h-1.4L106.2,28.7z"
+                    />
+                  </g>
+                  <g>
+                    <circle class="st0" cx="43.5" cy="28" r="15" />
+                    <g>
+                      <line class="st0" x1="49.5" y1="28" x2="38" y2="28" />
+                      <polyline
+                        class="st0"
+                        points="43.3,33.6 37.6,27.9 43.2,22.3 		"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="user flex-col flex2">
+            <div class="flex">
+              <div class="p-3 border-right flex1">
+                <div class="user__avatar">
+                  <app-avatar
+                    [imagePath]="userDetails?.profilePic"
+                  ></app-avatar>
+                </div>
+                <div class="user__name" *ngIf="userDetails?.name">
+                  {{ userDetails?.name }}
+                </div>
+                <div class="user__code">
+                  <div
+                    class="text-primary user__number"
+                    *ngIf="userDetails?.walletAddress"
+                  >
+                    {{ userDetails?.walletAddress.substring(0, 4) }}...{{
+                      userDetails?.walletAddress.substring(38, 42)
+                    }}
+                  </div>
+                  <button class="user__copy">
+                    <svg class="icon icon-copy">
+                      <use xlink:href="#icon-copy"></use>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="flex-col w-normal">
+                  Member since <span> {{ userDetails?.dateTime }} </span>
+                </div>
+              </div>
+
+              <div class="p-3 info flex1">
+                <p class="text-left w-normal details" *ngIf="userDetails?.bio">
+                  {{ userDetails?.bio }}
+                </p>
+                <p class="text-left" *ngIf="!userDetails?.bio">
+                  No Bio Found...
+                </p>
+              </div>
+            </div>
+            <div class="flex justify-space-between border-top pt20">
+              <a
+                href="javascript:void(0)"
+                *ngIf="
+                  connectedAddress != userDetails?.walletAddress &&
+                  !userDetails?.isFollowByYou
+                "
+                (click)="followUser(userDetails?.walletAddress, 0, 0)"
+              >
+                <svg
+                  version="1.1"
+                  id="follow_button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 80 26"
+                  xml:space="preserve"
+                >
+                  <style type="text/css"></style>
+                  <text
+                    transform="matrix(1 0 0 1 25 18.228)"
+                    class="st1 st2 st3 w-normal"
+                  >
+                    Follow
+                  </text>
+                  <path
+                    d="M13,25.1c-6.6,0-12-5.4-12-12S6.4,1,13,1h54c6.6,0,12,5.4,12,12s-5.4,12-12,12H13z"
+                    class="st4"
+                  ></path>
+                  <g>
+                    <line x1="13" y1="8" x2="13" y2="18" class="st4"></line>
+                    <line x1="18" y1="13" x2="8" y2="13" class="st4"></line>
+                  </g>
+                </svg>
+              </a>
+
+              <a
+                href="javascript:void(0)"
+                *ngIf="
+                  connectedAddress != userDetails?.walletAddress &&
+                  userDetails?.isFollowByYou
+                "
+                (click)="unfollow(userDetails?.walletAddress, 0, 0)"
+              >
+                <svg
+                  version="1.1"
+                  id="follow_button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 80 26"
+                  xml:space="preserve"
+                >
+                  <style type="text/css"></style>
+                  <text
+                    transform="matrix(1 0 0 1 25 18.228)"
+                    class="st1 st2 st3 w-normal"
+                  >
+                    UnFollow
+                  </text>
+                  <path
+                    d="M13,25.1c-6.6,0-12-5.4-12-12S6.4,1,13,1h54c6.6,0,12,5.4,12,12s-5.4,12-12,12H13z"
+                    class="st4"
+                  ></path>
+                  <g>
+                    <line x1="13" y1="8" x2="13" y2="18" class="st4"></line>
+                    <line x1="18" y1="13" x2="8" y2="13" class="st4"></line>
+                  </g>
+                </svg>
+              </a>
+
+              <!-- <a href="javascrip:void(0)" *ngIf="userDetails?.isFollowByYou">
+                <div class="follow_btn">
+                  <img src="assets/button_images/Follow_button_activated_hover.svg">
+                </div>
+              </a> -->
+
+              <!-- <div class="small-round round-mini-button">
+                <mat-icon role="img" fontset="material-icons" aria-hidden="true" data-mat-icon-type="font" class="
+                    mat-icon
+                    notranslate
+                    color-primary
+                    material-icons
+                    mat-icon-no-color
+                  ">arrow_forward</mat-icon>
+              </div> -->
+
+              <!-- <div class="small-round round-mini-button">
+                <mat-icon role="img" fontset="material-icons" aria-hidden="true" data-mat-icon-type="font" class="
+                    mat-icon
+                    notranslate
+                    color-primary
+                    material-icons
+                    mat-icon-no-color
+                  ">arrow_upward</mat-icon>
+              </div> -->
+
+              <a href="javascript:void(0)" class="small-round">
+                <svg
+                  version="1.1"
+                  id="follow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 26 26"
+                  style="enable-background: new 0 0 26 26"
+                  xml:space="preserve"
+                  style="width: 36px; height: 36px"
+                >
+                  <style type="text/css"></style>
+                  <g>
+                    <circle class="stroke" cx="13" cy="13" r="12" />
+                  </g>
+                  <path
+                    class="share"
+                    d="M10,11c-0.1-0.1-0.2-0.1-0.3-0.2c-0.1,0-0.2-0.1-0.3-0.1c-0.2-0.1-0.5-0.1-0.7-0.1c-0.3,0-0.6,0.1-0.8,0.1
+c-0.1,0-0.2,0.1-0.3,0.1c-0.2,0.1-0.4,0.3-0.6,0.4c-0.1,0.1-0.2,0.2-0.2,0.3c0,0-0.1,0.1-0.1,0.2c-0.1,0.1-0.1,0.2-0.1,0.2
+c0,0.1-0.1,0.1-0.1,0.2c0,0.1-0.1,0.2-0.1,0.2c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0.1c0,0.1,0,0.1,0,0.2
+c0,0,0,0,0,0c0,0.1,0,0.2,0,0.3v0c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0.1,0.4,0.3,0.7,0.5,1c0.3,0.4,0.8,0.7,1.4,0.8c0,0,0.1,0,0.1,0
+c0,0,0.1,0,0.1,0c0,0,0.1,0,0.1,0l0,0c0,0,0.1,0,0.1,0c0,0,0.1,0,0.1,0c0,0,0.1,0,0.1,0c0,0,0,0,0,0c0.1,0,0.2,0,0.2,0
+c0,0,0.1,0,0.1,0c0.1,0,0.2,0,0.2-0.1c0.1-0.1,0.3-0.1,0.4-0.2c0.1-0.1,0.2-0.2,0.4-0.3c0,0,0.1-0.1,0.1-0.1l3,1.8v0.7
+c0,1.5,1.4,2.7,2.9,2.4c0.9-0.2,1.7-0.9,1.9-1.9c0.3-1.5-0.9-2.9-2.4-2.9c-0.7,0-1.3,0.3-1.7,0.7l-3-1.8l0,0l-0.1,0
+c0.1-0.2,0.1-0.4,0.1-0.7c0-0.2,0-0.5-0.1-0.7l0.1-0.1l3-1.8c0.5,0.5,1.3,0.8,2.2,0.7c0.9-0.2,1.7-0.9,1.9-1.9
+c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C10.2,11.2,10.1,11.1,10,11L10,11z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <a
+            class="user__site"
+            *ngIf="userDetails?.portfolioWebsite"
+            href="https://ui8.net"
+            target="_blank"
+          >
+            <svg class="icon icon-globe">
+              <use xlink:href="#icon-globe"></use></svg
+            >{{ userDetails?.portfolioWebsite }}</a
+          >
+          <div class="user__control ml10 flex1">
+            <!-- <div>
+              <button
+                *ngIf="
+                  connectedAddress != userDetails?.walletAddress &&
+                  !userDetails?.isFollowByYou
+                "
+                (click)="followUser(userDetails?.walletAddress, 0, 0)"
+                class="button-stroke button-small user__button active"
+              >
+                <span>Unfollow</span>
+                <span>Follow</span>
+              </button>
+
+              <button
+                *ngIf="
+                  connectedAddress != userDetails?.walletAddress &&
+                  userDetails?.isFollowByYou
+                "
+                (click)="unfollow(userDetails?.walletAddress, 0, 0)"
+                class="button-stroke button-small user__button active"
+              >
+                <span>Follow</span>
+                <span>Unfollow</span>
+              </button>
+            </div> -->
+            <div class="js-user-box">
+              <!-- <div class="user__stage">Share link to this page</div> -->
+              <div class="share-btn" data-url="https://ui8.net">
+                <a class="user__direction btn-twitter" data-id="tw"
+                  ><span class="bg-primary icon-small">
+                    <svg
+                      version="1.1"
+                      id="twitter"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 27.1 22"
+                      style="enable-background: new 0 0 27.1 22; width: 20px"
+                      xml:space="preserve"
+                    >
+                      <style type="text/css">
+                        .st0 {
+                          fill: #50aac5;
+                        }
+                      </style>
+                      <g id="Layer_2_1_">
+                        <g id="Logo">
+                          <g id="Logo-2">
+                            <path
+                              id="black_background"
+                              class="st0"
+                              d="M24.3,5.5c0,0.2,0,0.5,0,0.7c0,7.3-5.6,15.8-15.8,15.8l0,0c-3,0-6-0.9-8.5-2.5
+				c0.4,0.1,0.9,0.1,1.3,0.1c2.5,0,4.9-0.8,6.9-2.4c-2.4,0-4.5-1.6-5.2-3.9c0.8,0.2,1.7,0.1,2.5-0.1c-2.6-0.5-4.5-2.8-4.5-5.4V7.7
+				c0.8,0.4,1.6,0.7,2.5,0.7C1.2,6.8,0.4,3.6,1.9,1c2.8,3.5,7,5.6,11.4,5.8c-0.7-3,1.2-6,4.2-6.7c1.9-0.4,3.9,0.2,5.3,1.6
+				c1.2-0.2,2.4-0.7,3.5-1.4c-0.4,1.3-1.3,2.4-2.4,3.1c1.1-0.1,2.2-0.4,3.2-0.9C26.3,3.7,25.4,4.7,24.3,5.5z"
+                            />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </span>
+                </a>
+                <a class="user__direction btn-facebook" data-id="fb"
+                  ><span>
+                    <svg
+                      version="1.1"
+                      id="discord"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 40 40"
+                      style="enable-background: new 0 0 40 40"
+                      xml:space="preserve"
+                    >
+                      <style type="text/css">
+                        .st0 {
+                          fill: #50aac5;
+                        }
+                      </style>
+                      <g>
+                        <path
+                          class="st0"
+                          d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.7,27.1c0,0-0.6-0.7-1.1-1.4
+                     c2.2-0.6,3.1-2,3.1-2c-0.7,0.5-1.4,0.8-2,1c-0.9,0.3-1.7,0.6-2.5,0.7c-1.6,0.3-3.1,0.2-4.4,0c-1-0.2-1.8-0.4-2.5-0.7
+                     c-0.4-0.1-0.8-0.3-1.3-0.6c0,0-0.1,0-0.1-0.1c0,0,0,0,0,0c-0.3-0.2-0.5-0.3-0.5-0.3s0.8,1.4,3,2c-0.5,0.6-1.2,1.4-1.2,1.4
+                     C11.5,27,10,24.6,10,24.6c0-5.5,2.5-9.9,2.5-9.9c2.5-1.8,4.8-1.8,4.8-1.8l0.2,0.2c-3.1,0.9-4.5,2.2-4.5,2.2s0.4-0.2,1-0.5
+                     c1.8-0.8,3.3-1,3.9-1.1c0.1,0,0.2,0,0.3,0c1.1-0.1,2.2-0.2,3.4,0c1.6,0.2,3.4,0.7,5.1,1.6c0,0-1.4-1.3-4.3-2.1l0.2-0.3
+                     c0,0,2.3,0,4.8,1.8c0,0,2.5,4.4,2.5,9.9C30,24.6,28.5,27,24.7,27.1z"
+                        />
+                        <path
+                          class="st0"
+                          d="M23,19.2c-1,0-1.7,0.8-1.7,1.9c0,1.1,0.8,1.9,1.7,1.9s1.7-0.8,1.7-1.9C24.8,20,24,19.2,23,19.2z"
+                        />
+                        <ellipse
+                          class="st0"
+                          cx="16.8"
+                          cy="21.1"
+                          rx="1.7"
+                          ry="1.9"
+                        />
+                      </g>
+                    </svg> </span
+                ></a>
+                <a class="user__direction btn-facebook" data-id="fb"
+                  ><span>
+                    <svg
+                      version="1.1"
+                      id="website"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 40 40"
+                      style="enable-background: new 0 0 40 40"
+                      xml:space="preserve"
+                    >
+                      <style type="text/css">
+                        .st0 {
+                          fill: #50aac5;
+                        }
+                      </style>
+                      <path
+                        class="st0"
+                        d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.3,23c-0.3,1-0.8,1.9-1.5,2.7l-2.7,2.7
+                   c-0.8,0.8-1.6,1.3-2.7,1.5s-2,0.3-3,0s-1.9-0.8-2.7-1.5c-0.8-0.8-1.3-1.7-1.5-2.7c-0.3-1-0.3-2,0-3c0.3-1,0.8-1.9,1.5-2.7l1.5-1.5
+                   c0.2-0.2,0.4-0.2,0.6-0.1s0.4,0.3,0.4,0.5c0,0.7,0.2,1.4,0.4,2.1c0.1,0.2,0,0.4-0.2,0.6L14,22.1c-0.5,0.5-0.8,1.2-0.8,2
+                   c0,0.8,0.3,1.4,0.8,2c0.5,0.6,1.2,0.8,2,0.8c0.8,0,1.4-0.3,2-0.8l2.6-2.6c0.5-0.5,0.8-1.2,0.8-2c0-0.8-0.3-1.4-0.8-2
+                   c-0.1-0.1-0.3-0.2-0.4-0.4s-0.2-0.3-0.2-0.5c0-0.5,0.1-0.9,0.4-1.2l0.9-0.8c0.1-0.1,0.2-0.2,0.4-0.2s0.3,0,0.4,0.1
+                   c0.3,0.2,0.6,0.4,0.8,0.7c0.8,0.8,1.3,1.7,1.5,2.7C24.6,20.9,24.6,22,24.3,23z M29.8,17.5c-0.3,1-0.8,1.9-1.5,2.7l-1.5,1.5
+                   c-0.2,0.2-0.4,0.2-0.6,0.1s-0.4-0.3-0.4-0.5c0-0.7-0.2-1.4-0.4-2.1c-0.1-0.2,0-0.4,0.2-0.6l0.5-0.5c0.5-0.5,0.8-1.2,0.8-2
+                   c0-0.8-0.3-1.4-0.8-2s-1.2-0.8-2-0.8c-0.8,0-1.4,0.3-2,0.8l-2.6,2.6c-0.5,0.5-0.8,1.2-0.8,2c0,0.8,0.3,1.4,0.8,2
+                   c0.1,0.1,0.3,0.2,0.4,0.4s0.2,0.3,0.2,0.5c0,0.5-0.1,0.9-0.4,1.2l-0.9,0.8c-0.1,0.1-0.2,0.2-0.4,0.2s-0.3,0-0.4-0.1
+                   c-0.3-0.2-0.6-0.4-0.8-0.7c-0.8-0.8-1.3-1.7-1.5-2.7c-0.3-1-0.3-2,0-3c0.3-1,0.8-1.9,1.5-2.7l2.7-2.7c0.8-0.8,1.6-1.3,2.7-1.5
+                   c1-0.3,2-0.3,3,0c1,0.3,1.9,0.8,2.7,1.5c0.8,0.8,1.3,1.7,1.5,2.7C30.1,15.4,30.1,16.4,29.8,17.5z"
+                      />
+                    </svg> </span
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="user__socials">
+            <a
+              class="user__social"
+              *ngIf="userDetails?.twitterUsername"
+              href="https://twitter.com/{{ userDetails.twitterUsername }}"
+              target="_blank"
+            >
+              <svg class="icon icon-twitter">
+                <use xlink:href="#icon-twitter"></use></svg
+            ></a>
+            <a
+              class="user__social"
+              *ngIf="userDetails?.instagram"
+              href="https://www.instagram.com/{{ userDetails.instagram }}"
+              target="_blank"
+            >
+              <svg class="icon icon-instagram">
+                <use xlink:href="#icon-instagram"></use></svg
+            ></a>
+            <a
+              class="user__social"
+              *ngIf="userDetails?.facebook"
+              href="https://www.facebook.com/{{ userDetails.facebook }}"
+              target="_blank"
+            >
+              <svg class="icon icon-facebook">
+                <use xlink:href="#icon-facebook"></use></svg
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter mb50">
+    <div class="search-box"></div>
+    <div class="landing-flex pt-0 z-index-high">
+      <div class="flex100">
+        <div class="flex justify-space-between flex100 gap15 mt-100 mb50">
+          <a
+            class="profile__link js-tabs-link"
+            *ngFor="let item of tabHeadings; let i = index"
+            [ngClass]="{ active: tabName == tabHeadingsUrl[i] }"
+            [routerLink]="['/profile', username, 'tab', tabHeadingsUrl[i]]"
+            href="#"
+          >
+            {{ item }}
+            <span
+              class="badge"
+              *ngIf="i == 3"
+              [ngClass]="{
+                'badge-light': tabName == tabHeadingsUrl[3],
+                'badge-dark': tabName != tabHeadingsUrl[3]
+              }"
+              >{{ i == 3 ? userDetails?.noOfLikes : "" }}</span
+            >
+          </a>
+        </div>
+        <div class="profile__container">
+          <div class="landing-flex pt50">
+            <div class="outer__inner">
+              <div class="discover">
+                <div class="catalog__center">
+                  <div class="catalog__row">
+                    <div class="flex100">
+                      <div class="catalog__list">
+                        <div
+                          *ngIf="tabName == tabHeadingsUrl[0]"
+                          class="profile__item js-tabs-item"
+                          [style.display]="
+                            tabName == tabHeadingsUrl[0] ? 'block' : 'none'
+                          "
+                        >
+                          <div class="catalog">
+                            <div
+                              class="card"
+                              *ngFor="let item of listItemsOnSale"
+                            >
+                              <app-nft-card [items]="item"></app-nft-card>
+                            </div>
+                          </div>
+
+                          <div class="loader" *ngIf="isApiLoading"></div>
+                        </div>
+
+                        <div
+                          *ngIf="tabName == tabHeadingsUrl[1]"
+                          class="profile__item js-tabs-item"
+                          [style.display]="
+                            tabName == tabHeadingsUrl[1] ? 'block' : 'none'
+                          "
+                        >
+                          <div class="catalog">
+                            <div
+                              class="card"
+                              *ngFor="let item of listItemsOwned"
+                            >
+                              <app-nft-card [items]="item"></app-nft-card>
+                            </div>
+                          </div>
+                          <div class="loader" *ngIf="isApiLoading"></div>
+                        </div>
+                        <div
+                          *ngIf="tabName == tabHeadingsUrl[2]"
+                          class="profile__item js-tabs-item"
+                          [style.display]="
+                            tabName == tabHeadingsUrl[2] ? 'block' : 'none'
+                          "
+                        >
+                          <div class="catalog">
+                            <div
+                              class="card"
+                              *ngFor="let item of listItemsCreated"
+                            >
+                              <app-nft-card [items]="item"></app-nft-card>
+                            </div>
+                          </div>
+                          <div class="loader" *ngIf="isApiLoading"></div>
+                        </div>
+                        <div
+                          *ngIf="tabName == tabHeadingsUrl[3]"
+                          class="profile__item js-tabs-item"
+                          [style.display]="
+                            tabName == tabHeadingsUrl[3] ? 'block' : 'none'
+                          "
+                        >
+                          <div class="catalog">
+                            <div
+                              class="card"
+                              *ngFor="let item of listItemsLikes"
+                            >
+                              <app-nft-card [items]="item"></app-nft-card>
+                            </div>
+                          </div>
+                          <div class="loader" *ngIf="isApiLoading"></div>
+                        </div>
+                        <div
+                          *ngIf="tabName == tabHeadingsUrl[4]"
+                          class="profile__item js-tabs-item"
+                          [style.display]="
+                            tabName == tabHeadingsUrl[4] ? 'block' : 'none'
+                          "
+                        >
+                          <div class="followers">
+                            <div class="followers__list">
+                              <div
+                                class="followers__item"
+                                *ngFor="
+                                  let item of listItemsFollowing;
+                                  let i = index
+                                "
+                              >
+                                <div class="followers__user">
+                                  <div class="followers__avatar">
+                                    <app-avatar
+                                      [imagePath]="item.profilePic"
+                                    ></app-avatar>
+                                  </div>
+                                  <div
+                                    class="follower-info flex-col text-primary"
+                                  >
+                                    <a
+                                      class="orbitron text-secondary p16 overflow-ellipsis"
+                                      [routerLink]="[
+                                        '/profile',
+                                        item.name,
+                                        'tab',
+                                        'created'
+                                      ]"
+                                    >
+                                      {{ item.name }}
+                                    </a>
+                                    <p>{{ item.followCount }} followers</p>
+                                    <button
+                                      *ngIf="item.isFollowByYou"
+                                      class="mt20 button button-stroke bg-primary"
+                                      (click)="
+                                        unfollow(item.following, i + 1, 1)
+                                      "
+                                    >
+                                      Unfollow
+                                    </button>
+                                    <button
+                                      *ngIf="!item.isFollowByYou"
+                                      class="mt20 button button-stroke"
+                                      (click)="
+                                        followUser(item.following, i + 1, 1)
+                                      "
+                                    >
+                                      follow
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="loader" *ngIf="isApiLoading"></div>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="tabName == tabHeadingsUrl[5]"
+                          class="profile__item js-tabs-item"
+                          [style.display]="
+                            tabName == tabHeadingsUrl[5] ? 'block' : 'none'
+                          "
+                        >
+                          <div class="followers">
+                            <div class="followers__list">
+                              <div
+                                class="followers__item"
+                                *ngFor="
+                                  let item of listItemsFollowers;
+                                  let i = index
+                                "
+                              >
+                                <div class="followers__user">
+                                  <div class="followers__avatar">
+                                    <app-avatar
+                                      [imagePath]="item.profilePic"
+                                    ></app-avatar>
+                                  </div>
+                                  <div
+                                    class="follower-info flex-col text-primary"
+                                  >
+                                    <a
+                                      class="orbitron text-secondary p16 overflow-ellipsis"
+                                      [routerLink]="[
+                                        '/profile',
+                                        item.name,
+                                        'tab',
+                                        'created'
+                                      ]"
+                                    >
+                                      {{ item.name }}
+                                    </a>
+                                    <p>{{ item.followCount }} followers</p>
+                                    <button
+                                      *ngIf="item.isFollowByYou"
+                                      class="mt20 button button-stroke bg-primary"
+                                      (click)="
+                                        unfollow(item.follower, i + 1, 1)
+                                      "
+                                    >
+                                      Unfollow
+                                    </button>
+                                    <button
+                                      *ngIf="!item.isFollowByYou"
+                                      class="mt20 button button-stroke followers__button"
+                                      (click)="
+                                        followUser(item.follower, i + 1, 1)
+                                      "
+                                    >
+                                      follow
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="loader" *ngIf="isApiLoading"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup popup_report mfp-hide" id="popup-report">
+    <div orbitron p24 mb20>Report</div>
+    <div class="popup__note">
+      Describe why you think this item should be removed from marketplace
+    </div>
+    <div class="field">
+      <div class="field__label">message</div>
+      <div class="field__wrap">
+        <textarea
+          class="field__textarea"
+          name="message"
+          placeholder="Tell us the details"
+          required
+        ></textarea>
+      </div>
+    </div>
+    <div class="popup__btns">
+      <button class="button-purple popup__button">Send now</button>
+      <button class="button-stroke popup__button">Cancel</button>
+    </div>
+  </div>
+  <div class="popup popup_wallet mfp-hide" id="popup-wallet">
+    <div orbitron p24 mb20>Folow steps</div>
+    <div class="steps">
+      <div class="steps__item">
+        <div class="steps__head">
+          <div class="steps__icon">
+            <svg class="icon icon-upload-file">
+              <use xlink:href="#icon-upload-file"></use>
+            </svg>
+          </div>
+          <div class="steps__details">
+            <div class="steps__info">Deposit ETH</div>
+            <div class="steps__text">Send transaction with your wallet</div>
+          </div>
+        </div>
+        <button class="button steps__button">Start now</button>
+      </div>
+      <div class="steps__item">
+        <div class="steps__head">
+          <div class="steps__icon">
+            <svg class="icon icon-check">
+              <use xlink:href="#icon-check"></use>
+            </svg>
+          </div>
+          <div class="steps__details">
+            <div class="steps__info">Approve</div>
+            <div class="steps__text">Checking balance and approving</div>
+          </div>
+        </div>
+        <button class="button steps__button disabled">Start now</button>
+      </div>
+      <div class="steps__item">
+        <div class="steps__head">
+          <div class="steps__icon">
+            <svg class="icon icon-pencil">
+              <use xlink:href="#icon-pencil"></use>
+            </svg>
+          </div>
+          <div class="steps__details">
+            <div class="steps__info">Signature</div>
+            <div class="steps__text">Create a signature to place a bit</div>
+          </div>
+        </div>
+        <button class="button steps__button disabled js-popup-close">
+          Start now
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

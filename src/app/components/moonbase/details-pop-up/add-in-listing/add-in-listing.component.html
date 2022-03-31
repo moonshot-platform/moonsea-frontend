@@ -1,0 +1,80 @@
+
+<div mat-dialog-content>
+  <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)" #formData="ngForm">
+
+    <div class="orbitron p24 mb20">Add in listing</div>
+          <div class="popup__note">Do you really want to list your item from sale? You can remove it from sale anytime</div>
+          
+          
+          <div class="upload__fieldset">
+            <div class="field">
+              <div class="checkbox">
+                <label class="checkbox-wrapper">
+                  <input type="radio" value="1" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" checked/>
+                  <span class="checkbox-tile">
+                    <span class="checkbox-icon">
+                    
+                    </span>
+                    <span class="checkbox-label">Fixed Price</span>
+                  </span>
+                </label>
+              </div>
+              <div class="checkbox">
+                <label class="checkbox-wrapper">
+                  <input type="radio" value="3" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" />
+                  <span class="checkbox-tile">
+                    <span class="checkbox-icon">
+                    </span>
+                    <span class="checkbox-label">Open for bids</span>
+                  </span>
+                </label>
+              </div>
+             
+              </div>
+              <div class="fixedPriceDetails" *ngIf="f.typeOfSale.value === '1'">
+                <div class="field">
+                    <div class="field__label">Price</div>
+                    <div class="field__wrap">
+                      <input class="field__input"  [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }" formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB" required>
+                    </div>
+                    <div class="label">Service fee 2.5% <br>
+                        You will receive {{f.fixedPrice?.value-(f.fixedPrice?.value*2.5/100)}}  </div>
+                  </div>
+              </div>
+
+
+              <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '3'">
+                <div class="field">
+                    <div class="field__label">Minimum bid</div>
+                    <div class="field__wrap">
+                      <input class="field__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }" formControlName="minimunBid"  type="text" name="price" placeholder="e. g. Price 1 BNB" required>
+                    </div>
+                    <div class="label">Bids below this amount won’t be allowed. </div>
+                  </div>
+              </div>
+
+              <div class="field">
+                <div class="field__label">Currency</div>
+                <div class="field__wrap">
+                  <select nice-select class="select" formControlName="currencyId" #currencyId>
+                              
+                    <option *ngFor="let itemcur of currencyList;" [value]="itemcur.id">
+                      
+                      {{itemcur.name}}
+                    </option>  
+                  </select>
+                </div>
+              </div>
+             
+
+          </div>
+
+          <div class="popup__btns">
+            <button class="button popup__button js-popup-close" type="submit">Add now
+              <div class="loader text-white" *ngIf="isApiLoading"></div>
+            </button>
+            <button class="button" (click)="onNoClick()" class="button-stroke popup__button js-popup-close">Cancel</button>
+          </div>
+        </form>
+</div>
+

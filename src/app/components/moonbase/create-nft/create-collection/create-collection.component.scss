@@ -1,0 +1,14 @@
+@import "includes";
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+@media (min-width: $md) {
+  .large-poup {
+    min-width: 800px;
+    max-width: 800px;
+  }
+}

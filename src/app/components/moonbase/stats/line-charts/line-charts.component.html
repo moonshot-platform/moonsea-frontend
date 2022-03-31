@@ -1,0 +1,25 @@
+<div class="bg-color">
+  <button (click)="updateOptions( '1m' )" [class.active]="activeOptionButton=='1m'">
+    1M
+  </button>
+  <button (click)="updateOptions( '6m' )" [class.active]="activeOptionButton=='6m'">
+    6M
+  </button>
+  <button (click)="updateOptions( '1y' )" [class.active]="activeOptionButton=='1y'">
+    1Y
+  </button>
+  <!-- <button (click)="updateOptions( '1yd' )" [class.active]="activeOptionButton=='1yd'">
+    1YD
+  </button> -->
+  <button (click)="updateOptions( 'all' )" [class.active]="activeOptionButton=='all'">
+    All
+  </button>
+  <apx-chart #chart [series]="chartOptions.series" [chart]="chartOptions.chart"  [xaxis]="chartOptions.xaxis"
+  [dataLabels]="chartOptions.dataLabels"></apx-chart>
+
+    <!-- <apx-chart #chart [series]="chartOptions.series" [chart]="chartOptions.chart" [colors]="chartOptions.colors"
+    [yaxis]="chartOptions.yaxis" [dataLabels]="chartOptions.dataLabels" [markers]="chartOptions.markers"
+    [stroke]="chartOptions.stroke" [xaxis]="chartOptions.xaxis" [tooltip]="chartOptions.tooltip"
+    [annotations]="chartOptions.annotations"></apx-chart> -->
+
+</div>

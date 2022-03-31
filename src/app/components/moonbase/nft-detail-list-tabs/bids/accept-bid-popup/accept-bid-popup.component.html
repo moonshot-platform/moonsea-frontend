@@ -1,0 +1,89 @@
+<div class="popup popup_bid" *ngIf="wrongNetwork && step==0">
+  <div class="orbitron p24 mb20">Place a bid</div>
+  <div class="popup__info">Wrong Network</div>
+
+  <div class="popup__btns">
+    <button (click)="checkNetwork()" class="button popup__button" data-effect="mfp-zoom-in">Try again</button>
+  </div>
+</div>
+
+<div class="popup popup_bid" id="popup-buy-now" *ngIf="!wrongNetwork">
+  <div class="" *ngIf="step==4">
+    <div class="orbitron p24 mb20">Checkout</div>
+    <div class="popup__info">By accepting offer you are agreeing to sell this NFT at {{total}} WBNB price and end the
+      auction. Do you want to sell now? at price</div>
+    <div class="popup__btns">
+      <button class="button popup__button" (click)="nextStep()">I understand, continue</button>
+      <button (click)="closeDialog()" class="button-stroke popup__button js-popup-close">Cancel</button>
+    </div>
+  </div>
+  <div class="" *ngIf="step==1">
+    <div class="orbitron p24 mb20">Checkout</div>
+    <div class="popup__info">You are about to purchase <strong>{{nftDetails?.title}}</strong> from <strong>UI8</strong>
+    </div>
+    <div class="popup__table">
+      <div class="popup__row">
+        <div class="popup__col">{{price}}</div>
+        <div class="popup__col">BNB</div>
+      </div>
+      <div class="popup__row">
+        <div class="popup__col">Service fee</div>
+        <div class="popup__col">{{serviceFees}} BNB</div>
+      </div>
+      <div class="popup__row">
+        <div class="popup__col">You will get</div>
+        <div class="popup__col">{{total}} BNB</div>
+      </div>
+    </div>
+    <div class="popup__btns">
+      <button class="button popup__button" (click)="gotoNextStep(2)">I understand, continue</button>
+      <button (click)="closeDialog()" class="button-stroke popup__button js-popup-close">Cancel</button>
+    </div>
+  </div>
+  <div class="" *ngIf="step==2">
+    <div class="orbitron p24 mb20">Folow steps</div>
+    <div class="steps">
+      <div class="steps__item">
+        <div class="steps__head">
+          <div class="steps__icon">
+            <div class="loader-circle"></div>
+          </div>
+          <div class="steps__details">
+            <div class="steps__info">Purchasing</div>
+            <div class="steps__text">Sending transaction with your wallet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup__attention">
+      <div class="popup__preview">
+        <svg class="icon icon-info-circle">
+          <use xlink:href="#icon-info-circle"></use>
+        </svg>
+      </div>
+      <div class="popup__details">
+        <div class="popup__category">This creator is not verified</div>
+        <div class="popup__text">Purchase this item at your own risk</div>
+      </div>
+      <div class="popup__avatar"><img src="img/content/avatar-3.jpg" alt="Avatar"></div>
+    </div>
+  </div>
+  <div class="" *ngIf="step==3">
+    <div class="success">
+      <div class="success__title h2">Yay! <span role="img" aria-label="firework">🎉</span></div>
+      <div class="success__info">You successfully sold your NFT</div>
+      <div class="success__table">
+        <div class="success__row">
+          <div class="success__col">Status</div>
+          <div class="success__col">Transaction ID</div>
+        </div>
+        <div class="success__row">
+          <div class="success__col">Processing</div>
+          <div class="success__col" (click)="gotoTestNetBscScan(txnHash)">{{txnHash}}</div>
+        </div>
+      </div>
+      <div class="success__stage">Time to show-off</div>
+      <app-socialbuttons [data]="shareUrl"  ></app-socialbuttons>
+    </div>
+  </div>
+</div>

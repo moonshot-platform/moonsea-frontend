@@ -1,0 +1,40 @@
+table tr th{
+    border: 1px solid white;
+}
+table tr td{
+    border: 1px solid white;
+}
+table td{
+    text-align: center;
+}
+.head_banner{
+    text-align: center;
+}
+.d-flex{
+    display: flex;
+}
+.btn_submit{
+    text-align: center;
+}
+.btn_submit button{
+    color: #50aac5;
+}
+
+.mr15{
+    margin: 0 10px 0 0;
+}
+.container_01{
+    border: 1px solid white;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+}
+.bannerImage01 img{
+    height: 100%;
+    width: 100%;
+}
+.bannerImage01{
+    width: 20%;
+}
+.validationError{
+    color: red;
+}

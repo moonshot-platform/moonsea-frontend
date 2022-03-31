@@ -1,0 +1,147 @@
+<div class="card__preview pointer" (click)="gotoDetails(items.nftTokenID)">
+  <div *ngIf="items.fileUrl == null" class="skeleton-loader"></div>
+
+  <div class="content-overlay" ></div>
+  <div class="purchasing">
+    <p
+      class="title orbitron text-dark p24"
+      *ngIf="
+        (items?.typeOfSale == 2 || items?.typeOfSale == 3) &&
+        items?.currentSupply > 0
+      "
+    >
+      Purchasing !
+    </p>
+    <a
+      href="javascript:void(0)"
+      [routerLink]="['/details', items.nftTokenID]"
+      class="button text-inherit dark-button mt-auto"
+    >
+      <span
+        class="text-primary"
+        *ngIf="items?.typeOfSale == 1 && items?.currentSupply > 0"
+        >Purchase Now</span
+      >
+      <span
+        class="text-primary"
+        *ngIf="
+          (items?.typeOfSale == 2 || items?.typeOfSale == 3) &&
+          items?.currentSupply > 0
+        "
+        >Place your bid</span
+      >
+      <span class="text-primary" *ngIf="items?.currentSupply == 0"
+        >Not for sale</span
+      >
+    </a>
+  </div>
+
+  <img
+    src="{{ items.fileUrl }}"
+    *ngIf="items.fileUrl != null"
+    alt="Card preview"
+    [routerLink]="['/details', items.nftTokenID]"
+  />
+
+  <div class="">
+    <button
+      *ngIf="items?.isLikeByYou == 0"
+      class="card__favorite"
+      (click)="Liked(items.nftTokenID)"
+    >
+    <a href="javascript:void(0);">
+      <svg
+        version="1.1"
+        id="favourite"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 40 40"
+        style="enable-background: new 0 0 40 40"
+        xml:space="preserve"
+      >
+        <path
+          class="stroke"
+          d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
+        c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9c0,0,0,0,0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z"
+        ></path>
+      </svg>
+    </a>
+    </button>
+    <button
+      *ngIf="items?.isLikeByYou == 1"
+      class="red-fill card__favorite"
+      (click)="UnLiked(items.nftTokenID)"
+    >
+      <svg
+        version="1.1"
+        id="Laag_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 40 40"
+        style="enable-background: new 0 0 40 40"
+        xml:space="preserve"
+      >
+        <style type="text/css">
+          .st0 {
+            fill: #090d16;
+          }
+        </style>
+        <path
+          class="st0"
+          d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
+         c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9l0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z"
+        />
+      </svg>
+    </button>
+
+  </div>
+</div>
+<div class="card__link">
+  <div class="card__body">
+    <div class="card__line">
+      <div
+        class="card__title text-secondary"
+        *ngIf="items.title != null"
+        [routerLink]="['/details', items.nftTokenID]"
+      >
+        {{ items.title }}
+      </div>
+      <div
+        *ngIf="items.title == null"
+        class="skeleton-loader"
+        style="height: 20px; width: 130px"
+      ></div>
+      <div class="card__price" *ngIf="items.price != null">
+        <span *ngIf="items.currentSupply == 0">Not for sale</span>
+        <span *ngIf="items.currentSupply > 0"
+          >{{ items.price }} {{ items.currencySymbol }}</span
+        >
+      </div>
+      <div
+        *ngIf="items.price == null"
+        class="skeleton-loader"
+        style="height: 20px; width: 50px; margin-left: 10%"
+      ></div>
+    </div>
+
+    <div class="card__line" *ngIf="items.currentSupply != null">
+      <div class="card__users">
+        <a [routerLink]="['/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
+      </div>
+      <div class="text-primary card__counter">
+        {{ items.ownerCurrentSupply }} in stock
+      </div>
+    </div>
+
+    <div
+      *ngIf="items.currentSupply == null"
+      class="skeleton-loader"
+      style="height: 20px; width: 100%"
+    ></div>
+  </div>
+  
+</div>

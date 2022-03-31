@@ -1,0 +1,108 @@
+@import "includes";
+.landing.flex {
+    width: calc(100vw - 4rem);
+    z-index: 2;
+    position: relative;
+    //  background: transparent;
+    height: $full;
+}
+.bg-black {
+    background-color: black !important;
+}
+.inner {
+    //  margin: 0 3rem 3rem;
+    //  background: #0f0f0f;
+    margin: 0;
+    width: 100%;
+    // border: 48px solid;
+    border-top: 0;
+    overflow: auto;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar,
+     ::-webkit-scrollbar-track,
+     ::-webkit-scrollbar-thumb { 
+        display: none;  /* Safari and Chrome */
+    }
+}
+
+.text-inherit {
+    text-transform: inherit;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.pt-5 {
+    padding-top: 3rem;
+}
+
+.box {
+    margin-top: 2px;
+    position: absolute;
+    bottom: 0px;
+    width: calc(100vw - 10rem);
+    left: 0rem;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.pt-0 {
+    padding-top: 0;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.relative {
+    position: relative;
+}
+
+.mb0 {
+    margin-bottom: 0 !important;
+}
+
+// Responsive Menu for global
+@media only screen and (max-width: $md-header) {
+    .inner {
+        border: 0;
+    }
+    .navigation {
+        nav,
+        .res_class {
+            display: none;
+        }
+    }
+    .landing.flex {
+        width: 100vw;
+    }
+    .res_menu {
+        .box {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+            align-items: center;
+            svg {
+                width: 30px;
+            }
+        }
+    }
+    section.navigation {
+        padding: 1rem !important;
+        align-items: center;
+    }
+    .p34 {
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,315 @@
+<div class="top-spacing">
+  <!-- <app-search-key></app-search-key> -->
+
+  <div>
+    <div class="landing-flex z-index-high">
+      <div class="orbitron p30">
+        <p class="max-word">
+          Show me
+          <!-- [innerHTML]="searchKey" -->
+          <span
+            #searchText
+            class="content_editable"
+            data-maxlength="5"
+            data-minlength="5"
+            id="textSearch"
+            (keyup.enter)="searchClient(searchText.innerText)"
+            [innerHTML]="searchKey"
+            contenteditable="true"
+          ></span>
+
+          <span class="ml10">
+            <a (click)="clearSearch()" href="javascript:void(0)">
+              <svg
+                version="1.1"
+                id="close"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 24 24"
+                style="
+                  enable-background: new 0 0 24 24;
+                  width: 26px;
+                  height: 26px;
+                "
+                xml:space="preserve"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path
+                  class="st0"
+                  d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
+                  s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
+                  L8.5,12L3.2,6.7C2.9,6.4,2.7,6,2.7,5.6s0.2-0.9,0.5-1.2l1.2-1.2c0.4-0.3,0.8-0.5,1.2-0.5s0.8,0.2,1.2,0.5L12,8.5l5.3-5.3
+                  c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z"
+                ></path>
+              </svg>
+            </a>
+          </span>
+        </p>
+        <p>
+          On the
+          <span class="color-secondary arrow_down">
+            <!-- all items -->
+            <div class="dropdown pointer">
+              <button (click)="myFunction()" class="dropbtn">
+                {{ currencySymbol }}
+              </button>
+              <div id="myDropdown" class="dropdown-content">
+                <a
+                  *ngFor="let item of blockchainList"
+                  (click)="
+                    getListofCollection01(item.blockchainId, item.networkName)
+                  "
+                  >{{ item.networkName }}</a
+                >
+              </div>
+            </div>
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              id="down_arrow"
+              viewBox="0 0 24 24"
+              style="enable-background: new 0 0 24 24"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+              />
+            </svg>
+          </span>
+          blockchain containing
+          <span class="color-secondary arrow_down">
+            <!-- all categories -->
+            <div class="dropdown pointer">
+              <button (click)="myFunction1()" class="dropbtn">
+                {{ categoryName }}
+              </button>
+              <div id="myDropdown1" class="dropdown-content">
+                <a
+                  *ngFor="let item of categotyList"
+                  (click)="
+                    getNftlistbyCategory(item.categoryId, item.categoryName)
+                  "
+                  >{{ item.categoryName }}</a
+                >
+              </div>
+              <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 24 24"
+              style="enable-background: new 0 0 24 24"
+              id="down_arrow"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+              />
+            </svg>
+            </div>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="relative mt50 mb50 z-index-low">
+    <div class="search-box"></div>
+    <div class="landing-flex pt-0 z-index-high position_01">
+      <div class="flex justify-space-between flex100 gap remove__flex">
+        <div class="flex mr-auto mw-30">
+          <div class="search-input">
+            <span class="max-price">Min Price:</span>
+            <input
+              type="text"
+              placeholder="0"
+              [(ngModel)]="minPrice"
+              class="form-control pr-3"
+            />
+          </div>
+          <div class="search-input">
+            <span class="max-price">Max Price:</span>
+            <input
+              type="text"
+              placeholder="500000"
+              [(ngModel)]="maxPrice"
+              (change)="getListofCollection()"
+              class="form-control pr-3"
+            />
+          </div>
+        </div>
+
+        
+        <div class="flex">
+          <div class="wp100 mt10">
+            <div class="bg-black">
+              <div class="field__wrap pointer desk-width">
+                <select 
+                  nice-select
+                  class="select maximum-content" 
+                  [(ngModel)]="status"
+                  (change)="getListofCollection()"
+                >
+                 
+                  <option value=2>Recently listed</option>
+                  <option value=1>Oldest</option>
+                  <option value=4>price: High to low</option>
+                  <option value=3>price: Low to high</option>
+                  <option value=6>Last price: High to low</option>
+                  <option value=5>Last price: Low to high</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="landing-flex pt30">
+    <div class="discover p-0">
+      <div class="discover__center">
+        <div>
+          <section class="hot-collection">
+            <div class="inner">
+              <div>
+                <div class="flex wrap flex100 gap">
+                  <div class="grid grid-3">
+                    <!-- above ng-tenplate add for loop -->
+                    <a
+                      class="collections__item"
+                      href="javascript:void(0)"
+                      *ngFor="let item of collectionlist"
+                    >
+                      <div class="loader" *ngIf="isShowLoader"></div>
+                      <div class="collections__gallery">
+                        <div
+                          class="collections__preview"
+                          (click)="
+                            gotoNftDetails(item.nftAddress, item.nftTokenID01)
+                          "
+                        >
+                          <div class="content-overlay"></div>
+                          <img
+                            *ngIf="item.nftFileUrl01"
+                            src="{{ item.nftFileUrl01 }}"
+                            alt="Collections"
+                          />
+                          <img
+                            *ngIf="!item.nftFileUrl01"
+                            src="assets/images/default.jpg"
+                            alt=""
+                          />
+                        </div>
+
+                        <div class="flex flex-wrap flex100 gap15 justify-start">
+                          <div
+                            class="thumb__preview gap15"
+                            *ngFor="
+                              let inneritem of item.nftDetailsList.slice(1, 4);
+                              let j = index
+                            "
+                          >
+                            <ng-container *ngIf="j <= 2">
+                              <div class="content-overlay"></div>
+                              <img
+                                src="{{ inneritem.nftFileUrl }}"
+                                alt="Collections"
+                                (click)="
+                                  gotoNftDetails(
+                                    inneritem.nftAddress,
+                                    inneritem.nftTokenID
+                                  )
+                                "
+                              />
+                            </ng-container>
+                          </div>
+                        </div>
+
+                        <div class="flex100">
+                          <div
+                            class="color-secondary collections__subtitle orbitron"
+                            [routerLink]="['/collection', item.collectionName]"
+                          >
+                            {{ item.symbol }}
+                          </div>
+                          <div class="collections__line">
+                            <div class="collections__user">
+                              <div class="text-primary collections__author">
+                                by
+                                <span
+                                  [routerLink]="[
+                                    '/profile',
+                                    item.creatorWalletAddress
+                                  ]"
+                                >
+                                  {{ item.collectionName }}
+                                </span>
+                              </div>
+                            </div>
+                            <!-- <div class="collections__counter">
+                              <span class="text-primary"
+                                >{{ item.TotalNftCount }} items</span
+                              >
+                            </div> -->
+                          </div>
+                        </div>
+                        <div
+                          class="flex flex100 justify-space-between text-center mt10 border-top"
+                        >
+                          <div class="border-right pr20 pt10 text-primary">
+                            <p class="p12">items</p>
+                            <p class="p18 pt10">{{ item.TotalNftCount }}</p>
+                          </div>
+                          <div class="border-right pr20 pt10 text-primary">
+                            <p class="p12">Owners</p>
+                            <p class="p18 pt10">{{ item.ownershipCount }}</p>
+                          </div>
+                          <div class="border-right pr20 pt10 text-primary">
+                            <p class="p12">Floor price</p>
+                            <p class="p18 pt10">{{ item.floorPrice }}</p>
+                          </div>
+                          <div class="border-right pr20 pt10 text-primary">
+                            <p class="p12">Volume</p>
+                            <p class="p18 pt10">{{ item.totalSale }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="loadmore-button-pos">
+          <button type="button" (click)="loadmore()">Load More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

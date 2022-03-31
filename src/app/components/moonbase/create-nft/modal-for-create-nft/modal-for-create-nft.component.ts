@@ -1,0 +1,204 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ContractService } from 'src/app/services/contract.service';
+import { CreateNftService } from 'src/app/services/create-nft.service';
+import { GetDataService } from 'src/app/services/get-data.service';
+
+@Component({
+  selector: 'app-modal-for-create-nft',
+  templateUrl: './modal-for-create-nft.component.html',
+  styleUrls: ['./modal-for-create-nft.component.scss']
+})
+export class ModalForCreateNftComponent implements OnInit {
+
+  mintStatusText = "";
+  signatureStatus: number = 0;
+  rejectedMetamask = false;
+  approvalTransactionHash = "";
+  wrongNetwork: boolean=false;
+  isCompleted : boolean = false;
+  royaltiesDetails:any;
+  isContractApproved: boolean;
+  isConnected=false;
+  connectedAddress="";
+  userBalance=0;
+  netWorkId = 0;
+  isdisabledDoneBtn : boolean = false;
+
+  constructor(public dialogRef: MatDialogRef<ModalForCreateNftComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private createNFTService: CreateNftService,
+    private getDataService: GetDataService,private contractService:ContractService,
+    private router:Router) { }
+
+  ngOnInit(): void {
+    
+    this.checkNetwork();
+    this.contractService.getWalletObs().subscribe((data:any)=>
+    {
+      this.isConnected = this.contractService.checkValidAddress(data);
+      if(this.isConnected){
+      this.connectedAddress = data;
+      this.getUserBalance();
+      } 
+    });
+  }
+  async getUserBalance()
+  {
+    this.netWorkId =await this.contractService.getConnectedNetworkId();
+    this.userBalance = await this.contractService.getBalance();
+  }
+
+
+
+  async checkNetwork()
+  {
+    let checkNetwork : boolean = await this.data.globalService.createContract(this.data.details.blockchainId);
+    if(!checkNetwork)
+    {  
+      this.mintStatusText = "Try Again...";
+      this.wrongNetwork = true;
+    }
+    else
+    {
+      this.wrongNetwork = false;
+      this.initiateTransaction();
+     }
+  }
+  async initiateTransaction() {
+   
+    try {
+      
+      var status: any;
+      this.mintStatusText = "Waiting for submission";
+      
+      if (this.data.typeOfNft == 'single') {
+        status = await this.data.globalService.mintTokenErc721(this.data.details.nftTokenId, this.data.details.royalties);
+        
+        
+      }
+      else {
+        status = await this.data.globalService.mintTokenErc1155(this.data.details.nftTokenId, this.data.details.royalties, this.data.details.numberOfCopies, this.data.details.imageUrl);
+      }
+      if (status?.status) {
+        this.data.details.transactionHash = status.hash;
+        
+        this.createNFTService.createNft(this.data.details).subscribe(
+          response => {
+            if (response.isSuccess) {
+              this.royaltiesDetails = response.data;
+              this.mintStatusText = "Done";
+              if(this.data.details.isForSale){
+              this.signatureStatus = 1;
+              }
+              else
+              {
+                this.signatureStatus = 4;
+                this.isCompleted = true;
+              }
+            }
+            else {
+              this.mintStatusText = "Error Occured";
+            }
+            this.getDataService.showToastr(response.message, response.isSuccess);
+
+          });
+      }
+      else {
+        this.rejectedMetamask = true;
+      }
+    }
+    catch (e) {
+      this.rejectedMetamask = true;
+    }
+  }
+
+
+  async startSale() {
+   
+    var status: any;
+    status = await this.data.globalService.setApprovalForAll(this.data.typeOfNft);
+    if (status.status) {
+      this.approvalTransactionHash = status.hash;
+      this.signatureStatus = 2;
+    }
+    else {
+      this.rejectedMetamask = true;
+    }
+  }
+
+
+  async signSellOrder() {
+  
+    try {
+      var status: any;
+      let salt =0;
+      if(this.data.details.typeOfSale==1){
+       salt = this.data.globalService.randomNo();
+       var userDate= JSON.parse(localStorage.getItem("userData") ?? "{}");
+       
+      status = await this.data.globalService.signSellOrder(
+        this.data.details.nftTokenId, 
+        this.data.details.price,
+        this.data.details.numberOfCopies,
+        this.data.typeOfNft == 'single' ? this.data.globalService.nft721Address : this.data.globalService.nft1155Address,
+        this.data.details.isMultiple,
+        salt,
+        userDate?.userInfo.referralAddress,
+        this.royaltiesDetails.royalties,
+        this.royaltiesDetails.royaltiesOwner);
+      }
+      else 
+      {
+        status = await this.data.globalService.signBidOrder(this.data.details.nftTokenId, this.data.details.price,
+          this.data.details.numberOfCopies,
+          this.data.details.nftAddress,
+          this.data.details.isMultiple);
+      }
+
+
+      if (status.status) {
+        this.signatureStatus = 3;
+       
+        this.createNFTService.listingUpdateSignature({
+          nftId: this.data.details.nftTokenId,
+          signature: status.signature,
+          currentSupply: this.data.details.numberOfCopies,
+          transactionHash: this.approvalTransactionHash,
+          price: this.data.details.typeOfSale==1 ?  this.data.details.price : this.data.details.minimunBid,
+          typeOfSale: this.data.details.typeOfSale,
+          collectionId: this.data.details.collectionId,
+          salt:salt,
+          nftAddress : this.data.typeOfNft == 'single' ? this.data.globalService.nft721Address : this.data.globalService.nft1155Address,
+
+        }).subscribe((response: any) => {
+          this.getDataService.showToastr(response.message, response.isSuccess);
+          this.isCompleted = true;
+        })
+      }
+      else {
+        this.rejectedMetamask = true;
+      }
+    }
+    catch (e) {
+      this.rejectedMetamask = true;
+
+    }
+  }
+
+  closePopupSignature() {
+
+    if (((!this.data.details.isForSale && this.signatureStatus == 1) || (this.signatureStatus >= 2))) {
+      this.dialogRef.close(true);
+     
+      if(!this.rejectedMetamask){
+        this.router.navigate(['profile',this.connectedAddress,'tab','created'])
+      }
+    }
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
+
+}

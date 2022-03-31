@@ -1,0 +1,24 @@
+<div class="popup popup_bid">
+    <form class="needs-validation" [formGroup]="registerForm" (ngSubmit)="register()" #ff="ngForm">
+        <h5 class="orbitron p24 mb20">NFT Terms of Service</h5>
+        <p class="popup__info">Please take a few minutes to read and understand NFT Terms of Service. To continue, you’ll need to accept the Terms of Service by checking the box.</p>
+        <div class="popup__table">
+            <div class="">
+                <div class="">
+                    <label class="label">Referral address</label>
+                    <input type="text" class="field__input mt10" [ngClass]="{ 'is-invalid': submitted && f.referralAddress.errors }" formControlName="referralAddress">
+                </div>
+            </div>
+            <div class="popup__row">
+                <label class="cursor"><input class="is-invalid" formControlName="acceptFirst" [ngClass]="{ 'is-invalid': submitted && f.acceptFirst.errors }" type="checkbox">I am at least 13 years old</label>
+            </div>
+            <div class="popup__row">
+                <label class="cursor"><input type="checkbox" name="accept" formControlName="acceptSecond" [ngClass]="{ 'is-invalid': submitted && f.acceptSecond.errors }">I accept the NFT Terms of Service</label>
+            </div>
+           
+        </div>
+        <div class="popup__btns"><input type="submit" class="button popup__button" value="{{regBtnText}}" data-effect="mfp-zoom-in">
+        </div>
+    </form>
+
+</div>

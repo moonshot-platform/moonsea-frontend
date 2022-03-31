@@ -1,0 +1,163 @@
+@import "includes";
+
+.block {
+  background: $primary;
+  color: $black;
+  // width: 35%;
+  // padding: 20px;
+  float: right;
+}
+.round-mini-button1 {
+  border: 1px solid $black;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+.mshot {
+  width: 32px;
+  margin-right: 5px;
+}
+.cake {
+  border: 1px solid $black;
+  border-radius: 0;
+  padding: 10px;
+  display: flex;
+  height: 50px;
+  margin: 10px;
+  /* flex-direction: column; */
+  align-items: center;
+  flex: 1;
+}
+.right {
+  margin-left: auto;
+}
+.mat-icon {
+  color: $dark;
+  text-align: center;
+  line-height: 36px;
+  width: 36px;
+  height: 36px;
+}
+.close {
+  margin-left: 20rem;
+}
+.m10 {
+    margin: 10px;
+}
+.cake1 {
+  border: 1px solid $black;
+  border-radius: 0;
+  padding: 10px;
+  display: flex;
+  background: $black;
+  height: 50px;
+  color: $primary;
+  margin: 10px;
+  align-items: center;
+}
+.cake1 a {
+  color: $primary;
+  font-weight: bold;
+}
+.cake a {
+  color: $black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.flex.align-center:hover .round-mini-button1 {
+  border-radius: 50px;
+}
+
+.flex.align-center:hover .cake,
+.flex.align-center:hover .round-mini-button1 {
+  border: 1px solid $white;
+  cursor: pointer;
+}
+.flex.align-center:hover .stroke_dark {
+  stroke: #ffffff;
+}
+
+.flex.align-center:hover .mat-icon {
+  color: $white;
+}
+.main {
+  font-size: 25px;
+  font-weight: 600;
+  font-family: "Orbitron";
+}
+
+.close {
+  display: block;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+}
+
+.tokenomics {
+  padding: 14px 30px 14px 14px;
+  padding-right: 70px;
+  box-sizing: border-box;
+  background: $primary;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  max-width: 498px;
+  z-index: 12000;
+  margin-right: 64px;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  overflow: auto;
+  border-right: none;
+  /* overflow-y: scroll; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  box-shadow: none;
+}
+
+.description_margin {
+    margin: 60px 10px;
+}
+
+#bnb path {
+  fill: #f0b90b;
+}
+#sol circle {
+  fill: $black;
+}
+.white-fill {
+  fill: $white;
+}
+.ada {
+  fill: #0033ae;
+}
+.cake svg {
+  width: 36px;
+  height: 36px;
+  margin-right: 5px;
+}
+
+.margin{
+  margin: 0 10px 0 0;
+}
+
+@media only screen and (max-width: $md-header) {
+  .tokenomics {
+    width: 100%;
+    margin-right: 0;
+    padding: 30px 20px 0;
+  }
+  .pancake {
+    margin-top: 0px;
+  }
+  .block {
+    width: 100%;
+  }
+  .tokenomics {
+    margin-right: 0px !important;
+  }
+}

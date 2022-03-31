@@ -1,0 +1,78 @@
+@import "includes";
+
+.pt15 {
+  padding-top: 15px;
+}
+
+text.st1.st2.w-normal {
+    font-weight: 400;
+    fill: $primary;
+    opacity: 1;
+    font-size: 14px;
+}
+
+.profile_cancel__button {
+  right: 130px;
+  top: 20px;
+}
+.profile__button {
+  top: 20px;
+  bottom: auto;
+}
+.total_box {
+  width: 160px;
+}
+
+.top_profile {
+  width: 410px;
+  display: flex;
+}
+
+.Save {
+  display: flex;
+  // flex: 0 0 100%;
+  flex-direction: row;
+}
+.icon-class {
+  margin: 0 auto 80px;
+}
+.mine {
+  text-align: -webkit-center !important;
+}
+.Direction {
+  display: block;
+  text-align: -webkit-right;
+}
+@media only screen and (max-width: 767px) {
+  .Save {
+    display: block;
+  }
+  .mine {
+    margin-bottom: 10px;
+  }
+}
+
+
+.left {
+  width: fit-content;
+}
+
+.text1 {
+  position: absolute;
+}
+.items-box {
+  border: 1px solid $primary;
+  padding: 1rem;
+  text-align: center;
+}
+
+.one {
+  margin-left: 1rem;
+}
+.my2 {
+  border: 1px solid $primary;
+  padding: 10px;
+  width: 168px;
+  margin: 10px;
+  height: fit-content;
+}
