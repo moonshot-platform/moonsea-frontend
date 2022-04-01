@@ -7,47 +7,41 @@
         <p class="max-word">
           Show me
           <!-- [innerHTML]="searchKey" -->
-          <span
-            #searchText
-            class="content_editable"
-            data-maxlength="5"
-            data-minlength="5"
-            id="textSearch"
-            (keyup.enter)="searchClient(searchText.innerText)"
-            [innerHTML]="searchKey"
-            contenteditable="true"
-          ></span>
+          <span #searchText class="content_editable" data-maxlength="5" data-minlength="5" id="textSearch"
+            (keyup.enter)="searchClient(searchText.innerText)" [innerHTML]="searchKey" contenteditable="true"></span>
+
+
 
           <span class="ml10">
-            <a (click)="clearSearch()" href="javascript:void(0)">
+            <a (click)="clearSearch()">
               <svg
-                version="1.1"
-                id="close"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                viewBox="0 0 24 24"
-                style="
-                  enable-background: new 0 0 24 24;
-                  width: 26px;
-                  height: 26px;
-                "
-                xml:space="preserve"
-              >
-                <style type="text/css">
-                  .st0 {
-                    fill: #c5e3ec;
-                  }
-                </style>
-                <path
-                  class="st0"
-                  d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
-                  s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
-                  L8.5,12L3.2,6.7C2.9,6.4,2.7,6,2.7,5.6s0.2-0.9,0.5-1.2l1.2-1.2c0.4-0.3,0.8-0.5,1.2-0.5s0.8,0.2,1.2,0.5L12,8.5l5.3-5.3
-                  c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z"
-                ></path>
-              </svg>
+              version="1.1"
+              id="close"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 24 24"
+              style="
+                enable-background: new 0 0 24 24;
+                width: 26px;
+                height: 26px;
+              "
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
+                s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
+                L8.5,12L3.2,6.7C2.9,6.4,2.7,6,2.7,5.6s0.2-0.9,0.5-1.2l1.2-1.2c0.4-0.3,0.8-0.5,1.2-0.5s0.8,0.2,1.2,0.5L12,8.5l5.3-5.3
+                c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z"
+              ></path>
+            </svg>
             </a>
           </span>
         </p>
@@ -60,13 +54,8 @@
                 {{ currencySymbol }}
               </button>
               <div id="myDropdown" class="dropdown-content">
-                <a
-                  *ngFor="let item of blockchainList"
-                  (click)="
-                    getListofCollection01(item.blockchainId, item.networkName)
-                  "
-                  >{{ item.networkName }}</a
-                >
+                <a *ngFor="let item of blockchainList"
+                  (click)="getListofCollection01(item.blockchainId,item.networkName)">{{item.networkName}}</a>
               </div>
             </div>
             <svg
@@ -100,13 +89,8 @@
                 {{ categoryName }}
               </button>
               <div id="myDropdown1" class="dropdown-content">
-                <a
-                  *ngFor="let item of categotyList"
-                  (click)="
-                    getNftlistbyCategory(item.categoryId, item.categoryName)
-                  "
-                  >{{ item.categoryName }}</a
-                >
+                <a *ngFor="let item of categotyList"
+                  (click)="getNftlistbyCategory(item.categoryId,item.categoryName)">{{item.categoryName}}</a>
               </div>
               <svg
               version="1.1"
@@ -114,9 +98,9 @@
               xmlns:xlink="http://www.w3.org/1999/xlink"
               x="0px"
               y="0px"
+              id="down_arrow"
               viewBox="0 0 24 24"
               style="enable-background: new 0 0 24 24"
-              id="down_arrow"
               xml:space="preserve"
             >
               <style type="text/css">
@@ -132,9 +116,11 @@
             </svg>
             </div>
           </span>
+
         </p>
       </div>
     </div>
+
   </div>
 
   <!-- <div class="relative mt50 mb50 z-index-low">
@@ -200,12 +186,8 @@
                 <div class="flex wrap flex100 gap">
                   <div class="grid grid-3">
                     <!-- above ng-tenplate add for loop -->
-                    <a
-                      class="collections__item"
-                      href="javascript:void(0)"
-                      *ngFor="let item of collectionlist"
-                    >
-                      <div class="loader" *ngIf="isShowLoader"></div>
+                    <a class="collections__item" href="javascript:void(0)" *ngFor="let item of collectionlist">
+                      <!--<div class="loader" *ngIf="isShowLoader"></div>
                       <div class="collections__gallery">
                         <div
                           class="collections__preview"
@@ -275,7 +257,7 @@
                               <span class="text-primary"
                                 >{{ item.TotalNftCount }} items</span
                               >
-                            </div> -->
+                            </div> 
                           </div>
                         </div>
                         <div
@@ -298,8 +280,12 @@
                             <p class="p18 pt10">{{ item.totalSale }}</p>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
+
+                      <app-collection-card [item]="item"></app-collection-card>
                     </a>
+
+
                   </div>
                 </div>
               </div>
@@ -309,6 +295,9 @@
         <div class="loadmore-button-pos">
           <button type="button" (click)="loadmore()">Load More</button>
         </div>
+
+
+
       </div>
     </div>
   </div>

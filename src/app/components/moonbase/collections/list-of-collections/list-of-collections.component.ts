@@ -62,6 +62,10 @@ export class ListOfCollectionsComponent implements OnInit {
     this.blockchainId = 0;
     this.categoryId = 0;
 
+    // console.log(this.router.url,"Current URL");
+    
+
+
     window.onclick = function (event) {
       if (!event.target.matches('.dropbtn')) {
         var dropdowns = document.getElementsByClassName('dropdown-content');
@@ -200,8 +204,8 @@ export class ListOfCollectionsComponent implements OnInit {
     this.getListofCollection()
   }
   clearSearch(){
-    this.searchKey = '';
-    document.getElementById("textSearch").innerHTML = "";
+    this.searchKey = 'searched word';
+    document.getElementById("textSearch").innerHTML = "searched word";
   }
 
   getCategotyList()

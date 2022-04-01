@@ -91,6 +91,7 @@ import { SocialSharePopUpComponent } from './common/social-share-pop-up/social-s
 import { SearchKeyComponent } from './search-key/search-key.component';
 import { BetaversionModalComponent } from './landing/betaversion-modal/betaversion-modal.component';
 import { ImportCollectionComponent } from './collections/mycollections/import-collection/import-collection.component';
+import { CollectionCardComponent } from './collection-card/collection-card.component';
 
 @NgModule({
   declarations: [
@@ -154,6 +155,7 @@ import { ImportCollectionComponent } from './collections/mycollections/import-co
     SearchKeyComponent,
     BetaversionModalComponent,
     ImportCollectionComponent,
+    CollectionCardComponent,
   ],
   imports: [
     BrowserAnimationsModule ,

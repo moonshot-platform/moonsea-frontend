@@ -115,6 +115,9 @@ mat-slider {
 .text-secondary {
   color: $secondary;
 }
+.author:hover {
+  color: $white;
+}
 .text-white {
   color: $white;
 }
@@ -588,6 +591,10 @@ mat-slider {
   align-self: center;
 }
 
+.align-self-start {
+  align-self: start;
+}
+
 .flex-align-start {
   display: flex;
   align-items: flex-start;
@@ -908,6 +915,12 @@ section.tokenomics::-webkit-scrollbar {
   width: 36px;
   height: 36px;
 }
+.d-none {
+  display: none !important;
+}
+.border-0 {
+  border: none !important;
+}
 .button {
   padding: 0 1rem;
   box-sizing: border-box;
@@ -1157,6 +1170,10 @@ section.tokenomics::-webkit-scrollbar {
 
 .cursor {
   cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
 }
 /* position */
 
@@ -1628,6 +1645,15 @@ section.upcoming-collection {
 }
 .border-right {
   border-right: 1px solid $primary;
+}
+.border-right.pr20.pt10.text-primary {
+  flex: 0 0 25%;
+  text-align: center;
+  justify-content: center;
+  padding-right: 0;
+}
+.border-right.pr20.pt10.text-primary:last-child {
+  border-right: 0 !important;
 }
 .border-top-full-width {
   border-top: 1px solid $primary;
@@ -2494,6 +2520,7 @@ table {
 app-user-profile {
   .rounded img {
     border-radius: 50%;
+    border: 1px solid $primary;
   }
 }
 
@@ -2501,6 +2528,8 @@ app-nft-detail-list-tabs {
   .rounded img {
     width: 100%;
     border-radius: 50%;
+    background: $primary;
+    border: 1px solid $primary;
   }
 }
 
