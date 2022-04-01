@@ -44,10 +44,11 @@
                   src="{{
                     item.profilePic != null && item.profilePic.length > 0 
                       ? item.profilePic
-                      : 'http://codetentacles-006-site36.htempurl.com/nftTokenImages/637801690252196045bored6.png'
+                      : 'assets/media/images/moonsea/profile.png'
                   }}"
                   alt="Avatar"
                 />
+                
               </div>
 
               <div class="item__description">
@@ -134,9 +135,12 @@
     </div>
 
     <div class="flex1 js-tabs">
-      <div class="profile__nav">
-        <a href="javascript:void(0)" class="profile__link js-tabs-link active">
+      <div class="profile__nav justify-space-between">
+        <a class="cursor-default text-primary border-0 profile__link js-tabs-link">
           Attributes
+        </a>
+        <a class="cursor-default text-primary border-0 profile__link js-tabs-link">
+          {{items?.properties.length }}
         </a>
       </div>
       <div class="item__container">

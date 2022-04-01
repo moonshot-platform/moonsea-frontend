@@ -38,11 +38,13 @@
 
   <img
     src="{{ items.fileUrl }}"
-    *ngIf="items.fileUrl != null"
+    *ngIf="items.fileUrl != null && items.fileUrl.search('.mp4') == -1"
     alt="Card preview"
     [routerLink]="['/details', items.nftTokenID]"
   />
-
+  <video class="video101"  autoplay controls [muted]="true" *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1">
+    <source src="{{ items.fileUrl }}"  type="video/mp4">
+  </video> 
   <div class="">
     <button
       *ngIf="items?.isLikeByYou == 0"

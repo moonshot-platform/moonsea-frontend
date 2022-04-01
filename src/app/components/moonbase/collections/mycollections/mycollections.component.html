@@ -193,66 +193,10 @@
           </h3>
           <div *ngFor="let item of myCollection" class="flex100">
             <a class="collections__item" href="javascript:void(0)">
-              <div class="collections__gallery">
-                <div
-                  class="collections__preview"
-                  (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)"
-                >
-                  <div class="content-overlay"></div>
-                  <img *ngIf="item.nftFileUrl01" src="{{ item.nftFileUrl01 }}" alt="Collections" />
-                  <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="">
-                </div>
-
-                <div class="flex flex-wrap flex100 gap15 justify-start">
-                  <div
-                    class="thumb__preview gap15"
-                    *ngFor="
-                      let inneritem of item.nftDetailsList.slice(1, 4);
-                      let j = index
-                    "
-                  >
-                    <ng-container *ngIf="j <= 2">
-                      <div class="content-overlay"></div>
-                      <img
-                        src="{{ inneritem.nftFileUrl }}"
-                        alt="Collections"
-                        (click)="
-                          gotoNftDetails(
-                            inneritem.nftAddress,
-                            inneritem.nftTokenID
-                          )
-                        "
-                      />
-                    </ng-container>
-                  </div>
-                </div>
-
-                <div class="flex100">
-                  <div
-                    class="color-secondary collections__subtitle orbitron"
-                    [routerLink]="['/collection', item.collectionName]"
-                  >
-                    {{ item.collectionName }}
-                  </div>
-                  <div class="collections__line">
-                    <div class="collections__user">
-                      <div class="text-primary collections__author">
-                        By
-                        <span [routerLink]="['/profile', item.walletAddress]">
-                          {{ item?.walletAddress.substring(0, 4) }}...{{
-                            item?.walletAddress.substring(38, 42)
-                          }}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="collections__counter">
-                      <span class="text-primary"
-                        >{{ item.TotalNftCount }} items</span
-                      >
-                    </div>
-                  </div>
-                </div>
+              <div class="btn-edit">
+                <button type="button" (click)="edit(item)">edit</button>
               </div>
+              <app-collection-card [item]="item"></app-collection-card>
             </a>
           </div>
         </div>

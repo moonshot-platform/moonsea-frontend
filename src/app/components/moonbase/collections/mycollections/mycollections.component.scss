@@ -9,3 +9,20 @@
     max-height: 82px;
     min-height: 82px;
 }
+.card__title{
+    color: #50aac5;
+    margin-right: inherit;
+}
+.btn-edit {
+    position: absolute;
+    z-index: 1;
+    button {
+        border: 1px solid #50aac5;
+        color: #090d16;
+        background-color: #50aac5;
+        padding: 5px 10px;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+}
+}

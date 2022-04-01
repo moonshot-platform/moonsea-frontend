@@ -14,6 +14,7 @@ export class CreateCollectionComponent implements OnInit {
   isSubmitted = false;
   Address : any;
   categotyList: any;
+  collectionId :any ;
 
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<CreateCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private createNFT:CreateNftService,
@@ -25,6 +26,31 @@ export class CreateCollectionComponent implements OnInit {
   ngOnInit(): void {
     this.Address =  localStorage.getItem('address');
     this.getCategotyList();
+
+    if(this.data){
+      console.log(this.data);
+      
+      this.collectionId =  this.data.collectionId;
+      this.imagePath = this.data.fileUrl;
+      this.addCollectionForm.setValue(
+        {
+          file:this.imagePath,
+          tokenName :this.data.collectionName,
+          symbol :this.data.symbol,
+          description :this.data.description,
+          categoryId :this.data.categoryId,
+          yourSite :this.data.yourSite,
+          discord :this.data.discord,
+          twitter :this.data.twitter,
+          instagram :this.data.instagram,
+          medium :this.data.medium,
+          telegram :this.data.telegram,
+          royalties :this.data.royalties
+
+        }
+      )
+      
+    }
   }
 
   get formControls() { return this.addCollectionForm.controls; }
@@ -56,19 +82,39 @@ export class CreateCollectionComponent implements OnInit {
     data.walletAddress = this.Address;
     data.fileUrl = this.imagePath;
     
-    this.createNFT.addCollection(
-      data
-    ).subscribe((result:any)=>
-    {
 
-      if(result.isSuccess)
+    if(!this.collectionId){
+      this.createNFT.addCollection(
+        data
+      ).subscribe((result:any)=>
       {
-        this.dialogRef.close();
-      }
-      this.isSuccess = result.isSuccess;
-      this.getDataService.showToastr(result.message,result.isSuccess);
-      this.isApiLoading = false;
-    });
+  
+        if(result.isSuccess)
+        {
+          this.dialogRef.close();
+        }
+        this.isSuccess = result.isSuccess;
+        this.getDataService.showToastr(result.message,result.isSuccess);
+        this.isApiLoading = false;
+      });
+    }else{
+      let url = "api/updateCollectionSave";
+      this.createNFT.postRequest(url,data).subscribe(
+        (res:any)=>{
+          console.log(res);
+          if(res.status == 200){
+            this.getDataService.showToastr(res.message,res.isSuccess);
+            this.isApiLoading = false;
+          }else{
+            this.getDataService.showToastr(res.message,res.isSuccess);
+            this.isApiLoading = false;
+          }
+          
+        }
+      )
+    }
+
+    
 
   }
 

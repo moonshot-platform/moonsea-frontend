@@ -17,7 +17,7 @@ export class AvatarComponent implements OnInit {
 
     if(this.imagePath==undefined || this.imagePath.length==0)
     {
-      this.imagePath = "assets/media/images/moonsea/avatar-big.jpg";
+      this.imagePath = "assets/media/images/moonsea/profile.png";
     }
   }
 

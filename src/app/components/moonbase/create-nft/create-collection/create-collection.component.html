@@ -52,7 +52,7 @@
               >
                 <input
                   class="upload__input"
-                  formControlName="file"
+                 
                   (change)="onLogoFile($event)"
                   type="file"
                 />
@@ -82,12 +82,14 @@
 
           <div class="popup__field mb20">
             <div class="popup__col mb10">Collection name</div>
+            {{ collectionId != null}}
             <div class="field__wrap">
               <input
                 class="popup__input"
                 formControlName="tokenName"
                 name="newPrice"
                 type="text"
+                [attr.readonly]="collectionId != null"
               />
               <div
                 *ngIf="

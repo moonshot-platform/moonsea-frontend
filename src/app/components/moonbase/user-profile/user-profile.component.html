@@ -148,32 +148,21 @@
                 "
                 (click)="unfollow(userDetails?.walletAddress, 0, 0)"
               >
-                <svg
-                  version="1.1"
-                  id="follow_button"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 80 26"
-                  xml:space="preserve"
-                >
-                  <style type="text/css"></style>
-                  <text
-                    transform="matrix(1 0 0 1 25 18.228)"
-                    class="st1 st2 st3 w-normal"
-                  >
-                    UnFollow
-                  </text>
-                  <path
-                    d="M13,25.1c-6.6,0-12-5.4-12-12S6.4,1,13,1h54c6.6,0,12,5.4,12,12s-5.4,12-12,12H13z"
-                    class="st4"
-                  ></path>
-                  <g>
-                    <line x1="13" y1="8" x2="13" y2="18" class="st4"></line>
-                    <line x1="18" y1="13" x2="8" y2="13" class="st4"></line>
-                  </g>
-                </svg>
+              <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 102 26" style="enable-background:new 0 0 102 26;" xml:space="preserve" style="width:135px;height:35px">
+           <style type="text/css">
+             .st0{fill:#C5E3EC;stroke:#C5E3EC;stroke-miterlimit:10;}
+             .st1{fill:none;}
+             .st2{fill:#090D16;}
+             .st3{font-family:'Montserrat-Regular';}
+             .st4{font-size:14px;}
+             .st5{fill:none;stroke:#090D16;stroke-miterlimit:10;}
+           </style>
+           <path class="st0" d="M13,25C6.4,25,1,19.6,1,13S6.4,1,13,1h76c6.6,0,12,5.4,12,12s-5.4,12-12,12H13z"/>
+           <rect x="25" y="1" class="st1" width="72.1" height="24.1"/>
+           <text transform="matrix(1 0 0 1 25 18.1941)" class="p14 st2">Unfollow</text>
+           <line class="st5" x1="18" y1="13" x2="8" y2="13"/>
+           </svg>
               </a>
 
               <!-- <a href="javascrip:void(0)" *ngIf="userDetails?.isFollowByYou">
@@ -321,8 +310,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                       y="0px"
                       viewBox="0 0 40 40"
                       style="enable-background: new 0 0 40 40"
-                      xml:space="preserve"
-                    >
+                      xml:space="preserve"                    >
                       <style type="text/css">
                         .st0 {
                           fill: #50aac5;
@@ -384,8 +372,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                    c-0.3-0.2-0.6-0.4-0.8-0.7c-0.8-0.8-1.3-1.7-1.5-2.7c-0.3-1-0.3-2,0-3c0.3-1,0.8-1.9,1.5-2.7l2.7-2.7c0.8-0.8,1.6-1.3,2.7-1.5
                    c1-0.3,2-0.3,3,0c1,0.3,1.9,0.8,2.7,1.5c0.8,0.8,1.3,1.7,1.5,2.7C30.1,15.4,30.1,16.4,29.8,17.5z"
                       />
-                    </svg> </span
-                ></a>
+                    </svg> </span></a>
               </div>
             </div>
           </div>
@@ -443,8 +430,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                 'badge-light': tabName == tabHeadingsUrl[3],
                 'badge-dark': tabName != tabHeadingsUrl[3]
               }"
-              >{{ i == 3 ? userDetails?.noOfLikes : "" }}</span
-            >
+              >{{ i == 3 ? userDetails?.noOfLikes : "" }}</span >
           </a>
         </div>
         <div class="profile__container">
@@ -454,82 +440,74 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                 <div class="catalog__center">
                   <div class="catalog__row">
                     <div class="flex100">
-                      <div class="catalog__list">
+                      <div class="">
                         <div
                           *ngIf="tabName == tabHeadingsUrl[0]"
-                          class="profile__item js-tabs-item"
+                          class="catalog__list js-tabs-item flex100"
                           [style.display]="
-                            tabName == tabHeadingsUrl[0] ? 'block' : 'none'
+                            tabName == tabHeadingsUrl[0] ? 'flex' : 'none'
                           "
                         >
-                          <div class="catalog">
                             <div
                               class="card"
                               *ngFor="let item of listItemsOnSale"
                             >
                               <app-nft-card [items]="item"></app-nft-card>
                             </div>
-                          </div>
 
                           <div class="loader" *ngIf="isApiLoading"></div>
                         </div>
 
                         <div
                           *ngIf="tabName == tabHeadingsUrl[1]"
-                          class="profile__item js-tabs-item"
+                          class="catalog__list js-tabs-item flex100 "
                           [style.display]="
-                            tabName == tabHeadingsUrl[1] ? 'block' : 'none'
+                            tabName == tabHeadingsUrl[1] ? 'flex' : 'none'
                           "
                         >
-                          <div class="catalog">
                             <div
                               class="card"
                               *ngFor="let item of listItemsOwned"
                             >
                               <app-nft-card [items]="item"></app-nft-card>
                             </div>
-                          </div>
                           <div class="loader" *ngIf="isApiLoading"></div>
                         </div>
                         <div
                           *ngIf="tabName == tabHeadingsUrl[2]"
-                          class="profile__item js-tabs-item"
+                          class="catalog__list js-tabs-item flex100"
                           [style.display]="
-                            tabName == tabHeadingsUrl[2] ? 'block' : 'none'
+                            tabName == tabHeadingsUrl[2] ? 'flex' : 'none'
                           "
                         >
-                          <div class="catalog">
                             <div
                               class="card"
                               *ngFor="let item of listItemsCreated"
                             >
                               <app-nft-card [items]="item"></app-nft-card>
                             </div>
-                          </div>
                           <div class="loader" *ngIf="isApiLoading"></div>
                         </div>
                         <div
                           *ngIf="tabName == tabHeadingsUrl[3]"
-                          class="profile__item js-tabs-item"
+                          class="catalog__list js-tabs-item flex100"
                           [style.display]="
-                            tabName == tabHeadingsUrl[3] ? 'block' : 'none'
+                            tabName == tabHeadingsUrl[3] ? 'flex' : 'none'
                           "
                         >
-                          <div class="catalog">
                             <div
                               class="card"
                               *ngFor="let item of listItemsLikes"
                             >
                               <app-nft-card [items]="item"></app-nft-card>
-                            </div>
                           </div>
                           <div class="loader" *ngIf="isApiLoading"></div>
                         </div>
                         <div
                           *ngIf="tabName == tabHeadingsUrl[4]"
-                          class="profile__item js-tabs-item"
+                          class="catalog__list js-tabs-item flex100"
                           [style.display]="
-                            tabName == tabHeadingsUrl[4] ? 'block' : 'none'
+                            tabName == tabHeadingsUrl[4] ? 'flex' : 'none'
                           "
                         >
                           <div class="followers">
@@ -543,15 +521,25 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                               >
                                 <div class="followers__user">
                                   <div class="followers__avatar">
+                                    <a
+                                      class="orbitron text-secondary p16 overflow-ellipsis"
+                                      [routerLink]="[
+                                        '/profile',
+                                        item.name,
+                                        'tab',
+                                        'created'
+                                      ]"
+                                    >
                                     <app-avatar
                                       [imagePath]="item.profilePic"
                                     ></app-avatar>
+                                    </a>
                                   </div>
                                   <div
                                     class="follower-info flex-col text-primary"
                                   >
                                     <a
-                                      class="orbitron text-secondary p16 overflow-ellipsis"
+                                      class="orbitron text-secondary p16 overflow-ellipsis author"
                                       [routerLink]="[
                                         '/profile',
                                         item.name,
@@ -589,9 +577,9 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                         </div>
                         <div
                           *ngIf="tabName == tabHeadingsUrl[5]"
-                          class="profile__item js-tabs-item"
+                          class="catalog__list js-tabs-item flex100"
                           [style.display]="
-                            tabName == tabHeadingsUrl[5] ? 'block' : 'none'
+                            tabName == tabHeadingsUrl[5] ? 'flex' : 'none'
                           "
                         >
                           <div class="followers">
