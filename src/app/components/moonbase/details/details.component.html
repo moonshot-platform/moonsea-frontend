@@ -82,7 +82,8 @@
                 class="item__avatar"
                 [routerLink]="['/collection', data?.tokenName]"
               >
-                <img src="{{ data?.collectionFileUrl }}" alt="Avatar" />
+                <img *ngIf="data?.collectionFileUrl" src="{{ data?.collectionFileUrl }}" alt="Avatar" />
+                <img *ngIf="!data?.collectionFileUrl" src="assets/media/images/moonsea/profile.png" alt="Avatar" />
               </div>
 
               <div
@@ -189,6 +190,9 @@
                 >
                 </app-purchase-now>
               </div>
+
+              <p class="p12 w-normal mt20 align-self-start"><span class="w600">S-Fee </span> — 1.5% / 2.563 ETH / $4,540.60</p>
+
             </ng-container>
           </div>
         </div>

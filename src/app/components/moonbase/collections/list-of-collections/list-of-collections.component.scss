@@ -51,17 +51,6 @@ section.hot-collection {
   max-width: 100%;
 }
 
-.border-right.pr20.pt10.text-primary:last-child {
-  border-right: 0;
-}
-
-.border-right.pr20.pt10.text-primary {
-  flex: 0 0 25%;
-  text-align: center;
-  justify-content: center;
-  padding-right: 0;
-}
-
 @media only screen and (max-width: 62.5rem) {
   .c-card {
     width: 100%;

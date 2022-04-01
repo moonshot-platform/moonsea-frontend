@@ -1348,6 +1348,9 @@ body.dark .nice-select .list {
   margin: 0 15px;
   border-bottom: 1px solid white;
 }
+.select .option:last-child {
+  border-bottom: none;
+}
 .select .option:hover,
 .select .option.focus,
 .select .option.selected.focus {
@@ -5426,7 +5429,7 @@ body.dark .upload__list {
   border-radius: 0px;
   color: white;
   overflow: hidden;
-  border: 1px solid #090d16;
+  border: 1px solid #50aac5;
 }
 body.dark .upload__file {
   background: #23262f;
@@ -7822,8 +7825,12 @@ body.dark .profile__btns .profile__button:hover {
     margin: 0;
   }
 }
-.profile__link:hover {
-  color: #353945;
+.profile__link:hover,
+.text-primary.profile__link {
+  color: #50aac5;
+}
+.text-primary.profile__link:hover {
+  color: #50aac5;
 }
 body.dark .profile__link:hover {
   color: #e6e8ec;
@@ -7960,6 +7967,10 @@ body.dark .user {
   -o-object-fit: cover;
   object-fit: cover;
   border: 1px solid #50aac5;
+}
+app-collectiondetails .user__avatar .rounded.relative.flex,
+app-user-profile .rounded.relative.flex {
+  height: 100%;
 }
 .user__name {
   font-size: 16px;

@@ -337,7 +337,7 @@
             swiperSlide
           >
             <!--  [routerLink]="['/collection', item.collectionName]" -->
-            <a class="collections__item" href="javascript:void(0)">
+            <!-- <a class="collections__item" href="javascript:void(0)">
               <div class="collections__gallery">
                 <div
                   class="collections__preview"
@@ -408,7 +408,8 @@
                   </div>
                 </div>
               </div>
-            </a>
+            </a> -->
+            <app-collection-card [item]="item"></app-collection-card>
           </ng-template>
         </swiper>
       </div>
@@ -434,7 +435,7 @@
             swiperSlide
           >
             <!-- [routerLink]="['/collection', item.collectionName]" -->
-            <a class="collections__item" href="javascript:void(0)">
+            <!-- <a class="collections__item" href="javascript:void(0)">
               <div class="collections__gallery">
                 <div
                   class="collections__preview"
@@ -458,9 +459,8 @@
                     *ngFor="
                       let itembid of item.nftDetailsList.slice(1, 4);
                       let j = index
-                    "
-                  >
-                    <!--  routerLink="['/details', itembid.nftTokenID]" -->
+                    ">
+                   
                     <ng-container *ngIf="j <= 2">
                       <div class="content-overlay"></div>
                       <img
@@ -503,7 +503,8 @@
                   </div>
                 </div>
               </div>
-            </a>
+            </a> -->
+            <app-collection-card [item]="item"></app-collection-card>
           </ng-template>
         </swiper>
       </div>
@@ -576,6 +577,7 @@
               >
                 <ng-container *ngIf="j <= 2">
                   <a
+                  href="javascript:void(0)"
                     (click)="
                       gotoNftDetails(item01.nftAddress, item01.nftTokenID)
                     "
@@ -606,7 +608,7 @@
                 class="mySwiper new_collection_arrow"
               >
                 <ng-template
-                  *ngFor="let item of upCommingCollection; let i = index"
+                  *ngFor="let item of upCommingCollection.slice(0,3); let i = index"
                   swiperSlide
                 >
                   <a class="collections__item" href="javascript:void(0)">
@@ -638,7 +640,6 @@
                                 : item.collectionName
                             }}
                           </div>
-                          <br />
                           <span
                             class="p16 montserrat text-primary collections__author"
                           >
@@ -658,7 +659,7 @@
                           >
                         </div>
                         <div>
-                          <button class="button w-100 mt10">
+                          <button class="button w-100 mt10" [routerLink]="['/collection', item.collectionName]">
                             View Collection
                           </button>
                         </div>
@@ -741,16 +742,9 @@
             <span class="color-white">Upcomming </span><span>collections </span>
           </p>
         </div>
-        <swiper
-          [config]="config"
-          [pagination]="{ clickable: true }"
-          class="mySwiper hover-effect"
-        >
-          <ng-template
-            *ngFor="let item of upCommingCollection; let i = index"
-            swiperSlide
-          >
-            <a class="collections__item" href="javascript:void(0)">
+        <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper hover-effect">
+          <ng-template *ngFor="let item of upCommingCollection; let i = index" swiperSlide>
+            <!-- <a class="collections__item" href="javascript:void(0)">
               <div class="collections__gallery">
                 <div
                   class="collections__preview"
@@ -803,11 +797,6 @@
                     }}
                   </div>
                   <div class="collections__line">
-                    <!-- <div class="collections__user" [routerLink]="['/profile',item.ownerWalletAddress]" routerLinkActive="router-link-active" >
-                      <div class="text-primary collections__author">
-                        by <span>{{ item?.name ?? item?.customeUrl }}</span>
-                      </div>
-                    </div> -->
                     <div class="collections__counter">
                       <span class="text-primary"
                         >{{ item?.totalNftCount }} items</span
@@ -816,7 +805,9 @@
                   </div>
                 </div>
               </div>
-            </a>
+            </a> -->
+          
+            <app-collection-card [item]="item"></app-collection-card>
           </ng-template>
         </swiper>
       </div>
@@ -854,9 +845,9 @@
                 *ngFor="let item of hotCollectionList; let i = index"
                 swiperSlide
               >
-                <a class="collections__item" href="javascript:void(0)">
-                  <div class="collections__gallery px-5">
-                    <div
+                 <a class="collections__item" href="javascript:void(0)">
+                 <div class="collections__gallery px-5">
+                   <!--  <div
                       class="collections__preview"
                       (click)="
                         gotoNftDetails(item.nftAddress, item.nftTokenID01)
@@ -928,9 +919,12 @@
                           >
                         </div>
                       </div>
-                    </div>
+                    </div> -->
+                    <app-collection-card [item]="item"></app-collection-card>
                   </div>
+                
                 </a>
+               
               </ng-template>
             </swiper>
           </div>

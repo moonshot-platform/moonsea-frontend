@@ -1,0 +1,83 @@
+<a href="javascript:void(0)" class="collections__gallery">
+  <div
+    class="collections__preview"
+    (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)"
+  >
+    <div class="content-overlay"></div>
+    <img
+      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
+      src="{{ item.nftFileUrl01 }}"
+      alt="Collections"
+    />
+    <!-- <video src="{{ item.nftFileUrl01 }}" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1" controls [muted]="true"></video>   -->
+    <video width="320" height="240"  autoplay controls [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+      <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
+    </video>             
+    <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
+  </div>
+
+  <div class="flex flex-wrap flex100 gap15 justify-start">
+    <div
+      class="thumb__preview gap15"
+      *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index"
+    >
+      <ng-container *ngIf="j <= 2">
+        <div class="content-overlay"></div>
+        <img
+          src="{{ inneritem.nftFileUrl }}"
+          alt="Collections"
+          (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
+        />
+      </ng-container>
+    </div>
+    <div   class="thumb__preview gap15" *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1">
+      <div class="content-overlay"></div>
+      <img  src="{{ item.nftFileUrl01 }}" *ngIf="item.nftFileUrl01" alt=""  (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" />
+
+      <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
+    </div>
+  </div>
+
+  <div class="flex100">
+    <div
+      class="color-secondary collections__subtitle orbitron"
+      [routerLink]="['/collection', item.collectionName]"
+    >
+      {{ item.collectionName }}
+    </div>
+    <div class="collections__line">
+      <div class="collections__user">
+        <div class="text-primary collections__author">
+          By
+          <span [routerLink]="['/profile', item.creatorWalletAddress]">
+            {{ item?.name ?? item?.customeUrl }}
+          </span>
+        </div>
+      </div>
+      <div class="collections__counter" [ngClass]="{'d-none': correntRoute == '/collections'}">
+        <span class="text-primary">{{ item.totalNftCount }} items</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex100 justify-space-between text-center mt10 border-top"
+    *ngIf="correntRoute == '/collections'"
+  >
+    <div class="border-right pr20 pt10 text-primary">
+      <p class="p12">items</p>
+      <p class="p18 pt10">{{ item.TotalNftCount }}</p>
+    </div>
+    <div class="border-right pr20 pt10 text-primary">
+      <p class="p12">Owners</p>
+      <p class="p18 pt10">{{ item.ownershipCount }}</p>
+    </div>
+    <div class="border-right pr20 pt10 text-primary">
+      <p class="p12">Floor price</p>
+      <p class="p18 pt10">{{ item.floorPrice }}</p>
+    </div>
+    <div class="border-right pr20 pt10 text-primary">
+      <p class="p12">Volume</p>
+      <p class="p18 pt10">{{ item.totalSale }}</p>
+    </div>
+  </div>
+</a>

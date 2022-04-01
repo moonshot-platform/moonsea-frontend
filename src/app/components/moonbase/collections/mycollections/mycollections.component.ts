@@ -70,7 +70,7 @@ export class MycollectionsComponent implements OnInit {
         }
   
         this.myCollection = response.data;
-        // console.log("%%%%%=>",this.myCollection);
+        console.log("%%%%%=>",this.myCollection);
           
       }
      
@@ -104,7 +104,16 @@ export class MycollectionsComponent implements OnInit {
     this.isLoading = false;
 
   }
-
+  edit(item:any){
+   
+    const dialogRef = this.dialog.open(CreateCollectionComponent, {
+      width: 'auto',
+      data:item
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    
+    });
+  }
 
   openDialogCreateCollection(): void {
     const dialogRef = this.dialog.open(CreateCollectionComponent, {

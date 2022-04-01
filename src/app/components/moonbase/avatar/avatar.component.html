@@ -1,5 +1,6 @@
 <div class="rounded relative flex">
-  <img src="{{imagePath}}" alt="Avatar" />
+  <img *ngIf="imagePath" src="{{imagePath}}" alt="Avatar" />
+  <img *ngIf="!imagePath" src="assets/media/images/moonsea/profile.png" alt="Avatar" />
 
   <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/updateProfile']" class="edit-icon">
     <svg

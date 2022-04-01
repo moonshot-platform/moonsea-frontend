@@ -85,7 +85,7 @@
             <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper hover-effect"
               [navigation]="true">
               <ng-template *ngFor="let item of hotCollectionList; let i = index" swiperSlide>
-                <a class="collections__item">
+                <!-- <a class="collections__item">
                   <div class="collections__gallery">
                     <div class="collections__preview" (click)="gotoNftDetails(item.nftAddress,item.nftTokenID01)">
                       <div class="content-overlay"></div>
@@ -102,14 +102,7 @@
                         </ng-container>
                       </div>
                     </div>
-                    <!-- <div class="collections__preview">
-                      <div class="content-overlay"></div>
-                      <img src="https://ui8-crypter-nft-html.herokuapp.com/img/content/photo-2.1.jpg" alt="Collections" />
-                    </div>
-                    <div class="collections__preview">
-                      <div class="content-overlay"></div>
-                      <img src="https://ui8-crypter-nft-html.herokuapp.com/img/content/photo-3.1.jpg" alt="Collections" />
-                    </div> -->
+                  
                     <div class="flex100">
                       <div class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
                         {{
@@ -130,7 +123,8 @@
                       </div>
                     </div>
                   </div>
-                </a>
+                </a> -->
+                <app-collection-card [item]="item"></app-collection-card>
               </ng-template>
             </swiper>
 
