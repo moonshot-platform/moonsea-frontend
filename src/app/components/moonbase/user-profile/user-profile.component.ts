@@ -87,6 +87,7 @@ export class UserProfileComponent implements OnInit {
     if(response.data.length>0){
     this.userDetails=response.data[0];
     
+    
           let check2 =(localStorage.getItem("address"));
 
           if(this.userDetails?.walletAddress==check2){

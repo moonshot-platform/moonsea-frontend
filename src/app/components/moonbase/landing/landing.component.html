@@ -44,10 +44,13 @@
                     >
                       <div class="content-overlay"></div>
                       <img
-                        *ngIf="item.nftFileUrl01"
+                      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
                         src="{{ item.nftFileUrl01 }}"
                         alt="Collections"
                       />
+                      <video width="320" height="240"  autoplay controls [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+                        <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
+                      </video>  
                       <img
                         *ngIf="!item.nftFileUrl01"
                         src="assets/images/default.jpg"
@@ -65,13 +68,19 @@
                         <ng-container *ngIf="j <= 2">
                           <div class="content-overlay"></div>
                           <img
-                            *ngIf="iner.nftFileUrl"
+                          *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
                             (click)="
                               gotoNftDetails(iner.nftAddress, iner.nftTokenID)
                             "
                             src="{{ iner.nftFileUrl }}"
                             alt="Collections"
                           />
+
+                          <video width="100" height="100"  autoplay controls [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1">
+                            <source src="{{ iner.nftFileUrl }}"  type="video/mp4">
+                          </video>  
+
+
                           <img
                             *ngIf="!iner.nftFileUrl"
                             src="assets/images/default.jpg"
@@ -531,11 +540,14 @@
                 >
                   <div class="content-overlay"></div>
                   <img
-                    *ngIf="item.nftFileUrl01"
+                    *ngIf="item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') == -1"
                     srcset="{{item.fileUrl}}"
                     src="{{ item.nftFileUrl01 }}"
                     alt="Selection"
                   />
+                  <video width="320" height="380"  autoplay controls [muted]="true" *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
+                    <source src="{{  item.nftFileUrl01 }}"  type="video/mp4">
+                  </video>
                   <img
                     *ngIf="!item.nftFileUrl01"
                     src="assets/images/default.jpg"
@@ -585,11 +597,16 @@
                   >
                     <div class="selection__preview">
                       <!-- <div class="content-overlay"></div> -->
-                      <img
+                      <img 
+                      *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') == -1"
                         srcset="{{item01.nftFileUrl}}"
                         src="{{ item01.nftFileUrl }}"
                         alt="Selection"
                       />
+                      <video width="150" height="190"  autoplay controls [muted]="true" *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') != -1">
+                        <source src="{{  item01.nftFileUrl }}"  type="video/mp4">
+                      </video>
+        
                     </div>
                   </a>
                 </ng-container>
@@ -621,10 +638,14 @@
                       >
                         <!-- <div class="content-overlay"></div> -->
                         <img
+                        *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') == -1"
                           srcset="{{ item.nftFileUrl01 }}"
                           src="{{ item.nftFileUrl01 }}"
                           alt="Selection"
                         />
+                        <video width="150" height="190"  autoplay controls [muted]="true" *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
+                          <source src="{{  item.nftFileUrl01 }}"  type="video/mp4">
+                        </video>
                       </div>
 
                       <div class="selection__description">
@@ -826,7 +847,7 @@
             </span>
           </p>
 
-          <a class="button text-inherit dark-button" href="javascript:void(0)"
+          <a class="button text-inherit dark-button" href="javascript:void(0)" [routerLink]="['/how_it_works']" routerLinkActive="router-link-active" 
             >Learn how</a
           >
         </div>

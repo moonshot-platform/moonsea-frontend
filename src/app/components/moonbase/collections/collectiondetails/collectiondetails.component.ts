@@ -34,7 +34,7 @@ export class CollectiondetailsComponent implements OnInit {
   listItemsCreated: any;
   listItemsFollowers: any;
   connectedAddress = "";
-
+  correntRoute :any;
 
   constructor(public cs:ContractService, private toastrService:ToastrService,
      private collectionApi:CollectionApiService,private _activatedRoute: ActivatedRoute,
@@ -52,13 +52,31 @@ export class CollectiondetailsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+    this.correntRoute = window.location.href;
+ 
+    
 
-    window.scrollTo(0, 0)
+
     this.cs.getWalletObs().subscribe((data:any)=>
     {
       this.connectedAddress = data;
     });
     this.getCollectionDetails();
+
+    window.onclick = function (event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    };
+
   }
 
   getCollectionDetails()
@@ -161,6 +179,23 @@ export class CollectiondetailsComponent implements OnInit {
     // // this.collectionApi
   }
 
+  openSharedrop() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
 
+  copyMessage(val: string){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.toastrService.success("Text copied....");
+  }
 
 }

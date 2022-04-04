@@ -82,8 +82,10 @@
                 class="item__avatar"
                 [routerLink]="['/collection', data?.tokenName]"
               >
+        
                 <img *ngIf="data?.collectionFileUrl" src="{{ data?.collectionFileUrl }}" alt="Avatar" />
                 <img *ngIf="!data?.collectionFileUrl" src="assets/media/images/moonsea/profile.png" alt="Avatar" />
+              
               </div>
 
               <div
@@ -207,7 +209,10 @@
           </div>
           <!-- <div class="status-purple item__category">unlockable</div> -->
         </div>
-        <img src="{{ data?.fileUrl }}" alt="Item" />
+        <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/>
+        <video width="320" height="380"  autoplay controls [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
+          <source src="{{ data?.fileUrl }}"  type="video/mp4">
+        </video>
       </div>
       <div class="user__control ml10 flex1">
         <div class="js-user-box">

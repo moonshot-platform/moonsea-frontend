@@ -256,44 +256,50 @@ export class CreateNftComponent implements OnInit {
     this.isShowMatspinner = 'show';
     this.isUploadButtonDisabled = true;
     const file: File = event.target.files[0];
-    // console.log(file);
-    if (
-      file.type == 'image/jpeg' ||
-      file.type == 'image/png' ||
-      file.type == 'image/jpg' ||
-      file.type == 'video/mp4' ||
-      file.type == 'image/gif'
-    ) {
-      if (file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        reader.onload = (event) => {
-          this.imageUrl = reader.result?.toString() ?? '';
-        };
-        this.createNFTService.uploadFile(file).subscribe(
-          (response: any) => {
-            this.isUploadButtonDisabled = false;
-            if (response.isSuccess) {
+    console.log(file.size /1024);
+    if((file.size / 1024) < 5000){
+      if (
+        file.type == 'image/jpeg' ||
+        file.type == 'image/png' ||
+        file.type == 'image/jpg' ||
+        file.type == 'video/mp4' ||
+        file.type == 'image/gif'
+      ) {
+        if (file) {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+  
+          reader.onload = (event) => {
+            this.imageUrl = reader.result?.toString() ?? '';
+          };
+          this.createNFTService.uploadFile(file).subscribe(
+            (response: any) => {
+              this.isUploadButtonDisabled = false;
+              if (response.isSuccess) {
+                this.isShowMatspinner = 'hide';
+                this.imagePath = response.data.path;
+              } else {
+                this.showerrormsg = 'show';
+                this.isShowMatspinner = 'hide';
+                this.imagePath = '';
+              }
+            },
+            (error: any) => {
               this.isShowMatspinner = 'hide';
-              this.imagePath = response.data.path;
-            } else {
               this.showerrormsg = 'show';
-              this.isShowMatspinner = 'hide';
+              this.isUploadButtonDisabled = false;
               this.imagePath = '';
             }
-          },
-          (error: any) => {
-            this.isShowMatspinner = 'hide';
-            this.showerrormsg = 'show';
-            this.isUploadButtonDisabled = false;
-            this.imagePath = '';
-          }
-        );
+          );
+        }
+      } else {
+        this.toastr.error('please check file format....');
+        this.isShowMatspinner = 'hide';
       }
-    } else {
-      this.toastr.error('please check file format....');
+    }else{
+      this.toastr.error('file size should be less than 5mb');
       this.isShowMatspinner = 'hide';
+      this.imagePath = '';
     }
   }
 
@@ -370,7 +376,7 @@ export class CreateNftComponent implements OnInit {
   }
 
   clearForm() {
-    this.imageUrl = '';
+    this.imageUrl = 'https://moonboxes.io/assets/media/images/astro_painter.svg';
     this.createNftForm.reset();
   }
 }

@@ -37,9 +37,12 @@
                         <use xlink:href="#icon-upload-file"></use>
                       </svg>
                     </div> -->
+                    <svg version="1.1" id="stroke_dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve" style="enable-background: new 0 0 40 40;width: 45px;"><g><g><circle cx="20" cy="20" r="15" class="stroke_dark"></circle><g><line x1="20" y1="23.9" x2="20" y2="12.4" class="stroke_dark"></line><polyline points="14.3,17.8 20,12.1 25.7,17.7 			" class="stroke_dark"></polyline></g></g><line x1="14.3" y1="28" x2="25.7" y2="28" class="stroke_dark"></line></g></svg>
+
                     <div class="upload__format" *ngIf="isShowMatspinner == 'hide'">
                       PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.
                     </div>
+                    
                     <div *ngIf="isShowMatspinner == 'show'">
                       <mat-spinner></mat-spinner>
                     </div>
@@ -448,7 +451,7 @@
             <div class="card">
               <div class="card__preview" >
                 <img src="{{ imageUrl }}" *ngIf="imageUrl.search('.mp4') == -1" alt="NFT preview" /> 
-                <video src="{{ imageUrl }}" *ngIf="imageUrl.search('.mp4') != -1" controls muted></video>               
+                <video src="{{ imageUrl }}" class="height-width" *ngIf="imageUrl.search('.mp4') != -1" controls [muted]="true"></video>               
                 <!-- <div class="card__control">
                   <div class="status-green card__category">purchasing !</div>
                   <button class="card__favorite">

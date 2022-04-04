@@ -5422,14 +5422,14 @@ body.dark .upload__list {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 182px;
   margin-top: 8px;
   border-radius: 0px;
   color: white;
   overflow: hidden;
-  border: 1px solid #50aac5;
+  border: 1px solid #090d16;
 }
 body.dark .upload__file {
   background: #23262f;
@@ -5456,7 +5456,7 @@ body.dark .upload__file {
 .upload__format {
   font-size: 12px;
   line-height: 1.66667;
-  color: #50aac5;
+  color: #090d16;
 }
 
 .upload__category {
