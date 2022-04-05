@@ -21,7 +21,9 @@ declare let particlesJS: any;
 
     <ngx-ui-loader [fgsTemplate]="foregroundSpinner" ></ngx-ui-loader>
     <ng-template #foregroundSpinner>
-    <img src="{{logoUrl}}" alt="Collections" style="width:110px"/>
+    <video style="width:110px" autoplay controls [muted]="true" [loop]="true" [controls]="false" class="logo">
+          <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+        </video>
     </ng-template> `,
 })
 export class AppComponent {
