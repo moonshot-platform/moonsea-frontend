@@ -7,10 +7,8 @@
         <p class="max-word">
           Show me
           <!-- [innerHTML]="searchKey" -->
-          <span #searchText class="content_editable" data-maxlength="5" data-minlength="5" id="textSearch"
+          <span #searchText class="text-secondary content_editable" data-maxlength="5" data-minlength="5" id="textSearch"
             (keyup.enter)="searchClient(searchText.innerText)" [innerHTML]="searchKey" contenteditable="true"></span>
-
-
 
           <span class="ml10">
             <a (click)="clearSearch()">

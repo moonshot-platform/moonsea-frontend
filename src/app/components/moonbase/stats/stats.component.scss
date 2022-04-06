@@ -1,8 +1,12 @@
 @import "includes";
 
-.border-bottom {
-  border-bottom: 3px solid;
-}
+  .border-bottom {
+    border-bottom: 1px solid $primary;
+  }
+
+  .border-bottom-thead {
+    border-bottom: 3px solid $primary;
+  }
 
 .box {
   padding: 0.5rem;

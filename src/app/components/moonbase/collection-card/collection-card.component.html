@@ -10,7 +10,7 @@
       alt="Collections"
     />
   
-    <video width="320" height="240"  autoplay controls [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+    <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
       <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
     </video>             
     <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
@@ -28,7 +28,7 @@
           alt="Collections"
           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
         />
-        <video width="80" height="80"  autoplay controls [muted]="true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1">
+        <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1">
           <source src="{{ inneritem.nftFileUrl }}"  type="video/mp4">
         </video>
       </ng-container>
@@ -36,6 +36,9 @@
     <div   class="thumb__preview gap15" *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1">
       <div class="content-overlay"></div>
       <img  src="{{ item.nftFileUrl01 }}" *ngIf="item.nftFileUrl01" alt=""  (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" />
+      <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+        <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
+      </video>
 
       <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
     </div>
@@ -76,11 +79,50 @@
     </div>
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Floor price</p>
-      <p class="p18 pt10">{{ item.floorPrice }}</p>
+      <p class="p18 pt10">
+        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;width: 20px;" xml:space="preserve">
+          <style type="text/css">
+            .st0{fill:#FFFFFF;}
+            .st1{opacity:0.6;}
+            .st2{fill:#010101;}
+            .st3{opacity:0.45;}
+            .st4{opacity:0.8;stroke: transparent;}
+          </style>
+          <g>
+            <circle class="st0" cx="20" cy="20" r="18"></circle>
+          </g>
+          <g class="st1">
+            <g>
+              <path class="st2" d="M20,16.9l-7.4,3.4l7.4,4.4l7.4-4.4L20,16.9z"></path>
+            </g>
+          </g>
+          <g class="st3">
+            <g>
+              <path class="st2" d="M12.6,20.2l7.4,4.4V8L12.6,20.2z"></path>
+            </g>
+          </g>
+          <g class="st4">
+            <g>
+              <path class="st2" d="M20,8v16.6l7.4-4.4L20,8z"></path>
+            </g>
+          </g>
+          <g class="st3">
+            <g>
+              <path class="st2" d="M12.6,21.6L20,32v-6L12.6,21.6z"></path>
+            </g>
+          </g>
+          <g class="st4">
+            <g>
+              <path class="st2" d="M20,26v6l7.4-10.4L20,26z"></path>
+            </g>
+          </g>
+          </svg>
+
+        {{ item.floorPrice | number : "1.2-3" }}</p>
     </div>
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Volume</p>
-      <p class="p18 pt10">{{ item.totalSale }}</p>
+      <p class="p18 pt10">{{ item.totalSale | number : "1.2-3" }}</p>
     </div>
   </div>
 </a>

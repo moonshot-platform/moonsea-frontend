@@ -142,6 +142,7 @@ export class ListOfCollectionsComponent implements OnInit {
 
   arr = [];
   search() {
+
     if (this.searchKey.length >= 2) {
       this.pageNo = 0;
       this.arr = [];
@@ -204,7 +205,7 @@ export class ListOfCollectionsComponent implements OnInit {
     this.getListofCollection()
   }
   clearSearch(){
-    this.searchKey = 'searched word';
+    this.searchKey = 'all collections';
     document.getElementById("textSearch").innerHTML = "searched word";
   }
 

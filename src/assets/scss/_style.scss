@@ -909,7 +909,7 @@ section.tokenomics::-webkit-scrollbar {
   display: inline-block !important;
   max-width: max-content;
 }
-.fit-content { 
+.fit-content {
   max-width: fit-content;
 }
 
@@ -1074,6 +1074,14 @@ section.tokenomics::-webkit-scrollbar {
   margin-left: 10px;
   path {
     fill: $secondary;
+  }
+}
+#tag,
+#chart {
+  &:hover {
+    path {
+      fill: $secondary;
+    }
   }
 }
 
@@ -1968,7 +1976,7 @@ table {
   }
 }
 .new_collection .swiper {
-  .swiper-button-next, 
+  .swiper-button-next,
   .swiper-button-prev {
     top: 45px;
   }
@@ -2105,7 +2113,17 @@ table {
       color: $black;
     }
   }
+  .select {
+    border-color: $black;
+    .current {
+      color: $black;
+    }
+    &:before {
+      box-shadow: inset 0 0 0 1px $black;
+    }
+  }
 }
+
 .popupBackdropClass {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -2299,7 +2317,8 @@ table {
 }
 
 .selection {
-  .selection__item .selection__preview img {
+  .selection__item .selection__preview img,
+  .selection__item .selection__preview video {
     object-fit: cover;
     object-position: center;
     width: 100%;
@@ -2362,7 +2381,7 @@ table {
     height: 350px;
     border: 1px solid $black;
     &:first-child:hover {
-      border: 1px solid $black;      
+      border: 1px solid $black;
     }
   }
   .thumb__preview img {
@@ -2535,12 +2554,20 @@ app-nft-detail-list-tabs {
   }
 }
 
-
 [contenteditable="true"].content_editable {
   white-space: nowrap;
   width: 100%;
   max-width: 70vw;
   overflow: hidden;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-bottom: 1px solid $secondary;
+  }
 }
 
 [contenteditable="true"].content_editable br {
@@ -2553,7 +2580,92 @@ span.content_editable br {
   display: inline;
   white-space: nowrap;
 }
+.video {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    left: 0;
+    background-size: cover;
+    overflow: hidden;
+    top: 0;
+    max-width: 100%;
+    max-height: 100%;
+}
 
+
+//=============Dropdown css start here=============================================================//
+.arrow_down:hover #down_arrow,
+#close:hover {
+  path {
+    fill: $white;
+  }
+} 
+
+#down_arrow {
+  width: 26px;
+  height: 26px;
+  margin-left: 5px;
+}
+
+.dropbtn {
+  color: $secondary;
+  font-size: 27px;
+  border: none;
+  cursor: pointer;
+  font-family: "Orbitron";
+  font-weight: 900;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $black;
+  min-width: 160px;
+  width: max-content;
+  cursor: pointer;
+  max-width: 250px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+  z-index: 1;
+  border: solid 1px #fff;
+}
+
+.dropdown-content a {
+  color: $white;
+  padding: 18px 0;
+  text-decoration: none;
+  display: block;
+  margin: 0 1rem;
+  border-bottom: solid 1px $white;
+  font-family: $primary-font;
+  font-size: 14px;
+  font-weight: $semi-bold;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.dropdown a:hover {
+  color: $primary;
+}
+
+.show {
+  display: block;
+}
+.dropbtn:hover {
+  color: white;
+}
+
+// Dropdown end
 
 // Responsive Code
 @media only screen and (max-width: $md) {

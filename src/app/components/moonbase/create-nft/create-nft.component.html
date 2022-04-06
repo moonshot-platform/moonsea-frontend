@@ -451,7 +451,7 @@
             <div class="card">
               <div class="card__preview" >
                 <img src="{{ imageUrl }}" *ngIf="imageUrl.search('.mp4') == -1" alt="NFT preview" /> 
-                <video src="{{ imageUrl }}" class="height-width" *ngIf="imageUrl.search('.mp4') != -1" controls [muted]="true"></video>               
+                <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" src="{{ imageUrl }}" *ngIf="imageUrl.search('.mp4') != -1" controls [muted]="true"></video>               
                 <!-- <div class="card__control">
                   <div class="status-green card__category">purchasing !</div>
                   <button class="card__favorite">
