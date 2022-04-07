@@ -856,6 +856,10 @@ button {
 .text-right {
   text-align: right;
 }
+.popup__textarea {
+  height: auto;
+  resize: none;
+}
 
 .futuristic-container {
   @include paddingsInside(20px, 0px);
