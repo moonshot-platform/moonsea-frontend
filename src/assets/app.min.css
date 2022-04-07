@@ -1293,6 +1293,8 @@ body.dark .slick-arrow:hover path {
   transition: transform 0.2s;
   transition: transform 0.2s, -webkit-transform 0.2s;
 }
+
+
 body.dark .select,
 body.dark .nice-select {
   color: white;

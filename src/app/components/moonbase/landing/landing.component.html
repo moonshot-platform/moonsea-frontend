@@ -48,7 +48,7 @@
                         src="{{ item.nftFileUrl01 }}"
                         alt="Collections"
                       />
-                      <video width="320" height="240"  autoplay controls [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+                      <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
                         <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
                       </video>  
                       <img
@@ -76,7 +76,7 @@
                             alt="Collections"
                           />
 
-                          <video width="100" height="100"  autoplay controls [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1">
+                          <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1">
                             <source src="{{ iner.nftFileUrl }}"  type="video/mp4">
                           </video>  
 
@@ -545,7 +545,7 @@
                     src="{{ item.nftFileUrl01 }}"
                     alt="Selection"
                   />
-                  <video width="320" height="380"  autoplay controls [muted]="true" *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
+                  <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
                     <source src="{{  item.nftFileUrl01 }}"  type="video/mp4">
                   </video>
                   <img
@@ -603,7 +603,7 @@
                         src="{{ item01.nftFileUrl }}"
                         alt="Selection"
                       />
-                      <video width="150" height="190"  autoplay controls [muted]="true" *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') != -1">
+                     <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') != -1">
                         <source src="{{  item01.nftFileUrl }}"  type="video/mp4">
                       </video>
         
@@ -643,7 +643,7 @@
                           src="{{ item.nftFileUrl01 }}"
                           alt="Selection"
                         />
-                        <video width="150" height="190"  autoplay controls [muted]="true" *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
+                        <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
                           <source src="{{  item.nftFileUrl01 }}"  type="video/mp4">
                         </video>
                       </div>

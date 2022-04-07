@@ -2,33 +2,106 @@
   <div class="inner">
     <div class="landing-flex">
       <div class="title-container mb50">
-        <h2 class="orbitron p30d24m flex2">
+        <div class="orbitron p30d24m flex2">
           <span class="color-white"> Statistics</span> <br />
-          for all collections
-        </h2>
-        <div>
+          for 
+          <span #searchText class="text-secondary content_editable" data-maxlength="5" data-minlength="5" id="textSearch"
+            (keyup.enter)="searchClient(searchText.innerText)" [innerHTML]="searchKey" contenteditable="true"></span>
+
+            <span class="ml10">
+              <a (click)="clearSearch()" href="javascript:void(0)">
+                <svg
+                version="1.1"
+                id="close"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 24 24"
+                style="
+                  enable-background: new 0 0 24 24;
+                  width: 26px;
+                  height: 26px;
+                "
+                xml:space="preserve"
+              >
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path
+                  class="secondary"
+                  d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
+                  s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
+                  L8.5,12L3.2,6.7C2.9,6.4,2.7,6,2.7,5.6s0.2-0.9,0.5-1.2l1.2-1.2c0.4-0.3,0.8-0.5,1.2-0.5s0.8,0.2,1.2,0.5L12,8.5l5.3-5.3
+                  c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z"
+                ></path>
+              </svg>
+              </a>
+            </span>
+            <br />
+            On the 
+            <span class="color-secondary arrow_down">
+              <!-- all items -->
+              <div class="dropdown pointer">
+                <button (click)="myFunction()" class="dropbtn">
+                  {{ currencySymbol }}
+                </button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a *ngFor="let item of blockchainList"
+                    (click)="getListofCollection01(item.blockchainId,item.networkName)">{{item.networkName}}</a>
+                </div>
+              </div>
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                id="down_arrow"
+                viewBox="0 0 24 24"
+                style="enable-background: new 0 0 24 24"
+                xml:space="preserve"
+              >
+                <style type="text/css">
+                  .secondary {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path
+                  class="secondary"
+                  d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+    s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+                />
+              </svg>
+            </span>
+            blockchain
+
+        </div>
+        <!-- <div>
           <select name=""  [value]="blockchainId" [(ngModel)]="blockchainId" (change)="selectBlockchain(blockchainId)">
             <option *ngFor="let item of blockchainList" [value]="item.blockchainId" >{{item.networkName}}</option>
           </select>
-        </div>
+        </div> -->
         <div class="flex flex2 wrap gap15">
           <div class="box flex-col">
-            <span class="p12">Global Market Cap</span>
-            <h3>{{ getStatsList?.globalMarket }}</h3>
+            <span class="p12 mb10">Global Market Cap</span>
+            <h3 class="mb10">{{ getStatsList?.globalMarket }}</h3>
             <div class="flex justify-center">
               <span class="badge badge-success"> +10% </span>
             </div>
           </div>
           <div class="box flex-col">
-            <span class="p12">7 Days Volume</span>
+            <span class="p12 mb10">7 Days Volume</span>
             <h3>{{ getStatsList?.globalMarket7day }}</h3>
             <div class="flex justify-center">
               <span class="badge badge-danger"> -10% </span>
             </div>
           </div>
           <div class="box flex-col">
-            <span class="p12">Moonshot Price</span>
-            <h3>
+            <span class="p12 mb10">Moonshot Price</span>
+            <h3 class="mb10">
               {{
               (getStatsList?.averagePrice48h -
               getStatsList?.averagePrice24h) /
@@ -44,7 +117,7 @@
 
       <div class="table-responsive">
         <table class="wp100 text-right">
-          <thead class="border-bottom">
+          <thead class="border-bottom-thead">
             <tr>
               <th class="text-left">#</th>
               <th class="text-left">Collection</th>
@@ -57,21 +130,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let items of StatsList; let i = index">
-              <td>
+            <tr class="border-bottom" *ngFor="let items of StatsList; let i = index">
+              <td class="pt30 pb30 text-left">
                 {{ i + 1 }}
               </td>
-              <td>
+              <td class="pt30 pb30 text-left">
                 <a class="flex-col text-primary" [routerLink]="['/collection', items.collectionName]">
                   <span class="orbitron text-secondary p16">
                     {{ items.collectionName }}
                   </span>
                   <span> items - ({{ items.totalNftCount }}) </span></a>
               </td>
-              <td>{{ items.averagePrice24h }} ETH</td>
-              <td>{{ items.marketCap }}</td>
-              <td>{{ items.marketCap7day }}</td>
-              <td>
+              <td class="pt30 pb30">{{ items.averagePrice24h }} ETH</td>
+              <td class="pt30 pb30">{{ items.marketCap }}</td>
+              <td class="pt30 pb30">{{ items.marketCap7day }}</td>
+              <td class="pt30 pb30">
                 <span class="badge" [ngClass]="
                     items.marketCap24h > 0
                       ? 'badge-success'
@@ -81,10 +154,10 @@
                   ">
                   {{ items.marketCap24h }}</span>
               </td>
-              <td>{{ items.floorPrice }} ETH</td>
-              <td>
-                <div class="flex justify-center">
-                  <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+              <td class="pt30 pb30">{{ items.floorPrice }} ETH</td>
+              <td class="pt30 pb30">
+                <div class="flex justify-end">
+                  <svg version="1.1" id="tag" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
                     style="enable-background: new 0 0 40 40" xml:space="preserve">
                     <style type="text/css">
@@ -102,7 +175,7 @@
                   </svg>
 
                   <a (click)="openChart()">
-                    <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                    <svg version="1.1" id="chart" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
                       style="enable-background: new 0 0 40 40" xml:space="preserve">
                       <style type="text/css">
