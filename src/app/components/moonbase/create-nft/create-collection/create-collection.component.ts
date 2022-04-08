@@ -15,24 +15,28 @@ export class CreateCollectionComponent implements OnInit {
   Address : any;
   categotyList: any;
   collectionId :any ;
+  imagePath :any =''; 
+
 
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<CreateCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private createNFT:CreateNftService,
-    private getDataService:GetDataService) { }
-    imagePath =  "";
+    private getDataService:GetDataService) { 
+    }
+   
     imageUrl = "";
     isSuccess = false;
 
   ngOnInit(): void {
+
     this.Address =  localStorage.getItem('address');
     this.getCategotyList();
 
-    if(this.data){
-      console.log(this.data);
+    if(Object.keys(this.data).length > 0){
+      // console.log(Object.keys(this.data).length === 0);
       
       this.collectionId =  this.data.collectionId;
       this.imagePath = this.data.fileUrl;
-      this.addCollectionForm.setValue(
+      this.addCollectionForm.patchValue(
         {
           file:this.imagePath,
           tokenName :this.data.collectionName,

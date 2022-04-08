@@ -2,7 +2,7 @@
   <img *ngIf="imagePath" src="{{imagePath}}" alt="Avatar" />
   <img *ngIf="!imagePath" src="assets/media/images/moonsea/profile.png" alt="Avatar" />
 
-  <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/updateProfile']" class="edit-icon">
+  <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/profile/updateProfile']" class="edit-icon">
     <svg
       version="1.1"
       id="website"

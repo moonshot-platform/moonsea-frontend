@@ -166,9 +166,19 @@
                     </svg>
                   </a>
                   <div id="myDropdown" class="dropdown-content">
-                    <a href="https://www.facebook.com/share.php?u={{correntRoute}}" target="_blank">Facebook</a>
-                    <a href="https://twitter.com/share?text={{collectionDetails?.collectionName}}&url={{correntRoute}}" target="_blank">Twitter</a>
-                    <a (click)="copyMessage(correntRoute)">Copy to clipboard</a>
+                    <a href="https://www.facebook.com/share.php?u={{correntRoute}}" target="_blank">
+                      Facebook <img src="assets/svgs/Share_facebook_hover.svg" class="svg-h01" alt="">
+                    </a>
+                    <a href="https://twitter.com/share?text={{collectionDetails?.collectionName}}&url={{correntRoute}}" target="_blank">
+                      Twitter <img src="assets/svgs/Share_twitter_hover.svg" class="svg-h01" alt="">
+                    </a>
+                    <a href="javascript:void(0)">
+                      Discord <img src="assets/svgs/Share_discord_hover.svg" class="svg-h01" alt="">
+                    </a>
+                    <a (click)="copyMessage(correntRoute)">
+                      Copy to clipboard <img src="assets/svgs/Share_link_hover.svg" class="svg-h01" alt="">
+                    </a>
+
                     <!-- https://discord.com/api/v9/channels/960424552234618895/messages -->
                   </div>
                 </div>

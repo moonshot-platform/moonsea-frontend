@@ -52,6 +52,8 @@ export class NavComponent implements OnInit {
 
     this.cs.getWalletObs().subscribe((data: any) => {
      localStorage.setItem('address',data);
+
+     
       
       try{
       if (data != undefined && this.cs.checkValidAddress(data)) {
@@ -195,13 +197,13 @@ export class NavComponent implements OnInit {
   onselectClient(enterText: any, serachType: any, nftToken: any) {
     this.flag = false;
     if (serachType == 1) {
-      this.route.navigate(['details', nftToken]);
+      this.route.navigate(['/createNFT/details', nftToken]);
     }
     else if (serachType == 2) {
-      this.route.navigate(['profile', enterText]);
+      this.route.navigate(['/profile/profile', enterText]);
     }
     else if (serachType == 4) {
-      this.route.navigate(['profile', enterText]);
+      this.route.navigate(['/profile/profile', enterText]);
     }
     else {
       this.route.navigate(['collection', enterText]);

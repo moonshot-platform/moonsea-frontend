@@ -14,7 +14,7 @@
     </p>
     <a
       href="javascript:void(0)"
-      [routerLink]="['/details', items.nftTokenID]"
+      [routerLink]="['/createNFT/details', items.nftTokenID]"
       class="button text-inherit dark-button mt-auto"
     >
       <span
@@ -40,9 +40,9 @@
     src="{{ items.fileUrl }}"
     *ngIf="items.fileUrl != null && items.fileUrl.search('.mp4') == -1"
     alt="Card preview"
-    [routerLink]="['/details', items.nftTokenID]"
+    [routerLink]="['/createNFT/details', items.nftTokenID]"
   />
-  <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1">
+  <video class="video101"  autoplay controls [muted]="true" *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1">
     <source src="{{ items.fileUrl }}"  type="video/mp4">
   </video> 
   <div class="">
@@ -108,7 +108,7 @@
       <div
         class="card__title text-secondary"
         *ngIf="items.title != null"
-        [routerLink]="['/details', items.nftTokenID]"
+        [routerLink]="['/createNFT/details', items.nftTokenID]"
       >
         {{ items.title }}
       </div>
@@ -132,7 +132,7 @@
 
     <div class="card__line" *ngIf="items.currentSupply != null">
       <div class="card__users">
-        <a [routerLink]="['/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
+        <a [routerLink]="['/profile/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
       </div>
       <div class="text-primary card__counter">
         {{ items.ownerCurrentSupply }} in stock

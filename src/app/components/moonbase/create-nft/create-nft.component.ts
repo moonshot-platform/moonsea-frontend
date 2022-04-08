@@ -146,10 +146,10 @@ export class CreateNftComponent implements OnInit {
   }
 
   createSignleNFT() {
-    this.route.navigate(['createNft/type', 'single']);
+    this.route.navigate(['/createNFT/createNft/type', 'single']);
   }
   createMultipleNFT() {
-    this.route.navigate(['createNft/type', 'multiple']);
+    this.route.navigate(['/createNFT/createNft/type', 'multiple']);
   }
 
   getTokenId() {
@@ -271,6 +271,8 @@ export class CreateNftComponent implements OnInit {
   
           reader.onload = (event) => {
             this.imageUrl = reader.result?.toString() ?? '';
+            // console.log("this.imageUrl===>",this.imageUrl);
+            
           };
           this.createNFTService.uploadFile(file).subscribe(
             (response: any) => {
@@ -349,13 +351,22 @@ export class CreateNftComponent implements OnInit {
   }
 
   openDialogCreateCollection(): void {
-    const dialogRef = this.dialog.open(CreateCollectionComponent, {
-      width: 'auto',
-      data: {},
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.getTokenId();
-    });
+    let isWalletConnected ;
+    isWalletConnected  =  localStorage.getItem('wallet')
+    
+    if(isWalletConnected == 1){
+      const dialogRef = this.dialog.open(CreateCollectionComponent, {
+        width: 'auto',
+        data: {},
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        this.getTokenId();
+      });
+    }else{
+      this.toastr.error('Wallet is not connected....');
+    }
+
+  
   }
 
   openDialogSubmitNFT(data: any): void {

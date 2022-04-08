@@ -59,7 +59,7 @@
         </p>
         <a
           class="item__description owner_name text-primary"
-          [routerLink]="['/collection', data?.tokenName]"
+          [routerLink]="['/collections/collection', data?.tokenName]"
         >
         by
           <span class="p16"> {{ data?.tokenName }}</span>
@@ -80,7 +80,7 @@
             <div class="flex align-center w-100">
               <div
                 class="item__avatar"
-                [routerLink]="['/collection', data?.tokenName]"
+                [routerLink]="['/collections/collection', data?.tokenName]"
               >
         
                 <img *ngIf="data?.collectionFileUrl" src="{{ data?.collectionFileUrl }}" alt="Avatar" />
@@ -103,7 +103,7 @@
                     Highest bid by
                     <a
                       class="mb10"
-                      [routerLink]="['/collection', data?.tokenName]"
+                      [routerLink]="['/collections/collection', data?.tokenName]"
                     >
                       <span class="text-primary p14">{{
                         data?.tokenName
@@ -209,8 +209,11 @@
           </div>
           <!-- <div class="status-purple item__category">unlockable</div> -->
         </div>
-        <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/>
-        <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
+        <!-- <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/> -->
+        
+        <img  [lazyLoad]="data?.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1">
+
+        <video width="320" height="380"  autoplay controls [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
           <source src="{{ data?.fileUrl }}"  type="video/mp4">
         </video>
       </div>

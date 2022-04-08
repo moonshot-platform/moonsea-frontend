@@ -16,12 +16,12 @@ export class ChooseNfttypeComponent implements OnInit {
 
   createSignleNFT()
   {
-    this.route.navigate(['createNft/type','single']);
+    this.route.navigate(['/createNFT/createNft/type','single']);
   }
 
   createMultipleNFT()
   {
-    this.route.navigate(['createNft/type','multiple']);
+    this.route.navigate(['/createNFT/createNft/type','multiple']);
   }
 
 }

@@ -5,6 +5,7 @@ import { ethers } from 'ethers';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { NftInteractionService } from 'src/app/services/nft-interaction.service';
 import { ToastrService } from 'ngx-toastr';
+import { SignBuyerOrder } from 'src/app/model/signBuyerOrder';
 
 @Component({
   selector: 'app-place-bid-modal',
@@ -22,6 +23,11 @@ export class PlaceBidModalComponent implements OnInit {
   serviceFeesVal: number = 0;
   wrongNetwork: boolean = false;
   step = 0;
+
+  public SignBuyerOrderModel: SignBuyerOrder = new SignBuyerOrder();
+
+
+
   balanceDetailsToken!: { balance: any; status: boolean; decimals: any };
 
   constructor(
@@ -134,19 +140,23 @@ export class PlaceBidModalComponent implements OnInit {
     let salt = this.contractService.randomNo();
     // const params2 = ethers.utils.parseEther(amount.toString());
     this.btnText = "Waiting for signature";
-    var signature: any = await this.contractService.signBuyOrder(
-      this.items.nftTokenID,
-      amount,
-      1,
-      this.items.nftAddress,
-      this.items.isMultiple,
-      this.items.ownerAddress,
-      this.items.royalties,
-      this.items.royaltiesOwner,
-      salt,
-      this.items.contractAddress,
-      this.items.referalAddress
-    );
+    this.SignBuyerOrderModel.salt = salt;
+    this.SignBuyerOrderModel.amount = amount;
+    this.SignBuyerOrderModel.nftTokenID = this.items.nftTokenID;
+    this.SignBuyerOrderModel.supply = 1;
+    this.SignBuyerOrderModel.nftAddress = this.items.nftAddress;
+    this.SignBuyerOrderModel.isMultiple =  this.items.isMultiple;
+    this.SignBuyerOrderModel.ownerAddress = this.items.ownerAddress;
+    this.SignBuyerOrderModel.royalties =  this.items.royalties;
+    this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner;
+    this.SignBuyerOrderModel.contractAddress = this.items.contractAddress;
+    this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress;
+
+
+
+
+    // new method
+    var signature: any = await this.contractService.signBuyOrder(this.SignBuyerOrderModel);
       debugger
     if (signature.status) {
       this.btnText = "Submitting data...";

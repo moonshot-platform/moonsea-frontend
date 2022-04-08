@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxUiLoaderModule,  SPINNER } from 'ngx-ui-loader';
 import {MatStepperModule} from '@angular/material/stepper';
+import { SharedModule } from './components/shared/shared.module';
 
 
 
@@ -49,7 +50,8 @@ export class HammerConfig extends HammerGestureConfig {
     SidebarModule,
     NgApexchartsModule,
     NgxUiLoaderModule,
-    MatStepperModule
+    MatStepperModule,
+    SharedModule
   ],
   providers: [
   {

@@ -7,6 +7,7 @@ import { HomeService } from 'src/app/services/home.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { CreateCollectionComponent } from '../../create-nft/create-collection/create-collection.component';
 import { ImportCollectionComponent } from './import-collection/import-collection.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mycollections',
@@ -23,7 +24,7 @@ export class MycollectionsComponent implements OnInit {
   selectedCategory:any;
   constructor(private homeService: HomeService,
      private cs: ContractService, public dialog: MatDialog, private router: Router,private _activatedRoute: ActivatedRoute,
-    private location: Location) {
+    private location: Location, private toastr: ToastrService) {
     _activatedRoute.params.subscribe(
       (params:any) =>{this.id = params['id'];});
 
@@ -116,18 +117,25 @@ export class MycollectionsComponent implements OnInit {
   }
 
   openDialogCreateCollection(): void {
-    const dialogRef = this.dialog.open(CreateCollectionComponent, {
-      width: 'auto',
-      data: {
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    
-    });
+    let isWalletConnected ;
+    isWalletConnected  =  localStorage.getItem('wallet')
+    if( isWalletConnected == 1){
+      const dialogRef = this.dialog.open(CreateCollectionComponent, {
+        width: 'auto',
+        data: {
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+      
+      });
+    }else{
+      this.toastr.error("please connect the wallet...");
+    }
+   
   }
 
   gotoNftDetails(nftAddress:any,tockenId:any){
-    this.router.navigate(['/details', nftAddress, tockenId]);
+    this.router.navigate(['/createNFT/details', nftAddress, tockenId]);
   }
 
   goBack(): void {

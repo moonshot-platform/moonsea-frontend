@@ -39,3 +39,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## for loader install following command
 `npm install --save ngx-ui-loader`
+
+## to install lazy load image dependancy 
+`npm i ng-lazyload-image`

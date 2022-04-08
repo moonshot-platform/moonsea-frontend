@@ -11,6 +11,8 @@ export class CollectionCardComponent implements OnInit {
   
    @Input() item :any ;
    correntRoute:any;
+   defaultImage = 'https://www.placecage.com/1000/1000';
+   image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
   constructor(private router :Router) { }
 
   ngOnInit(): void {
@@ -21,6 +23,6 @@ export class CollectionCardComponent implements OnInit {
 
 
   gotoNftDetails(nftAddress:any,nftTokenID:any){
-    this.router.navigate(['/details', nftAddress, nftTokenID]);
+    this.router.navigate(['/createNFT/details', nftAddress, nftTokenID]);
   }
 }

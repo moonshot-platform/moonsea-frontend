@@ -91,7 +91,7 @@ getCollectionList() {
 
 gotoNftDetails(nftAddress: any, tockenId: any) {
 
-  this.router.navigate(['/details', nftAddress, tockenId]);
+  this.router.navigate(['/createNFT/details', nftAddress, tockenId]);
 }
 
 }

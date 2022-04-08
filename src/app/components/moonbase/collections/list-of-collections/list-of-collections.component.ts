@@ -41,7 +41,7 @@ export class ListOfCollectionsComponent implements OnInit {
   isShowLoader: boolean = false;
 
   collectionlist: any = [];
-  searchKey: any = '';
+  searchKey: any = 'all collections';
   minPrice: any = 0;
   maxPrice: any = 0;
   categotyList :any = [];
@@ -88,7 +88,13 @@ export class ListOfCollectionsComponent implements OnInit {
   getListofCollection() {
     this.isShowLoader = true;
     this.ngxService.start();
-    let url ="home/getCollectionListAll?pageNo="+this.pageNo+"&PageSize="+this.PageSize+"&searchText="+this.searchKey+"&blockchainId="+this.blockchainId+"&categoryId="+this.categoryId;
+    let url;
+    if(this.searchKey.toLowerCase() == 'all collections'){
+       url ="home/getCollectionListAll?pageNo="+this.pageNo+"&PageSize="+this.PageSize+"&searchText="+''+"&blockchainId="+this.blockchainId+"&categoryId="+this.categoryId;
+    }else{
+       url ="home/getCollectionListAll?pageNo="+this.pageNo+"&PageSize="+this.PageSize+"&searchText="+this.searchKey+"&blockchainId="+this.blockchainId+"&categoryId="+this.categoryId;
+    }
+   
 
     this.dataservice.getRequest(url).subscribe(
       (response: any) => {
@@ -142,7 +148,6 @@ export class ListOfCollectionsComponent implements OnInit {
 
   arr = [];
   search() {
-
     if (this.searchKey.length >= 2) {
       this.pageNo = 0;
       this.arr = [];
@@ -206,7 +211,8 @@ export class ListOfCollectionsComponent implements OnInit {
   }
   clearSearch(){
     this.searchKey = 'all collections';
-    document.getElementById("textSearch").innerHTML = "searched word";
+    document.getElementById("textSearch").innerHTML = "all collections";
+    this.getListofCollection();
   }
 
   getCategotyList()
@@ -234,6 +240,6 @@ export class ListOfCollectionsComponent implements OnInit {
 
   gotoNftDetails(nftAddress: any, id: any) {
 
-    this.router.navigate(['/details', nftAddress, id]);
+    this.router.navigate(['/createNFT/details', nftAddress, id]);
   }
 }
