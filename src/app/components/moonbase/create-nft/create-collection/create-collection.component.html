@@ -38,7 +38,7 @@
           (ngSubmit)="reportPost.valid && saveCollection(reportPost.value)"
         >
 
-        <div class="flex">
+        <div class="flex gap">
         <div class="flex1">
           <div class="popup__field mb20">
             <!-- {{ imagePath.length }} -->
@@ -103,7 +103,7 @@
                   </g>
                 </svg>
                 <div class="upload__format">
-                  PNG, GIF, WEBP, MP4 or MP3. (Max 1MB).
+                 Drop a PNG, GIF, WEBP or MP4. (Max 1MB).
                 </div>
               </div>
               <div
@@ -124,7 +124,9 @@
 
         <div class="flex1">
           <div class="popup__field mb20">
-            <div class="popup__col mb10">Collection name</div>
+            <div class="popup__col mb10">Collection Details</div>
+
+            <div class="mb10 p12">Collection name</div>
 
             <div class="field__wrap">
               <input
@@ -150,14 +152,9 @@
           </div>
 
           <div class="popup__field mb20">
-            <div class="popup__col mb10">Collection Description</div>
+            <div class="popup__col mb10 p12">Collection Description</div>
             <div class="field__wrap">
-              <input
-                class="popup__input"
-                formControlName="description"
-                name="newPrice"
-                type="text"
-              />
+              <textarea rows="5" name="newPrice" formControlName="description" placeholder="Max. 350 characters" class="popup__input wp100 popup__textarea" cols=""></textarea>
               <div
                 *ngIf="
                   formControls.description.invalid &&
@@ -186,7 +183,7 @@
                   formControls.symbol.invalid &&
                   (formControls.symbol.touched || reportPost.submitted)
                 "
-                class="p12 w-normal mt10 mb10"
+                class="p12 w-normal mt10 mb10 error"
               >
                 Symbol required
               </div>

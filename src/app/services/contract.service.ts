@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PricingApiService } from './pricing-api.service';
 import { ToastrService } from 'ngx-toastr';
+import { exchangeToken, SignBuyerOrder, SignSellOrder } from '../model/signBuyerOrder';
 
 const nft721Abi = require('./../../assets/abis/nft721.json');
 const nft1155Abi = require('./../../assets/abis/nft1155.json');
@@ -504,12 +505,14 @@ export class ContractService {
    * 
    * The method is used for accept bid and continues for further now and above method signSellOrder() not
    */
-  async signSellOrder01(nftId: number, price: number, supply: number, nftAddress: string, isMultiple: boolean, salt: any,
-    royalties: any = 0, royaltiesOwner: any, tokenAddress: any, referralAddress: any) {
+ 
+
+
+      async signSellOrder01(signSellOrder:SignSellOrder) {
     try {
       debugger
-      console.log(nftAddress);
-      const params2 = ethers.utils.parseEther(price.toString());
+     
+      const params2 = ethers.utils.parseEther(signSellOrder.price.toString());
       var abiCoder = new ethers.utils.AbiCoder;
 
       var a2 = abiCoder.encode(
@@ -519,24 +522,24 @@ export class ContractService {
         [
           [
             this.userAddress,
-            salt,
+            signSellOrder.salt,
             [
-              nftAddress,
-              nftId.toString(),
-              isMultiple ? 2 : 3
+              signSellOrder.nftAddress,
+              signSellOrder.nftId.toString(),
+              signSellOrder.isMultiple ? 2 : 3
             ],
             [
-              tokenAddress,
+              signSellOrder.contractAddress,
               '0',
-              ((tokenAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)
+              ((signSellOrder.contractAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)
             ],
             [
-              royaltiesOwner,
-              royalties * 100
+              signSellOrder.royaltiesOwner,
+              signSellOrder.royalties * 100
             ],
-            referralAddress
+            signSellOrder.referralAddress
           ],
-          supply,
+          signSellOrder.quantity,
           params2,
           this.pricingDetails.serviceFees * 100
         ],
@@ -656,71 +659,39 @@ export class ContractService {
    * @param buyer 
    * @returns 
    */
-  async exchangeToken01(nftId: Number, supply: number, nftAddress: string, signature: string, ownerAddress: string, isMultiple: string, total: string, signaturePrice: any, quantity: any, tokenAddress: any, royalities: any, royaltiesOwner: any, buyerSignature: any, salt: any, referralAddress: any, buyer: any = this.userAddress) {
-    /**********
-     * 
-     *  enum AssetType {ETH, ERC20, ERC1155, ERC721, ERC721Deprecated}
   
-      struct Asset {
-          address token;
-          uint tokenId;
-          AssetType assetType;
-      }
   
-      struct OrderKey {
-          address owner;
-          uint salt;
+    async exchangeToken01(exchangeToken:exchangeToken) {
   
-          Asset sellAsset;
-  
-          Asset buyAsset;
-      }
-  
-      struct Order {
-          OrderKey key;
-  
-          uint selling;
-          uint buying;
-  
-          uint sellerFee;
-      }
-  
-      struct Sig {
-          uint8 v;
-          bytes32 r;
-          bytes32 s;
-      }
-     */
-
-    const params2 = ethers.utils.parseEther((signaturePrice).toString());
-    const priceB = BigNumber.from(params2).mul(quantity).div(supply);
-    var spliSign = ethers.utils.splitSignature(signature);
-    if (buyerSignature == "-1") {
-      buyerSignature = signature;
+    const params2 = ethers.utils.parseEther((exchangeToken.signaturePrice).toString());
+    const priceB = BigNumber.from(params2).mul(exchangeToken.quantity).div(exchangeToken.supply);
+    var spliSign = ethers.utils.splitSignature(exchangeToken.signature);
+    if (exchangeToken.buyerSignature == "-1") {
+      exchangeToken.buyerSignature = exchangeToken.signature;
     }
-    var spliSignBuyer = ethers.utils.splitSignature(buyerSignature);
+    var spliSignBuyer = ethers.utils.splitSignature(exchangeToken.buyerSignature);
 
     let Order = [
       [
-        ownerAddress,//owner
-        salt,//salt
+        exchangeToken.ownerAddress,//owner
+        exchangeToken.salt,//salt
         [
-          nftAddress,//sellAsset.token
-          (nftId).toString(),//sellAsset.tokenId
-          isMultiple ? 2 : 3 //sellAsset.assetType
+          exchangeToken.nftAddress,//sellAsset.token
+          (exchangeToken.nftTokenID).toString(),//sellAsset.tokenId
+          exchangeToken.isMultiple ? 2 : 3 //sellAsset.assetType
         ],
         [
-          tokenAddress,//buyAsset.token
+          exchangeToken.tokenAddress,//buyAsset.token
           '0',//buyAsset.tokenId
-          ((tokenAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)//buyAsset.assetType
+          ((exchangeToken.tokenAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)//buyAsset.assetType
         ],
         [
-          royaltiesOwner,
-          royalities * 100
+          exchangeToken.royaltiesOwner,
+          exchangeToken.royalties * 100
         ],
-        referralAddress
+        exchangeToken.referalAddress
       ],
-      supply,//selling
+      exchangeToken.supply,//selling
       params2,//buying
       this.pricingDetails.serviceFees * 100//sellerFee
     ];
@@ -734,16 +705,16 @@ export class ContractService {
         [
           Order,
           priceB,
-          quantity
+          exchangeToken.quantity
         ],//Buy Order
         [
           spliSignBuyer.v,
           spliSignBuyer.r,
           spliSignBuyer.s
         ],
-        buyer,//buyer
+        this.userAddress,//buyer
         {
-          value: ((tokenAddress == '0x0000000000000000000000000000000000000000')) ? priceB : 0
+          value: ((exchangeToken.tokenAddress == '0x0000000000000000000000000000000000000000')) ? priceB : 0
         })
 
       return { hash: promise, status: true };
@@ -759,9 +730,12 @@ export class ContractService {
   }
 
 
-  async signBuyOrder(nftId: number, price: number, supply: number, nftAddress: string, isMultiple: boolean, ownerAddress: any, royalties: any, royaltiesOwner: any, salt: any, tokenAddress: any, referralFee: any) {
-    try {
-      const params2 = ethers.utils.parseEther(price.toString());
+    async signBuyOrder(model: SignBuyerOrder) { 
+    
+  
+    
+  try {
+      const params2 = ethers.utils.parseEther(model.amount.toString());
       var abiCoder = new ethers.utils.AbiCoder;
       var a2 = abiCoder.encode(
         [
@@ -770,34 +744,34 @@ export class ContractService {
         [
           [
             [
-              ownerAddress,
-              salt,
+              model.ownerAddress,
+              model.salt,
               [
-                nftAddress,
-                nftId.toString(),
-                isMultiple ? 2 : 3
+                model.nftAddress,
+                model.nftTokenID.toString(),
+                model.isMultiple ? 2 : 3
               ],
               [
-                tokenAddress,
+                model.contractAddress,
                 '0',
-                ((tokenAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)
+                ((model.contractAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)
               ],
               [
-                royaltiesOwner,
-                royalties * 100
+                model.royaltiesOwner,
+                model.royalties * 100
               ],
-              ethers.utils.isAddress(referralFee) ? referralFee : '0x0000000000000000000000000000000000000000'
+              ethers.utils.isAddress(model.referalAddress) ? model.referalAddress : '0x0000000000000000000000000000000000000000'
             ],
-            supply,
+            model.supply,
             params2,
             this.pricingDetails.serviceFees * 100
           ],
           params2,
-          supply
+          model.supply
         ],
       );
       debugger;
-      console.log(ethers.utils.isAddress(referralFee));
+      console.log(ethers.utils.isAddress( model.referalAddress));
       var a = ethers.utils.keccak256(a2).substring(2);
 
       var signature = await this.signer.signMessage(a);

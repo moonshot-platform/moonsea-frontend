@@ -192,7 +192,7 @@ export class ModalForCreateNftComponent implements OnInit {
       this.dialogRef.close(true);
      
       if(!this.rejectedMetamask){
-        this.router.navigate(['profile',this.connectedAddress,'tab','created'])
+        this.router.navigate(['/profile',this.connectedAddress,'tab','created'])
       }
     }
   }

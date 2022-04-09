@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { environment } from 'src/environments/environment';
+import { exchangeToken, SignSellOrder } from 'src/app/model/signBuyerOrder';
 
 @Component({
   selector: 'app-accept-bid-popup',
@@ -22,6 +23,10 @@ export class AcceptBidPopupComponent implements OnInit {
   wrongNetwork: boolean = false;
   shareUrl = "";
   txnHash: any;
+
+  exchangeTokenObj:exchangeToken =  new exchangeToken();
+  signSellOrder : SignSellOrder = new SignSellOrder()
+
   constructor(
     private contractService: ContractService,
     @Inject(MAT_DIALOG_DATA) public items: any,
@@ -83,40 +88,42 @@ export class AcceptBidPopupComponent implements OnInit {
 
  
     let salt = this.items.data.salt;
-   
+    this.signSellOrder.nftId =  this.nftDetails.nftId,
+    this.signSellOrder.price =   this.items.data.price,
+    this.signSellOrder.quantity =  this.items.data.quantity,
+    this.signSellOrder.nftAddress =   this.nftDetails.nftAddress,
+    this.signSellOrder.isMultiple = this.nftDetails.isMultiple,
+    this.signSellOrder.salt = salt
+    this.signSellOrder.royalties =  this.items.nftDetails.royalties,
+    this.signSellOrder.royaltiesOwner = this.items.nftDetails.royaltiesOwner,
+    this.signSellOrder.contractAddress =  this.items.nftDetails.contractAddress,
+    this.signSellOrder.referralAddress =  this.items.data.referralAddress
+
+
+
+
     let sign = await this.contractService.signSellOrder01(
-      this.nftDetails.nftId,
-      this.items.data.price,
-      this.items.data.quantity,
-      this.nftDetails.nftAddress,
-      this.nftDetails.isMultiple,
-      salt,
-      this.items.nftDetails.royalties,
-      this.items.nftDetails.royaltiesOwner,
-      this.items.nftDetails.contractAddress,
-      this.items.data.referralAddress
+      this.signSellOrder
     );
    
-    
+    this.exchangeTokenObj.nftTokenID =   this.nftDetails.nftId;
+    this.exchangeTokenObj.supply =  this.items.supply;
+    this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
+    this.exchangeTokenObj.signature =   sign.signature;
+    this.exchangeTokenObj.ownerAddress = this.contractService.userAddress;
+    this.exchangeTokenObj.isMultiple = this.nftDetails.isMultiple;
+    this.exchangeTokenObj.total = this.total;
+    this.exchangeTokenObj.signaturePrice = this.signaturePrice;
+    this.exchangeTokenObj.quantity = this.items.data.quantity,
+    this.exchangeTokenObj.tokenAddress = this.items.nftDetails.contractAddress
+    this.exchangeTokenObj.royalties = this.items.nftDetails.royalties;
+    this.exchangeTokenObj.royaltiesOwner =this.items.nftDetails.royaltiesOwner;
+    this.exchangeTokenObj.buyerSignature = this.items.data.signature;
+    this.exchangeTokenObj.salt = salt;
+    this.exchangeTokenObj.referalAddress = this.items.data.referralAddress;
 
     var status: any = await this.contractService.exchangeToken01(
-      this.nftDetails.nftId,
-      this.items.data.quantity,
-        this.nftDetails.nftAddress,
-         sign.signature,
-          this.contractService.userAddress,
-          this.nftDetails.isMultiple,
-          this.total,
-          this.signaturePrice,
-          1,
-          this.items.nftDetails.contractAddress,
-          this.items.nftDetails.royalties,
-          this.items.nftDetails.royaltiesOwner,
-          this.items.data.signature,
-          salt,
-          this.items.data.referralAddress,
-          this.items.data.walletAddress
-    );
+      this.exchangeTokenObj);
     // console.log(status);
 
     if (status.status) {

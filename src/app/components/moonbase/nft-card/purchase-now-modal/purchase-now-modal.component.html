@@ -78,7 +78,8 @@
             <div class="popup__field mb20">
               <div class="popup__col mb10">Quantity</div>
               <div class="popup__wrap">
-                <input class="popup__input" type="number" value="1" name="quantity" #quantity (keyup)="calculatePriceQuantity(quantity.value)" placeholder="Enter quantity" required>
+                <input class="popup__input" type="number" value="1" name="quantity" #quantity (keyup)="calculatePriceQuantity(quantity.value)" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter quantity" required>
               </div>
               <!-- <div *ngIf="isSubmitted && formControls.quantity.errors" class="help-block _error">
                   <div *ngIf="formControls.quantity.errors.required" class="text-danger">Quantity is required</div>

@@ -12,16 +12,14 @@ import { CreateNftComponent } from './create-nft/create-nft.component';
 import { DetailsComponent } from './details/details.component';
 import { HowItWorkComponent } from './how-it-work/how-it-work.component';
 import { LandingComponent } from './landing/landing.component';
-import { MoonbaseComponent } from './moonbase.component';
 import { NftDetailsPageComponent } from './nft-details-page/nft-details-page.component';
-import { RatesComponent } from './rates/rates.component';
 import { SearchCollectionComponent } from './search-collection/search-collection.component';
 import { StatsComponent } from './stats/stats.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
-
 const routes: Routes = [
+  
   {
     path: 'activity',
     component: ActivityComponent,
@@ -47,10 +45,10 @@ const routes: Routes = [
     component: CollectiondetailsComponent,
   },
   {
-    path :'choose-collection',
-    component:ChooseCollectionComponent
+    path: 'choose-collection',
+    component: ChooseCollectionComponent,
   },
-  {path : 'searchcollection',component:SearchCollectionComponent},
+  { path: 'searchcollection', component: SearchCollectionComponent },
   { path: 'updateProfile', component: UpdateProfileComponent },
   { path: 'mycollections', component: MycollectionsComponent },
   { path: 'createNft', component: CreateNftComponent },
@@ -67,12 +65,13 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   {
     path: '',
-    component: LandingComponent
+    component: LandingComponent,
   },
   {
-    path : 'admin',
-    loadChildren : () => import('./admin/admin.module').then(m => m.AdminModule),
-  }
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminModule),
+  },
   // {
   //   path: MoonbaseComponent.routeName,
   //   component: MoonbaseComponent,
@@ -100,7 +99,7 @@ const routes: Routes = [
   //     // },
   //   ],
   // },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

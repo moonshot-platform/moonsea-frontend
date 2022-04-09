@@ -42,7 +42,7 @@
     alt="Card preview"
     [routerLink]="['/details', items.nftTokenID]"
   />
-  <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1">
+  <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1">
     <source src="{{ items.fileUrl }}"  type="video/mp4">
   </video> 
   <div class="">
