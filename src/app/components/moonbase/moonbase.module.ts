@@ -92,6 +92,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MycollectionsComponent } from './collections/mycollections/mycollections.component';
 import { CollectionCardComponent } from './collection-card/collection-card.component';
+import { CreatorComponent } from './creator/creator.component';
 
 
 
@@ -162,6 +163,7 @@ import { CollectionCardComponent } from './collection-card/collection-card.compo
     BetaversionModalComponent,
     ImportCollectionComponent,
     CollectionCardComponent,
+    CreatorComponent,
   ],
   imports: [
     BrowserAnimationsModule ,

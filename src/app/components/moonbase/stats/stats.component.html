@@ -50,7 +50,7 @@
                 </button>
                 <div id="myDropdown" class="dropdown-content">
                   <a *ngFor="let item of blockchainList"
-                    (click)="getListofCollection01(item.blockchainId,item.networkName)">{{item.networkName}}</a>
+                    (click)="selectBlockchain(item.blockchainId,item.networkName)">{{item.networkName}}</a>
                 </div>
               </div>
               <svg

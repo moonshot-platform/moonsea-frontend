@@ -1,0 +1,62 @@
+<div
+class="followers__item"
+*ngFor="
+  let item of listItemsFollowing;
+  let i = index
+"
+>
+<div class="followers__user">
+  <div class="followers__avatar">
+    <a
+      class="orbitron text-secondary p16 overflow-ellipsis"
+      [routerLink]="[
+        'profile',
+        item.name,
+        'tab',
+        'created'
+      ]"
+    >
+    <app-avatar
+      [imagePath]="item.profilePic"
+    ></app-avatar>
+    </a>
+
+   
+  </div>
+
+  <div
+    class="follower-info flex-col text-primary"
+  >
+    <a
+      class="orbitron text-secondary p16 overflow-ellipsis author"
+      [routerLink]="[
+        '/profile',
+        item.name,
+        'tab',
+        'created'
+      ]"
+    >
+      {{ item.name }}
+    </a>
+    <p>{{ item.followCount }} followers</p>
+    <button
+      *ngIf="item.isFollowByYou"
+      class="mt20 button button-stroke bg-primary"
+      (click)="
+        unfollow(item.following, i + 1, 1)
+      "
+    >
+      Unfollow
+    </button>
+    <button
+      *ngIf="!item.isFollowByYou"
+      class="mt20 button button-stroke"
+      (click)="
+        followUser(item.following, i + 1, 1)
+      "
+    >
+      follow
+    </button>
+  </div>
+</div>
+</div>

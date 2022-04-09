@@ -30,7 +30,7 @@ export class DetailsComponent implements OnInit {
   currentSupply: any;
   propertyS: any;
   isConnected = false;
-  ownersData: any;
+  ownersData: any = [];
   indexForPurchase: number = -1;
   indexForPlaceBid: any = -1;
   apiDataLoaded: boolean = false;
@@ -214,8 +214,10 @@ export class DetailsComponent implements OnInit {
       .getListOwners(this.ID, this.Address, this.nftAddress)
       .subscribe((response: any) => {
         if (response.isSuccess) {
-          this.ownersData = response.data;
 
+          this.ownersData = response.data;
+          
+          
           let i = 0;
           this.ownersData.forEach((value: any, index: any) => {
             // console.log(value.typeOfSale)
@@ -228,6 +230,9 @@ export class DetailsComponent implements OnInit {
               this.indexForPlaceBid = index;
             }
           });
+          this.apiDataLoaded = true;
+
+
         }
       });
   }
