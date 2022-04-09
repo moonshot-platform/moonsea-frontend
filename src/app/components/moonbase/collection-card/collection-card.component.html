@@ -9,11 +9,24 @@
       src="{{ item.nftFileUrl01 }}"
       alt="Collections"
     /> -->
-    <img  [lazyLoad]="item.nftFileUrl01 " [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1">
-  
-    <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
-      <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
-    </video>             
+    <img
+      [lazyLoad]="item.nftFileUrl01"
+      [defaultImage]="'assets/icons/5904642857251113741.gif'"
+      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
+    />
+
+    <video
+      class="video"
+      loop
+      autoplay
+      playsinline
+      oncanplay="this.play()"
+      onloadedmetadata="this.muted = true"
+      [muted]="true"
+      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1"
+    >
+      <source src="{{ item.nftFileUrl01 }}" type="video/mp4" />
+    </video>
     <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
   </div>
 
@@ -29,17 +42,41 @@
           alt="Collections"
           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
         /> -->
-        <img [lazyLoad]="inneritem.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" 
-        *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1">
-        <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1">
-          <source src="{{ inneritem.nftFileUrl }}"  type="video/mp4">
+        <img
+          [lazyLoad]="inneritem.nftFileUrl"
+          [defaultImage]="'assets/icons/5904642857251113741.gif'"
+          (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
+          *ngIf="
+            inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1
+          "
+        />
+        <video
+          class="video"
+          loop
+          autoplay
+          playsinline
+          oncanplay="this.play()"
+          onloadedmetadata="this.muted = true"
+          *ngIf="
+            inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1
+          "
+        >
+          <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
         </video>
       </ng-container>
     </div>
-    <div   class="thumb__preview gap15" *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1">
+    <div
+      class="thumb__preview gap15"
+      *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1"
+    >
       <div class="content-overlay"></div>
       <!-- <img  src="{{ item.nftFileUrl01 }}" *ngIf="item.nftFileUrl01" alt=""  (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" /> -->
-      <img  [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01" alt=""  (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" />
+      <img
+        [lazyLoad]="item.nftFileUrl01"
+        *ngIf="item.nftFileUrl01"
+        alt=""
+        (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)"
+      />
       <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
     </div>
   </div>
@@ -55,24 +92,29 @@
       <div class="collections__user">
         <div class="text-primary collections__author">
           By
-          <ng-container *ngIf="(item?.name ?? item?.customeUrl)">
+          <ng-container *ngIf="item?.name ?? item?.customeUrl">
             <span [routerLink]="['/profile', item.ownerWalletAddress]">
               {{ item?.name ?? item?.customeUrl }}
             </span>
           </ng-container>
           <ng-container *ngIf="!(item?.name ?? item?.customeUrl)">
-             <span [routerLink]="['/profile', item.ownerWalletAddress]">unknown</span>
+            <span [routerLink]="['/profile', item.ownerWalletAddress]"
+              >unknown</span
+            >
           </ng-container>
         </div>
       </div>
-      <div class="collections__counter" [ngClass]="{'d-none': correntRoute == '/collections'}">
+      <div
+        class="collections__counter"
+        [ngClass]="{ 'd-none': correntRoute == '/collections' }"
+      >
         <span class="text-primary">{{ item.totalNftCount }} items</span>
       </div>
     </div>
   </div>
   <div
     class="flex flex100 justify-space-between text-center mt10 border-top"
-    *ngIf="correntRoute == '/searchcollection'"
+    *ngIf="correntRoute.indexOf('/searchcollection') != -1"
   >
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">items</p>
@@ -85,23 +127,55 @@
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Floor price</p>
       <p class="p18 pt10 flex align-center">
-        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" style="enable-background:new 0 0 35 40;width: 30px;" xml:space="preserve">
+        <svg
+          version="1.1"
+          id="Laag_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 35 40"
+          style="enable-background: new 0 0 35 40; width: 30px"
+          xml:space="preserve"
+        >
           <style type="text/css">
-            .st0{fill:#8C8C8C !important;}
-            .st1{fill:#404040 !important;}
-            .st2{fill:#333333 !important;}
+            .svg-grey {
+              fill: #8c8c8c !important;
+            }
+            .svg-grey-light {
+              fill: #404040 !important;
+            }
+            .svg-grey-dark {
+              fill: #333333 !important;
+            }
           </style>
           <g>
-            <polygon class="st0" points="20,8 12.6,20.2 20,16.8 	"></polygon>
-            <polygon class="st1" points="20,16.8 12.6,20.2 20,24.6 	"></polygon>
-            <polygon class="st2" points="27.4,20.2 20,8 20,16.8 	"></polygon>
+            <polygon
+              class="svg-grey"
+              points="20,8 12.6,20.2 20,16.8 	"
+            ></polygon>
+            <polygon
+              class="svg-grey-light"
+              points="20,16.8 12.6,20.2 20,24.6 	"
+            ></polygon>
+            <polygon
+              class="svg-grey-dark"
+              points="27.4,20.2 20,8 20,16.8 	"
+            ></polygon>
             <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
-            <polygon class="st0" points="12.6,21.6 20,32 20,26 	"></polygon>
-            <polygon class="st2" points="20,32 27.4,21.6 20,26 	"></polygon>
+            <polygon
+              class="svg-grey-light"
+              points="12.6,21.6 20,32 20,26 	"
+            ></polygon>
+            <polygon
+              class="svg-grey-dark"
+              points="20,32 27.4,21.6 20,26 	"
+            ></polygon>
           </g>
-          </svg>
+        </svg>
 
-        {{ item.floorPrice | number : "1.2-3" }}</p>
+        {{ item.floorPrice | number: "1.2-3" }}
+      </p>
     </div>
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Volume</p>

@@ -207,9 +207,9 @@ export class SearchCollectionComponent implements OnInit {
     // this.dicoverCollectionList = []
     let url ;
     if(this.searchKey.toLowerCase() == 'all'){
-       url = 'home/getCollectionSearchResult?searchText=' + '' + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+       url = 'home/getCollectionSearchResult?searchText=' + '' + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
     }else{
-     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
     } 
 
    

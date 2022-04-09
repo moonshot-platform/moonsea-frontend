@@ -228,9 +228,6 @@ input.search_word {
   font-size: 14px;
   font-weight: $semi-bold;
   text-transform: lowercase;
-  &::first-letter {
-    text-transform: capitalize;
-  }
   &:last-child {
     border-bottom: none;
   }

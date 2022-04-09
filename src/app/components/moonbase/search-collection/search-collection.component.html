@@ -52,7 +52,7 @@
             <div id="myDropdown3" class="dropdown-content">
              <a (click)="getRegarding('collections')">collections</a>
              <a (click)="getRegarding('items')">items</a>
-             <a (click)="getRegarding('creater')">creater</a>
+             <a (click)="getRegarding('creater')">creator</a>
             </div>
           </div>
           <svg
@@ -78,46 +78,12 @@
               />
             </svg>
         </span>
-
-
-
-        On the
-        <span class="color-secondary arrow_down">
-          <!-- all items -->
-          <div class="dropdown pointer">
-            <button (click)="myFunction()" class="dropbtn">{{currencySymbol}}</button>
-            <div id="myDropdown" class="dropdown-content">
-              <a *ngFor="let item of blockchainList" (click)="getListofCollection01(item.blockchainId,item.networkName,'col')"  >{{item.networkName}}</a>
-            </div>
-          </div>
-          <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              id="down_arrow"
-              viewBox="0 0 24 24"
-              style="enable-background: new 0 0 24 24"
-              xml:space="preserve"
-            >
-              <style type="text/css">
-                .st0 {
-                  fill: #c5e3ec;
-                }
-              </style>
-              <path
-                class="st0"
-                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
-	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
-              />
-            </svg>
-        </span>
-        blockchain containing
+  
+         containing
         <span class="color-secondary arrow_down">
           <!-- all categories -->
           <div class="dropdown pointer">
-            <button (click)="myFunction1()" class="dropbtn">
+            <button (click)="myFunction1()" class="dropbtn text-lowercase">
               {{categoryName}}
             </button>
             <div id="myDropdown1" class="dropdown-content" >
@@ -147,6 +113,40 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
           </svg>
           </div>
         </span>
+
+        On the
+        <span class="color-secondary arrow_down">
+          <!-- all items -->
+          <div class="dropdown pointer">
+            <button (click)="myFunction()" class="dropbtn text-uppercase">{{currencySymbol}}</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a class="text-capitalize" *ngFor="let item of blockchainList" (click)="getListofCollection01(item.blockchainId,item.networkName,'col')"  >{{item.networkName}}</a>
+            </div>
+          </div>
+          <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              id="down_arrow"
+              viewBox="0 0 24 24"
+              style="enable-background: new 0 0 24 24"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+              />
+            </svg>
+        </span>
+        blockchain
       
       </p>
     </div>
@@ -160,7 +160,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
     <div class="flex justify-space-between flex100 gap remove__flex">
       <div class="flex mw-30" *ngIf="regardingDropdown != 'creater'">
         <div class="search-input">
-          <span class="max-price">Min Price:</span>
+          <span class="max-price">Volume Min:</span>
           <input
             type="text"
             (keyup.enter)="filter001()"
@@ -170,7 +170,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
           />
         </div>
         <div class="search-input">
-          <span class="max-price">Max Price:</span>
+          <span class="max-price">Volume Max:</span>
           <input
             type="text"
             (keyup.enter)="filter001()"
@@ -296,7 +296,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
       </div>
     </section>
   </div>
-
+ 
   <div *ngIf="regardingDropdown == 'creater'">
     <app-creator [listItemsFollowing]="createrList"></app-creator>
   </div>
