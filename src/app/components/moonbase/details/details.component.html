@@ -209,7 +209,10 @@
           </div>
           <!-- <div class="status-purple item__category">unlockable</div> -->
         </div>
-        <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/>
+        <!-- <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/> -->
+        
+        <img  [lazyLoad]="data?.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1">
+
         <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
           <source src="{{ data?.fileUrl }}"  type="video/mp4">
         </video>
@@ -424,8 +427,9 @@
     </a>
   </div>
 
+  <!-- *ngIf="ownersData?.length > 0 && apiDataLoaded" -->
   <app-nft-detail-list-tabs
-    *ngIf="ownersData?.length > 0 && apiDataLoaded"
+    
     [ID]="ID"
     [nftAddress]="nftAddress"
     [items]="data"

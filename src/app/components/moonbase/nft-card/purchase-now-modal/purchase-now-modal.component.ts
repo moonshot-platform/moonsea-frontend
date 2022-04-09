@@ -8,6 +8,7 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { NftInteractionService } from 'src/app/services/nft-interaction.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { exchangeToken } from 'src/app/model/signBuyerOrder';
 
 @Component({
   selector: 'app-purchase-now-modal',
@@ -29,6 +30,11 @@ export class PurchaseNowModalComponent implements OnInit {
   serviceFeesPer: number = 2.5;
   wrongNetwork: boolean = false;
   shareUrl = location.origin + '/details/' + this.items.nftTokenID;
+
+
+   exchangeTokenObj:exchangeToken =  new exchangeToken();
+
+
   constructor(private contractService: ContractService, @Inject(MAT_DIALOG_DATA) public items: any,
     private toastr: ToastrService, private nftInteractionService: NftInteractionService,
     private dialogRef: MatDialogRef<PlaceBidModalComponent>, private pricingDetails: PricingApiService
@@ -77,6 +83,7 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   gotoNextStep(temp: number, quantity: any) {
+    debugger
     if (temp == 2) {
       if (this.items.supply < quantity) {
         return false;
@@ -108,22 +115,24 @@ export class PurchaseNowModalComponent implements OnInit {
 
 
   async exchangeToken() {
-    var status: any = await this.contractService.exchangeToken01(
-      this.items.nftTokenID,
-      this.items.supply,
-      this.items.nftAddress,
-      this.items.signature,
-      this.items.ownerAddress,
-      this.items.isMultiple,
-      this.total,
-      this.signaturePrice,
-      this.quantity,
-      "0x0000000000000000000000000000000000000000",
-      this.items.royalties,
-      this.items.royaltiesOwner,
-      "-1",
-      this.items.salt,
-      this.items.referalAddress);
+
+    this.exchangeTokenObj.nftTokenID =  this.items.nftTokenID;
+    this.exchangeTokenObj.supply =  this.items.supply;
+    this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
+    this.exchangeTokenObj.signature =   this.items.signature;
+    this.exchangeTokenObj.ownerAddress = this.items.ownerAddress;
+    this.exchangeTokenObj.isMultiple = this.items.isMultiple;
+    this.exchangeTokenObj.total = this.total;
+    this.exchangeTokenObj.signaturePrice = this.signaturePrice;
+    this.exchangeTokenObj.quantity = this.quantity;
+    this.exchangeTokenObj.tokenAddress = "0x0000000000000000000000000000000000000000"
+    this.exchangeTokenObj.royalties = this.items.royalties;
+    this.exchangeTokenObj.royaltiesOwner = this.items.royaltiesOwner;
+    this.exchangeTokenObj.buyerSignature = '-1' 
+    this.exchangeTokenObj.salt = this.items.salt;
+    this.exchangeTokenObj.referalAddress = this.items.referalAddress;
+    debugger
+    var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj);
 
     if (status.status) {
       this.txnConfirmation = "Waiting for transaction confirmation";

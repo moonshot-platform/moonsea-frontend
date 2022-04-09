@@ -54,7 +54,7 @@ export class SearchCollectionComponent implements OnInit {
   discoverNFTList: any = [];
   dicoverCollectionList: any = [];
   connectedAddress: any;
-  searchKey: any;
+  searchKey: any ='all';
   minPrice: any = 0;
   maxPrice: any = 50000;
   priceSort: string = '';
@@ -173,7 +173,17 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   getCollection() {
-    let url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+    let url ;
+    if(this.searchKey.toLowerCase() == 'all'){
+       url = 'home/getCollectionSearchResult?searchText=' + '' + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+    }else{
+     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+    } 
+
+   
+    
+    
+    
     this.dataService.getRequest(url).subscribe(
       (response: any) => {
         if (response.status == 200) {
@@ -269,8 +279,9 @@ export class SearchCollectionComponent implements OnInit {
 
 
   clearSearch() {
-    this.searchKey = 'search word';
-    document.getElementById("textSearch").innerHTML = "search word";
+    this.searchKey = 'all';
+    document.getElementById("textSearch").innerHTML = "all";
+    this.getCollection();
   }
 
   myFunction() {

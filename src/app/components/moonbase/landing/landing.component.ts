@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractService } from 'src/app/services/contract.service';
 import { HomeService } from 'src/app/services/home.service';
@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BetaversionModalComponent } from './betaversion-modal/betaversion-modal.component';
 import { resolve } from 'dns';
 import { rejects } from 'assert';
+import { Meta } from '@angular/platform-browser';
 
 SwiperCore.use([Grid, Navigation]);
 
@@ -22,7 +23,7 @@ SwiperCore.use([Grid, Navigation]);
     './../intro/intro.component.scss',
   ],
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit ,OnDestroy{
   static readonly routeName: string = '';
 
   boxes: any[] = [
@@ -94,8 +95,27 @@ export class LandingComponent implements OnInit {
     private getDataService: GetDataService,
     public pricingApi: PricingApiService,
     private ngxService: NgxUiLoaderService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private meta: Meta
+  ) {
+    this.meta.addTags([
+      { name: 'og:description', content: 'A cross-chain NFT Marketplace engineered by Moonshot for Artists & Creators.' },
+      { name: 'og:title', content: 'Moonsea' },
+      {  name:"og:image" ,itemprop:"image",content:'https://ui8-crypter-nft-html.herokuapp.com/img/content/photo-2.1.jpg'}
+    ]);
+  }
+  ngOnDestroy(): void {
+    // throw new Error('Method not implemented.');
+    const viewport = this.meta.getTag('name="og:description"');
+    const viewport1 = this.meta.getTag('name="og:title"');
+    const viewport2 = this.meta.getTag('name="og:image"');
+
+    if (viewport){ this.meta.removeTagElement(viewport);}
+    if (viewport1) {this.meta.removeTagElement(viewport1);}
+    if (viewport2){ this.meta.removeTagElement(viewport2);}
+
+
+  }
   discoverNFTList = [];
   oldtype: any;
   oldorderBy: any;
@@ -262,7 +282,7 @@ export class LandingComponent implements OnInit {
   }
 
   goToSignleNFT() {
-    this.router.navigate(['createNft']);
+    this.router.navigate(['/createNft']);
   }
 
   config: SwiperOptions = {
@@ -389,9 +409,9 @@ export class LandingComponent implements OnInit {
     if (serachType == 1) {
       this.router.navigate(['/details',nftAddress, nftToken]);
     } else if (serachType == 2) {
-      this.router.navigate(['profile', enterText]);
+      this.router.navigate(['/profile', enterText]);
     } else if (serachType == 4) {
-      this.router.navigate(['profile', enterText]);
+      this.router.navigate(['/profile', enterText]);
     } else {
       this.router.navigate(['collection', enterText]);
     }
@@ -400,6 +420,8 @@ export class LandingComponent implements OnInit {
   gotoNftDetails(nftAddress: any, id: any) {
     console.log(nftAddress, '=====', id);
 
-    this.router.navigate(['/details', nftAddress, id]);
+    this.router.navigate(['details', nftAddress, id]);
   }
+
+  defaultImage = "assets/images/default.jpg";
 }
