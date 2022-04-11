@@ -30,7 +30,7 @@
     <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
   </div>
 
-  <div class="flex flex-wrap flex100 gap15 justify-start">
+  <div class="flex flex-wrap flex100 gap15 justify-start thumb-grid">
     <div
       class="thumb__preview gap15"
       *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index"

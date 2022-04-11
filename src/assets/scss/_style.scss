@@ -2253,9 +2253,8 @@ table {
   margin: 16px 0px 0;
   position: relative;
   flex: 1;
-  max-width: 33.33%;
+  // max-width: 33.33%;
   border: 1px solid $primary;
-
   &:hover {
     border: 1px solid $secondary;
   }
