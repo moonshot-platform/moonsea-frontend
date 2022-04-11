@@ -61,7 +61,7 @@
                           alt=""
                         /> -->
                       </div>
-                      <div class="flex flex-wrap flex100 gap15 justify-start">
+                      <div class="flex flex-wrap flex100 gap15 justify-start thumb-grid">
                         <div
                           class="thumb__preview gap15"
                           *ngFor="
@@ -151,7 +151,7 @@
         #searchText
         (keyup.enter)="searchClient(searchText.value)"
         (keyup)="autoComplete(searchText.value)"
-        placeholder="Search for collections, artist or artworks"
+        placeholder="Search for collections, accounts or artworks"
         class="form-control"
       />
       <a href="">

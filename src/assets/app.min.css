@@ -1346,7 +1346,7 @@ body.dark .nice-select .list {
   padding: 15px 0;
   font-weight: 500;
   line-height: 1.4;
-  color: white;
+  color: #50aac5;
   margin: 0 15px;
   border-bottom: 1px solid white;
 }
@@ -1358,7 +1358,7 @@ body.dark .nice-select .list {
 .select .option.selected.focus {
   /* background: rgb(35, 38, 47); */
     background: transparent;
-    color: #50aac5;
+    color: #ffffff;
 }
 body.dark .select .option:hover,
 body.dark .select .option.focus,
