@@ -429,7 +429,7 @@
 
   <!-- *ngIf="ownersData?.length > 0 && apiDataLoaded" -->
   <app-nft-detail-list-tabs
-    
+    *ngIf="ownersData?.length > 0"
     [ID]="ID"
     [nftAddress]="nftAddress"
     [items]="data"

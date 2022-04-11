@@ -53,8 +53,10 @@
       /> -->
       <ul>
         <li>
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/collections']"
-            href="javascript:void(0);">Collections</a>
+          <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/collections']"
+            href="javascript:void(0);">Collections</a> -->
+            <a routerLinkActive="active"  [routerLink]="['/searchcollection']"  [queryParams]="{ searchKey: 'all'}" href="javascript:void(0);"
+            >Collections</a >
         </li>
         <li>
           <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/stats']"

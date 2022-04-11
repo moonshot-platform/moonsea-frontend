@@ -70,6 +70,10 @@ export class SearchCollectionComponent implements OnInit {
   currencySymbol: any;
   categoryName: any;
   categoryId: any =0;
+  
+  regardingDropdown :any ='collections';
+  createrList :any=[];
+
 
   constructor(
     private homeService: HomeService,
@@ -81,17 +85,10 @@ export class SearchCollectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
+    let that = this;
     window.onclick = function (event) {
       if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName('dropdown-content');
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
+        that.outsideClick();
       }
     };
 
@@ -111,6 +108,18 @@ export class SearchCollectionComponent implements OnInit {
 
     this.getBlockchainList();
     this.getCategotyList();
+  }
+
+  outsideClick() {
+    var dropdowns = document.getElementsByClassName('dropdown-content');
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+          
+        }
   }
 
   async HomePageList(
@@ -138,7 +147,29 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   getSearchResultNFT() {
-    let url =
+    // this.discoverNFTList = [];
+    let url:any;
+    if(this.searchKey.toLowerCase() == 'all'){
+      url =
+      'home/getNftSearchResult?'+
+      'sortingType=' +
+      this.sortingType +
+      '&priceRangeMin=' +
+      this.minPrice +
+      '&priceRangeMax='+
+      this.maxPrice +
+      '&size=' +
+      this.size +
+      '&walletAddress='+
+      this.connectedAddress +
+      '&searchText=' +
+      '' +
+      '&blockchainId=' +
+      this.blockchainId +
+      '&categoryId='+
+      this.categoryId ;
+    }else{
+    url =
       'home/getNftSearchResult?'+
       'sortingType=' +
       this.sortingType +
@@ -156,7 +187,7 @@ export class SearchCollectionComponent implements OnInit {
       this.blockchainId +
       '&categoryId='+
       this.categoryId ;
-
+    }
     this.dataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
@@ -173,11 +204,12 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   getCollection() {
+    // this.dicoverCollectionList = []
     let url ;
     if(this.searchKey.toLowerCase() == 'all'){
-       url = 'home/getCollectionSearchResult?searchText=' + '' + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+       url = 'home/getCollectionSearchResult?searchText=' + '' + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
     }else{
-     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId;
+     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
     } 
 
    
@@ -250,22 +282,46 @@ export class SearchCollectionComponent implements OnInit {
 
   filter(searchText: any,col:any) {
     this.searchKey = searchText;
-    this.getCollection();
-    this.getSearchResultNFT();
+    if(this.regardingDropdown == 'items' ){
+      this.getSearchResultNFT();
+    }
+
+    if(this.regardingDropdown == 'collections' ){
+      this.getCollection();
+    }
+    
+    if(this.regardingDropdown == 'creater' ){
+      this.getCreaterList();
+    }
+  
   }
 
   getListofCollection01(blockchainId: any, currencySymbol: any,col:any) {
     this.blockchainId = blockchainId;
     this.currencySymbol = currencySymbol;
-    this.getCollection();
-    this.getSearchResultNFT();
+    // this.getCollection();
+    // this.getSearchResultNFT();
+    if(this.regardingDropdown == 'collections' ){
+      this.getCollection();
+    }
+    
+    if(this.regardingDropdown == 'items' ){
+      this.getSearchResultNFT();
+    }
   }
 
   getNftlistbyCategory(categoryId: any, categoryName: any,col:any) {
     this.categoryId = categoryId;
     this.categoryName = categoryName;
-    this.getCollection();
-    this.getSearchResultNFT();
+    // this.getCollection();
+    // this.getSearchResultNFT();
+    if(this.regardingDropdown == 'collections' ){
+      this.getCollection();
+    }
+    
+    if(this.regardingDropdown == 'items' ){
+      this.getSearchResultNFT();
+    }
   }
 
   filter001(){
@@ -275,7 +331,49 @@ export class SearchCollectionComponent implements OnInit {
     this.sortingType = value;
     this.getSearchResultNFT();
   }
+  sortingType0101(value:any){
+    this.sortingType = value;
+    this.getCollection();
+  }
+  getRegarding(value:any){
+    this.regardingDropdown = value;
+    if(this.regardingDropdown == 'creater'){
+      this.getCreaterList();
+    }
+    if(this.regardingDropdown == 'items'){
+      this.getSearchResultNFT();
+    }
+    if(this.regardingDropdown == 'collections'){
+      this.getCreaterList();
+    }
+  }
 
+  getCreaterList(){
+    let url :any;
+    if(this.searchKey.toLowerCase() == 'all'){
+      url = 'home/getCreatorsList?searchText='+''+'&status='+this.sortingType;
+    }else{
+      url = 'home/getCreatorsList?searchText='+this.searchKey+'&status='+this.sortingType;
+    }
+
+    this.dataService.getRequest(url).subscribe(
+      (res:any)=>{
+        console.log(res);
+          if(res.status ==200){
+            this.createrList = res.data;
+          }else{
+           
+          }
+      },(err:any)=>{
+        
+      }
+    );
+  }
+
+  creator01(value:any){
+    this.sortingType = value;
+    this.getCreaterList();
+   }
 
 
   clearSearch() {
@@ -285,15 +383,23 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   myFunction() {
+    this.outsideClick();
     document.getElementById('myDropdown').classList.toggle('show');
   }
 
   myFunction1() {
+    this.outsideClick()
     document.getElementById('myDropdown1').classList.toggle('show');
   }
 
   myFunction2() {
+    this.outsideClick()
     document.getElementById('myDropdown2').classList.toggle('show');
+  }
+
+  myFunction3() {
+    this.outsideClick()
+    document.getElementById('myDropdown3').classList.toggle('show');
   }
 
   

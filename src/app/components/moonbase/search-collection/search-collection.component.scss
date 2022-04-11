@@ -227,6 +227,7 @@ input.search_word {
   font-family: $primary-font;
   font-size: 14px;
   font-weight: $semi-bold;
+  text-transform: lowercase;
   &:last-child {
     border-bottom: none;
   }
@@ -251,4 +252,11 @@ input {
 }
 .d-flex{
   display: flex;
+}
+
+.pos-123{
+  position: absolute !important;
+  right: 0 !important;
+  top: -18px !important;
+  background-color: #090d16;
 }

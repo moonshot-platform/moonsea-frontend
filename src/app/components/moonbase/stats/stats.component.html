@@ -1,6 +1,6 @@
 <section class="stats">
   <div class="inner">
-    <div class="landing-flex">
+    <div class="landing-flex mh-100">
       <div class="title-container mb50">
         <div class="orbitron p30d24m flex2">
           <span class="color-white"> Statistics</span> <br />
@@ -45,12 +45,12 @@
             <span class="color-secondary arrow_down">
               <!-- all items -->
               <div class="dropdown pointer">
-                <button (click)="myFunction()" class="dropbtn">
+                <button (click)="myFunction()" class="text-uppercase dropbtn">
                   {{ currencySymbol }}
                 </button>
                 <div id="myDropdown" class="dropdown-content">
                   <a *ngFor="let item of blockchainList"
-                    (click)="getListofCollection01(item.blockchainId,item.networkName)">{{item.networkName}}</a>
+                    (click)="selectBlockchain(item.blockchainId,item.networkName)">{{item.networkName}}</a>
                 </div>
               </div>
               <svg

@@ -51,6 +51,8 @@ export class PlaceBidModalComponent implements OnInit {
     let checkNetwork: boolean = await this.contractService.createContract(
       this.items.blockchainId
     );
+    // console.log(checkNetwork);
+    
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.step = 0;

@@ -74,7 +74,9 @@ export class StatsComponent implements OnInit {
     });
   }
   
-  selectBlockchain(blockchainId:any){
+  selectBlockchain(blockchainId:any,networkName:any){
+    this.blockchainId = blockchainId;
+    this.currencySymbol  = networkName;
     this.StatList();
   }
 

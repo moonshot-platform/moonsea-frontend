@@ -23,6 +23,7 @@ export class NftDetailListTabsComponent implements OnInit {
   constructor(private getDataService: GetDataService, private router:Router) { }
 
   ngOnInit(): void {
+    
     this.getList(1);
    
     
@@ -41,7 +42,7 @@ export class NftDetailListTabsComponent implements OnInit {
 
     
         this.data = this.response;
-        // console.log("nft details list tabs ==>",this.data);
+        console.log("nft details list tabs ==>",this.data);
         let i = 0;
         this.data.forEach((value: any, index: any) => {
           if (value.typeOfSale == 1 && this.indexForPurchase == -1) {

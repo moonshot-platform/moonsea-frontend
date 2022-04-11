@@ -5,13 +5,13 @@
       <p class="max-word">
         Show me
         <!-- [innerHTML]="searchKey" -->
-        <span #searchText class="content_editable"
+        <span #searchText class="content_editable text-secondary"
         data-maxlength="5" data-minlength="5" id="textSearch"
         (keyup.enter)="filter(searchText.innerText,'col')"  [innerHTML]="searchKey" contenteditable="true"></span>
         
   
         <span class="ml10">
-          <a (click)="clearSearch()">
+          <a (click)="clearSearch()" href="javascript:void(0)">
             <svg
             version="1.1"
             id="close"
@@ -44,13 +44,15 @@
         </span>
       </p>
       <p>
-        On the
+        regarding
         <span class="color-secondary arrow_down">
           <!-- all items -->
           <div class="dropdown pointer">
-            <button (click)="myFunction()" class="dropbtn">{{currencySymbol}}</button>
-            <div id="myDropdown" class="dropdown-content">
-              <a *ngFor="let item of blockchainList" (click)="getListofCollection01(item.blockchainId,item.networkName,'col')"  >{{item.networkName}}</a>
+            <button (click)="myFunction3()" class="dropbtn">{{regardingDropdown}}</button>
+            <div id="myDropdown3" class="dropdown-content">
+             <a (click)="getRegarding('collections')">collections</a>
+             <a (click)="getRegarding('items')">items</a>
+             <a (click)="getRegarding('creater')">creator</a>
             </div>
           </div>
           <svg
@@ -76,11 +78,12 @@
               />
             </svg>
         </span>
-        blockchain containing
+  
+         containing
         <span class="color-secondary arrow_down">
           <!-- all categories -->
           <div class="dropdown pointer">
-            <button (click)="myFunction1()" class="dropbtn">
+            <button (click)="myFunction1()" class="dropbtn text-lowercase">
               {{categoryName}}
             </button>
             <div id="myDropdown1" class="dropdown-content" >
@@ -110,6 +113,40 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
           </svg>
           </div>
         </span>
+
+        On the
+        <span class="color-secondary arrow_down">
+          <!-- all items -->
+          <div class="dropdown pointer">
+            <button (click)="myFunction()" class="dropbtn text-uppercase">{{currencySymbol}}</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a class="text-capitalize" *ngFor="let item of blockchainList" (click)="getListofCollection01(item.blockchainId,item.networkName,'col')"  >{{item.networkName}}</a>
+            </div>
+          </div>
+          <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              id="down_arrow"
+              viewBox="0 0 24 24"
+              style="enable-background: new 0 0 24 24"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+              />
+            </svg>
+        </span>
+        blockchain
       
       </p>
     </div>
@@ -121,9 +158,9 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
   <div class="search-box"></div>
   <div class="landing-flex pt-0 z-index-high position_01">
     <div class="flex justify-space-between flex100 gap remove__flex">
-      <div class="flex mw-30">
+      <div class="flex mw-30" *ngIf="regardingDropdown != 'creater'">
         <div class="search-input">
-          <span class="max-price">Min Price:</span>
+          <span class="max-price">Min Volume:</span>
           <input
             type="text"
             (keyup.enter)="filter001()"
@@ -133,7 +170,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
           />
         </div>
         <div class="search-input">
-          <span class="max-price">Max Price:</span>
+          <span class="max-price">Max Volume:</span>
           <input
             type="text"
             (keyup.enter)="filter001()"
@@ -146,8 +183,8 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
       <div class="flex">
         <div class="wp100 mt10">
           <div class="bg-black">
-            <div class="field__wrap pointer">
-              <select
+            <div class="field__wrap pointer" [ngClass]="{'pos-123': regardingDropdown == 'creater'}">
+              <select *ngIf="regardingDropdown == 'items'"
                 nice-select
                 class="select maximum-content"
                 #lkks
@@ -161,6 +198,33 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
                 <option value="5">Recently listed</option>
                 <option value="6">Highest last sale</option>
               </select>
+
+              <select *ngIf="regardingDropdown == 'collections'"
+              nice-select
+              class="select maximum-content"
+              #lkks
+              [value] = "sortingType"
+              (change)="sortingType0101(lkks.value)"
+            >
+              <option value="1">Price: High to low</option>
+              <option value="2">Price: Low to high</option>
+              <option value="3">Trending</option>
+              <option value="4">Newest</option>
+              <option value="5">Oldest</option>
+            </select>
+
+            <select *ngIf="regardingDropdown == 'creater'"
+            nice-select
+            class="select maximum-content"
+            #lkks
+            [value] = "sortingType"
+            (change)="creator01(lkks.value)"
+          >
+            <option value="1">Alphabetically</option>
+            <option value="2">Trending</option>
+            <option value="3">Newest</option>
+            <option value="4">Oldest</option>
+          </select>
             </div>
           </div>
         </div>
@@ -175,8 +239,8 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
 
 
 <div class="landing-flex pt30 z-index-low">
-  <div *ngIf="dicoverCollectionList.length > 0">
-    <section>
+  <div *ngIf="dicoverCollectionList.length > 0 && regardingDropdown == 'collections'">
+    <section class="hot-collection mt-0">
       <div class="inner">
         <div class="grid grid-3">
           <div *ngFor="let item of dicoverCollectionList" class="flex100">
@@ -232,16 +296,15 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
       </div>
     </section>
   </div>
-  <!-- <div *ngIf="dicoverCollectionList.length == 0">
-        No Data Found.....
-    </div> -->
+ 
+  <div *ngIf="regardingDropdown == 'creater'">
+    <app-creator [listItemsFollowing]="createrList"></app-creator>
+  </div>
 
-  <div class="cardpos" *ngIf="discoverNFTList.length > 0">
-    <!-- <div *ngIf="discoverNFTList.length == 0">
-            No Data Found....
-        </div> -->
-    <div class="discover__list" *ngIf="discoverNFTList.length > 0">
-      <div class="flex wrap flex100 gap">
+
+  <div *ngIf="discoverNFTList.length > 0 && regardingDropdown == 'items'">
+  
+    <div class="catalog__list" *ngIf="discoverNFTList.length > 0">
         <div class="grid-4" *ngFor="let item of discoverNFTList">
           <div class="loader" *ngIf="isApiLoading"></div>
           <app-nft-card
@@ -249,7 +312,6 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
             [ngClass]="{ visibility_hidden: isApiLoading }"
           ></app-nft-card>
         </div>
-      </div>
     </div>
     <!-- 
             /*
