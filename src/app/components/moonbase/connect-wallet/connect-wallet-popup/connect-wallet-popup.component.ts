@@ -45,6 +45,10 @@ export class ConnectWalletPopupComponent implements OnInit {
     }
   }
 
+  coinBase(){
+    // alert('dj')
+    // this.contractService.intializeCoinbase();
+  }
 
   close(): void {
     this.dialogRef.close();

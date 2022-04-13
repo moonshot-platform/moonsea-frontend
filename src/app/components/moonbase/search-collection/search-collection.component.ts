@@ -207,9 +207,9 @@ export class SearchCollectionComponent implements OnInit {
     // this.dicoverCollectionList = []
     let url ;
     if(this.searchKey.toLowerCase() == 'all'){
-       url = 'home/getCollectionSearchResult?searchText=' + '' + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
+       url = 'home/getCollectionSearchResult?searchText=' + '' +'&priceRangeMin='+this.minPrice+'&priceRangeMax='+this.maxPrice+ "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
     }else{
-     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
+     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + '&priceRangeMin='+this.minPrice+'&priceRangeMax='+this.maxPrice+"&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
     } 
 
    
@@ -290,7 +290,7 @@ export class SearchCollectionComponent implements OnInit {
       this.getCollection();
     }
     
-    if(this.regardingDropdown == 'creater' ){
+    if(this.regardingDropdown == 'creators' ){
       this.getCreaterList();
     }
   
@@ -325,7 +325,13 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   filter001(){
-    this.getSearchResultNFT();
+    if(this.regardingDropdown == 'collections' ){
+      this.getCollection();
+    }
+    
+    if(this.regardingDropdown == 'items' ){
+      this.getSearchResultNFT();
+    }
   }
   sortingType01(value:any){
     this.sortingType = value;
@@ -336,15 +342,17 @@ export class SearchCollectionComponent implements OnInit {
     this.getCollection();
   }
   getRegarding(value:any){
+    console.log(value);
+    
     this.regardingDropdown = value;
-    if(this.regardingDropdown == 'creater'){
+    if(this.regardingDropdown == 'creators'){
       this.getCreaterList();
     }
     if(this.regardingDropdown == 'items'){
       this.getSearchResultNFT();
     }
     if(this.regardingDropdown == 'collections'){
-      this.getCreaterList();
+      this.getCollection();
     }
   }
 
@@ -379,7 +387,15 @@ export class SearchCollectionComponent implements OnInit {
   clearSearch() {
     this.searchKey = 'all';
     document.getElementById("textSearch").innerHTML = "all";
-    this.getCollection();
+    if(this.regardingDropdown == 'creators'){
+      this.getCreaterList();
+    }
+    if(this.regardingDropdown == 'items'){
+      this.getSearchResultNFT();
+    }
+    if(this.regardingDropdown == 'collections'){
+      this.getCollection();
+    }
   }
 
   myFunction() {

@@ -6,7 +6,7 @@
         Show me
         <!-- [innerHTML]="searchKey" -->
         <span #searchText class="content_editable text-secondary"
-        data-maxlength="5" data-minlength="5" id="textSearch"
+        data-maxlength="5" data-minlength="5" id="textSearch" placeholder="Enter text here..."
         (keyup.enter)="filter(searchText.innerText,'col')"  [innerHTML]="searchKey" contenteditable="true"></span>
         
   
@@ -52,7 +52,7 @@
             <div id="myDropdown3" class="dropdown-content">
              <a (click)="getRegarding('collections')">collections</a>
              <a (click)="getRegarding('items')">items</a>
-             <a (click)="getRegarding('creater')">creator</a>
+             <a (click)="getRegarding('creators')">creators</a>
             </div>
           </div>
           <svg
@@ -114,7 +114,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
           </div>
         </span>
 
-        On the
+        on the
         <span class="color-secondary arrow_down">
           <!-- all items -->
           <div class="dropdown pointer">
@@ -158,7 +158,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
   <div class="search-box"></div>
   <div class="landing-flex pt-0 z-index-high position_01">
     <div class="flex justify-space-between flex100 gap remove__flex">
-      <div class="flex mw-30" *ngIf="regardingDropdown != 'creater'">
+      <div class="flex mw-30" *ngIf="regardingDropdown != 'creators'">
         <div class="search-input">
           <span class="max-price">Min Volume:</span>
           <input
@@ -183,7 +183,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
       <div class="flex">
         <div class="wp100 mt10">
           <div class="bg-black">
-            <div class="field__wrap pointer" [ngClass]="{'pos-123': regardingDropdown == 'creater'}">
+            <div class="field__wrap pointer" [ngClass]="{'pos-123': regardingDropdown == 'creators'}">
               <select *ngIf="regardingDropdown == 'items'"
                 nice-select
                 class="select maximum-content"
@@ -213,7 +213,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
               <option value="5">Oldest</option>
             </select>
 
-            <select *ngIf="regardingDropdown == 'creater'"
+            <select *ngIf="regardingDropdown == 'creators'"
             nice-select
             class="select maximum-content"
             #lkks
@@ -297,7 +297,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
     </section>
   </div>
  
-  <div *ngIf="regardingDropdown == 'creater'">
+  <div *ngIf="regardingDropdown == 'creators'">
     <app-creator [listItemsFollowing]="createrList"></app-creator>
   </div>
 

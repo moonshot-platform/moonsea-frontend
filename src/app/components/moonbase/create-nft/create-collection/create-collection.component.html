@@ -106,7 +106,7 @@
                  Drop a PNG, GIF, WEBP or MP4. (Max 1MB).
                 </div>
               </div>
-              <div
+              <!-- <div
                 *ngIf="
                   formControls.file.invalid &&
                   (formControls.file.touched || reportPost.submitted)
@@ -114,6 +114,9 @@
                 class="p12 w-normal mt10 mb10 error"
               >
                 Image required
+              </div> -->
+              <div *ngIf="imageErrorMsg"  class="p12 w-normal mt10 mb10 error">
+                image is required..
               </div>
             </div>
             <!-- <div *ngIf="isSubmitted && formControls.message.errors" class="help-block _error">

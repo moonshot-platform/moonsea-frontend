@@ -260,3 +260,8 @@ input {
   top: -18px !important;
   background-color: #090d16;
 }
+
+// [contenteditable=true]:empty:before {
+//   content: attr(placeholder);
+//   pointer-events: none;
+// }

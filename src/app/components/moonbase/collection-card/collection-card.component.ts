@@ -11,8 +11,14 @@ export class CollectionCardComponent implements OnInit {
   
    @Input() item :any ;
    correntRoute:any;
-   defaultImage = 'https://www.placecage.com/1000/1000';
+   defaultImage = 'assets/media/videos/moonsea-animated-logo.webm';
    image = 'https://images.unsplash.com/photo-1443890923422-7819ed4101c0?fm=jpg';
+
+   loaded :boolean;
+   loaded01 :boolean;
+
+
+
   constructor(private router :Router) { }
 
   ngOnInit(): void {

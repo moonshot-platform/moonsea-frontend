@@ -42,8 +42,9 @@ export class NftDetailListTabsComponent implements OnInit {
 
     
         this.data = this.response;
-        console.log("nft details list tabs ==>",this.data);
+        // console.log("nft details list tabs ==>",this.data);
         let i = 0;
+      if(this.data.length > 0){
         this.data.forEach((value: any, index: any) => {
           if (value.typeOfSale == 1 && this.indexForPurchase == -1) {
             this.indexForPurchase = index;
@@ -52,6 +53,7 @@ export class NftDetailListTabsComponent implements OnInit {
             this.indexForPlaceBid = index;
           }
         });
+      }
 
         this.isApiLoading = false;
      

@@ -10,6 +10,10 @@ import { PricingApiService } from './pricing-api.service';
 import { ToastrService } from 'ngx-toastr';
 import { exchangeToken, SignBuyerOrder, SignSellOrder } from '../model/signBuyerOrder';
 
+
+
+
+
 const nft721Abi = require('./../../assets/abis/nft721.json');
 const nft1155Abi = require('./../../assets/abis/nft1155.json');
 const exchangeV1Abi = require('./../../assets/abis/ExchangeV1.json');
@@ -41,6 +45,12 @@ export class ContractService {
   transaferProxy = "0x7362143D37b0626B74F07c42fE58D02Fa1aE23ae";
   erc20TransferProxy = "0x690F7Fc4FE8a182D1C96a26Ef1151716a89ec5cA";
 
+  // mew wallet
+//   mew = mewModule();
+//   onboard = Onboard({
+//   wallets: [this.mew],
+//   chains: []
+// });
 
   constructor(private windowRef: WindowRefService, private router: Router, private getDataService: GetDataService,
     private pricingDetails: PricingApiService, private toastr: ToastrService) {
@@ -53,6 +63,12 @@ export class ContractService {
     this.exchangeV1Address = config[environment.configFile][chainId].exchangeAddress;
     this.transaferProxy = config[environment.configFile][chainId].transferProxy;
     this.erc20TransferProxy = config[environment.configFile][chainId].erc20TransferProxy;
+  }
+
+
+  async connectwalletMew(){
+    // const connectedWallets = await this.onboard.connectWallet()
+    // console.log(connectedWallets)
   }
 
 
@@ -83,7 +99,16 @@ export class ContractService {
 
     if (typeof this.windowRef.nativeWindow.ethereum !== undefined) {
       await this.windowRef.nativeWindow.ethereum.enable();
-      this.provider = new ethers.providers.Web3Provider(this.windowRef.nativeWindow.ethereum)
+      let provider01 =  this.windowRef.nativeWindow.ethereum;
+      // edge case if MM and CBW are both installed
+      if ( this.windowRef.nativeWindow.ethereum.providers?.length) {
+         this.windowRef.nativeWindow.ethereum.providers.forEach(async (p) => {
+           console.log(p);
+           
+          if (p.isMetaMask) provider01 = p;
+        });
+      }
+      this.provider = new ethers.providers.Web3Provider(provider01)
       var address = "";
       address = await this.getAccountAddress();
       localStorage.setItem('wallet', "1");
@@ -158,9 +183,10 @@ export class ContractService {
     } catch{
       return false;
     }
-
-
-    if (network.chainId == config[environment.configFile][chainIdVal].chainId) {
+    console.log(network);
+    
+debugger
+    if (network && network.chainId == config[environment.configFile][chainIdVal].chainId) {
       this.nft721Contract = new ethers.Contract(config[environment.configFile][chainIdVal].nfterc721, nft721Abi, this.signer);
       this.nft1155Contract = new ethers.Contract(config[environment.configFile][chainIdVal].nfterc1155, nft1155Abi, this.signer);
       this.exchangeAbiContract = new ethers.Contract(config[environment.configFile][chainIdVal].exchangeAddress, exchangeV1Abi, this.signer);

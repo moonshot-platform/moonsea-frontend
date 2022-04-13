@@ -61,7 +61,7 @@ export class CreateCollectionComponent implements OnInit {
 
   addCollectionForm = new FormGroup(
     {
-      file : new FormControl('',Validators.required),
+      file : new FormControl(''),
       tokenName : new FormControl('',Validators.required),
       symbol : new FormControl('',Validators.required),
       description : new FormControl('',Validators.required),
@@ -124,9 +124,11 @@ export class CreateCollectionComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close();
-  }
+  } 
+  imageErrorMsg:boolean;
 
   onLogoFile(event: any) {  
+    this.imageErrorMsg = false;
     const file: File = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -137,14 +139,17 @@ export class CreateCollectionComponent implements OnInit {
           (response:any) => {
             let data=response;
             if(data.isSuccess){
+              this.imageErrorMsg = false;
               this.imagePath=data.data.path;
             }
             else
             {
+              this.imageErrorMsg = true;
               this.imagePath="";
             }
            },
           (error:any) => {
+            this.imageErrorMsg = true;
             this.imagePath="";
           });
     }

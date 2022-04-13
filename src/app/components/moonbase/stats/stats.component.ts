@@ -53,10 +53,19 @@ export class StatsComponent implements OnInit {
   }
 
   async StatList() {
-    this.homeService.getStats(this.blockchainId).subscribe((response: any) => {
+    if(this.searchKey.toLowerCase() == 'all collections'){
+      this.homeService.getStats(this.blockchainId,'').subscribe((response: any) => {
+        this.getStatsList = response.data.GlobalData;
+        this.StatsList = response.data;
+      });
+    }else{
+
+   
+    this.homeService.getStats(this.blockchainId,this.searchKey).subscribe((response: any) => {
       this.getStatsList = response.data.GlobalData;
       this.StatsList = response.data;
     });
+  }
   }
   openChart() {
     const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%'});
@@ -83,12 +92,14 @@ export class StatsComponent implements OnInit {
   searchClient(searchKey:any){
     this.searchKey = searchKey;
     this.collectionlist = [];
-    this.getListofCollection()
+    // this.getListofCollection()
+    this.StatList();
   }
 
   clearSearch(){
     this.searchKey = 'all collections';
-    document.getElementById("textSearch").innerHTML = "searched word";
+    document.getElementById("textSearch").innerHTML = "all collections";
+    this.StatList();
   }
 
   getListofCollection() {

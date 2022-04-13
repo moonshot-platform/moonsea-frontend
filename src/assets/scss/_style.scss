@@ -2770,6 +2770,19 @@ app-user-profile {
   }
 }
 
+app-creator {
+  .followers__avatar img {
+    min-width: 100px;
+    min-height: 100px;
+    border: 1px solid $primary;
+  }
+  .followers__avatar {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+  }
+}
+
 app-nft-detail-list-tabs {
   .rounded img {
     width: 100%;

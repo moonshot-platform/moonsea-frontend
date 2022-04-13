@@ -12,6 +12,7 @@ import { resolve } from 'dns';
 import { rejects } from 'assert';
 import { Meta } from '@angular/platform-browser';
 
+
 SwiperCore.use([Grid, Navigation]);
 
 @Component({
@@ -88,6 +89,13 @@ export class LandingComponent implements OnInit ,OnDestroy{
   flag: boolean = false;
   searchResult: any;
   statics: any = {};
+
+  defaultImage = 'assets/media/videos/moonsea-animated-logo.webm';
+  loaded :boolean;
+  loaded01 :boolean;
+  loaded02 :boolean;
+
+
   constructor(
     private homeService: HomeService,
     private cs: ContractService,
@@ -423,5 +431,5 @@ export class LandingComponent implements OnInit ,OnDestroy{
     this.router.navigate(['details', nftAddress, id]);
   }
 
-  defaultImage = "assets/images/default.jpg";
+  
 }

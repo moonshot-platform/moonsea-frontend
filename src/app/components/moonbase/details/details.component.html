@@ -183,7 +183,8 @@
                 >
                 </app-purchase-now>
               </div> -->
-              <div class="wp100 mt30" *ngIf="indexForPurchase >= 0">
+           
+              <div class="wp100 mt30" *ngIf="indexForPurchase >= 0 && data?.blockchainId">
                 <app-purchase-now
                   [fromPage]="1"
                   [items]="ownersData[indexForPurchase]"
