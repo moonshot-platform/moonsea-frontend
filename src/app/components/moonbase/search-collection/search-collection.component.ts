@@ -88,9 +88,7 @@ export class SearchCollectionComponent implements OnInit {
   ngOnInit(): void {
     let that = this;
     window.onclick = function (event) {
-      debugger
-      if (!event.target.matches('.dropdown *')) {
-        debugger
+      if (!event.target.matches('.dropdown *') || event.target.matches('.dropdown-content *')) {
         that.outsideClick();
       }
     };
