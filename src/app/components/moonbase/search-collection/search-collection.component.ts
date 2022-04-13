@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debug } from 'console';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
@@ -87,7 +88,9 @@ export class SearchCollectionComponent implements OnInit {
   ngOnInit(): void {
     let that = this;
     window.onclick = function (event) {
-      if (!event.target.matches('.dropbtn')) {
+      debugger
+      if (!event.target.matches('.dropdown *')) {
+        debugger
         that.outsideClick();
       }
     };
@@ -112,6 +115,7 @@ export class SearchCollectionComponent implements OnInit {
 
   outsideClick() {
     var dropdowns = document.getElementsByClassName('dropdown-content');
+    debugger
         var i;
         for (i = 0; i < dropdowns.length; i++) {
           var openDropdown = dropdowns[i];
@@ -405,6 +409,7 @@ export class SearchCollectionComponent implements OnInit {
 
   myFunction1() {
     this.outsideClick()
+    debugger
     document.getElementById('myDropdown1').classList.toggle('show');
   }
 

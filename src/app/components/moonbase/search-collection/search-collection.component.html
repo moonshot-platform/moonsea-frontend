@@ -47,15 +47,10 @@
         regarding
         <span class="color-secondary arrow_down">
           <!-- all items -->
-          <div class="dropdown pointer">
-            <button (click)="myFunction3()" class="dropbtn">{{regardingDropdown}}</button>
-            <div id="myDropdown3" class="dropdown-content">
-             <a (click)="getRegarding('collections')">collections</a>
-             <a (click)="getRegarding('items')">items</a>
-             <a (click)="getRegarding('creators')">creators</a>
-            </div>
-          </div>
-          <svg
+          <div class="dropdown pointer" (click)="myFunction3()">
+            <button class="dropbtn">
+              {{regardingDropdown}}
+              <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -77,19 +72,23 @@
 	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
               />
             </svg>
+            </button>
+            <div id="myDropdown3" class="dropdown-content">
+             <a (click)="getRegarding('collections')">collections</a>
+             <a (click)="getRegarding('items')">items</a>
+             <a (click)="getRegarding('creators')">creators</a>
+            </div>
+          </div>
+          
         </span>
   
          containing
         <span class="color-secondary arrow_down">
           <!-- all categories -->
-          <div class="dropdown pointer">
-            <button (click)="myFunction1()" class="dropbtn text-lowercase">
+          <div class="dropdown pointer" (click)="myFunction1()">
+            <button class="dropbtn text-lowercase">
               {{categoryName}}
-            </button>
-            <div id="myDropdown1" class="dropdown-content" >
-             <a *ngFor="let item of categotyList" (click)="getNftlistbyCategory(item.categoryId,item.categoryName,'col')" >{{item.categoryName}}</a>
-            </div>
-            <svg
+              <svg
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -111,19 +110,19 @@
 s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
             />
           </svg>
+            </button>
+            <div id="myDropdown1" class="dropdown-content" >
+             <a *ngFor="let item of categotyList" (click)="getNftlistbyCategory(item.categoryId,item.categoryName,'col')" >{{item.categoryName}}</a>
+            </div>
           </div>
         </span>
 
         on the
         <span class="color-secondary arrow_down">
           <!-- all items -->
-          <div class="dropdown pointer">
-            <button (click)="myFunction()" class="dropbtn text-uppercase">{{currencySymbol}}</button>
-            <div id="myDropdown" class="dropdown-content">
-              <a class="text-capitalize" *ngFor="let item of blockchainList" (click)="getListofCollection01(item.blockchainId,item.networkName,'col')"  >{{item.networkName}}</a>
-            </div>
-          </div>
-          <svg
+          <div class="dropdown pointer" (click)="myFunction()">
+            <button class="dropbtn text-uppercase">{{currencySymbol}}
+              <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -145,6 +144,12 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
 	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
               />
             </svg>
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+              <a class="text-capitalize" *ngFor="let item of blockchainList" (click)="getListofCollection01(item.blockchainId,item.networkName,'col')"  >{{item.networkName}}</a>
+            </div>
+          </div>
+         
         </span>
         blockchain
       
