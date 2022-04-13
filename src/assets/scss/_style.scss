@@ -871,6 +871,14 @@ button {
   resize: none;
 }
 
+.bottom-line-bottom {
+  border-bottom: 3px solid $primary;
+}
+
+.bottom-line-thick {
+  border-top: 3px solid $primary;
+}
+
 .futuristic-container {
   @include paddingsInside(20px, 0px);
 
@@ -2021,11 +2029,6 @@ table {
   opacity: 1;
 }
 
-.artist .content-overlay {
-  // background: #101127;
-  box-shadow: 8px 8px #101127 !important;
-}
-
 // .collections__preview:hover img {
 //   box-shadow: 8px 8px #c5e3ec;
 // }
@@ -2602,6 +2605,23 @@ table {
       border-color: $black;
     }
   }
+  .content-overlay {
+    // background: #101127;
+    box-shadow: 8px 8px #101127 !important;
+  }
+  .color-secondary.collections__subtitle.orbitron {
+    color: $primary;
+    &:hover {
+      color: $black;
+    }
+  }
+  .collections__author,
+  .collections__counter .text-primary {
+    color: $black;
+  }
+  .text-primary.collections__author:hover span {
+    color: $primary;
+  }
 }
 
 .z-index-high {
@@ -2630,8 +2650,60 @@ table {
   height: 100%;
   display: inline-block !important;
   flex-direction: column;
+  font-family: "Montserrat";
   width: 100%;
 }
+
+.mat-tab-group.mat-primary .mat-tab-label.cdk-program-focused:not(.mat-tab-disabled) {
+  background-color: transparent !important;
+}
+
+#upload_nft {
+  .mat-tab-body-content {
+    overflow: unset;
+  }
+  .mat-tab-header {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+  .mat-tab-labels {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .mat-tab-label {
+    opacity: 1;
+    height: 54px;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-weight: 600;
+    &:first-child {
+      padding: 0;
+      justify-content: flex-start;
+    }
+  }
+  .mat-tab-body-wrapper {
+    width: 100%;
+  }
+  .mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: transparent;
+    display: none;
+  }
+  .mat-tab-label-active span, .mat-tab-label-active .round {
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+  .upload__file {
+    border-color: #50aac5;
+  }
+  .upload__format {
+    color: #50aac5;
+  } 
+  .upload__file {
+    height: 318px;
+    justify-content: flex-end;
+  }  
+}
+
 
 #how_works {
   .mat-tab-labels {
@@ -2730,10 +2802,13 @@ table {
 }
 
 .text-primary.collections__author:hover span,
-.owner_name:hover span,
+.owner_name:hover span {
+  color: $white;
+}
+
 .text-dark.collections__author:hover span,
 .text-primary.card__counter:hover span {
-  color: $white;
+   color: $primary; 
 }
 
 .profile__link {
@@ -2767,19 +2842,6 @@ app-user-profile {
   .rounded img {
     border-radius: 50%;
     border: 1px solid $primary;
-  }
-}
-
-app-creator {
-  .followers__avatar img {
-    min-width: 100px;
-    min-height: 100px;
-    border: 1px solid $primary;
-  }
-  .followers__avatar {
-    flex-shrink: 0;
-    width: 100px;
-    height: 100px;
   }
 }
 
