@@ -1,40 +1,36 @@
 <a href="javascript:void(0)" class="collections__gallery">
-  <div
-    class="collections__preview"
-    (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)"
-  >
+  <div class="collections__preview" (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)">
     <div class="content-overlay"></div>
     <!-- <img
       *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
       src="{{ item.nftFileUrl01 }}"
       alt="Collections"
     /> -->
-    <img
+    <!-- <img
       [lazyLoad]="item.nftFileUrl01"
       [defaultImage]="'assets/icons/5904642857251113741.gif'"
       *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
-    />
+    /> -->
+   
+    <img src="{{item.nftFileUrl01}}" (load)="loaded = true" alt=""
+      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1">
+     
+    <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
+      [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1" (load)="loaded = false"
+      [hidden]="loaded">
+      <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+    </video>
 
-    <video
-      class="video"
-      loop
-      autoplay
-      playsinline
-      oncanplay="this.play()"
-      onloadedmetadata="this.muted = true"
-      [muted]="true"
-      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1"
-    >
+
+    <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
+      [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
       <source src="{{ item.nftFileUrl01 }}" type="video/mp4" />
     </video>
     <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
   </div>
 
   <div class="flex flex-wrap flex100 gap15 justify-start thumb-grid">
-    <div
-      class="thumb__preview gap15"
-      *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index"
-    >
+    <div class="thumb__preview gap15" *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index">
       <ng-container *ngIf="j <= 2">
         <div class="content-overlay"></div>
         <!-- <img *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1"
@@ -42,50 +38,41 @@
           alt="Collections"
           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
         /> -->
-        <img
-          [lazyLoad]="inneritem.nftFileUrl"
-          [defaultImage]="'assets/icons/5904642857251113741.gif'"
-          (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
-          *ngIf="
+        <!-- <img [lazyLoad]="inneritem.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'"
+          (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" *ngIf="
             inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1
-          "
-        />
-        <video
-          class="video"
-          loop
-          autoplay
-          playsinline
-          oncanplay="this.play()"
-          onloadedmetadata="this.muted = true"
+          " /> -->
+
+
+          <img src="{{inneritem.nftFileUrl}}"  (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" alt=""
+          (load)="loaded01 = true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1">
+
+          <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
+          *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1"
+           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" (load)="loaded01 = false"
+           [hidden]="loaded01">
+          <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
+        </video>
+
+        <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
           *ngIf="
             inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1
-          "
-        >
+          " (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" >
           <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
         </video>
       </ng-container>
     </div>
-    <div
-      class="thumb__preview gap15"
-      *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1"
-    >
+    <div class="thumb__preview gap15" *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1">
       <div class="content-overlay"></div>
       <!-- <img  src="{{ item.nftFileUrl01 }}" *ngIf="item.nftFileUrl01" alt=""  (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" /> -->
-      <img
-        [lazyLoad]="item.nftFileUrl01"
-        *ngIf="item.nftFileUrl01"
-        alt=""
-        (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)"
-      />
+      <img [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01" alt=""
+        (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" />
       <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
     </div>
   </div>
 
   <div class="flex100">
-    <div
-      class="color-secondary collections__subtitle orbitron"
-      [routerLink]="['/collection', item.collectionName]"
-    >
+    <div class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
       {{ item.collectionName }}
     </div>
     <div class="collections__line">
@@ -98,24 +85,17 @@
             </span>
           </ng-container>
           <ng-container *ngIf="!(item?.name ?? item?.customeUrl)">
-            <span [routerLink]="['/profile', item.ownerWalletAddress]"
-              >unknown</span
-            >
+            <span [routerLink]="['/profile', item.ownerWalletAddress]">unknown</span>
           </ng-container>
         </div>
       </div>
-      <div
-        class="collections__counter"
-        [ngClass]="{ 'd-none': correntRoute == '/collections' }"
-      >
+      <div class="collections__counter" [ngClass]="{ 'd-none': correntRoute == '/collections' }">
         <span class="text-primary">{{ item.totalNftCount }} items</span>
       </div>
     </div>
   </div>
-  <div
-    class="flex flex100 justify-space-between text-center mt10 border-top"
-    *ngIf="correntRoute.indexOf('/searchcollection') != -1"
-  >
+  <div class="flex flex100 justify-space-between text-center mt10 border-top"
+    *ngIf="correntRoute.indexOf('/searchcollection') != -1">
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">items</p>
       <p class="p18 pt10">{{ item.TotalNftCount }}</p>
@@ -127,50 +107,36 @@
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Floor price</p>
       <p class="p18 pt10 flex align-center">
-        <svg
-          version="1.1"
-          id="Laag_1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px"
-          y="0px"
-          viewBox="0 0 35 40"
-          style="enable-background: new 0 0 35 40; width: 30px"
-          xml:space="preserve"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" style="height: 20px;width:20px;margin: 0 5px 0 10px;" *ngIf="item.blockchainId == 1">
+          <g fill="#f3ba2f">
+            <path d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"/>
+            <path d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"/>
+          </g>
+        </svg>
+
+        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 35 40" style="enable-background: new 0 0 35 40; width: 30px"
+          xml:space="preserve" *ngIf="item.blockchainId == 2">
           <style type="text/css">
             .svg-grey {
               fill: #8c8c8c !important;
             }
+
             .svg-grey-light {
               fill: #404040 !important;
             }
+
             .svg-grey-dark {
               fill: #333333 !important;
             }
           </style>
           <g>
-            <polygon
-              class="svg-grey"
-              points="20,8 12.6,20.2 20,16.8 	"
-            ></polygon>
-            <polygon
-              class="svg-grey-light"
-              points="20,16.8 12.6,20.2 20,24.6 	"
-            ></polygon>
-            <polygon
-              class="svg-grey-dark"
-              points="27.4,20.2 20,8 20,16.8 	"
-            ></polygon>
+            <polygon class="svg-grey" points="20,8 12.6,20.2 20,16.8 	"></polygon>
+            <polygon class="svg-grey-light" points="20,16.8 12.6,20.2 20,24.6 	"></polygon>
+            <polygon class="svg-grey-dark" points="27.4,20.2 20,8 20,16.8 	"></polygon>
             <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
-            <polygon
-              class="svg-grey-light"
-              points="12.6,21.6 20,32 20,26 	"
-            ></polygon>
-            <polygon
-              class="svg-grey-dark"
-              points="20,32 27.4,21.6 20,26 	"
-            ></polygon>
+            <polygon class="svg-grey-light" points="12.6,21.6 20,32 20,26 	"></polygon>
+            <polygon class="svg-grey-dark" points="20,32 27.4,21.6 20,26 	"></polygon>
           </g>
         </svg>
 
@@ -179,7 +145,43 @@
     </div>
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Volume</p>
-      <p class="p18 pt10">{{ item.totalSale | number }}</p>
+      <p class="p18 pt10 flex align-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" style="height: 20px;width:20px;margin: 0 5px 0 10px;" *ngIf="item.blockchainId == 1">
+          <g fill="#f3ba2f">
+            <path d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"/>
+            <path d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"/>
+          </g>
+        </svg>
+
+        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 35 40" style="enable-background: new 0 0 35 40; width: 30px"
+          xml:space="preserve" *ngIf="item.blockchainId == 2">
+          <style type="text/css">
+            .svg-grey {
+              fill: #8c8c8c !important;
+            }
+
+            .svg-grey-light {
+              fill: #404040 !important;
+            }
+
+            .svg-grey-dark {
+              fill: #333333 !important;
+            }
+          </style>
+          <g>
+            <polygon class="svg-grey" points="20,8 12.6,20.2 20,16.8 	"></polygon>
+            <polygon class="svg-grey-light" points="20,16.8 12.6,20.2 20,24.6 	"></polygon>
+            <polygon class="svg-grey-dark" points="27.4,20.2 20,8 20,16.8 	"></polygon>
+            <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+            <polygon class="svg-grey-light" points="12.6,21.6 20,32 20,26 	"></polygon>
+            <polygon class="svg-grey-dark" points="20,32 27.4,21.6 20,26 	"></polygon>
+          </g>
+        </svg>
+
+        {{ item.totalSale | number }}
+      </p>
+      <!-- <p class="p18 pt10">{{ item.totalSale | number }}</p> -->
     </div>
   </div>
 </a>

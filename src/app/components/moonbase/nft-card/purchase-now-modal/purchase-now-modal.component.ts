@@ -47,6 +47,7 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   async checkNetwork() {
+    debugger
     let checkNetwork: boolean = await this.contractService.createContract(this.items.blockchainId);
     if (!checkNetwork) {
       this.wrongNetwork = true;

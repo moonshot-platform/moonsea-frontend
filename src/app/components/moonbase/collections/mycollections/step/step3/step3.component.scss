@@ -1,0 +1,215 @@
+@import "includes";
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  // max-width: 600px;
+  & > * {
+    margin: 0.5rem 0.5rem;
+  }
+}
+
+.mat-spinner::ng-deep circle {
+  stroke: $primary;
+}
+
+.is-invalid {
+  border: 1px solid $danger;
+}
+.validationErrorMsg {
+  color: $danger;
+}
+
+.card__preview > img {
+  border: 1px solid $primary;
+}
+
+.mr-10 {
+  margin: 10px 0 0 0 !important;
+}
+
+.switch {
+  border: none !important;
+}
+.checkbox-tile {
+  flex-direction: inherit !important;
+}
+.mr-11 {
+  margin: 0 10px 0 0;
+}
+.mr-12 {
+  margin: 8px 0 0 0;
+}
+.checkbox-group-legend {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #9c9c9c;
+  text-align: center;
+  line-height: 1.125;
+  margin-bottom: 1.25rem;
+}
+
+.iconstyle {
+  color: #e3d9d9;
+  font-size: 10px;
+}
+
+.checkbox-input {
+  // Code to hide the input
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+
+  &:checked + .checkbox-tile {
+    border-color: $primary;
+    box-shadow: none;
+    color: $primary;
+    &:before {
+      transform: scale(1);
+      opacity: 1;
+      background-color: $primary;
+      border-color: $primary;
+    }
+
+    .checkbox-icon,
+    .checkbox-label {
+      color: $primary;
+    }
+  }
+
+  &:focus + .checkbox-tile {
+    border-color: $primary;
+    box-shadow: 0 5px 10px rgba(#000, 0.1), 0 0 0 2px $primary;
+    &:before {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+.mt-10 {
+  margin-top: 10px;
+}
+
+.checkbox-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 110px;
+  border-radius: 0;
+  border: 1px solid $primary;
+  background-color: transparent;
+  transition: 0.15s ease;
+  cursor: pointer;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #b5bfd9;
+    background-color: $white;
+    border-radius: 50%;
+    top: 0.25rem;
+    left: 0.25rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.25s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23FFFFFF' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'%3E%3C/rect%3E%3Cpolyline points='216 72.005 104 184 48 128.005' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  &:hover {
+    border-color: $primary;
+    &:before {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.close {
+  color: $primary;
+}
+.upload__file{
+  border: 1px solid #50aac5;
+}
+
+.height-width{
+  height: 189px;
+}
+
+input#datetimepicker_input {
+  color: $primary !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .upload__fieldset .field:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.upload__row {
+  display: flex;
+}
+
+@media only screen and (max-width: 767px) {
+  .upload__row {
+    display: block;
+    margin: 0;
+  }
+}
+
+.checkbox-icon {
+  transition: 0.375s ease;
+  color: #494949;
+  svg {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.checkbox-label {
+  color: $primary;
+  transition: 0.375s ease;
+  text-align: center;
+}
+
+.is-invalid-file {
+  color: $danger;
+  border: 2px solid $danger;
+}
+
+.collection-icon {
+	width: 50px;
+    max-width: 100%;
+    height: 50px;
+}
+
+.upload__card {
+  border: 2px solid transparent;
+}
+
+.selectedCollection {
+  border: 2px solid $primary;
+}
+
+#next,
+#prev {
+    &:hover {
+    .stroke {
+        stroke: #c5e3ec;
+    }
+}
+}

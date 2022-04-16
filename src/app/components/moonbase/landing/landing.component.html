@@ -50,7 +50,12 @@
                           alt="Collections"
                         /> -->
 
-                        <img  [lazyLoad]="item.nftFileUrl01" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1">
+                        <!-- <img  [lazyLoad]="item.nftFileUrl01" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"> -->
+                          <img src="{{item.nftFileUrl01}}" (load)="loaded = true" alt="" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1">
+                          <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
+                          (load)="loaded = false" [hidden]="loaded">
+                            <source src="assets/media/videos/moonsea-animated-logo.webm"  type="video/mp4">
+                          </video>  
 
                         <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
                           <source src="{{ item.nftFileUrl01 }}"  type="video/mp4">
@@ -79,11 +84,23 @@
                               src="{{ iner.nftFileUrl }}"
                               alt="Collections"
                             /> -->
-                            <img  [lazyLoad]="iner.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1">
+                            <!-- <img  [lazyLoad]="iner.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"  (click)="
+                            gotoNftDetails(iner.nftAddress, iner.nftTokenID)
+                          "> -->
 
-                            <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1">
-                              <source src="{{ iner.nftFileUrl }}"  type="video/mp4">
-                            </video>  
+                              <img src="{{iner.nftFileUrl}}" (load)="loaded01 = true" alt="" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1">
+                              <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
+                              (load)="loaded01 = false" [hidden]="loaded01">
+                                <source src="assets/media/videos/moonsea-animated-logo.webm"  type="video/mp4">
+                              </video> 
+
+
+                            <video class="video"  loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1"
+                            (click)="gotoNftDetails(iner.nftAddress, iner.nftTokenID)">
+                              <source src="{{ iner.nftFileUrl }}"   type="video/mp4">
+                            </video>
+                           
+                             
   
   
                             <img
@@ -765,7 +782,7 @@
         <div>
           <div class="relative">
             <p class="title-name orbitron p18">
-              <span class="color-white">Upcomming </span><span>collections </span>
+              <span class="color-white">Upcoming </span><span>collections </span>
             </p>
           </div>
           <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper hover-effect">

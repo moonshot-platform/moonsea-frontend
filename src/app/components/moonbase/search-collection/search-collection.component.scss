@@ -134,7 +134,6 @@
 #down_arrow {
   width: 26px;
   height: 26px;
-  margin-left: 5px;
 }
 .dropdown-content {
   display: none;
@@ -260,3 +259,8 @@ input {
   top: -18px !important;
   background-color: #090d16;
 }
+
+// [contenteditable=true]:empty:before {
+//   content: attr(placeholder);
+//   pointer-events: none;
+// }

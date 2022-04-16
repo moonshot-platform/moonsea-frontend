@@ -37,26 +37,43 @@ export class StatsComponent implements OnInit {
     this.StatList();
     this.getBlockchainList(); 
 
+    let that = this;
     window.onclick = function (event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName('dropdown-content');
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
+      if (
+        !event.target.matches('.dropdown *') ||
+        event.target.matches('.dropdown-content *')
+      ) {
+        that.outsideClick();
       }
     };
 
   }
 
+  outsideClick() {
+    var dropdowns = document.getElementsByClassName('dropdown-content');
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+
   async StatList() {
-    this.homeService.getStats(this.blockchainId).subscribe((response: any) => {
+    if(this.searchKey.toLowerCase() == 'all collections'){
+      this.homeService.getStats(this.blockchainId,'').subscribe((response: any) => {
+        this.getStatsList = response.data.GlobalData;
+        this.StatsList = response.data;
+      });
+    }else{
+
+   
+    this.homeService.getStats(this.blockchainId,this.searchKey).subscribe((response: any) => {
       this.getStatsList = response.data.GlobalData;
       this.StatsList = response.data;
     });
+  }
   }
   openChart() {
     const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%'});
@@ -83,12 +100,14 @@ export class StatsComponent implements OnInit {
   searchClient(searchKey:any){
     this.searchKey = searchKey;
     this.collectionlist = [];
-    this.getListofCollection()
+    // this.getListofCollection()
+    this.StatList();
   }
 
   clearSearch(){
     this.searchKey = 'all collections';
-    document.getElementById("textSearch").innerHTML = "searched word";
+    document.getElementById("textSearch").innerHTML = "all collections";
+    this.StatList();
   }
 
   getListofCollection() {
@@ -131,6 +150,7 @@ export class StatsComponent implements OnInit {
   }
 
   myFunction() {
+    this.outsideClick();
     document.getElementById('myDropdown').classList.toggle('show');
   }
 
