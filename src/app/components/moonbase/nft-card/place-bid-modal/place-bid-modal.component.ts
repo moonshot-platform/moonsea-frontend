@@ -48,6 +48,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async checkNetwork() {
+    debugger
     let checkNetwork: boolean = await this.contractService.createContract(
       this.items.blockchainId
     );
@@ -174,7 +175,8 @@ export class PlaceBidModalComponent implements OnInit {
           listingId: this.items.listingId.toString(),
           salt: salt,
           nftAddress : this.items.nftAddress,
-          tokenAddress : this.items.contractAddress
+          tokenAddress : this.items.contractAddress,
+          isMultiple : this.items.isMultiple
         })
         .subscribe((response: any) => {
           if (response.isSuccess) {

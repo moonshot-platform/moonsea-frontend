@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateNftService {
+
+  subject = new Subject();
+  subject01 = new Subject();
+
 
   constructor(private httpClient: HttpClient) {
 
@@ -39,12 +43,22 @@ export class CreateNftService {
     return this.httpClient.post(environment.apiUrl + 'api/createNftToken/', data);
   }
 
-  uploadFile(file: File) {
+  // uploadFile(file: File) {
+  //   let formData = new FormData();
+  //   formData.append("file", file);
+  //   let headersforfile = new HttpHeaders()
+  //     .set('APPKEY', 'nft');
+  //   return this.httpClient.post(environment.apiUrl + 'api/nftTokenImageSave', formData, { headers: headersforfile });
+  // }
+  uploadFile(file: File): Observable<HttpEvent<any>> {
     let formData = new FormData();
     formData.append("file", file);
     let headersforfile = new HttpHeaders()
       .set('APPKEY', 'nft');
-    return this.httpClient.post(environment.apiUrl + 'api/nftTokenImageSave', formData, { headers: headersforfile });
+    const req = new HttpRequest('POST',environment.apiUrl + 'api/nftTokenImageSave', formData, { headers: headersforfile,reportProgress:true, responseType: "json"});
+  
+    return this.httpClient.request(req);
+
   }
   
   listingUpdateSignature(data: any): Observable<any> {

@@ -132,9 +132,9 @@ export class ModalForCreateNftComponent implements OnInit {
   
     try {
       var status: any;
-      let salt =0;
+      let salt =this.data.globalService.randomNo();
       if(this.data.details.typeOfSale==1){
-       salt = this.data.globalService.randomNo();
+      //  salt = this.data.globalService.randomNo();
        var userDate= JSON.parse(localStorage.getItem("userData") ?? "{}");
        
       status = await this.data.globalService.signSellOrder(

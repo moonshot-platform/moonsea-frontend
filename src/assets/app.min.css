@@ -3578,7 +3578,6 @@ body.dark .popular__price span {
   font-size: 12px;
   line-height: 1;
   font-weight: 700;
-  text-transform: uppercase;
   color: #b1b5c3;
 }
 
@@ -5101,7 +5100,6 @@ body.dark .variants__item {
   font-size: 12px;
   line-height: 1;
   font-weight: 500;
-  text-transform: uppercase;
   color: #50aac5;
 }
 
@@ -5161,7 +5159,7 @@ body.dark .field__textarea:focus {
 }
 
 .field__input {
-  height: 48px;
+  height: 36px;
   padding: 0 14px;
 }
 
@@ -5189,7 +5187,7 @@ textarea.field__input {
   background: transparent;
   box-shadow: 0px 64px 64px rgb(31 47 70 / 12%);
   border-radius: 0px;
-  border: 2px solid #50aac5;
+  border: 1px solid #50aac5;
 }
 @media only screen and (max-width: 1179px) {
   .preview__inner {
@@ -5462,9 +5460,9 @@ body.dark .upload__file {
 }
 
 .upload__category {
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 600;
 }
 
 .upload__fieldset {
@@ -5532,10 +5530,11 @@ body.dark .upload__file {
 }
 
 .upload__text {
-  margin-top: 4px;
+  margin-top: 0px;
   font-size: 12px;
-  line-height: 1.66667;
+  line-height: 16px;
   color: #50aac5;
+  font-weight: normal;
 }
 
 @media only screen and (max-width: 767px) {
@@ -5680,7 +5679,7 @@ body.dark .upload__card {
   display: block;
   width: 48px;
   height: 24px;
-  background: #e6e8ec;
+  border: 1px solid #50aac5;
   border-radius: 12px;
   transition: all 0.2s;
 }

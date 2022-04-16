@@ -37,19 +37,27 @@ export class StatsComponent implements OnInit {
     this.StatList();
     this.getBlockchainList(); 
 
+    let that = this;
     window.onclick = function (event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName('dropdown-content');
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
+      if (
+        !event.target.matches('.dropdown *') ||
+        event.target.matches('.dropdown-content *')
+      ) {
+        that.outsideClick();
       }
     };
 
+  }
+
+  outsideClick() {
+    var dropdowns = document.getElementsByClassName('dropdown-content');
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
   }
 
   async StatList() {
@@ -142,6 +150,7 @@ export class StatsComponent implements OnInit {
   }
 
   myFunction() {
+    this.outsideClick();
     document.getElementById('myDropdown').classList.toggle('show');
   }
 

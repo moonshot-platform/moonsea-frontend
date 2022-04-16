@@ -93,9 +93,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MycollectionsComponent } from './collections/mycollections/mycollections.component';
 import { CollectionCardComponent } from './collection-card/collection-card.component';
 import { CreatorComponent } from './creator/creator.component';
-
-
-
+import { Step1Component } from './collections/mycollections/step/step3/step1/step1.component';
+import { Step2Component } from './collections/mycollections/step/step3/step2/step2.component';
+import { Step3Component } from './collections/mycollections/step/step3/step3.component';
 
 
 
@@ -164,6 +164,9 @@ import { CreatorComponent } from './creator/creator.component';
     ImportCollectionComponent,
     CollectionCardComponent,
     CreatorComponent,
+    Step1Component,
+    Step2Component,
+    Step3Component,
   ],
   imports: [
     BrowserAnimationsModule ,
@@ -199,12 +202,12 @@ import { CreatorComponent } from './creator/creator.component';
     MatStepperModule,
     MatTabsModule,
     LazyLoadImageModule,
-
   ],
   exports : [
     LandingIntroComponent,
     RatesComponent,
-    WalletConnectComponent
+    WalletConnectComponent,
+    Step3Component,
   ],
   providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ,NO_ERRORS_SCHEMA]

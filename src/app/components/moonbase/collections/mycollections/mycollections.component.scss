@@ -1,33 +1,5 @@
 @import "includes";
 
-.plus {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-  height: 100%;
-  max-height: 82px;
-  min-height: 82px;
-}
-.card__title {
-  color: $primary;
-  margin-right: inherit;
-}
-.btn-edit {
-  position: absolute;
-  z-index: 1;
-  button {
-    border: 1px solid $primary;
-    color: #090d16;
-    background-color: $primary;
-    padding: 5px 10px;
-    position: absolute;
-    top: 20px;
-    left: 10px;
-  }
-}
 .round {
   width: 54px;
   height: 54px;
@@ -37,12 +9,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.collection_img {
-    border: 1px solid $primary;
-    width: 135px;
-    height: 135px;
-    justify-self: center;
-    margin: auto;
-    display: flex;
 }

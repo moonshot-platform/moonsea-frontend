@@ -16,7 +16,9 @@ export class CreateCollectionComponent implements OnInit {
   categotyList: any;
   collectionId :any ;
   imagePath :any =''; 
-
+  collectionDetails = 1;
+  socialLinks = false;
+  nftDetails = false;
 
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<CreateCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private createNFT:CreateNftService,
@@ -78,6 +80,7 @@ export class CreateCollectionComponent implements OnInit {
   
   saveCollection(data:any)
   {
+    debugger
     console.warn(data);
     this.isApiLoading = true;
     this.isSubmitted = true;
@@ -128,6 +131,7 @@ export class CreateCollectionComponent implements OnInit {
   imageErrorMsg:boolean;
 
   onLogoFile(event: any) {  
+    debugger
     this.imageErrorMsg = false;
     const file: File = event.target.files[0];
     if (file) {
@@ -187,7 +191,6 @@ export class CreateCollectionComponent implements OnInit {
         }else{
           this.isShowNameValidation = false;
         }
-        
       }
     );
     }else{
@@ -196,4 +199,12 @@ export class CreateCollectionComponent implements OnInit {
     
   }
 
+  collectionDetailsFunc() {
+    this.collectionDetails++;
+  }
+
+  prev() {
+    this.collectionDetails--;
+  }
+  
 }

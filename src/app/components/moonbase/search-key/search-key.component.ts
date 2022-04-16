@@ -162,7 +162,6 @@ export class SearchKeyComponent implements OnInit {
   }
 
   clearSearch(){
-    debugger;
     this.router.navigate(['/searchcollection'],{queryParams:{searchKey:""}});  
   }
 

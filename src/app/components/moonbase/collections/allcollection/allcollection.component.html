@@ -44,7 +44,7 @@
       </div>
 
       <div class="field desk-width">
-        <select nice-select class="select sorted" #mySelectprice (change)="filter()"   [value]="sortingType">
+        <select nice-select class="select sorted" #mySelectprice (change)="filter01(mySelectprice.value)"   [value]="sortingType">
           <option value=2>Recently listed</option>
           <option value=1>Oldest</option>
           <option value=4>Price: High to low</option>
@@ -58,7 +58,7 @@
 
       <div class="field desk-width relative">
         <span class="max-price">Status:</span>
-        <select nice-select class="select sorted pl-65"  [value]="status" name="offer" (change)="filter()">
+        <select nice-select class="select sorted pl-65" #status01 [value]="status" name="offer" (change)="filter02(status01.value)">
           <option value="-1">All items</option>
           <option value="1">Buy Now</option>
           <option value="2">On Auction</option>

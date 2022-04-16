@@ -208,5 +208,8 @@ export class UpdateProfileComponent implements OnInit {
     }
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 
 }

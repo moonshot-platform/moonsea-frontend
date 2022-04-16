@@ -117,6 +117,14 @@ export class AllcollectionComponent implements OnInit {
   filter() {
     this.getNftList01();
   }
+  filter01(mySelectprice:any){
+    this.sortingType = mySelectprice;
+    this.getNftList01();
+  }
+  filter02(status01:any){
+    this.status =status01;
+    this.getNftList01();
+  }
 
   searchCollection() {
     this.getNftList01();

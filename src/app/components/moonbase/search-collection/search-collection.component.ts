@@ -55,7 +55,7 @@ export class SearchCollectionComponent implements OnInit {
   discoverNFTList: any = [];
   dicoverCollectionList: any = [];
   connectedAddress: any;
-  searchKey: any ='all';
+  searchKey: any = 'all';
   minPrice: any = 0;
   maxPrice: any = 50000;
   priceSort: string = '';
@@ -66,15 +66,14 @@ export class SearchCollectionComponent implements OnInit {
   size: any = 12;
   sortByPrice: any = 1;
   blockchainList: any = [];
-  blockchainId: any =0;
+  blockchainId: any = 0;
   categotyList: any = [];
   currencySymbol: any;
   categoryName: any;
-  categoryId: any =0;
-  
-  regardingDropdown :any ='collections';
-  createrList :any=[];
+  categoryId: any = 0;
 
+  regardingDropdown: any = 'collections';
+  createrList: any = [];
 
   constructor(
     private homeService: HomeService,
@@ -88,7 +87,10 @@ export class SearchCollectionComponent implements OnInit {
   ngOnInit(): void {
     let that = this;
     window.onclick = function (event) {
-      if (!event.target.matches('.dropdown *') || event.target.matches('.dropdown-content *')) {
+      if (
+        !event.target.matches('.dropdown *') ||
+        event.target.matches('.dropdown-content *')
+      ) {
         that.outsideClick();
       }
     };
@@ -100,7 +102,7 @@ export class SearchCollectionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.searchKey = res.searchKey;
       if (!res.searchKey) {
-        this.searchKey = "search word"
+        this.searchKey = 'search word';
         // this.getSearchResultNFT();
       }
       this.getSearchResultNFT();
@@ -113,15 +115,13 @@ export class SearchCollectionComponent implements OnInit {
 
   outsideClick() {
     var dropdowns = document.getElementsByClassName('dropdown-content');
-    debugger
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-          
-        }
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
   }
 
   async HomePageList(
@@ -150,45 +150,45 @@ export class SearchCollectionComponent implements OnInit {
 
   getSearchResultNFT() {
     // this.discoverNFTList = [];
-    let url:any;
-    if(this.searchKey.toLowerCase() == 'all'){
+    let url: any;
+    if (this.searchKey.toLowerCase() == 'all') {
       url =
-      'home/getNftSearchResult?'+
-      'sortingType=' +
-      this.sortingType +
-      '&priceRangeMin=' +
-      this.minPrice +
-      '&priceRangeMax='+
-      this.maxPrice +
-      '&size=' +
-      this.size +
-      '&walletAddress='+
-      this.connectedAddress +
-      '&searchText=' +
-      '' +
-      '&blockchainId=' +
-      this.blockchainId +
-      '&categoryId='+
-      this.categoryId ;
-    }else{
-    url =
-      'home/getNftSearchResult?'+
-      'sortingType=' +
-      this.sortingType +
-      '&priceRangeMin=' +
-      this.minPrice +
-      '&priceRangeMax='+
-      this.maxPrice +
-      '&size=' +
-      this.size +
-      '&walletAddress='+
-      this.connectedAddress +
-      '&searchText=' +
-      this.searchKey +
-      '&blockchainId=' +
-      this.blockchainId +
-      '&categoryId='+
-      this.categoryId ;
+        'home/getNftSearchResult?' +
+        'sortingType=' +
+        this.sortingType +
+        '&priceRangeMin=' +
+        this.minPrice +
+        '&priceRangeMax=' +
+        this.maxPrice +
+        '&size=' +
+        this.size +
+        '&walletAddress=' +
+        this.connectedAddress +
+        '&searchText=' +
+        '' +
+        '&blockchainId=' +
+        this.blockchainId +
+        '&categoryId=' +
+        this.categoryId;
+    } else {
+      url =
+        'home/getNftSearchResult?' +
+        'sortingType=' +
+        this.sortingType +
+        '&priceRangeMin=' +
+        this.minPrice +
+        '&priceRangeMax=' +
+        this.maxPrice +
+        '&size=' +
+        this.size +
+        '&walletAddress=' +
+        this.connectedAddress +
+        '&searchText=' +
+        this.searchKey +
+        '&blockchainId=' +
+        this.blockchainId +
+        '&categoryId=' +
+        this.categoryId;
     }
     this.dataService.getRequest(url).subscribe(
       (res: any) => {
@@ -207,17 +207,37 @@ export class SearchCollectionComponent implements OnInit {
 
   getCollection() {
     // this.dicoverCollectionList = []
-    let url ;
-    if(this.searchKey.toLowerCase() == 'all'){
-       url = 'home/getCollectionSearchResult?searchText=' + '' +'&priceRangeMin='+this.minPrice+'&priceRangeMax='+this.maxPrice+ "&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
-    }else{
-     url = 'home/getCollectionSearchResult?searchText=' + this.searchKey + '&priceRangeMin='+this.minPrice+'&priceRangeMax='+this.maxPrice+"&blockchainId="+this.blockchainId + "&categoryId="+this.categoryId+'&status='+this.sortingType;
-    } 
+    let url;
+    if (this.searchKey.toLowerCase() == 'all') {
+      url =
+        'home/getCollectionSearchResult?searchText=' +
+        '' +
+        '&priceRangeMin=' +
+        this.minPrice +
+        '&priceRangeMax=' +
+        this.maxPrice +
+        '&blockchainId=' +
+        this.blockchainId +
+        '&categoryId=' +
+        this.categoryId +
+        '&status=' +
+        this.sortingType;
+    } else {
+      url =
+        'home/getCollectionSearchResult?searchText=' +
+        this.searchKey +
+        '&priceRangeMin=' +
+        this.minPrice +
+        '&priceRangeMax=' +
+        this.maxPrice +
+        '&blockchainId=' +
+        this.blockchainId +
+        '&categoryId=' +
+        this.categoryId +
+        '&status=' +
+        this.sortingType;
+    }
 
-   
-    
-    
-    
     this.dataService.getRequest(url).subscribe(
       (response: any) => {
         if (response.status == 200) {
@@ -278,124 +298,125 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   /**
-   * 
-   * filter Api's 
+   *
+   * filter Api's
    */
 
-  filter(searchText: any,col:any) {
+  filter(searchText: any, col: any) {
     this.searchKey = searchText;
-    if(this.regardingDropdown == 'items' ){
+    if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
 
-    if(this.regardingDropdown == 'collections' ){
+    if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
-    
-    if(this.regardingDropdown == 'creators' ){
+
+    if (this.regardingDropdown == 'creators') {
       this.getCreaterList();
     }
-  
   }
 
-  getListofCollection01(blockchainId: any, currencySymbol: any,col:any) {
+  getListofCollection01(blockchainId: any, currencySymbol: any, col: any) {
     this.blockchainId = blockchainId;
     this.currencySymbol = currencySymbol;
     // this.getCollection();
     // this.getSearchResultNFT();
-    if(this.regardingDropdown == 'collections' ){
+    if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
-    
-    if(this.regardingDropdown == 'items' ){
+
+    if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
   }
 
-  getNftlistbyCategory(categoryId: any, categoryName: any,col:any) {
+  getNftlistbyCategory(categoryId: any, categoryName: any, col: any) {
     this.categoryId = categoryId;
     this.categoryName = categoryName;
     // this.getCollection();
     // this.getSearchResultNFT();
-    if(this.regardingDropdown == 'collections' ){
+    if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
-    
-    if(this.regardingDropdown == 'items' ){
+
+    if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
   }
 
-  filter001(){
-    if(this.regardingDropdown == 'collections' ){
+  filter001() {
+    if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
-    
-    if(this.regardingDropdown == 'items' ){
+
+    if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
   }
-  sortingType01(value:any){
+  sortingType01(value: any) {
     this.sortingType = value;
     this.getSearchResultNFT();
   }
-  sortingType0101(value:any){
+  sortingType0101(value: any) {
     this.sortingType = value;
     this.getCollection();
   }
-  getRegarding(value:any){
+  getRegarding(value: any) {
     console.log(value);
-    
+
     this.regardingDropdown = value;
-    if(this.regardingDropdown == 'creators'){
+    if (this.regardingDropdown == 'creators') {
       this.getCreaterList();
     }
-    if(this.regardingDropdown == 'items'){
+    if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
-    if(this.regardingDropdown == 'collections'){
+    if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
   }
 
-  getCreaterList(){
-    let url :any;
-    if(this.searchKey.toLowerCase() == 'all'){
-      url = 'home/getCreatorsList?searchText='+''+'&status='+this.sortingType;
-    }else{
-      url = 'home/getCreatorsList?searchText='+this.searchKey+'&status='+this.sortingType;
+  getCreaterList() {
+    let url: any;
+    if (this.searchKey.toLowerCase() == 'all') {
+      url =
+        'home/getCreatorsList?searchText=' + '' + '&status=' + this.sortingType;
+    } else {
+      url =
+        'home/getCreatorsList?searchText=' +
+        this.searchKey +
+        '&status=' +
+        this.sortingType;
     }
 
     this.dataService.getRequest(url).subscribe(
-      (res:any)=>{
+      (res: any) => {
         console.log(res);
-          if(res.status ==200){
-            this.createrList = res.data;
-          }else{
-           
-          }
-      },(err:any)=>{
-        
-      }
+        if (res.status == 200) {
+          this.createrList = res.data;
+        } else {
+        }
+      },
+      (err: any) => {}
     );
   }
 
-  creator01(value:any){
+  creator01(value: any) {
     this.sortingType = value;
     this.getCreaterList();
-   }
-
+  }
 
   clearSearch() {
     this.searchKey = 'all';
-    document.getElementById("textSearch").innerHTML = "all";
-    if(this.regardingDropdown == 'creators'){
+    document.getElementById('textSearch').innerHTML = 'all';
+    if (this.regardingDropdown == 'creators') {
       this.getCreaterList();
     }
-    if(this.regardingDropdown == 'items'){
+    if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
-    if(this.regardingDropdown == 'collections'){
+    if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
   }
@@ -406,21 +427,17 @@ export class SearchCollectionComponent implements OnInit {
   }
 
   myFunction1() {
-    this.outsideClick()
-    debugger
+    this.outsideClick();
     document.getElementById('myDropdown1').classList.toggle('show');
   }
 
   myFunction2() {
-    this.outsideClick()
+    this.outsideClick();
     document.getElementById('myDropdown2').classList.toggle('show');
   }
 
   myFunction3() {
-    this.outsideClick()
+    this.outsideClick();
     document.getElementById('myDropdown3').classList.toggle('show');
   }
-
-  
- 
 }
