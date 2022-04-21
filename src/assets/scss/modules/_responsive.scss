@@ -128,4 +128,19 @@
     flex-direction: column;
     flex-wrap: wrap;
   }
+  .slice:nth-child(2),
+  .slice:nth-child(3) {
+    display: none;
+  }
+
+  #upload_nft {
+    .mat-tab-labels {
+      flex-direction: column;
+    }
+    .mat-tab-label {
+      margin: 1rem 0;
+      justify-content: flex-start;
+      padding: 0;
+    }
+  }
 }

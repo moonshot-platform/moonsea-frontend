@@ -133,7 +133,7 @@
                           ]"
                               class="text-primary owner_name"
                             >
-                              by
+                              <strong class="w600"> by </strong>
                               <span
                                 
                               >
@@ -170,7 +170,7 @@
         #searchText
         (keyup.enter)="searchClient(searchText.value)"
         (keyup)="autoComplete(searchText.value)"
-        placeholder="Search for collections, accounts or artworks"
+        placeholder="Search for collections, items or creators"
         class="form-control"
       />
       <a href="">
@@ -673,9 +673,9 @@
   
                         <div class="selection__description">
                           <div
-                            class="color-secondary orbitron p18 selection__title"
+                            class="orbitron p18 selection__title"
                           >
-                            <a
+                            <a class="flex color-secondary"
                               [routerLink]="['/collections/collection', item.collectionName]"
                             >
                               {{
@@ -684,7 +684,7 @@
                                   : item.collectionName
                               }}
                             </a>
-                            <span
+                            <div
                               class="p16 montserrat text-primary collections__author"
                             >
                               by
@@ -694,7 +694,7 @@
                                   item.ownerWalletAddress
                                 ]"
                                 >{{ item?.name ?? item?.customeUrl }}</a>
-                            </span>
+                            </div>
                           </div>
                           <div class="collections__counter">
                             <span class="text-primary"

@@ -5515,10 +5515,10 @@ body.dark .upload__file {
 
 .upload__option {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 .upload__option:not(:last-child) {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .upload__box {
@@ -9873,7 +9873,6 @@ input.e-input,
 
 #datetimepicker {
   border: none;
-  border-bottom: 1px solid #ae3600 !important;
   padding: 5px 0;
 }
 
