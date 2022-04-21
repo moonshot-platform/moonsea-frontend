@@ -1,6 +1,6 @@
 <div class="relative mt50 mb50">
   <div class="search-box"></div>
-  <div class="flex landing-flex p-0">
+  <div class="flex landing-flex p-0 wrap gap">
     <div class="z-index-high position_01 flex1">
       <div class="profile__nav">
         <a
@@ -140,11 +140,11 @@
           Attributes
         </a>
         <a class="cursor-default text-primary border-0 profile__link js-tabs-link">
-          {{items?.properties.length }}
+          {{items?.properties ? items?.properties.length : ''}}
         </a>
       </div>
       <div class="item__container">
-        <div class="flex flex2 wrap">
+        <div class="flex flex2 wrap grid grid-3 gap">
           <div class="box flex-col" *ngFor="let item of items?.properties">
             <div class="flex justify-space-between p12">
               <span>{{ item.size }} </span>

@@ -96,7 +96,11 @@ export class Step2Component implements OnInit {
    
     this.uploadFiles();
   }
+
+  forloopend :boolean;
+
   uploadFiles(): void {
+    this.forloopend = false;
     this.message = [];
     if (this.selectedFiles) {
       for (let i = 0; i < this.selectedFiles.length; i++) {
@@ -115,13 +119,17 @@ export class Step2Component implements OnInit {
         }else{
           this.toastr.error('file size should be less than 5mb');
         }
+
+        
       }
+      
     }
   }
 
   upload(idx: number, file: any): void {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
+
       this.createNFTService.uploadFile(file).subscribe(
         (event: any) => {
          
@@ -133,7 +141,10 @@ export class Step2Component implements OnInit {
          
 
           } else if (event instanceof HttpResponse) {
-           console.log(event);
+          //  console.log(event);
+           if(idx == this.selectedFiles.length -1){
+            this.toastr.success('upload completed ....');
+          }
            file.imagePath = event.body.data.path;
            this.newItemEvent.emit(file);
             const msg = 'Uploaded the file successfully: ' + file.name;

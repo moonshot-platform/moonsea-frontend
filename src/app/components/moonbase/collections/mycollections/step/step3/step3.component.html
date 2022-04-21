@@ -6,12 +6,13 @@
         ><span>to your NFTs </span>
       </p>
     </div>
-    <div class="flex wrap">
+    <div class="flex gap wrap">
       <div class="flex2 upload__wrapper">
         <form
           class="needs-validation"
           [formGroup]="createNftForm"
           #formData="ngForm"
+          (ngSubmit)="formData.valid && createNftSubmit(formData.value)"
         >
           <div class="upload__form border p-3">
             <div class="upload__list">
@@ -19,21 +20,7 @@
                 <p class="upload__category text-secondary">Item name</p>
                 <p class="text-secondary p24 orbitron mt10">{{imageName}}</p>
                 <div class="upload__fieldset">
-                  <!-- <div class="field">
-                    <div class="field__label">Item name</div>
-                    <div class="field__wrap">
-                      <input class="field__input" [ngClass]="{
-                          'is-invalid': f.title.invalid && (f.title.touched || formData.submitted)
-                        }" type="text" formControlName="title" name="item"
-                        placeholder='e.g. Redeemable Bitcoin Card with logo"' required />
-                      <div *ngIf=" f.title.invalid && (f.title.touched || formData.submitted)"
-                        class="p12 w-normal error">
-                        <div *ngIf="f.title.errors.required">
-                          Item Name required
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
+                 
                   <div class="field">
                     <div class="field__label">Description</div>
                     <div class="field__wrap">
@@ -41,79 +28,37 @@
                         rows="3"
                         class="field__input w-normal"
                         type="text"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.description.invalid &&
-                            (f.description.touched || formData.submitted)
-                        }"
                         formControlName="description"
                         name="description"
                         placeholder="e.g. “After purchasing you will able to received the NFT...”"
-                        required
                       ></textarea>
-                      <div
-                        *ngIf="
-                          f.description.invalid &&
-                          (f.description.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        <div
-                          class="p12 w-normal error"
-                          *ngIf="f.description.errors.required"
-                        >
-                          Description is required
-                        </div>
+                      <div *ngIf="f.description.invalid && (f.description.touched || formData.submitted)">
+                          Description required
                       </div>
                     </div>
                   </div>
-                  <!-- commeted royalties for some resones -->
-                  <!-- <div class="field">
-                    <div class="field__label">Royalties</div>
-                    <div class="field__wrap">
-                      <input class="field__input" type="text" [ngClass]="{
-                          'is-invalid':  f.royalties.invalid && (f.royalties.touched || formData.submitted)
-                        }" formControlName="royalties" name="royalties" placeholder='e.g. Royalties in percentage"'
-                        required />
-                      <div *ngIf=" f.royalties.invalid && (f.royalties.touched || formData.submitted)"
-                        class="p12 w-normal error">
-                        <div *ngIf="f.royalties.errors.required">
-                          Royalties is required.
-                          Royalties is > 0 and < 80 </div>
-                        </div>
-                      </div>
-                    </div> -->
+                
 
-                  <div class="field" *ngIf="typeOfNft != 'single'">
+                  <div class="field" >
                     <div class="field__label">Number of copies</div>
                     <div class="field__wrap">
                       <input
                         class="field__input"
                         type="text"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.numberOfCopies.invalid &&
-                            (f.numberOfCopies.touched || formData.submitted)
-                        }"
+                       
                         formControlName="numberOfCopies"
                         name="item"
                         placeholder='e.g. 10"'
-                        required
+                        
                       />
-                      <div
-                        *ngIf="
-                          f.numberOfCopies.invalid &&
-                          (f.numberOfCopies.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        <div
-                          class="p12 w-normal error"
-                          *ngIf="f.numberOfCopies.errors.required"
-                        >
-                          Number of copies required
-                        </div>
-                      </div>
+                      <div *ngIf="f.numberOfCopies.invalid && (f.numberOfCopies.touched || formData.submitted)">
+                       <div *ngIf="f.numberOfCopies.errors.required">
+                        numberOfCopies required
+                       </div>
+                       <div *ngIf="f.numberOfCopies.errors.pattern">
+                        numberOfCopies should be number
+                       </div>
+                    </div>
                     </div>
                   </div>
 
@@ -134,24 +79,10 @@
                               id="{{ 'size' + i }}"
                               name="size"
                               placeholder="e.g. Size"
-                              [ngClass]="{
-                                'is-invalid':
-                                  propertysize.controls[i].get('size')
-                                    .invalid &&
-                                  (propertysize.controls[i].get('size')
-                                    .touched ||
-                                    formData.submitted)
-                              }"
+                             
                             />
-                            <div
-                              *ngIf="
-                                propertysize.controls[i].get('size').invalid &&
-                                (propertysize.controls[i].get('size').touched ||
-                                  formData.submitted)
-                              "
-                              class="p12 w-normal error"
-                            >
-                              Size is required
+                            <div *ngIf="propertysize.controls[i].get('size').invalid && (propertysize.controls[i].get('size').touched || formData.submitted) ">
+                                size is required
                             </div>
                           </div>
                         </div>
@@ -167,27 +98,11 @@
                               id="{{ 'size' + i }}"
                               name="propertie"
                               placeholder="e.g. Properties"
-                              [ngClass]="{
-                                'is-invalid':
-                                  propertysize.controls[i].get('properties')
-                                    .invalid &&
-                                  (propertysize.controls[i].get('properties')
-                                    .touched ||
-                                    formData.submitted)
-                              }"
+                          
                             />
-                            <div
-                              *ngIf="
-                                propertysize.controls[i].get('properties')
-                                  .invalid &&
-                                (propertysize.controls[i].get('properties')
-                                  .touched ||
-                                  formData.submitted)
-                              "
-                              class="p12 w-normal error"
-                            >
-                              properties required
-                            </div>
+                            <div *ngIf="propertysize.controls[i].get('properties').invalid && (propertysize.controls[i].get('properties').touched || formData.submitted)">
+                              properties is required
+                          </div>
                           </div>
                         </div>
                       </div>
@@ -312,27 +227,14 @@
                     <div class="field__wrap">
                       <input
                         class="field__input"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.fixedPrice.invalid &&
-                            (f.fixedPrice.touched || formData.submitted)
-                        }"
+                      
                         formControlName="fixedPrice"
                         #fixedprice
                         type="text"
                         name="price"
                         placeholder="e.g. Price 1 BNB"
-                        required
                       />
-                      <div
-                        *ngIf="
-                          f.fixedPrice.invalid &&
-                          (f.fixedPrice.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        price is required
-                      </div>
+                    
                     </div>
                     <div class="upload__text mb20">
                       Service fee 2.5% <br />
@@ -341,26 +243,11 @@
                         f.fixedPrice?.value - (f.fixedPrice?.value * 2.5) / 100
                       }}
                     </div>
-                  </div>
-                  <!-- <div class="upload__col">
-                    <div class="field">
-                      <div class="field__label">Currency</div>
-                      <div class="field__wrap">
-                        <select
-                          class="select"
-                          formControlName="currencyId"
-                          #currencyId
-                        >
-                          <option
-                            *ngFor="let itemcur of currencyList"
-                            [value]="itemcur.id"
-                          >
-                            {{ itemcur.name }}
-                          </option>
-                        </select>
-                      </div>
+                    <div *ngIf="f.fixedPrice.invalid && (f.fixedPrice.touched || formData.submitted)">
+                      price is required
                     </div>
-                  </div> -->
+                  </div>
+                  
                 </div>
 
                 <div
@@ -372,48 +259,20 @@
                     <div class="field__wrap">
                       <input
                         class="field__input"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.minimunBid.invalid &&
-                            (f.minimunBid.touched || formData.submitted)
-                        }"
+                       
                         formControlName="minimunBid"
                         type="text"
                         name="price"
                         placeholder="e.g. Price 1 BNB"
-                        required
+                        
                       />
-                      <div
-                        *ngIf="
-                          f.minimunBid.invalid &&
-                          (f.minimunBid.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        Minimum bid is required
-                      </div>
+                    
                     </div>
                     <div class="upload__text">
                       Bids below this amount won’t be allowed.
                     </div>
                   </div>
-                  <!-- <div class="field">
-                    <div class="field__label">Currency</div>
-                    <div class="field__wrap">
-                      <select
-                        class="select"
-                        formControlName="currencyId"
-                        #currencyId
-                      >
-                        <option
-                          *ngFor="let itemcur of currencyList"
-                          [value]="itemcur.id"
-                        >
-                          {{ itemcur.name }}
-                        </option>
-                      </select>
-                    </div>
-                  </div> -->
+               
                   <div class="field">
                     <div class="field__label">Start date</div>
                     <div class="field__wrap">
@@ -421,23 +280,10 @@
                         id="datetimepicker"
                         name="startingDate"
                         placeholder="Select a date"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.startingDate.invalid &&
-                            (f.startingDate.touched || formData.submitted)
-                        }"
                         formControlName="startingDate"
                         [value]="dateValue"
                       ></ejs-datetimepicker>
-                      <div
-                        *ngIf="
-                          f.startingDate.invalid &&
-                          (f.startingDate.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        Enter Start Date in mm/dd/yyyy.
-                      </div>
+                      
                     </div>
                     <div class="upload__text">
                       Bids below this amount won’t be allowed.
@@ -451,28 +297,13 @@
                         id="datetimepicker"
                         name="expirationDate"
                         placeholder="Select a date"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.expirationDate.invalid &&
-                            (f.expirationDate.touched || formData.submitted)
-                        }"
+                       
                         formControlName="expirationDate"
                         [value]="dateValue"
                       ></ejs-datetimepicker>
-                      <div
-                        *ngIf="
-                          f.expirationDate.invalid &&
-                          (f.expirationDate.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        Enter End date in mm/dd/yyyy.
-                      </div>
+                     
                     </div>
-                    <!-- <div class="label">
-                      Any bid placed in the last 10 minutes extends the
-                      auction by 10 minutes.
-                    </div> -->
+                  
                   </div>
                 </div>
 
@@ -485,25 +316,15 @@
                     <div class="field__wrap">
                       <input
                         class="field__input"
-                        [ngClass]="{
-                          'is-invalid':
-                            f.minimunBid.invalid &&
-                            (f.minimunBid.touched || formData.submitted)
-                        }"
+                        
                         formControlName="minimunBid"
                         type="text"
                         name="price"
                         placeholder="e.g. Price 1 BNB"
-                        required
+                        
                       />
-                      <div
-                        *ngIf="
-                          f.minimunBid.invalid &&
-                          (f.minimunBid.touched || formData.submitted)
-                        "
-                        class="p12 w-normal error"
-                      >
-                        Minimum bid is required
+                      <div *ngIf="f.minimunBid.invalid && (f.minimunBid.touched || formData.submitted)">
+                        Minimum bid required
                       </div>
                     </div>
                     <div class="upload__text">
@@ -539,26 +360,16 @@
                   <div class="field__wrap">
                     <input
                       class="field__input"
-                      [ngClass]="{
-                        'is-invalid':
-                          f.alternativeText.invalid &&
-                          (f.alternativeText.touched || formData.submitted)
-                      }"
+                     
                       type="text"
                       formControlName="alternativeText"
                       name="item"
                       placeholder="Digital key, code to redeem or link to a file..."
-                      required
+                      
                     />
-                    <div
-                      *ngIf="
-                        f.alternativeText.invalid &&
-                        (f.alternativeText.touched || formData.submitted)
-                      "
-                      class="p12 w-normal error"
-                    >
-                      unlock content required
-                    </div>
+                  <div *ngIf="f.alternativeText.invalid && (f.alternativeText.touched || formData.submitted)">
+                    alternativeText is required
+                  </div>
                   </div>
                 </div>
               </div>
@@ -587,41 +398,7 @@
                 </div>
               </div>
 
-              <!-- <div class="upload__category">Choose collection</div>
-              <div class="upload__text mb10">
-                Choose an exiting collection or create a new one
-              </div>
-
-              <div class="flex gap15">
-                <div
-                  class="upload__card"
-                  *ngFor="let itemf of collectionList"
-                  (click)="setCollectionId(itemf['collectionId'], itemf)"
-                  [ngClass]="{
-                    selectedCollection: itemf['collectionId'] == collectionId
-                  }"
-                >
-                  <div class="upload__plus">
-                    <img src="{{ itemf['fileUrl'] }}" class="collection-icon" />
-                  </div>
-                  <div class="upload__subtitle">
-                    {{ itemf["collectionName"] }}
-                  </div>
-                </div>
-
-                <div class="upload__card">
-                  <div
-                    class="upload__plus"
-                    (click)="openDialogCreateCollection()"
-                  >
-                    <svg class="icon icon-plus">
-                        <use xlink:href="#icon-plus"></use>
-                      </svg>
-                    <i class="fa fa-plus iconstyle" aria-hidden="true"></i>
-                  </div>
-                  <div class="upload__subtitle">Create collection</div>
-                </div>
-              </div> -->
+             
             </div>
             <div class="upload__foot">
               <button
@@ -629,11 +406,11 @@
               >
                 Preview
               </button>
-              <!-- [disabled]="showPopup" -->
+            
               <button
                 class="button bg-primary"
                 type="submit"
-                (click)="createNftSubmit(formData.value)"
+               
               >
                 <span>Confirm Details</span>
               </button>
@@ -645,7 +422,7 @@
 
           <div class="pt50 flex justify-space-between">
             <div class="flex align-center">
-              <a href="javascript:void(0)">
+              <a href="javascript:void(0)" (click)="previes()">
               <svg
                 version="1.1"
                 id="prev"
@@ -683,7 +460,7 @@
             </div>
 
             <div class="flex align-center">
-              <p class="mr30">NFT {{index}}/{{multipleImageLength}}</p>
+              <p class="mr30">NFT {{index +1}}/{{multipleImageLength}}</p>
               <a href="javascript:void(0)" (click)="nxtNFT()">
               <svg
                 version="1.1"
@@ -764,16 +541,16 @@
                   <div class="card__line justify-space-between align-center">
                     <div
                       class="text-secondary orbitron text-primary"
-                      *ngIf="f.title.value"
+                    
                     >
-                      {{ f.title.value }}
+                      <!-- {{ f.title.value }} -->
                     </div>
-                    <div
+                    <!-- <div
                       class="text-secondary orbitron text-primary"
                       *ngIf="!f.title.value"
                     >
                       NFT Name
-                    </div>
+                    </div> -->
                     <div
                       class="user__name text-primary"
                       *ngIf="f.typeOfSale.value <= 2"

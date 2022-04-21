@@ -27,7 +27,7 @@ declare var $: any;
 })
 export class Step3Component implements OnInit {
 
-  createNftForm!: FormGroup;  
+  createNftForm: FormGroup;  
   @Input() multipleImage:any=[];
 
   @ViewChild('ejDatePicker') ejDatePicker: DatePickerComponent | undefined;
@@ -70,16 +70,22 @@ export class Step3Component implements OnInit {
     private ngZone: NgZone,
     public dialog: MatDialog
   ) {
-    _activatedRoute.params.subscribe(
-      (params) => (this.typeOfNft = params['type'])
-    );
+    // _activatedRoute.params.subscribe(
+    //   (params) => (this.typeOfNft = params['type'])
+    // );
+    this.typeOfNft = 'single';
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     console.log("#####=>",this.multipleImage);
-    this.multipleImageLength = this.multipleImage.length;
-    this.imageUrl = this.multipleImage[this.index].imagePath;
-    this.imageName = this.multipleImage[this.index].name;
+    if(this.multipleImage.length > 0){
+      this.multipleImageLength = this.multipleImage.length;
+      this.imageUrl = this.multipleImage[this.index].imagePath;
+      this.imageName = this.multipleImage[this.index].name;
+      this.imagePath = this.multipleImage[this.index].imagePath;
+    }
+  
 
     this.cs.getWalletObs().subscribe((data: any) => {
       this.userAddress = data;
@@ -88,40 +94,31 @@ export class Step3Component implements OnInit {
       }
     });
 
-    window.scrollTo(0, 0);
-    this.propertyAndsize();
+   
+      this.createNftForm = this.formBuilder.group({
+        description: ['',[Validators.required]],
+        numberOfCopies: [
+          '',
+          [Validators.required, Validators.min(1), Validators.max(10000000),Validators.pattern('^[0-9]*$') ]
+        ],
+        propertysize: this.formBuilder.array([this.propertyAndsize()]),
+        alternativeText: ['',[Validators.required]],
+        fixedPrice: ['0',[Validators.required]],
+        blockchainId: ['1',],
+        minimunBid: ['',[Validators.required]],
+        startingDate: [''],
+        expirationDate: [''],
+        isForSale: [false],
+        typeOfSale: ['1',],
+        isUnlock: [''],
+      });
 
-    this.createNftForm = this.formBuilder.group({
-      title: [''],
-      description: [''],
-      // royalties: [
-      //   '',
-      //   [Validators.min(0), Validators.max(80), Validators.pattern('^[0-9]*$')],
-      // ],
-      numberOfCopies: [
-        '1',
-        [ Validators.min(1), Validators.max(10000000),Validators.pattern('^[0-9]*$'), ],
-      ],
-      propertysize: this.formBuilder.array([this.propertyAndsize()]),
-      alternativeText: [''],
-      fixedPrice: ['0'],
-      // currencyId: ['1'],
-      blockchainId: ['1'],
-      minimunBid: [''],
-      startingDate: [''],
-      expirationDate: [''],
-      isMultiple: [''],
-      isForSale: [false],
-      protectionTime: [''],
-      typeOfSale: ['1'],
-      unlockData: [''],
-      referralAddress: [''],
-      isUnlock: [''],
-    });
+
+
 
     this.createNftForm.get('properties')?.clearValidators();
     this.createNftForm.get('alternativeText')?.clearValidators();
-    this.createNftForm.get('numberOfCopies')?.clearValidators();
+    // this.createNftForm.get('numberOfCopies')?.clearValidators();
 
     this.createNftForm.get('isForSale')?.valueChanges.subscribe((value) => {
       this.setTypeOfSale();
@@ -144,7 +141,7 @@ export class Step3Component implements OnInit {
     this.propertysize.removeAt(index);
   }
   get propertysize(): FormArray {
-    return <FormArray>this.createNftForm.get('propertysize');
+    return this.createNftForm.get('propertysize') as FormArray;
   }
 
   addInputs() {
@@ -152,8 +149,8 @@ export class Step3Component implements OnInit {
   }
   propertyAndsize(): FormGroup {
     return this.formBuilder.group({
-      size: [null, ],
-      properties: [null, ],
+      size: ['',[Validators.required] ],
+      properties: ['',[Validators.required] ],
     });
   }
 
@@ -263,59 +260,59 @@ export class Step3Component implements OnInit {
 
   showerrormsg = 'hide';
 
-  onLogoFile(event: any) {
-    this.showerrormsg = 'hide';
-    this.isShowMatspinner = 'show';
-    this.isUploadButtonDisabled = true;
-    const file: File = event.target.files[0];
-    console.log(file.size /1024);
-    if((file.size / 1024) < 5000){
-      if (
-        file.type == 'image/jpeg' ||
-        file.type == 'image/png' ||
-        file.type == 'image/jpg' ||
-        file.type == 'video/mp4' ||
-        file.type == 'image/gif'
-      ) {
-        if (file) {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
+  // onLogoFile(event: any) {
+  //   this.showerrormsg = 'hide';
+  //   this.isShowMatspinner = 'show';
+  //   this.isUploadButtonDisabled = true;
+  //   const file: File = event.target.files[0];
+  //   console.log(file.size /1024);
+  //   if((file.size / 1024) < 5000){
+  //     if (
+  //       file.type == 'image/jpeg' ||
+  //       file.type == 'image/png' ||
+  //       file.type == 'image/jpg' ||
+  //       file.type == 'video/mp4' ||
+  //       file.type == 'image/gif'
+  //     ) {
+  //       if (file) {
+  //         const reader = new FileReader();
+  //         reader.readAsDataURL(file);
   
-          reader.onload = (event) => {
-            this.imageUrl = reader.result?.toString() ?? '';
-            // console.log("this.imageUrl===>",this.imageUrl);
+  //         reader.onload = (event) => {
+  //           this.imageUrl = reader.result?.toString() ?? '';
+  //           // console.log("this.imageUrl===>",this.imageUrl);
             
-          };
-          this.createNFTService.uploadFile(file).subscribe(
-            (response: any) => {
-              this.isUploadButtonDisabled = false;
-              if (response.isSuccess) {
-                this.isShowMatspinner = 'hide';
-                this.imagePath = response.data.path;
-              } else {
-                this.showerrormsg = 'show';
-                this.isShowMatspinner = 'hide';
-                this.imagePath = '';
-              }
-            },
-            (error: any) => {
-              this.isShowMatspinner = 'hide';
-              this.showerrormsg = 'show';
-              this.isUploadButtonDisabled = false;
-              this.imagePath = '';
-            }
-          );
-        }
-      } else {
-        this.toastr.error('please check file format....');
-        this.isShowMatspinner = 'hide';
-      }
-    }else{
-      this.toastr.error('file size should be less than 5mb');
-      this.isShowMatspinner = 'hide';
-      this.imagePath = '';
-    }
-  }
+  //         };
+  //         this.createNFTService.uploadFile(file).subscribe(
+  //           (response: any) => {
+  //             this.isUploadButtonDisabled = false;
+  //             if (response.isSuccess) {
+  //               this.isShowMatspinner = 'hide';
+  //               this.imagePath = response.data.path;
+  //             } else {
+  //               this.showerrormsg = 'show';
+  //               this.isShowMatspinner = 'hide';
+  //               this.imagePath = '';
+  //             }
+  //           },
+  //           (error: any) => {
+  //             this.isShowMatspinner = 'hide';
+  //             this.showerrormsg = 'show';
+  //             this.isUploadButtonDisabled = false;
+  //             this.imagePath = '';
+  //           }
+  //         );
+  //       }
+  //     } else {
+  //       this.toastr.error('please check file format....');
+  //       this.isShowMatspinner = 'hide';
+  //     }
+  //   }else{
+  //     this.toastr.error('file size should be less than 5mb');
+  //     this.isShowMatspinner = 'hide';
+  //     this.imagePath = '';
+  //   }
+  // }
 
   async createNftSubmit(formData: any) {
     this.submitted = true;
@@ -349,7 +346,9 @@ export class Step3Component implements OnInit {
       formData.royalties = this.royalties;
       formData.blockchainId =  this.createNftForm.controls.blockchainId.value;
       
-      this.openDialogSubmitNFT(formData);
+      // this.openDialogSubmitNFT(formData);
+      console.log(formData);
+      
     }
   }
 
@@ -406,18 +405,30 @@ export class Step3Component implements OnInit {
 
  
   nxtNFT(){
-    // debugger
-    
+   
     if(this.index < this.multipleImage.length - 1){
-      // this.index = this.index + 1;
+     
       this.index ++ ;
+      this.imageUrl = this.multipleImage[this.index].imagePath;
+      this.imagePath = this.multipleImage[this.index].imagePath;
+      this.imageName = this.multipleImage[this.index].name;
+      }
+      else{
+       
+      }
+  }
+
+  previes(){
+   
+    if(this.index >0){
+     
+      this.index -- ;
+      this.imagePath = this.multipleImage[this.index].imagePath;
       this.imageUrl = this.multipleImage[this.index].imagePath;
       this.imageName = this.multipleImage[this.index].name;
       }
       else{
-        // alert("no more nfts")
+        alert("no more nfts")
       }
-    
-    
   }
 }

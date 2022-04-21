@@ -1,6 +1,6 @@
 <section class="hot-collection pb100">
   <div class="inner">
-    <div class="flex wrap">
+    <div class="flex gap wrap">
       <div class="flex3 upload__wrapper">
         <div class="flex align-center justify-space-between mb20">
           <p class="orbitron p18">
@@ -84,9 +84,28 @@
           <div
             class="flex align-center justify-space-between pb30 pt30 border-bottom"
           >
-            <p class="orbitron p16">
-              <span>1 batch has been uploaded succesfully</span>
-            </p>
+            <div class="batch_uploaded flex align-center">
+              <img
+                alt="NFT preview"
+                src="https://moonboxes.io/assets/media/images/astro_painter.svg"
+              /><img
+                alt="NFT preview"
+                src="https://moonboxes.io/assets/media/images/astro_painter.svg"
+              /><img
+                alt="NFT preview"
+                src="https://moonboxes.io/assets/media/images/astro_painter.svg"
+              /><img
+                alt="NFT preview"
+                src="https://moonboxes.io/assets/media/images/astro_painter.svg"
+              /><img
+                alt="NFT preview"
+                src="https://moonboxes.io/assets/media/images/astro_painter.svg"
+              />
+              <p class="orbitron p16 ml20">
+                <span>1 batch has been uploaded succesfully</span>
+              </p>
+            </div>
+
             <p class="w-normal"><span>100 items</span></p>
           </div>
         </div>
@@ -137,7 +156,9 @@
         </div>
 
         <div class="mt-50">
-          <button class="button bg-primary wp100" (click)="gotoTab3()">I'm done uploading</button>
+          <button class="button bg-primary wp100" (click)="gotoTab3()">
+            I'm done uploading
+          </button>
         </div>
       </div>
     </div>
@@ -147,42 +168,43 @@
         <p class="orbitron p18"><span>NFT upload in progress</span></p>
       </div>
 
-      <div class="flex gap" >
-        <div *ngFor="let uploadlit of progressInfos;" class="flex1">
+      <div>
+      <!-- <div class="flex gap flex-wrap-123"> -->
+        <div>
           <div class="table-responsive">
-            <table class="wp100 text-right">
-              <thead class="border-bottom-thead">
-                <tr>
-                  <th class="text-left">#</th>
-                  <th class="text-left">NFT</th>
-                  <th class="text-right">Progress</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-bottom">
-                  <td class="pt30 pb30 text-left">1</td>
-                  <td class="pt30 pb30 text-left">
-                    <a
-                      class="flex-col text-primary"
-                      ng-reflect-router-link="/collection,Jazz"
-                      href="/collection/Jazz"
-                      ><span class="orbitron text-secondary p16">
-                        {{uploadlit.fileName.slice(0,10)}}
-                      </span></a
-                    >
-                  </td>
-                  <td class="pt30 pb30">
-                    <span
-                      class="badge badge-success"
-                      ng-reflect-ng-class="badge-success"
-                    >
-                    {{uploadlit.value}}
-                    </span
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="wp100 text-right">
+             <div class="grid grid-3">
+              <div class="border-bottom-thead flex justify-space-between pb10 slice" *ngFor="let uploadlit of progressInfos | slice:0:3">
+                <div class="text-left">#</div>
+                <div class="text-left">NFT</div>
+                <div class="text-right">Progress</div>
+              </div>
+            </div>
+ 
+            <div class="grid grid-3 row-gap">
+              <div *ngFor="let uploadlit of progressInfos; index as i" class="" class="border-bottom flex justify-space-between">
+                <div class="pt30 pb30 text-left">{{i + 1}}</div>
+                <div class="pt30 pb30 text-left">
+                  <a
+                    class="flex-col text-primary"
+                    ng-reflect-router-link="/collection,Jazz"
+                    href="/collection/Jazz"
+                    ><span class="orbitron text-secondary p16">
+                      {{ uploadlit.fileName.slice(0, 10) }}
+                    </span></a
+                  >
+                </div>
+                <div class="pt30 pb30">
+                  <span
+                    class="badge badge-success"
+                    ng-reflect-ng-class="badge-success"
+                  >
+                    {{ uploadlit.value }}%
+                  </span>
+                </div>
+              </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

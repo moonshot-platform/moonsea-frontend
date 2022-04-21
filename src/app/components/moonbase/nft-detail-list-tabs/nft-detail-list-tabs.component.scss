@@ -1,24 +1,19 @@
-.showtab
-{
-    display: block !important;
+.showtab {
+  display: block !important;
 }
 
-.hidetab
-{
-    display: none !important;
+.hidetab {
+  display: none !important;
 }
-.color_link{
-    color: black;
+.color_link {
+  color: black;
 }
 .box {
-    padding: 0.5rem;
-    text-align: center;
-    border: 1px solid;
-    flex: 0 0 calc(33.333% - 16px);
-    width: calc(33.333% - 16px);
-    margin: 20px 8px 0;
-    justify-content: space-around;
-  }
-.break-word{
-    word-break: break-all;
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid;
+  justify-content: space-around;
+}
+.break-word {
+  word-break: break-all;
 }

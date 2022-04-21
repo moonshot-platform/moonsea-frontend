@@ -68,7 +68,14 @@ body {
 
 a {
   text-decoration: none;
-  color: white;
+  color: $primary;
+}
+
+a:hover {
+  color: $white;
+  strong {
+    color: $primary;
+  }
 }
 
 ul {
@@ -2422,12 +2429,14 @@ table {
   justify-content: center;
   // align-items: flex-start;
   gap: 30px;
-  grid-gap: 30px;
-
+  // row-gap: 0px;
   &.grid-3,
   &.grid-4 {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+.row-gap {
+  row-gap: 0;
 }
 
 .max-price {
@@ -2645,7 +2654,10 @@ table {
   .collections__counter .text-primary {
     color: $black;
   }
-  .text-primary.collections__author:hover span {
+  .collections__author a {
+    color: $black;
+  }
+  .text-primary.collections__author:hover a {
     color: $primary;
   }
 }
@@ -3008,17 +3020,17 @@ span.content_editable br {
 }
 
 .uploadProfilePic {
-    flex-shrink: 0;
-    width: 170px;
-    height: 170px;
-    margin-right: 32px;
-    border: 1px solid $primary;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  input[type=file] {
+  flex-shrink: 0;
+  width: 170px;
+  height: 170px;
+  margin-right: 32px;
+  border: 1px solid $primary;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  input[type="file"] {
     width: 100%;
     opacity: 0;
     height: 100%;
@@ -3027,6 +3039,43 @@ span.content_editable br {
 }
 
 // Dropdown end
+
+.popup {
+  .e-input-group:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left),
+  .e-input-group.e-control-wrapper:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left) {
+    border-color: $dark !important;
+  }
+  .e-input-group input.e-input,
+  .e-input-group.e-control-wrapper input.e-input {
+    min-width: 0;
+    width: 100%;
+    font-family: "Montserrat";
+    font-weight: normal;
+    letter-spacing: 0;
+    font-size: 16px;
+  }
+  input.e-input, .e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input {
+    color: $black !important;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid;
+    padding: 0.47rem;
+  }
+  .e-datetime-wrapper .e-input-group-icon
+  {
+    &.e-time-icon,
+    &.e-date-icon {
+      position: absolute;
+      top: 8px;
+    }
+    &.e-time-icon {
+      right: 0;
+    }
+    &.e-date-icon {
+      right: 30px;
+    }
+  }
+}
 
 // Responsive Code
 @media only screen and (max-width: $md) {

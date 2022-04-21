@@ -4007,6 +4007,7 @@ body.dark .card__status span {
   margin-bottom: 8px;
   margin-top: 16px;
   font-size: 24px;
+  display: flex;
   line-height: 1.33333;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -5514,10 +5515,10 @@ body.dark .upload__file {
 
 .upload__option {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 .upload__option:not(:last-child) {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .upload__box {
@@ -9872,7 +9873,6 @@ input.e-input,
 
 #datetimepicker {
   border: none;
-  border-bottom: 1px solid #ae3600 !important;
   padding: 5px 0;
 }
 

@@ -1,20 +1,36 @@
 @import "includes";
 
 .collection_img {
-    border: 1px solid $primary;
-    width: 135px;
-    height: 135px;
-    justify-self: center;
-    margin: auto;
-    display: flex;
+  border: 1px solid $primary;
+  width: 135px;
+  height: 135px;
+  justify-self: center;
+  margin: auto;
+  display: flex;
 }
 
 .border-bottom-thead {
-    border-bottom: 3px solid $primary;
+  border-bottom: 3px solid $primary;
 }
-.orbitron.text-secondary.p16{
-    white-space: nowrap;
+.orbitron.text-secondary.p16 {
+  white-space: nowrap;
 }
-.mt-50{
-    margin: 50px 0 0 0;
+.mt-50 {
+  margin: 50px 0 0 0;
+}
+.flex-wrap-123 {
+  flex-wrap: wrap;
+  width: 100%;
+}
+.batch_uploaded {
+  img {
+    width: 10px;
+    height: 40px;
+    border: 1px solid $primary;
+    border-right: none;
+    &:nth-last-child(2) {
+      width: 40px !important;
+      border: 1px solid $primary !important;
+    }
+  }
 }
