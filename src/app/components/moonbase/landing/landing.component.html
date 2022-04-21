@@ -37,11 +37,10 @@
                       href="javascript:void(0)"
                       class="collections__gallery mr30"
                     >
-                      <div
+                      <a
                         class="collections__preview"
-                        (click)="
-                          gotoNftDetails(item.nftAddress, item.nftTokenID01)
-                        "
+                        [routerLink]="['/details',item.nftAddress, item.nftTokenID01]" routerLinkActive="router-link-active" 
+                        
                       >
                         <div class="content-overlay"></div>
                         <!-- <img
@@ -65,7 +64,7 @@
                           src="assets/images/default.jpg"
                           alt=""
                         /> -->
-                      </div>
+                      </a>
                       <div class="flex flex-wrap flex100 gap15 justify-start">
                         <div
                           class="thumb__preview gap15"
@@ -88,11 +87,14 @@
                             gotoNftDetails(iner.nftAddress, iner.nftTokenID)
                           "> -->
 
-                              <img src="{{iner.nftFileUrl}}" (load)="loaded01 = true" alt="" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1">
+                              <a [routerLink]="['/details',iner.nftAddress, iner.nftTokenID01]" routerLinkActive="router-link-active" >
+                                <img src="{{iner.nftFileUrl}}" (load)="loaded01 = true" alt="" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
+                             >
                               <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
                               (load)="loaded01 = false" [hidden]="loaded01">
                                 <source src="assets/media/videos/moonsea-animated-logo.webm"  type="video/mp4">
-                              </video> 
+                              </video>
+                              </a> 
 
 
                             <video class="video"  loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1"
@@ -125,15 +127,15 @@
                             class="montserrat text-primary p18 flex space-between-md-column"
                           >
                             <a
-                              href="javascript:void(0)"
+                            [routerLink]="[
+                            '/profile',
+                            item.ownerWalletAddress
+                          ]"
                               class="text-primary owner_name"
                             >
                               by
                               <span
-                                [routerLink]="[
-                                  '/profile',
-                                  item.ownerWalletAddress
-                                ]"
+                                
                               >
                                 {{ item?.name ?? item?.customeUrl }}
                               </span></a
@@ -577,20 +579,19 @@
                     />
                   </div>
                   <div class="flex100">
-                    <div
+                    <a
                       class="color-secondary collections__subtitle orbitron"
                       [routerLink]="['/collection', item.collectionName]"
                     >
                       {{ item.collectionName }}
-                    </div>
+                    </a>
                     <div class="collections__line">
                       <div class="collections__user">
                         <div class="text-primary collections__author">
                           by
-                          <span
+                          <a
                             [routerLink]="['/profile', item.ownerWalletAddress]"
-                            >{{ item?.name ?? item?.customeUrl }}</span
-                          >
+                            >{{ item?.name ?? item?.customeUrl }}</a>
                         </div>
                       </div>
                       <div class="collections__counter">
@@ -674,7 +675,7 @@
                           <div
                             class="color-secondary orbitron p18 selection__title"
                           >
-                            <div
+                            <a
                               [routerLink]="['/collections/collection', item.collectionName]"
                             >
                               {{
@@ -682,18 +683,17 @@
                                   ? "Test"
                                   : item.collectionName
                               }}
-                            </div>
+                            </a>
                             <span
                               class="p16 montserrat text-primary collections__author"
                             >
                               by
-                              <span
+                              <a
                                 [routerLink]="[
                                   '/profile',
                                   item.ownerWalletAddress
                                 ]"
-                                >{{ item?.name ?? item?.customeUrl }}</span
-                              >
+                                >{{ item?.name ?? item?.customeUrl }}</a>
                             </span>
                           </div>
                           <div class="collections__counter">
@@ -702,9 +702,9 @@
                             >
                           </div>
                           <div>
-                            <button class="button w-100 mt10" [routerLink]="['/collection', item.collectionName]">
+                            <a class="button w-100 mt10" [routerLink]="['/collection', item.collectionName]">
                               View Collection
-                            </button>
+                            </a>
                           </div>
                         </div>
                       </div>

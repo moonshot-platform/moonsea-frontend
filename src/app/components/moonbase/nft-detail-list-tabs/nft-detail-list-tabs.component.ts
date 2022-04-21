@@ -10,7 +10,7 @@ import { GetDataService } from '../../../services/get-data.service';
 })
 export class NftDetailListTabsComponent implements OnInit {
   @Input() ID: any;
-  @Input() items: any;
+  @Input() items: any={};
   @Input() response:any;
   @Input() nftAddress:any;
 

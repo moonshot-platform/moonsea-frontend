@@ -4007,6 +4007,7 @@ body.dark .card__status span {
   margin-bottom: 8px;
   margin-top: 16px;
   font-size: 24px;
+  display: flex;
   line-height: 1.33333;
   font-weight: 600;
   letter-spacing: -0.01em;

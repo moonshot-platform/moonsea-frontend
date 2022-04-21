@@ -1,5 +1,7 @@
 <a href="javascript:void(0)" class="collections__gallery">
-  <div class="collections__preview" (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)">
+  <a class="collections__preview" 
+    [routerLink]="['/details',item.nftAddress,item.nftTokenID01]" routerLinkActive="router-link-active" >
+    <!-- ['/details', nftAddress, nftTokenID] -->
     <div class="content-overlay"></div>
     <!-- <img
       *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
@@ -27,7 +29,7 @@
       <source src="{{ item.nftFileUrl01 }}" type="video/mp4" />
     </video>
     <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
-  </div>
+  </a>
 
   <div class="flex flex-wrap flex100 gap15 justify-start thumb-grid">
     <div class="thumb__preview gap15" *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index">
@@ -43,16 +45,18 @@
             inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1
           " /> -->
 
-
-          <img src="{{inneritem.nftFileUrl}}"  (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" alt=""
+          <a [routerLink]="['/details',inneritem.nftAddress,inneritem.nftTokenID01]">
+            <img src="{{inneritem.nftFileUrl}}"  alt=""
           (load)="loaded01 = true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1">
 
           <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
           *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1"
-           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" (load)="loaded01 = false"
+           (load)="loaded01 = false"
            [hidden]="loaded01">
           <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
         </video>
+          </a>
+          
 
         <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
           *ngIf="
@@ -72,17 +76,17 @@
   </div>
 
   <div class="flex100">
-    <div class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
+    <a class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
       {{ item.collectionName }}
-    </div>
+    </a>
     <div class="collections__line">
       <div class="collections__user">
         <div class="text-primary collections__author">
           By
           <ng-container *ngIf="item?.name ?? item?.customeUrl">
-            <span [routerLink]="['/profile', item.ownerWalletAddress]">
+            <a [routerLink]="['/profile', item.ownerWalletAddress]">
               {{ item?.name ?? item?.customeUrl }}
-            </span>
+            </a>
           </ng-container>
           <ng-container *ngIf="!(item?.name ?? item?.customeUrl)">
             <span [routerLink]="['/profile', item.ownerWalletAddress]">unknown</span>

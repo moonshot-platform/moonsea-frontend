@@ -1,8 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GetDataService } from 'src/app/services/get-data.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CreateNftService } from 'src/app/services/create-nft.service';
+import { DatePickerComponent } from '@syncfusion/ej2-angular-calendars';
+import { ContractService } from 'src/app/services/contract.service';
+import { ModalForCreateNftComponent } from '../modal-for-create-nft/modal-for-create-nft.component';
 
 @Component({
   selector: 'app-create-collection',
@@ -10,6 +14,9 @@ import { CreateNftService } from 'src/app/services/create-nft.service';
   styleUrls: ['./create-collection.component.scss']
 })
 export class CreateCollectionComponent implements OnInit {
+  @ViewChild('ejDatePicker') ejDatePicker: DatePickerComponent | undefined;
+  public targetElement: HTMLElement | undefined;
+
   isApiLoading: boolean = false;
   isSubmitted = false;
   Address : any;
@@ -19,10 +26,13 @@ export class CreateCollectionComponent implements OnInit {
   collectionDetails = 1;
   socialLinks = false;
   nftDetails = false;
+  dateValue: Date = new Date();
+  typeOfNft :any = 'single';
 
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<CreateCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private createNFT:CreateNftService,
-    private getDataService:GetDataService) { 
+    private getDataService:GetDataService,private formbuider:FormBuilder,
+    private cs: ContractService,) { 
     }
    
     imageUrl = "";
@@ -61,26 +71,38 @@ export class CreateCollectionComponent implements OnInit {
 
   get formControls() { return this.addCollectionForm.controls; }
 
-  addCollectionForm = new FormGroup(
+  addCollectionForm = this.formbuider.group(
     {
-      file : new FormControl(''),
-      tokenName : new FormControl('',Validators.required),
-      symbol : new FormControl('',Validators.required),
-      description : new FormControl('',Validators.required),
-      categoryId : new FormControl('',Validators.required),
-      yourSite : new FormControl(),
-      discord : new FormControl(),
-      twitter : new FormControl(),
-      instagram : new FormControl(),
-      medium : new FormControl(),
-      telegram : new FormControl(),
-      royalties : new FormControl('',[Validators.required,Validators.pattern("^[0-9]{1,2}?$")]) 
+      // file : new FormControl(''),
+      tokenName : ['',[Validators.required]],
+      symbol : [''],
+      description : ['',[Validators.required]],
+      categoryId : [''],
+      yourSite :[''],
+      discord :[''],
+      twitter :[''],
+      instagram :[''],
+      medium :[''],
+      telegram :[''],
+      royalties : ['',[Validators.required,Validators.pattern("^[0-9]{1,2}?$")]],
+      // nft
+      "descriptionNFT" :['',[Validators.required]],
+      "size" :[''],
+      "isForSale" :[''],
+      "typeOfSale" :[''],
+      "fixedPrice" : ['',[Validators.required]],
+      "minimunBid" : ['',[Validators.required]],
+      "startingDate" :['',[Validators.required]],
+      "expirationDate" :['',[Validators.required]],
+      "properties" : [''],
+
+
     }
   )
   
   saveCollection(data:any)
   {
-    debugger
+    // debugger
     console.warn(data);
     this.isApiLoading = true;
     this.isSubmitted = true;
@@ -131,7 +153,7 @@ export class CreateCollectionComponent implements OnInit {
   imageErrorMsg:boolean;
 
   onLogoFile(event: any) {  
-    debugger
+    
     this.imageErrorMsg = false;
     const file: File = event.target.files[0];
     if (file) {
@@ -142,14 +164,19 @@ export class CreateCollectionComponent implements OnInit {
         .subscribe(
           (response:any) => {
             let data=response;
-            if(data.isSuccess){
+            console.log(data);
+
+
+            if (response.type === HttpEventType.UploadProgress) {
+             
+            } else if (response instanceof HttpResponse) {
+             if(response.body.isSuccess){
               this.imageErrorMsg = false;
-              this.imagePath=data.data.path;
-            }
-            else
-            {
+                this.imagePath=response.body.data.path;
+             }else{
               this.imageErrorMsg = true;
-              this.imagePath="";
+                this.imagePath="";
+             }
             }
            },
           (error:any) => {
@@ -205,6 +232,24 @@ export class CreateCollectionComponent implements OnInit {
 
   prev() {
     this.collectionDetails--;
+  }
+
+
+  openDialogSubmitNFT(data: any): void {
+    
+    const dialogRef = this.dialog.open(ModalForCreateNftComponent, {
+      width: 'auto',
+      disableClose: true,
+      data: {
+        details: data,
+        globalService: this.cs,
+        typeOfNft: this.typeOfNft,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+     
+    });
   }
   
 }

@@ -3,28 +3,14 @@
     <div class="flex justify-space-between">
       <h5 class="orbitron p24 mb40">Start a new Collection</h5>
       <a href="javascript:void(0)" (click)="close()">
-        <svg
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          viewBox="0 0 27 27"
-          height="24px"
-          width="24px"
-        >
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1"
+          viewBox="0 0 27 27" height="24px" width="24px">
           <title>Close Popup</title>
           <desc>Created with Sketch.</desc>
-          <g
-            id="Page-1"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <path
               d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
-              id="Combined-Shape"
-              fill="#000000"
-            ></path>
+              id="Combined-Shape" fill="#000000"></path>
           </g>
         </svg>
       </a>
@@ -32,11 +18,8 @@
     <div>
       <div>
         <!-- <div class="popup__note">Describe why you think this item should be removed from marketplace</div> -->
-        <form
-          #reportPost="ngForm"
-          [formGroup]="addCollectionForm"
-          (ngSubmit)="reportPost.valid && saveCollection(reportPost.value)"
-        >
+        <form #reportPost="ngForm" [formGroup]="addCollectionForm"
+          (ngSubmit)="reportPost.valid && saveCollection(reportPost.value)">
           <div class="flex gap" *ngIf="collectionDetails == 1">
             <div class="flex1">
               <div class="popup__field mb20">
@@ -45,85 +28,39 @@
                 <div class="upload__item">
                   <div class="popup__col mb10 p12">Upload a collection avatar</div>
                   <!-- <div class="upload__note">Drag or choose your file to upload</div> -->
-                  <div
-                    class="upload__file"
-                    [ngStyle]="{
+                  <div class="upload__file" [ngStyle]="{
                       'background-image':
                         imagePath?.length > 0 ? 'url(' + imagePath + ')' : '',
                       'background-size': '100% 100%'
-                    }"
-                  >
-                    <input
-                      class="upload__input"
-                      (change)="onLogoFile($event)"
-                      type="file"
-                    />
+                    }">
+                    <input class="upload__input" (change)="onLogoFile($event)" type="file" />
                     <div></div>
-                    <svg
-                      version="1.1"
-                      id="stroke_dark"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
-                      x="0px"
-                      y="0px"
-                      viewBox="0 0 40 40"
-                      xml:space="preserve"
-                      style="enable-background: new 0 0 40 40; width: 45px"
-                    >
+                    <svg version="1.1" id="stroke_dark" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                      xml:space="preserve" style="enable-background: new 0 0 40 40; width: 45px">
                       <g>
                         <g>
-                          <circle
-                            cx="20"
-                            cy="20"
-                            r="15"
-                            class="stroke_dark"
-                          ></circle>
+                          <circle cx="20" cy="20" r="15" class="stroke_dark"></circle>
                           <g>
-                            <line
-                              x1="20"
-                              y1="23.9"
-                              x2="20"
-                              y2="12.4"
-                              class="stroke_dark"
-                            ></line>
-                            <polyline
-                              points="14.3,17.8 20,12.1 25.7,17.7 			"
-                              class="stroke_dark"
-                            ></polyline>
+                            <line x1="20" y1="23.9" x2="20" y2="12.4" class="stroke_dark"></line>
+                            <polyline points="14.3,17.8 20,12.1 25.7,17.7 			" class="stroke_dark"></polyline>
                           </g>
                         </g>
-                        <line
-                          x1="14.3"
-                          y1="28"
-                          x2="25.7"
-                          y2="28"
-                          class="stroke_dark"
-                        ></line>
+                        <line x1="14.3" y1="28" x2="25.7" y2="28" class="stroke_dark"></line>
                       </g>
                     </svg>
                     <div class="upload__format">
                       Drop a PNG, GIF, WEBP or MP4. (Max 1MB).
                     </div>
                   </div>
-                  <!-- <div
-                *ngIf="
-                  formControls.file.invalid &&
-                  (formControls.file.touched || reportPost.submitted)
-                "
-                class="p12 w-normal mt10 mb10 error"
-              >
-                Image required
-              </div> -->
-                  <div
-                    *ngIf="imageErrorMsg"
-                    class="p12 w-normal mt10 mb10 error"
-                  >
+
+                  <!-- <div *ngIf="imageErrorMsg" class="p12 w-normal mt10 mb10 error">
                     image is required..
-                  </div>
+                  </div> -->
                 </div>
                 <!-- <div *ngIf="isSubmitted && formControls.message.errors" class="help-block _error">
-          <div *ngIf="formControls.message.errors.required" class="text-danger">Message is required</div>
-      </div> -->
+                    <div *ngIf="formControls.message.errors.required" class="text-danger">Message is required</div>
+                </div> -->
               </div>
             </div>
 
@@ -134,20 +71,12 @@
                 <div class="mb10 p12">Collection name</div>
 
                 <div class="field__wrap">
-                  <input
-                    class="popup__input"
-                    formControlName="tokenName"
-                    name="newPrice"
-                    type="text"
-                    [attr.readonly]="collectionId"
-                  />
-                  <div
-                    *ngIf="
+                  <input class="popup__input" formControlName="tokenName" name="newPrice" type="text"
+                    [attr.readonly]="collectionId" />
+                  <div *ngIf="
                       formControls.tokenName.invalid &&
                       (formControls.tokenName.touched || reportPost.submitted)
-                    "
-                    class="p12 w-normal mt10 mb10 error"
-                  >
+                    " class="p12 w-normal mt10 mb10 error">
                     Display required
                   </div>
                 </div>
@@ -159,21 +88,12 @@
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Collection Description</div>
                 <div class="field__wrap">
-                  <textarea
-                    rows="5"
-                    name="newPrice"
-                    formControlName="description"
-                    placeholder="Max. 350 characters"
-                    class="popup__input wp100 popup__textarea"
-                    cols=""
-                  ></textarea>
-                  <div
-                    *ngIf="
+                  <textarea rows="5" name="newPrice" formControlName="description" placeholder="Max. 350 characters"
+                    class="popup__input wp100 popup__textarea" cols=""></textarea>
+                  <div *ngIf="
                       formControls.description.invalid &&
                       (formControls.description.touched || reportPost.submitted)
-                    "
-                    class="p12 w-normal mt10 mb10 error"
-                  >
+                    " class="p12 w-normal mt10 mb10 error">
                     Description required
                   </div>
                 </div>
@@ -181,11 +101,8 @@
 
               <div class="popup__btns flex gap">
                 <button class="button wp100" (click)="close()">Back</button>
-                <button
-                  type="button"
-                  class="button text-inherit dark-button mb10 wp100"
-                  (click)="collectionDetailsFunc()"
-                >
+                <button type="button" class="button text-inherit dark-button mb10 wp100"
+                  (click)="collectionDetailsFunc()">
                   Next step
                   <div class="loader text-white" *ngIf="isApiLoading"></div>
                 </button>
@@ -198,39 +115,24 @@
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Your site</div>
                 <div class="field__wrap">
-                  <input
-                    type="text"
-                    formControlName="yourSite"
-                    name="yourSite"
-                    placeholder="Your site"
-                    class="popup__input"
-                  />
+                  <input type="text" formControlName="yourSite" name="yourSite" placeholder="Your site"
+                    class="popup__input" />
                 </div>
               </div>
 
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Discord</div>
                 <div class="field__wrap">
-                  <input
-                    type="text"
-                    formControlName="discord"
-                    name="discord"
-                    placeholder="Discord"
-                    class="popup__input"
-                  />
+                  <input type="text" formControlName="discord" name="discord" placeholder="Discord"
+                    class="popup__input" />
                 </div>
               </div>
 
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Twitter</div>
                 <div class="field__wrap">
-                  <input
-                    type="text"
-                    formControlName="twitter"
-                    name="twitter"
-                    placeholder="Twitter"
-                    class="popup__input"
-                  />
+                  <input type="text" formControlName="twitter" name="twitter" placeholder="Twitter"
+                    class="popup__input" />
                 </div>
               </div>
             </div>
@@ -238,46 +140,27 @@
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Instagram</div>
                 <div class="field__wrap">
-                  <input
-                    type="text"
-                    formControlName="instagram"
-                    name="instagram"
-                    placeholder="Instagram"
-                    class="popup__input"
-                  />
+                  <input type="text" formControlName="instagram" name="instagram" placeholder="Instagram"
+                    class="popup__input" />
                 </div>
               </div>
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Medium</div>
                 <div class="field__wrap">
-                  <input
-                    type="text"
-                    formControlName="medium"
-                    name="medium"
-                    placeholder="Medium"
-                    class="popup__input"
-                  />
+                  <input type="text" formControlName="medium" name="medium" placeholder="Medium" class="popup__input" />
                 </div>
               </div>
               <div class="popup__field mb20">
                 <div class="popup__col mb10 p12">Telegram</div>
                 <div class="field__wrap">
-                  <input
-                    type="text"
-                    formControlName="telegram"
-                    name="telegram"
-                    placeholder="Telegram"
-                    class="popup__input"
-                  />
+                  <input type="text" formControlName="telegram" name="telegram" placeholder="Telegram"
+                    class="popup__input" />
                 </div>
               </div>
               <div class="popup__btns flex gap">
                 <button class="button wp100" (click)="prev()">Back</button>
-                <button
-                  type="button"
-                  class="button text-inherit dark-button mb10 wp100"
-                  (click)="collectionDetailsFunc()"
-                >
+                <button type="button" class="button text-inherit dark-button mb10 wp100"
+                  (click)="collectionDetailsFunc()">
                   Next step
                   <div class="loader text-white" *ngIf="isApiLoading"></div>
                 </button>
@@ -291,19 +174,11 @@
                 <div class="popup__field mb20">
                   <div class="popup__col mb10 p12">Symbol</div>
                   <div class="field__wrap">
-                    <input
-                      class="popup__input"
-                      formControlName="symbol"
-                      name="newPrice"
-                      type="text"
-                    />
-                    <div
-                      *ngIf="
+                    <input class="popup__input" formControlName="symbol" name="newPrice" type="text" />
+                    <div *ngIf="
                         formControls.symbol.invalid &&
                         (formControls.symbol.touched || reportPost.submitted)
-                      "
-                      class="p12 w-normal mt10 mb10 error"
-                    >
+                      " class="p12 w-normal mt10 mb10 error">
                       Symbol required
                     </div>
                   </div>
@@ -314,49 +189,29 @@
                 <div class="popup__field mb20">
                   <div class="popup__col mb10 p12">Royalties</div>
                   <div class="field__wrap">
-                    <input
-                      class="popup__input"
-                      [ngClass]="{
-                        errorrVAlidation:
-                          formControls.royalties.invalid &&
-                          (formControls.royalties.touched ||
-                            reportPost.submitted)
-                      }"
-                      formControlName="royalties"
-                      name="royalties"
-                      type="text"
-                    />
+                    <input class="popup__input" formControlName="royalties" name="royalties" type="text" />
                   </div>
-                  <!-- <div *ngIf="isSubmitted && formControls.royalties.errors" class="help-block _error">
-          <div *ngIf="formControls.royalties.errors.required" class="text-danger">Royalties is required</div>
-      </div> -->
+                  <div
+                    *ngIf="formControls.royalties.invalid && (formControls.royalties.touched || reportPost.submitted)"
+                    class="p12 w-normal mt10 mb10 error">
+                    Royalties is required
+                  </div>
                 </div>
               </div>
               <div class="flex1">
                 <div class="popup__field mb20">
                   <div class="popup__col mb10 p12">Category</div>
                   <div class="field__wrap">
-                    <select
-                      nice-select
-                      class="select"
-                      formControlName="categoryId"
-                      #categoryId
-                    >
-                      <option
-                        *ngFor="let itemcut of categotyList"
-                        [value]="itemcut.categoryId"
-                      >
+                    <select nice-select class="select" formControlName="categoryId" #categoryId>
+                      <option *ngFor="let itemcut of categotyList" [value]="itemcut.categoryId">
                         {{ itemcut.categoryName }}
                       </option>
                     </select>
                   </div>
-                  <div
-                    *ngIf="
+                  <div *ngIf="
                       formControls.categoryId.invalid &&
                       (formControls.categoryId.touched || reportPost.submitted)
-                    "
-                    class="p12 w-normal mt10 mb10 error"
-                  >
+                    " class="p12 w-normal mt10 mb10 error">
                     Category required
                   </div>
                 </div>
@@ -367,11 +222,8 @@
               <div class="flex1">
                 <div class="popup__btns flex gap">
                   <button class="button wp100" (click)="prev()">Back</button>
-                  <button
-                    type="button"
-                    class="button text-inherit dark-button mb10 wp100"
-                    (click)="collectionDetailsFunc()"
-                  >
+                  <button type="button" class="button text-inherit dark-button mb10 wp100"
+                    (click)="collectionDetailsFunc()">
                     Next step
                     <div class="loader text-white" *ngIf="isApiLoading"></div>
                   </button>
@@ -390,48 +242,20 @@
                 <div class="popup__field mb20">
                   <div class="mb10 p12">Description</div>
                   <div class="field__wrap">
-                    <textarea
-                      rows="3"
-                      name="nftDescription"
-                      placeholder="Max. 140 characters"
-                      class="popup__input wp100 popup__textarea"
-                      cols=""
-                    ></textarea>
+                    <textarea rows="3" name="descriptionNFT" placeholder="Max. 140 characters"
+                      class="popup__input wp100 popup__textarea" cols="" formControlName="descriptionNFT"></textarea>
+                  </div>
+                  <div class="p12 w-normal mt10 mb10 error"
+                    *ngIf="formControls.descriptionNFT.invalid && (formControls.descriptionNFT.touched || reportPost.submitted)">
+                    Description required
                   </div>
                 </div>
 
-                <div class="popup__field mb20">
-                  <div class="popup__col mb10 p12">Royalties</div>
-                  <div class="field__wrap">
-                    <input
-                      class="popup__input"
-                      [ngClass]="{
-                        errorrVAlidation:
-                          formControls.royalties.invalid &&
-                          (formControls.royalties.touched ||
-                            reportPost.submitted)
-                      }"
-                      formControlName="royalties"
-                      name="royalties"
-                      type="text"
-                    />
-                  </div>
-                </div>
+
                 <div class="popup__field mb20">
                   <div class="popup__col mb10 p12">Size</div>
                   <div class="field__wrap">
-                    <input
-                      class="popup__input"
-                      [ngClass]="{
-                        errorrVAlidation:
-                          formControls.royalties.invalid &&
-                          (formControls.royalties.touched ||
-                            reportPost.submitted)
-                      }"
-                      formControlName="royalties"
-                      name="royalties"
-                      type="text"
-                    />
+                    <input class="popup__input" formControlName="size" name="size" type="text" />
                   </div>
                 </div>
 
@@ -441,123 +265,143 @@
                   <div class="popup__field mb20">
                     <div class="popup__col mb10 p12">Properties</div>
                     <div class="field__wrap">
-                      <input
-                        class="popup__input"
-                        [ngClass]="{
-                          errorrVAlidation:
-                            formControls.royalties.invalid &&
-                            (formControls.royalties.touched ||
-                              reportPost.submitted)
-                        }"
-                        formControlName="royalties"
-                        name="royalties"
-                        type="text"
-                      />
+                      <input class="popup__input" formControlName="properties" name="properties" type="text" />
                     </div>
                   </div>
 
                   <div class="popup__field mb20">
-                  <div class="upload__option">
-                    <div class="upload__box">
-                      <div class="upload__category p12">Put on sale</div>
-                      <div class="upload__text text-dark">
-                        You’ll receive bids on this item
+                    <div class="upload__option">
+                      <div class="upload__box">
+                        <div class="upload__category p12">Put on sale</div>
+                        <div class="upload__text text-dark">
+                          You’ll receive bids on this item
+                        </div>
+                      </div>
+                      <label class="switch">
+                        <input class="switch__input" formControlName="isForSale" type="checkbox" checked="checked" />
+                        <span class="switch__inner"><span class="switch__box"></span></span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="popup__field mb20" *ngIf="formControls.isForSale.value">
+                    <div class="upload__option">
+                      <div class="upload__box">
+                        <div class="upload__category p12">Fixed Price</div>
+                      </div>
+                      <label class="switch">
+                        <input class="switch__input" value="1" formControlName="typeOfSale" type="radio"
+                          checked="checked" />
+                        <span class="switch__inner"><span class="switch__box"></span></span>
+                      </label>
+                    </div>
+
+                    <div class="upload__option">
+                      <div class="upload__box">
+                        <div class="upload__category p12">Timed Auction</div>
+
+                      </div>
+                      <label class="switch">
+                        <input class="switch__input" value="2" formControlName="typeOfSale" type="radio"
+                          checked="checked" />
+                        <span class="switch__inner"><span class="switch__box"></span></span>
+                      </label>
+                    </div>
+
+                    <div class="upload__option">
+                      <div class="upload__box">
+                        <div class="upload__category p12">Open for bid</div>
+
+                      </div>
+                      <label class="switch">
+                        <input class="switch__input" value="3" formControlName="typeOfSale" type="radio"
+                          checked="checked" />
+                        <span class="switch__inner"><span class="switch__box"></span></span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="popup__field mb20" *ngIf="formControls.typeOfSale.value == 1">
+                    <div class="popup__col mb10 p12">Price</div>
+                    <div class="field__wrap">
+                      <input class="popup__input" formControlName="fixedPrice" name="fixedPrice" type="text" />
+                    </div>
+                    <div class="p12 w-normal mt10 mb10 error"
+                      *ngIf="formControls.fixedPrice.invalid && (formControls.fixedPrice.touched || reportPost.submitted)">
+                      Price required
+                    </div>
+                  </div>
+
+                  <div *ngIf="formControls.typeOfSale.value == 2">
+                    <div class="popup__field mb20">
+                      <div class="popup__col mb10 p12">Minimum Bid</div>
+                      <div class="field__wrap">
+                        <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="text" />
+                      </div>
+                      <div class="p12 w-normal mt10 mb10 error"
+                        *ngIf="formControls.minimunBid.invalid && (formControls.minimunBid.touched || reportPost.submitted)">
+                        Minimum Bid required
                       </div>
                     </div>
-                    <label class="switch">
-                      <input
-                        class="switch__input"
-                        formControlName="isForSale"
-                        type="checkbox"
-                        checked="checked"
-                      />
-                      <span class="switch__inner"
-                        ><span class="switch__box"></span
-                      ></span>
-                    </label>
-                  </div>
-                  </div>
 
-                  <div class="popup__field mb20">
-                  <div class="upload__option">
-                    <div class="upload__box">
-                      <div class="upload__category p12">Put on sale</div>
-                      <div class="upload__text text-dark">
-                        You’ll receive bids on this item
+                    <div class="popup__field mb20">
+                      <div class="popup__col mb10 p12">Start Date</div>
+                      <div class="field__wrap">
+                        <ejs-datetimepicker id="datetimepicker" name="startingDate" placeholder="Select a date"
+                          formControlName="startingDate" [value]="dateValue"></ejs-datetimepicker>
+                      </div>
+                      <div class="p12 w-normal mt10 mb10 error"
+                        *ngIf="formControls.startingDate.invalid && (formControls.startingDate.touched || reportPost.submitted)">
+                        Start Date required
                       </div>
                     </div>
-                    <label class="switch">
-                      <input
-                        class="switch__input"
-                        formControlName="isForSale"
-                        type="checkbox"
-                        checked="checked"
-                      />
-                      <span class="switch__inner"
-                        ><span class="switch__box"></span
-                      ></span>
-                    </label>
-                  </div>
-                  </div>
 
-                  <div class="popup__field mb20">
-                  <div class="upload__option">
-                    <div class="upload__box">
-                      <div class="upload__category p12">Put on sale</div>
-                      <div class="upload__text text-dark">
-                        You’ll receive bids on this item
+                    <div class="popup__field mb20">
+                      <div class="popup__col mb10 p12">End Date</div>
+                      <div class="field__wrap">
+                        <ejs-datetimepicker id="datetimepicker" name="expirationDate" placeholder="Select a date"
+                          formControlName="expirationDate" [value]="dateValue"></ejs-datetimepicker>
+                      </div>
+                      <div class="p12 w-normal mt10 mb10 error"
+                        *ngIf="formControls.expirationDate.invalid && (formControls.expirationDate.touched || reportPost.submitted)">
+                        End Date required
                       </div>
                     </div>
-                    <label class="switch">
-                      <input
-                        class="switch__input"
-                        formControlName="isForSale"
-                        type="checkbox"
-                        checked="checked"
-                      />
-                      <span class="switch__inner"
-                        ><span class="switch__box"></span
-                      ></span>
-                    </label>
-                  </div>
                   </div>
 
-                  <div class="popup__field mb20">
+                  <div class="popup__field mb20" *ngIf="formControls.typeOfSale.value == 3">
+                    <div class="popup__col mb10 p12">Minimum Bid</div>
+                    <div class="field__wrap">
+                      <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="text" />
+                    </div>
+                    <div class="p12 w-normal mt10 mb10 error"
+                      *ngIf="formControls.minimunBid.invalid && (formControls.minimunBid.touched || reportPost.submitted)">
+                      Minimum Bid required
+                    </div>
+                  </div>
+
+                  <!-- <div class="popup__field mb20">
                     <div class="popup__col mb10 p12">Type of NFT</div>
                     <div class="field__wrap">
-                      <select
-                        nice-select
-                        class="select"
-                        formControlName="categoryId"
-                        #categoryId
-                      >
-                        <option
-                          *ngFor="let itemcut of categotyList"
-                          [value]="itemcut.categoryId"
-                        >
+                      <select nice-select class="select" formControlName="categoryId" #categoryId>
+                        <option *ngFor="let itemcut of categotyList" [value]="itemcut.categoryId">
                           {{ itemcut.categoryName }}
                         </option>
                       </select>
                     </div>
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         formControls.categoryId.invalid &&
                         (formControls.categoryId.touched ||
                           reportPost.submitted)
-                      "
-                      class="p12 w-normal mt10 mb10 error"
-                    >
-                    NFT type required
+                      " class="p12 w-normal mt10 mb10 error">
+                      NFT type required
                     </div>
-                  </div>
+                  </div> -->
 
 
                   <div class="popup__btns flex gap">
                     <button class="button wp100" (click)="prev()">Back</button>
-                    <button
-                      type="submit"
-                      class="button text-inherit dark-button mb10 wp100"
-                    >
+                    <button type="submit" class="button text-inherit dark-button mb10 wp100">
                       Confirm
                       <div class="loader text-white" *ngIf="isApiLoading"></div>
                     </button>
