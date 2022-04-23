@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GetDataService } from 'src/app/services/get-data.service';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { CreateNftService } from 'src/app/services/create-nft.service';
 import { DatePickerComponent } from '@syncfusion/ej2-angular-calendars';
 import { ContractService } from 'src/app/services/contract.service';
@@ -28,6 +28,9 @@ export class CreateCollectionComponent implements OnInit {
   nftDetails = false;
   dateValue: Date = new Date();
   typeOfNft :any = 'single';
+  addCollectionForm :FormGroup;
+
+
 
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<CreateCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private createNFT:CreateNftService,
@@ -67,42 +70,74 @@ export class CreateCollectionComponent implements OnInit {
       )
       
     }
+
+    this.addCollectionForm = this.formbuider.group(
+      {
+       
+        tokenName : ['',[Validators.required]],
+        symbol : [''],
+        description : ['',[Validators.required]],
+        categoryId : [''],
+        yourSite :[''],
+        discord :[''],
+        twitter :[''],
+        instagram :[''],
+        medium :[''],
+        telegram :[''],
+        royalties : ['',[Validators.required,Validators.pattern("^[0-9]{1,2}?$")]],
+       
+        descriptionNFT :['',[Validators.required]],
+       
+        propertysize :this.formbuider.array([ this.addpropertysize010()]),
+        isForSale :[false],
+        typeOfSale :[''],
+        fixedPrice : ['',[Validators.required]],
+        minimunBid : ['',[Validators.required]],
+        startingDate :['',[Validators.required]],
+        expirationDate :['',[Validators.required]],
+      
+      }
+    )
+
+
+    this.addCollectionForm.get('isForSale')?.valueChanges.subscribe((value) => {
+      this.setTypeOfSale();
+    });
+
+    this.addCollectionForm.get('typeOfSale')?.valueChanges.subscribe((value) => {
+      this.setTypeOfSale();
+    });
   }
 
-  get formControls() { return this.addCollectionForm.controls; }
+  get formControls()
+   { return this.addCollectionForm.controls; }
 
-  addCollectionForm = this.formbuider.group(
-    {
-      // file : new FormControl(''),
-      tokenName : ['',[Validators.required]],
-      symbol : [''],
-      description : ['',[Validators.required]],
-      categoryId : [''],
-      yourSite :[''],
-      discord :[''],
-      twitter :[''],
-      instagram :[''],
-      medium :[''],
-      telegram :[''],
-      royalties : ['',[Validators.required,Validators.pattern("^[0-9]{1,2}?$")]],
-      // nft
-      "descriptionNFT" :['',[Validators.required]],
-      "size" :[''],
-      "isForSale" :[''],
-      "typeOfSale" :[''],
-      "fixedPrice" : ['',[Validators.required]],
-      "minimunBid" : ['',[Validators.required]],
-      "startingDate" :['',[Validators.required]],
-      "expirationDate" :['',[Validators.required]],
-      "properties" : [''],
-
-
-    }
-  )
   
+
+
+  get propertysize01() : FormArray {
+    return this.addCollectionForm.controls["propertysize"] as FormArray;
+  }
+  
+  addpropertysize(){
+    this.propertysize01.push(this.addpropertysize010());
+  }
+
+  addpropertysize010() {
+      return  this.formbuider.group({
+      properties: [''],
+      size: ['']
+    });
+    
+  }
+
+  deletepropertysize01(lessonIndex: number) {
+    this.propertysize01.removeAt(lessonIndex);
+  }
+
   saveCollection(data:any)
   {
-    // debugger
+   
     console.warn(data);
     this.isApiLoading = true;
     this.isSubmitted = true;
@@ -143,7 +178,9 @@ export class CreateCollectionComponent implements OnInit {
       )
     }
 
+    // console.log(this.addCollectionForm.value);
     
+
 
   }
 
@@ -252,4 +289,54 @@ export class CreateCollectionComponent implements OnInit {
     });
   }
   
+
+  setTypeOfSale() {
+    if (this.addCollectionForm.get('isForSale')?.value) {
+      if (this.addCollectionForm.get('typeOfSale')?.value == 1) {
+        this.addCollectionForm
+          .get('fixedPrice')
+          ?.setValidators([
+            Validators.required,
+            Validators.min(0.001),
+            Validators.max(1000),
+          ]);
+      } else {
+        this.addCollectionForm.get('fixedPrice')?.clearValidators();
+      }
+
+      if (this.addCollectionForm.get('typeOfSale')?.value == 2) {
+        this.addCollectionForm
+          .get('minimunBid')
+          ?.setValidators(Validators.required);
+        this.addCollectionForm
+          .get('startingDate')
+          ?.setValidators(Validators.required);
+        this.addCollectionForm
+          .get('expirationDate')
+          ?.setValidators(Validators.required);
+      } else {
+        this.addCollectionForm.get('minimunBid')?.clearValidators();
+        this.addCollectionForm.get('startingDate')?.clearValidators();
+        this.addCollectionForm.get('expirationDate')?.clearValidators();
+      }
+
+      if (this.addCollectionForm.get('typeOfSale')?.value == 3) {
+        this.addCollectionForm
+          .get('minimunBid')
+          ?.setValidators(Validators.required);
+      } else {
+        this.addCollectionForm.get('minimunBid')?.clearValidators();
+      }
+    } else {
+      this.addCollectionForm.get('fixedPrice')?.clearValidators();
+      this.addCollectionForm.get('minimunBid')?.clearValidators();
+      this.addCollectionForm.get('startingDate')?.clearValidators();
+      this.addCollectionForm.get('expirationDate')?.clearValidators();
+    }
+    this.addCollectionForm.get('fixedPrice')?.updateValueAndValidity();
+    this.addCollectionForm.get('minimunBid')?.updateValueAndValidity();
+    this.addCollectionForm.get('startingDate')?.updateValueAndValidity();
+    this.addCollectionForm.get('expirationDate')?.updateValueAndValidity();
+  }
+
 }

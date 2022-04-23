@@ -720,64 +720,6 @@
     </section>
   
     <!-- Upcomming Collection  -->
-    <!-- <section class="upcoming-collection">
-      <div class="inner hover-effect">
-        
-        <div>
-          <div class="relative">
-            <p class="title-name orbitron p18">
-              <span class="color-white">Upcoming </span><span>collections</span>
-            </p>
-          </div>
-          <swiper
-            [config]="config"
-            [pagination]="{ clickable: true }"
-            class="mySwiper hover-effect"
-          >
-            <ng-template
-              *ngFor="let item of upCommingCollection; let i = index"
-              swiperSlide
-            >
-              <a
-                class="collections__item"
-               
-                href="javascript:void(0)"
-              >
-                <div class="collections__gallery">
-                  <div class="collections__preview" (click)="gotoNftDetails(item.nftAddress,item.nftTokenID01)">
-                    <div class="content-overlay"></div>
-                    <img src="{{ item.nftFileUrl01 }}" alt="Collections" />
-                  </div>
-                  
-                  <div class="flex100">
-                    <div class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
-                      {{
-                        item.collectionName === null ? "" : item.collectionName
-                      }}
-                    </div>
-                    <div class="collections__line">
-                      <div class="collections__user">
-                        <div class="text-primary collections__author">
-                          by <span [routerLink]="['/profile',item.ownerWalletAddress]" >{{ item?.name ?? item?.customeUrl }}</span>
-                        </div>
-                      </div>
-                      <div class="collections__counter">
-                        <span class="text-primary"
-                          >{{ item?.totalNftCount }} items</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </ng-template>
-          </swiper>
-  
-          
-        </div>
-      </div>
-    </section> -->
-  
     <section class="upcoming-collection">
       <div class="inner hover-effect">
         <div>
@@ -786,71 +728,8 @@
               <span class="color-white">Upcoming </span><span>collections </span>
             </p>
           </div>
-          <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper hover-effect">
+          <swiper [config]="config" [pagination]="{ clickable: false }" class="mySwiper hover-effect">
             <ng-template *ngFor="let item of upCommingCollection; let i = index" swiperSlide>
-              <!-- <a class="collections__item" href="javascript:void(0)">
-                <div class="collections__gallery">
-                  <div
-                    class="collections__preview"
-                    (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)"
-                  >
-                    <div class="content-overlay"></div>
-  
-                    <img
-                      *ngIf="!item.nftFileUrl01"
-                      src="assets/images/default.jpg"
-                      alt=""
-                    />
-  
-                    <img
-                      *ngIf="item.nftFileUrl01"
-                      src="{{ item.nftFileUrl01 }}"
-                      alt="Collections"
-                    />
-                  </div>
-                  <div class="flex flex-wrap flex100 gap15 justify-start">
-                    <div
-                      class="thumb__preview gap15"
-                      *ngFor="
-                        let itembid of item.nftDetailsList.slice(1, 4);
-                        let j = index
-                      "
-                    >
-                      <ng-container *ngIf="j <= 2">
-                        <div class="content-overlay"></div>
-                        <img
-                          src="{{ itembid.nftFileUrl }}"
-                          alt="Collections"
-                          (click)="
-                            gotoNftDetails(itembid.nftAddress, itembid.nftTokenID)
-                          "
-                        />
-                      </ng-container>
-                    </div>
-                  </div>
-  
-                  <div class="flex100">
-                    <div
-                      class="color-secondary collections__subtitle orbitron"
-                      [routerLink]="['/collection', item.collectionName]"
-                    >
-                      {{
-                        item.collectionName === null
-                          ? "Test"
-                          : item.collectionName
-                      }}
-                    </div>
-                    <div class="collections__line">
-                      <div class="collections__counter">
-                        <span class="text-primary"
-                          >{{ item?.totalNftCount }} items</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a> -->
-            
               <app-collection-card [item]="item"></app-collection-card>
             </ng-template>
           </swiper>
