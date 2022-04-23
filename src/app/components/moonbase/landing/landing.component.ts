@@ -137,6 +137,15 @@ export class LandingComponent implements OnInit ,OnDestroy{
   
   ngOnInit() {
 
+    // let that = this;
+
+    // window.onclick = function (event) {
+    //   let search = !event.target.matches('#searchInput')
+    //   if (search) {
+    //     that.flag = false;
+    //   }
+    // };
+
     if ((localStorage.getItem("item") ?? "0") != "1") {
       this.openDialog();
     }

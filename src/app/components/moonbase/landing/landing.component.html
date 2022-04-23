@@ -167,6 +167,7 @@
     <div class="search-input">
       <input
         type="text"
+        id="searchInput"
         #searchText
         (keyup.enter)="searchClient(searchText.value)"
         (keyup)="autoComplete(searchText.value)"

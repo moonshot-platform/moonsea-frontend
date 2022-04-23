@@ -1,10 +1,24 @@
 <section class="navigation">
-  <div class="inner flex-space-between align-center">
+  <div class="inner flex-space-between align-center ml-0 mw-100 overflow-unset">
     <div class="logo-container flex align-start">
-      <a href="javascript:void(0)" [routerLink]="['/']" class="flex-center logo-font">
-        <video autoplay controls [muted]="true" [loop]="true" [controls]="false" class="logo"
-          style="margin-right: 20px;">
-          <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+      <a
+        href="javascript:void(0)"
+        [routerLink]="['/']"
+        class="flex-center logo-font"
+      >
+        <video
+          autoplay
+          controls
+          [muted]="true"
+          [loop]="true"
+          [controls]="false"
+          class="logo"
+          style="margin-right: 20px"
+        >
+          <source
+            src="assets/media/videos/moonsea-animated-logo.webm"
+            type="video/mp4"
+          />
         </video>
         <!-- <img
           src="assets/icons/giff2.gif"
@@ -19,14 +33,117 @@
       </a>
     </div>
 
+    <div class="desktop-only wp100 mr50">
+      <div
+        class="nav-input w-100"
+      >
+      <input
+      type="text"
+      id="searchBox"
+      #searchText
+      (keyup.enter)="searchClient(searchText.value)"
+      (keyup)="autoComplete(searchText.value)"
+      placeholder="Search for collections, items or creators"
+      class="form-control"
+    />
+        <a href="javascript:void(0)"
+          ><svg
+            version="1.1"
+            id="search"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 40 40"
+            xml:space="preserve"
+          >
+            <g>
+              <circle cx="22" cy="18" r="12.5" class="st0"></circle>
+              <line x1="13.2" y1="26.8" x2="5.5" y2="34.5" class="st0"></line>
+            </g></svg></a>
+            <ng-container *ngIf="flag">
+              <div class="search_result">
+                <div *ngFor="let item of uniquedata; let i = index">
+                  <div class="border-left border-right">
+                    <div
+                      *ngIf="item == 1 && properties[i].length > 0"
+                      class="flex align-center p-3 border-bottom p12 text-secondary"
+                    >
+                      Items
+                    </div>
+                    <div
+                      *ngIf="item == 2 && properties[i].length > 0"
+                      class="flex align-center p-3 border-bottom p12 text-secondary"
+                    >
+                      Profile
+                    </div>
+                    <div
+                      *ngIf="item == 3 && properties[i].length > 0"
+                      class="flex align-center p-3 border-bottom p12 text-secondary"
+                    >
+                      collection
+                    </div>
+                    <div
+                      *ngFor="let inner of properties[i]"
+                      class="flex align-center p-3 border-bottom"
+                      (click)="
+                        onselectClient(
+                          inner.searchText,
+                          inner.serachType,
+                          inner.nftTokenId,
+                          inner.nftAddress
+                        )
+                      "
+                    >
+                      <div class="profilepic01">
+                        <img
+                          [src]="inner.profilePic"
+                          *ngIf="inner.profilePic"
+                          class="profilepic"
+                          alt="profile"
+                        />
+                        <img
+                          *ngIf="!inner.profilePic"
+                          src="assets/media/images/moonsea/avatar-big.jpg"
+                          class="profilepic"
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        {{ inner.searchText }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+      </div>
+    </div>
+
     <div class="mobile-only">
-      <svg width="30px" height="26px" viewBox="0 0 32 25" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg
+        width="30px"
+        height="26px"
+        viewBox="0 0 32 25"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
         <title>Close</title>
         <desc>Created with Sketch.</desc>
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <path d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
-            id="Combined-Shape" fill="#50aac5"></path>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
+            id="Combined-Shape"
+            fill="#50aac5"
+          ></path>
         </g>
       </svg>
     </div>
@@ -37,12 +154,26 @@
     /> -->
     <nav class="flex">
       <div class="mobile-only">
-        <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink">
-          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <svg
+          width="27px"
+          height="27px"
+          viewBox="0 0 27 27"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
             <path
               d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
-              id="Combined-Shape" fill="#000000"></path>
+              id="Combined-Shape"
+              fill="#000000"
+            ></path>
           </g>
         </svg>
       </div>
@@ -55,16 +186,31 @@
         <li>
           <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/collections']"
             href="javascript:void(0);">Collections</a> -->
-            <a routerLinkActive="active"  [routerLink]="['/searchcollection']"  [queryParams]="{ searchKey: 'all'}" href="javascript:void(0);"
-            >Collections</a >
+          <a
+            routerLinkActive="active"
+            [routerLink]="['/searchcollection']"
+            [queryParams]="{ searchKey: 'all' }"
+            href="javascript:void(0);"
+            >Collections</a
+          >
         </li>
         <li>
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/stats']"
-            href="javascript:void(0);">Stats</a>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['/stats']"
+            href="javascript:void(0);"
+            >Stats</a
+          >
         </li>
         <li>
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/how_it_works']"
-            href="javascript:void(0);">How it works</a>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['/how_it_works']"
+            href="javascript:void(0);"
+            >How it works</a
+          >
           <!---->
           <!---->
           <!---->
@@ -73,8 +219,13 @@
           <!---->
           <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/createNft']"
             href="javascript:void(0);">Upload</a> -->
-            <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/mycollections']"
-            href="javascript:void(0);">Upload</a>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['/mycollections']"
+            href="javascript:void(0);"
+            >Upload</a
+          >
           <!---->
           <!---->
           <!---->
@@ -96,7 +247,10 @@
               <p id="nav-bar-tokenomics-text">Collections</p>
             </li>
             <li>
-              <a href="https://dex.guru/token/0xd27d3f7f329d93d897612e413f207a4dbe8bf799-bsc">How it works</a>
+              <a
+                href="https://dex.guru/token/0xd27d3f7f329d93d897612e413f207a4dbe8bf799-bsc"
+                >How it works</a
+              >
             </li>
             <li><a href="https://moonboxes.io/">How it works</a></li>
             <li><a href="https://moonboxes.io/">Upload</a></li>
