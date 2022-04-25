@@ -60,6 +60,20 @@ export class CreateNftService {
     return this.httpClient.request(req);
 
   }
+
+
+  collectionWiseNftSave(file: File,collectionName:any):Observable<HttpEvent<any>> {
+    let formData = new FormData();
+    formData.append("file", file);
+    let headersforfile = new HttpHeaders()
+      .set('APPKEY', 'nft').set("collectionName",collectionName);
+    const req = new HttpRequest('POST',environment.apiUrl + 'api/collectionWiseNftsave', formData, { headers: headersforfile,reportProgress:true, responseType: "json"});
+  
+    return this.httpClient.request(req);
+  }
+
+
+
   
   listingUpdateSignature(data: any): Observable<any> {
     return this.httpClient.post(environment.apiUrl + 'api/listSignatureSave/', data);

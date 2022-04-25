@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -24,7 +24,8 @@ constructor(private route:Router,
   public dialog: MatDialog,
   private toastr: ToastrService,
   private homeService: HomeService,
-  private cs: ContractService) { }
+  private cs: ContractService,
+  private _activatedRoute: ActivatedRoute,) { }
 
 ngOnInit(): void {
   
@@ -33,6 +34,9 @@ ngOnInit(): void {
     this.getmyCollectionList();
 
   });
+
+
+  this.route.navigate(['.'], { relativeTo: this._activatedRoute, queryParams: {}});
 }
 
 createSignleNFT()
@@ -94,7 +98,7 @@ edit(item:any){
  
   const dialogRef = this.dialog.open(CreateCollectionComponent, {
     width: 'auto',
-    data:item
+    data:{collectionId:item.collectionId}
   });
   dialogRef.afterClosed().subscribe(result => {
   

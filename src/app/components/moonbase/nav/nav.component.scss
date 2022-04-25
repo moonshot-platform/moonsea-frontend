@@ -18,14 +18,67 @@ nav {
   width: 100%;
   justify-content: flex-end;
 }
+.nav-input {
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  background: $black;
+  .form-control {
+    font-size: 1rem;
+    border: 1px solid $primary;
+    height: 36px;
+    padding: 0 1rem;
+    padding-right: 3rem;
+    background: transparent;
+    color: $primary;
+    width: 100%;
+    z-index: 10;
+    position: relative;
+    font-family: "Montserrat";
+    font-weight: 600;
+  }
+  #search {
+    line-height: 36px;
+    height: 36px;
+    position: absolute;
+    right: 0px;
+    width: 28px;
+    margin-right: 10px;
+  }
+}
+.border-bottom {
+  cursor: pointer;
+  border-bottom: 1px solid #50aac5;
+  &:hover {
+    box-shadow: 0px 1px 5px #c5e3ec;
+  }
+}
+.profilepic01 {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  img.profilepic {
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+  }
+}
+.search_result {
+  position: absolute;
+  width: 100%;
+  background: $black;
+  max-height: 50vh;
+  overflow: auto;
+  z-index: 1001;
+}
 
 .logo-font {
-  font-size: 38px;
+  font-size: toRem(28px);
 }
 
 .logo-container {
-  border-top: 6px solid $primary;
-  padding-top: toRem(14px);
+  // border-top: 6px solid $primary;
+  // padding-top: toRem(14px);
   width: 100%;
   max-width: 277px;
   margin-right: 20px;
@@ -40,7 +93,7 @@ nav {
     font-family: $secondary-font;
     color: $white;
 
-    >span {
+    > span {
       color: $primary;
     }
   }
@@ -50,7 +103,7 @@ nav {
   @extend %max-width-center;
   align-items: initial;
 
-  nav>ul>li {
+  nav > ul > li {
     width: 25%;
     margin: 0 toEm(12.5px);
 
@@ -83,7 +136,7 @@ nav {
     border-bottom: 1px solid $primary;
     padding-bottom: 14px;
 
-    >li>p {
+    > li > p {
       font-weight: $medium;
     }
   }
@@ -96,7 +149,6 @@ nav {
     max-width: 770px;
 
     li {
-
       a,
       p {
         color: $primary;
@@ -122,12 +174,15 @@ nav {
   }
 }
 
+.overflow-unset {
+  overflow: unset !important;
+}
+
 @media only screen and (max-width: $md) {
   section.navigation {
     width: 100%;
 
     &:hover {
-
       // background-color: transparent;
       ul.fragments {
         display: flex;
@@ -143,22 +198,22 @@ nav {
     display: block;
   }
 
-  .inner>nav {
+  .inner > nav {
     display: none;
     overflow: scroll;
     background: rgba(12, 12, 12, 0.9);
 
-    >ul {
+    > ul {
       overflow: scroll;
       height: fit-content;
       display: block;
       max-width: initial;
 
-      >li {
+      > li {
         margin: 0;
         width: 100%;
 
-        >ul.fragments {
+        > ul.fragments {
           border-bottom-width: 0;
 
           li {
@@ -180,14 +235,14 @@ nav {
       bottom: 0;
       display: flex;
 
-      >.mob-menu {
+      > .mob-menu {
         display: block;
         position: absolute;
         right: 15px;
         top: 15px;
       }
 
-      >ul {
+      > ul {
         width: 100%;
         margin-left: 0;
         display: flex;
@@ -196,7 +251,7 @@ nav {
         padding: 20px;
         box-sizing: border-box;
 
-        >li {
+        > li {
           width: 100%;
           margin: 0;
           padding: 0;
@@ -205,8 +260,8 @@ nav {
             border-top: 0;
           }
 
-          >a,
-          >p {
+          > a,
+          > p {
             padding: 20px 0;
             display: block;
           }
@@ -221,7 +276,7 @@ nav {
     }
   }
 
-  .inner>img.mob-menu {
+  .inner > img.mob-menu {
     display: block;
   }
 }

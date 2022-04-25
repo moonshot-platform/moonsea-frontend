@@ -137,6 +137,15 @@ export class LandingComponent implements OnInit ,OnDestroy{
   
   ngOnInit() {
 
+    // let that = this;
+
+    // window.onclick = function (event) {
+    //   let search = !event.target.matches('#searchInput')
+    //   if (search) {
+    //     that.flag = false;
+    //   }
+    // };
+
     if ((localStorage.getItem("item") ?? "0") != "1") {
       this.openDialog();
     }
@@ -178,11 +187,13 @@ export class LandingComponent implements OnInit ,OnDestroy{
        
         if(response.isSuccess){
           this.getCollectionDetails = response.data;
-          // console.log("get collectionDetais=>", this.getCollectionDetails);
+          this.ngxService.stop();
         }
 
         this.ngxService.stop();
         this.firstApi = true;
+      },(err:any)=>{
+        this.ngxService.stop();
       });
 
 
@@ -198,11 +209,16 @@ export class LandingComponent implements OnInit ,OnDestroy{
             response.data[i].nftDetailsList[0].nftAddress;
         }
       }
+      this.ngxService.stop();
       this.hotCollectionList = response.data;
       this.secondApi = true;
-    });
+    },(err:any)=>{
+      this.ngxService.stop();
+    }
+    );
 
     this.homeService.getNewCollections().subscribe((response: any) => {
+      this.ngxService.stop();
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
           response.data[i].nftFileUrl01 =
@@ -215,10 +231,11 @@ export class LandingComponent implements OnInit ,OnDestroy{
       }
 
       this.newCollection = response.data;
-      console.log("new collection ",this.newCollection);
       
       
       this.thirdApi = true;
+    },(err:any)=>{
+      this.ngxService.stop();
     });
 
     this.homeService
@@ -237,6 +254,7 @@ export class LandingComponent implements OnInit ,OnDestroy{
     this.homeService.getUpcommingCollection().subscribe(
       (response:any)=>{
         if(response.isSuccess){
+          this.ngxService.stop();
           for (let i = 0; i < response.data.length; i++) {
             for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
               response.data[i].nftFileUrl01 =
@@ -248,17 +266,18 @@ export class LandingComponent implements OnInit ,OnDestroy{
             }
           }
           this.upCommingCollection = response.data;
-          // console.log(this.upCommingCollection);
           
         }
         
+      },(err:any)=>{
+        this.ngxService.stop();
       }
     )
 
     this.homeService.getTopCollectionlist().subscribe(
       (response:any)=>{
         if(response.isSuccess){
-          
+          this.ngxService.stop();
           for (let i = 0; i < response.data.length; i++) {
             for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
               response.data[i].nftFileUrl01 =
@@ -273,12 +292,11 @@ export class LandingComponent implements OnInit ,OnDestroy{
           this.getTopcollection = response.data;
         }
         
+      },(err:any)=>{
+        this.ngxService.stop();
       }
     )
 
-    // if(this.firstApi && this.secondApi && this.thirdApi && this.fourthApi  && this.fifthApi){
-    //   this.spinner.hide();
-    // }
   }
   
 
@@ -296,7 +314,7 @@ export class LandingComponent implements OnInit ,OnDestroy{
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    pagination: { clickable: false },
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {
@@ -426,8 +444,6 @@ export class LandingComponent implements OnInit ,OnDestroy{
   }
 
   gotoNftDetails(nftAddress: any, id: any) {
-    console.log(nftAddress, '=====', id);
-
     this.router.navigate(['details', nftAddress, id]);
   }
 

@@ -1,5 +1,6 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { CreateNftService } from 'src/app/services/create-nft.service';
@@ -28,13 +29,21 @@ export class Step2Component implements OnInit {
   progressInfos: any[] = [];
   message: string[] = [];
   fileInfos?: Observable<any>;
+  collectionName : any ="";
 
   constructor(
     private createNFTService: CreateNftService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _activatedRoute : ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._activatedRoute.queryParams.subscribe(
+      (res:any)=>{
+        this.collectionName = res.collectionName;
+      }
+    )
+  }
 
   // onLogoFile(event: any) {
   //   this.showerrormsg = 'hide';
@@ -130,7 +139,7 @@ export class Step2Component implements OnInit {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
 
-      this.createNFTService.uploadFile(file).subscribe(
+      this.createNFTService.collectionWiseNftSave(file,this.collectionName).subscribe(
         (event: any) => {
          
 

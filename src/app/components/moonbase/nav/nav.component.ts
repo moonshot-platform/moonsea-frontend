@@ -26,7 +26,8 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 })
 export class NavComponent implements OnInit {
 
-
+  uniquedata :any=[];
+  properties:any= [];
   subscription: Subscription | undefined
   addressConnected: string = "";
   isConnected: boolean = false;
@@ -50,6 +51,15 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let that = this;
+
+    window.onclick = function (event) {
+      let search = !event.target.matches('#searchBox')
+      if (search) {
+        that.flag = false;
+      }
+    };
+
     this.cs.getWalletObs().subscribe((data: any) => {
      localStorage.setItem('address',data);
       
@@ -69,6 +79,7 @@ export class NavComponent implements OnInit {
     }
     });
     this.checkLoggedInUser();
+
   }
 
 
@@ -168,45 +179,31 @@ export class NavComponent implements OnInit {
 
   searchClient(searchText: any) {
 
-    this.flag = true;
-   if(searchText.length > 3){
-    this.getDataService.searchResult(
-      searchText
-    ).subscribe(
-      response => {
-        this.searchResult = response.data;
-
-        // if(data.isSuccess)
-        // {
-        //   if(data.data.isNewUser)
-        //   {
-        //     this.showRegisterPopup();
-        //   }
-        //   else
-        //   {
-        //     this.hideRegisterPopup();
-        //     localStorage.setItem('isRegistered',"true");
-        //   }
-        // }
-      });
-   }
+  //   this.flag = true;
+  //  if(searchText.length > 3){
+  //   this.getDataService.searchResult(
+  //     searchText
+  //   ).subscribe(
+  //     response => {
+  //       this.searchResult = response.data;
+  //     });
+  //  }
+  this.route.navigate(['/searchcollection'], {
+    queryParams: { searchKey: searchText },
+  });
   }
 
-  onselectClient(enterText: any, serachType: any, nftToken: any) {
-    this.flag = false;
+  onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any) {
     if (serachType == 1) {
-      this.route.navigate(['details', nftToken]);
-    }
-    else if (serachType == 2) {
-      this.route.navigate(['profile', enterText]);
-    }
-    else if (serachType == 4) {
-      this.route.navigate(['profile', enterText]);
-    }
-    else {
+      this.route.navigate(['/details',nftAddress, nftToken]);
+    } else if (serachType == 2) {
+      this.route.navigate(['/profile', enterText]);
+    } else if (serachType == 4) {
+      this.route.navigate(['/profile', enterText]);
+    } else {
       this.route.navigate(['collection', enterText]);
     }
-    }
+  }
 
 
   Disconnect() {
@@ -254,6 +251,58 @@ export class NavComponent implements OnInit {
       this.notifyCount = response.data[0].notifyCount;
 
     })
+  }
+
+  arraymove(arr, fromIndex, toIndex) {
+    let prmise = new Promise((resolve,rejects)=>{
+      var element = arr[fromIndex];
+      arr.splice(fromIndex, 1);
+      arr.splice(toIndex, 0, element);
+      resolve('a')
+
+    })
+ 
+    return prmise;
+  
+}
+
+
+  autoComplete(searchText) {
+    this.uniquedata =[];
+    this.properties= [];
+    if (searchText.length > 2) {
+      this.getDataService.searchResult(searchText).subscribe(async (response) => {
+        if (response.isSuccess) {
+          this.flag = true;
+          this.searchResult = response.data;
+          this.searchResult.forEach(element => {
+              if(this.uniquedata.indexOf(element.serachType) === -1){
+                this.uniquedata.push(element.serachType);
+              }
+          });
+
+         await this.arraymove(this.uniquedata,2,1);
+          
+
+          this.uniquedata.forEach((element:any,index:any) => {
+            this.properties[index] = [];
+            this.searchResult.forEach((el:any) => {
+                if(el.serachType == element){
+                  this.properties[index].push(el)
+                }
+            });
+          });
+          console.log(this.uniquedata);
+          console.log(this.properties);
+          
+        }else{
+          this.flag = false;
+        }
+      });
+    }
+    else{
+      this.flag = false;
+    }
   }
 
 }
