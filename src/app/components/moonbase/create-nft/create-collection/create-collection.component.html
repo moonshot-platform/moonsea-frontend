@@ -55,14 +55,8 @@
                       Drop a PNG, GIF, WEBP or MP4. (Max 1MB).
                     </div>
                   </div>
-
-                  <!-- <div *ngIf="imageErrorMsg" class="p12 w-normal mt10 mb10 error">
-                    image is required..
-                  </div> -->
                 </div>
-                <!-- <div *ngIf="isSubmitted && formControls.message.errors" class="help-block _error">
-                    <div *ngIf="formControls.message.errors.required" class="text-danger">Message is required</div>
-                </div> -->
+
               </div>
             </div>
 
@@ -82,9 +76,6 @@
                     Display required
                   </div>
                 </div>
-                <!-- <div *ngIf="isSubmitted && formControls.newPrice.errors" class="help-block _error">
-        <div *ngIf="formControls.newPrice.errors.required" class="text-danger">Price is required</div>
-    </div> -->
               </div>
 
               <div class="popup__field mb20">
@@ -176,7 +167,7 @@
                 <div class="popup__field mb20">
                   <div class="popup__col mb10 p12">Symbol</div>
                   <div class="field__wrap">
-                    <input class="popup__input" formControlName="symbol" name="newPrice" type="text" />
+                    <input class="popup__input" formControlName="symbol" name="symbol" type="text" />
                     <div *ngIf="
                         formControls.symbol.invalid &&
                         (formControls.symbol.touched || reportPost.submitted)
@@ -191,7 +182,7 @@
                 <div class="popup__field mb20">
                   <div class="popup__col mb10 p12">Royalties</div>
                   <div class="field__wrap">
-                    <input class="popup__input" formControlName="royalties" name="royalties" type="text" />
+                    <input class="popup__input" formControlName="royalties" name="royalties" type="number" />
                   </div>
                   <div *ngIf="
                       formControls.royalties.invalid &&
@@ -245,12 +236,13 @@
                 <div class="popup__field mb20">
                   <div class="mb10 p12">Description</div>
                   <div class="field__wrap">
-                    <textarea rows="3" name="descriptionNFT" placeholder="Max. 140 characters"
-                      class="popup__input wp100 popup__textarea" cols="" formControlName="descriptionNFT"></textarea>
+                    <textarea rows="3" name="nftDefaultDescription" placeholder="Max. 140 characters"
+                      class="popup__input wp100 popup__textarea" cols=""
+                      formControlName="nftDefaultDescription"></textarea>
                   </div>
                   <div class="p12 w-normal mt10 mb10 error" *ngIf="
-                      formControls.descriptionNFT.invalid &&
-                      (formControls.descriptionNFT.touched ||
+                      formControls.nftDefaultDescription.invalid &&
+                      (formControls.nftDefaultDescription.touched ||
                         reportPost.submitted)
                     ">
                     Description required
@@ -272,30 +264,58 @@
                   <div *ngFor="let skill of propertysize01.controls; let i=index">
                     <div [formGroupName]="i" class="flex">
                       <div class="w-80">
-                        <div class="popup__col mb10 p12">Properties</div>
-                        <div class="field__wrap">
-                          <input class="popup__input" formControlName="properties" name="properties" type="text" />
+                        <div>
+                          <div class="popup__col mb10 p12">Properties</div>
+                          <div class="field__wrap">
+                            <input class="popup__input" formControlName="properties" id="properties{{i}}"
+                              name="properties" type="text" />
+                          </div>
+                          <div class="p12 w-normal mt10 mb10 error"
+                            *ngIf="propertysize01.controls[i].get('properties').invalid && (propertysize01.controls[i].get('properties').touched ||  reportPost.submitted)">
+                            Properties required
+                          </div>
                         </div>
 
-                        <div class="popup__col mb10 p12">Size</div>
-                        <div class="field__wrap">
-                          <input class="popup__input" formControlName="size" name="size" type="text" />
+                        <div>
+                          <div class="popup__col mb10 p12">Size</div>
+                          <div class="field__wrap">
+                            <input class="popup__input" formControlName="size" id="size{{i}}" name="size"
+                              type="number" />
+                          </div>
+                          <div class="p12 w-normal mt10 mb10 error"
+                            *ngIf="propertysize01.controls[i].get('size').invalid && (propertysize01.controls[i].get('size').touched ||  reportPost.submitted)">
+                            size required
+                          </div>
                         </div>
                       </div>
-                      <div class="w-20" *ngIf="propertysize01.controls.length > 1">
-                        <button (click)=" deletepropertysize01(i)"> 
-                          delete
-                        </button>
+                      <div class="w-20 trash" *ngIf="propertysize01.controls.length > 1">
+                        <a (click)=" deletepropertysize01(i)">
+                          <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px"
+                            height="30px">
+                            <path
+                              d="M 21 0 C 19.355469 0 18 1.355469 18 3 L 18 5 L 10.1875 5 C 10.0625 4.976563 9.9375 4.976563 9.8125 5 L 8 5 C 7.96875 5 7.9375 5 7.90625 5 C 7.355469 5.027344 6.925781 5.496094 6.953125 6.046875 C 6.980469 6.597656 7.449219 7.027344 8 7 L 9.09375 7 L 12.6875 47.5 C 12.8125 48.898438 14.003906 50 15.40625 50 L 34.59375 50 C 35.996094 50 37.1875 48.898438 37.3125 47.5 L 40.90625 7 L 42 7 C 42.359375 7.003906 42.695313 6.816406 42.878906 6.503906 C 43.058594 6.191406 43.058594 5.808594 42.878906 5.496094 C 42.695313 5.183594 42.359375 4.996094 42 5 L 32 5 L 32 3 C 32 1.355469 30.644531 0 29 0 Z M 21 2 L 29 2 C 29.5625 2 30 2.4375 30 3 L 30 5 L 20 5 L 20 3 C 20 2.4375 20.4375 2 21 2 Z M 11.09375 7 L 38.90625 7 L 35.3125 47.34375 C 35.28125 47.691406 34.910156 48 34.59375 48 L 15.40625 48 C 15.089844 48 14.71875 47.691406 14.6875 47.34375 Z M 18.90625 9.96875 C 18.863281 9.976563 18.820313 9.988281 18.78125 10 C 18.316406 10.105469 17.988281 10.523438 18 11 L 18 44 C 17.996094 44.359375 18.183594 44.695313 18.496094 44.878906 C 18.808594 45.058594 19.191406 45.058594 19.503906 44.878906 C 19.816406 44.695313 20.003906 44.359375 20 44 L 20 11 C 20.011719 10.710938 19.894531 10.433594 19.6875 10.238281 C 19.476563 10.039063 19.191406 9.941406 18.90625 9.96875 Z M 24.90625 9.96875 C 24.863281 9.976563 24.820313 9.988281 24.78125 10 C 24.316406 10.105469 23.988281 10.523438 24 11 L 24 44 C 23.996094 44.359375 24.183594 44.695313 24.496094 44.878906 C 24.808594 45.058594 25.191406 45.058594 25.503906 44.878906 C 25.816406 44.695313 26.003906 44.359375 26 44 L 26 11 C 26.011719 10.710938 25.894531 10.433594 25.6875 10.238281 C 25.476563 10.039063 25.191406 9.941406 24.90625 9.96875 Z M 30.90625 9.96875 C 30.863281 9.976563 30.820313 9.988281 30.78125 10 C 30.316406 10.105469 29.988281 10.523438 30 11 L 30 44 C 29.996094 44.359375 30.183594 44.695313 30.496094 44.878906 C 30.808594 45.058594 31.191406 45.058594 31.503906 44.878906 C 31.816406 44.695313 32.003906 44.359375 32 44 L 32 11 C 32.011719 10.710938 31.894531 10.433594 31.6875 10.238281 C 31.476563 10.039063 31.191406 9.941406 30.90625 9.96875 Z" />
+                          </svg>
+                        </a>
                         <!-- <a href="">
                           <img src="assets/img01/trash.png" alt="">
                         </a> -->
                       </div>
                     </div>
-                    
+
                   </div>
                 </div>
                 <div>
-                  <button (click)="addpropertysize()">add Pro</button>
+                  <a (click)="addpropertysize()">
+                    <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 26 26"
+                      style="width: 48px; height: 48px" xml:space="preserve">
+                      <circle class="st4" cx="13" cy="13" r="12"></circle>
+                      <g>
+                        <line class="st4" x1="13" y1="8" x2="13" y2="18"></line>
+                        <line class="st4" x1="18" y1="13" x2="8" y2="13"></line>
+                      </g>
+                    </svg>
+                  </a>
                 </div>
               </div>
               <div class="flex1">
@@ -321,20 +341,20 @@
                         </div>
                       </div>
                       <label class="switch">
-                        <input class="switch__input" formControlName="isForSale" type="checkbox" checked="checked" />
+                        <input class="switch__input" formControlName="putOnSale" type="checkbox" checked="checked" />
                         <span class="switch__inner"><span class="switch__box"></span></span>
                       </label>
                     </div>
                   </div>
 
-                  <div class="popup__field mb20" *ngIf="formControls.isForSale.value">
+                  <div class="popup__field mb20" *ngIf="formControls.putOnSale.value">
                     <div class="upload__option">
                       <div class="upload__box">
                         <div class="upload__category p12">Fixed Price</div>
                       </div>
                       <label class="switch">
                         <input class="switch__input" value="1" formControlName="typeOfSale" type="radio"
-                          checked="checked" />
+                           name="typeOfSale"/>
                         <span class="switch__inner"><span class="switch__box"></span></span>
                       </label>
                     </div>
@@ -345,7 +365,7 @@
                       </div>
                       <label class="switch">
                         <input class="switch__input" value="2" formControlName="typeOfSale" type="radio"
-                          checked="checked" />
+                          checked="checked" name="typeOfSale"/>
                         <span class="switch__inner"><span class="switch__box"></span></span>
                       </label>
                     </div>
@@ -356,31 +376,32 @@
                       </div>
                       <label class="switch">
                         <input class="switch__input" value="3" formControlName="typeOfSale" type="radio"
-                          checked="checked" />
+                          checked="checked" name="typeOfSale"/>
                         <span class="switch__inner"><span class="switch__box"></span></span>
                       </label>
                     </div>
                   </div>
 
-                  <div class="popup__field mb20" *ngIf="formControls.isForSale.value && formControls.typeOfSale.value == 1">
-                    <div class="popup__col mb10 p12">Price</div>
+                  <div class="popup__field mb20"
+                    *ngIf="formControls.putOnSale.value && formControls.typeOfSale.value == 1">
+                    <div class="popup__col mb10 p12">Minimum Bid</div>
                     <div class="field__wrap">
-                      <input class="popup__input" formControlName="fixedPrice" name="fixedPrice" type="text" />
+                      <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="number" />
                     </div>
                     <div class="p12 w-normal mt10 mb10 error" *ngIf="
-                        formControls.fixedPrice.invalid &&
-                        (formControls.fixedPrice.touched ||
+                        formControls.minimunBid.invalid &&
+                        (formControls.minimunBid.touched ||
                           reportPost.submitted)
                       ">
-                      Price required
+                      Minimum Bid required
                     </div>
                   </div>
 
-                  <div *ngIf="formControls.isForSale.value && formControls.typeOfSale.value == 2">
+                  <div *ngIf="formControls.putOnSale.value && formControls.typeOfSale.value == 2">
                     <div class="popup__field mb20">
                       <div class="popup__col mb10 p12">Minimum Bid</div>
                       <div class="field__wrap">
-                        <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="text" />
+                        <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="number" />
                       </div>
                       <div class="p12 w-normal mt10 mb10 error" *ngIf="
                           formControls.minimunBid.invalid &&
@@ -394,12 +415,12 @@
                     <div class="popup__field mb20">
                       <div class="popup__col mb10 p12">Start Date</div>
                       <div class="field__wrap">
-                        <ejs-datetimepicker id="datetimepicker" name="startingDate" placeholder="Select a date"
-                          formControlName="startingDate" [value]="dateValue"></ejs-datetimepicker>
+                        <ejs-datetimepicker id="datetimepicker" name="startDate" placeholder="Select a date"
+                          formControlName="startDate" [value]="dateValue"></ejs-datetimepicker>
                       </div>
                       <div class="p12 w-normal mt10 mb10 error" *ngIf="
-                          formControls.startingDate.invalid &&
-                          (formControls.startingDate.touched ||
+                          formControls.startDate.invalid &&
+                          (formControls.startDate.touched ||
                             reportPost.submitted)
                         ">
                         Start Date required
@@ -409,12 +430,12 @@
                     <div class="popup__field mb20">
                       <div class="popup__col mb10 p12">End Date</div>
                       <div class="field__wrap">
-                        <ejs-datetimepicker id="datetimepicker" name="expirationDate" placeholder="Select a date"
-                          formControlName="expirationDate" [value]="dateValue"></ejs-datetimepicker>
+                        <ejs-datetimepicker id="datetimepicker" name="endDate" placeholder="Select a date"
+                          formControlName="endDate" [value]="dateValue"></ejs-datetimepicker>
                       </div>
                       <div class="p12 w-normal mt10 mb10 error" *ngIf="
-                          formControls.expirationDate.invalid &&
-                          (formControls.expirationDate.touched ||
+                          formControls.endDate.invalid &&
+                          (formControls.endDate.touched ||
                             reportPost.submitted)
                         ">
                         End Date required
@@ -422,10 +443,11 @@
                     </div>
                   </div>
 
-                  <div class="popup__field mb20" *ngIf="formControls.isForSale.value && formControls.typeOfSale.value == 3">
+                  <div class="popup__field mb20"
+                    *ngIf="formControls.putOnSale.value && formControls.typeOfSale.value == 3">
                     <div class="popup__col mb10 p12">Minimum Bid</div>
                     <div class="field__wrap">
-                      <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="text" />
+                      <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="number" />
                     </div>
                     <div class="p12 w-normal mt10 mb10 error" *ngIf="
                         formControls.minimunBid.invalid &&

@@ -202,7 +202,7 @@ export class GetDataService {
   }
 
   getRequest(url:any){
-    return this.httpClient.get(url);
+    return this.httpClient.get(environment.apiUrl+url);
   }
 
 }

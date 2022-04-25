@@ -2,11 +2,100 @@
   <div class="inner">
     <div class="flex align-center justify-space-between mb20">
       <p class="orbitron p18">
-        <span class="color-white">Add specific details </span
-        ><span>to your NFTs </span>
+        <span class="color-white">Use the pencil icon </span
+        ><span>to change and confirm details </span>
       </p>
     </div>
     <div class="flex gap wrap">
+      <div class="flex1 pr100">
+        <div class="preview js-preview mb40">
+          <div class="preview__inner">
+            <div class="card">
+              <div
+                class="card__preview"
+                *ngIf="imageUrl.indexOf('video') == -1"
+              >
+                <img src="{{ imageUrl }}" alt="NFT preview" />
+
+                <!-- <div class="card__control">
+                  <div class="status-green card__category">purchasing !</div>
+                  <button class="card__favorite">
+                    <svg class="icon icon-heart">
+                      <use xlink:href="#icon-heart"></use>
+                    </svg>
+                  </button>
+                  <a class="button-small card__button js-popup-open" href="#popup-bid" data-effect="mfp-zoom-in"><span>Place a bid</span>
+                          <svg class="icon icon-scatter-up">
+                            <use xlink:href="#icon-scatter-up"></use>
+                          </svg></a>
+                </div> -->
+              </div>
+              <ng-container *ngIf="imageUrl.indexOf('video') != -1">
+                <video
+                  class="video"
+                  loop
+                  autoplay
+                  playsinline
+                  oncanplay="this.play()"
+                  onloadedmetadata="this.muted = true"
+                  [muted]="true"
+                >
+                  <source src="{{ imageUrl }}" type="video/mp4" />
+                </video>
+              </ng-container>
+              <a class="card__link" href="javascript:void(0)">
+                <div class="card__body">
+                  <div class="card__line justify-space-between align-center">
+                    <div
+                      class="text-secondary orbitron text-primary"
+                    
+                    >
+                      <!-- {{ f.title.value }} -->
+                    </div>
+                    <!-- <div
+                      class="text-secondary orbitron text-primary"
+                      *ngIf="!f.title.value"
+                    >
+                      NFT Name
+                    </div> -->
+                    <div
+                      class="user__name text-primary"
+                      *ngIf="f.typeOfSale.value <= 2"
+                    >
+                      {{
+                        f.typeOfSale.value == 1
+                          ? f.fixedPrice.value
+                          : f.typeOfSale.value == 2
+                          ? f.minimunBid.value
+                          : 0
+                      }}
+                      BNB
+                    </div>
+                  </div>
+                  <div class="card__line justify-space-between w-normal">
+                    <!-- <div class="card__users">
+                      <div class="card__avatar">
+                        <img src="./assets/media/images/moonsea/avatar-big.jpg" alt="Avatar" />
+                      </div>
+                    </div> -->
+                    <div class="card__counter text-primary">by Enrico Cole</div>
+                    <div class="card__counter text-primary">
+                      {{ f.numberOfCopies.value }} in stock
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <a class="button wp100" (click)="clearForm()"> Clear all</a>
+          </div>
+        </div>
+        <p class="normal_text text-center mb40">
+          Confirm details of all NFTs to unlock button. Number of NFTs confirmed
+          <br />
+          225/12.000
+        </p>
+        <button class="button bg-primary wp100">Create my collection</button>
+      </div>
       <div class="flex2 upload__wrapper">
         <form
           class="needs-validation"
@@ -500,95 +589,7 @@
         </form>
       </div>
 
-      <div class="flex1">
-        <div class="preview js-preview mb40">
-          <div class="preview__inner">
-            <div class="card">
-              <div
-                class="card__preview"
-                *ngIf="imageUrl.indexOf('video') == -1"
-              >
-                <img src="{{ imageUrl }}" alt="NFT preview" />
-
-                <!-- <div class="card__control">
-                  <div class="status-green card__category">purchasing !</div>
-                  <button class="card__favorite">
-                    <svg class="icon icon-heart">
-                      <use xlink:href="#icon-heart"></use>
-                    </svg>
-                  </button>
-                  <a class="button-small card__button js-popup-open" href="#popup-bid" data-effect="mfp-zoom-in"><span>Place a bid</span>
-                          <svg class="icon icon-scatter-up">
-                            <use xlink:href="#icon-scatter-up"></use>
-                          </svg></a>
-                </div> -->
-              </div>
-              <ng-container *ngIf="imageUrl.indexOf('video') != -1">
-                <video
-                  class="video"
-                  loop
-                  autoplay
-                  playsinline
-                  oncanplay="this.play()"
-                  onloadedmetadata="this.muted = true"
-                  [muted]="true"
-                >
-                  <source src="{{ imageUrl }}" type="video/mp4" />
-                </video>
-              </ng-container>
-              <a class="card__link" href="javascript:void(0)">
-                <div class="card__body">
-                  <div class="card__line justify-space-between align-center">
-                    <div
-                      class="text-secondary orbitron text-primary"
-                    
-                    >
-                      <!-- {{ f.title.value }} -->
-                    </div>
-                    <!-- <div
-                      class="text-secondary orbitron text-primary"
-                      *ngIf="!f.title.value"
-                    >
-                      NFT Name
-                    </div> -->
-                    <div
-                      class="user__name text-primary"
-                      *ngIf="f.typeOfSale.value <= 2"
-                    >
-                      {{
-                        f.typeOfSale.value == 1
-                          ? f.fixedPrice.value
-                          : f.typeOfSale.value == 2
-                          ? f.minimunBid.value
-                          : 0
-                      }}
-                      BNB
-                    </div>
-                  </div>
-                  <div class="card__line justify-space-between w-normal">
-                    <!-- <div class="card__users">
-                      <div class="card__avatar">
-                        <img src="./assets/media/images/moonsea/avatar-big.jpg" alt="Avatar" />
-                      </div>
-                    </div> -->
-                    <div class="card__counter text-primary">by Enrico Cole</div>
-                    <div class="card__counter text-primary">
-                      {{ f.numberOfCopies.value }} in stock
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <a class="button wp100" (click)="clearForm()"> Clear all</a>
-          </div>
-        </div>
-        <p class="normal_text text-center mb40">
-          Confirm details of all NFTs to unlock button. Number of NFTs confirmed
-          <br />
-          225/12.000
-        </p>
-        <button class="button bg-primary wp100">Create my collection</button>
-      </div>
+    
     </div>
   </div>
 </section>
