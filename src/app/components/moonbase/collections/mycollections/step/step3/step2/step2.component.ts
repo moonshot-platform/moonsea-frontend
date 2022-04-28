@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
 
 
@@ -30,75 +31,46 @@ export class Step2Component implements OnInit {
   message: string[] = [];
   fileInfos?: Observable<any>;
   collectionName : any ="";
+  collectionId :any;
+  imageUploadignStatus :boolean=false;
+  uploadBatchCnt = 0;
+  collectionDetails :any = {};
+
 
   constructor(
     private createNFTService: CreateNftService,
     private toastr: ToastrService,
-    private _activatedRoute : ActivatedRoute
+    private _activatedRoute : ActivatedRoute,
+    private _getDataService : CollectionApiService,
   ) {}
 
   ngOnInit(): void {
     this._activatedRoute.queryParams.subscribe(
       (res:any)=>{
         this.collectionName = res.collectionName;
+        this.collectionId = res.collectionId;
       }
-    )
+    );
+
+    this.getCollectionDetails();
   }
 
-  // onLogoFile(event: any) {
-  //   this.showerrormsg = 'hide';
-  //   this.isShowMatspinner = 'show';
-  //   this.isUploadButtonDisabled = true;
-  //   const file: File = event.target.files[0];
-  //   console.log(file.size / 1024);
-  //   if (file.size / 1024 < 5000) {
-  //     if (
-  //       file.type == 'image/jpeg' ||
-  //       file.type == 'image/png' ||
-  //       file.type == 'image/jpg' ||
-  //       file.type == 'video/mp4' ||
-  //       file.type == 'image/gif'
-  //     ) {
-  //       if (file) {
-  //         const reader = new FileReader();
-  //         reader.readAsDataURL(file);
+  
 
-  //         reader.onload = (event) => {
-  //           this.imageUrl = reader.result?.toString() ?? '';
-  //           // console.log("this.imageUrl===>",this.imageUrl);
-  //         };
-  //         this.createNFTService.uploadFile(file).subscribe(
-  //           (response: any) => {
-  //             this.isUploadButtonDisabled = false;
-  //             if (response.isSuccess) {
-  //               this.isShowMatspinner = 'hide';
-  //               this.imagePath = response.data.path;
-  //             } else {
-  //               this.showerrormsg = 'show';
-  //               this.isShowMatspinner = 'hide';
-  //               this.imagePath = '';
-  //             }
-  //           },
-  //           (error: any) => {
-  //             this.isShowMatspinner = 'hide';
-  //             this.showerrormsg = 'show';
-  //             this.isUploadButtonDisabled = false;
-  //             this.imagePath = '';
-  //           }
-  //         );
-  //       }
-  //     } else {
-  //       this.toastr.error('please check file format....');
-  //       this.isShowMatspinner = 'hide';
-  //     }
-  //   } else {
-  //     this.toastr.error('file size should be less than 5mb');
-  //     this.isShowMatspinner = 'hide';
-  //     this.imagePath = '';
-  //   }
-  // }
+  getCollectionDetails(){
+    let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
+    this._getDataService.getRequest(url).subscribe((res:any)=>{
+      if(res.status == 200){
+        this.collectionDetails = res.data;
+        this.imageUrl = this.collectionDetails.fileUrl;
+      }
+  },(err:any)=>{
+
+  })
+  }
 
   onLogoFile(event: any) {
+    this.imageUploadignStatus = true;
     this.message = [];
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
@@ -153,9 +125,11 @@ export class Step2Component implements OnInit {
           //  console.log(event);
            if(idx == this.selectedFiles.length -1){
             this.toastr.success('upload completed ....');
+            this.imageUploadignStatus = false;
+            this.uploadBatchCnt++;
           }
            file.imagePath = event.body.data.path;
-           this.newItemEvent.emit(file);
+           
             const msg = 'Uploaded the file successfully: ' + file.name;
             this.message.push(msg);
           }
@@ -172,6 +146,6 @@ export class Step2Component implements OnInit {
   }
 
   gotoTab3(){
-    this.createNFTService.subject.next({tabIndex:3,data:this.selectedFiles})
+    this.createNFTService.subject.next({tabIndex:3,collectionId:this.collectionId})
   }
 }

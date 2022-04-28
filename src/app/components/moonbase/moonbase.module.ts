@@ -96,6 +96,7 @@ import { CreatorComponent } from './creator/creator.component';
 import { Step1Component } from './collections/mycollections/step/step3/step1/step1.component';
 import { Step2Component } from './collections/mycollections/step/step3/step2/step2.component';
 import { Step3Component } from './collections/mycollections/step/step3/step3.component';
+import { AddEditNftComponent } from './collections/mycollections/step/add-edit-nft/add-edit-nft.component';
 
 
 
@@ -167,6 +168,7 @@ import { Step3Component } from './collections/mycollections/step/step3/step3.com
     Step1Component,
     Step2Component,
     Step3Component,
+    AddEditNftComponent
   ],
   imports: [
     BrowserAnimationsModule ,

@@ -9,7 +9,7 @@ import { CreateNftService } from 'src/app/services/create-nft.service';
 })
 export class MycollectionsComponent implements OnInit {
   tabIndex :any =1;
-  multipleImage:any =[]; 
+  
   constructor(private location: Location,private createNftService:CreateNftService) { }
 
   ngOnInit(): void {
@@ -20,11 +20,17 @@ export class MycollectionsComponent implements OnInit {
     )
   }
 
+  isSelected(index: number) {
+    if (this.tabIndex == index) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
   goBack(): void {
     this.location.back();
   }
 
-  addItem(event:any){
-    this.multipleImage.push(event);
-  }
+  
 }

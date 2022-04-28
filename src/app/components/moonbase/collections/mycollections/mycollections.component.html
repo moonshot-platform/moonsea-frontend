@@ -88,7 +88,7 @@
             </button>
           </ng-template>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="isSelected(1)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
               <span class="round">1</span><span>Choose a collection</span>
@@ -99,35 +99,29 @@
           </ng-template>
         </mat-tab>
 
-        <mat-tab>
+        <mat-tab [disabled]="isSelected(2)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
               <span class="round">2</span><span>Upload NFT's</span>
             </button>
           </ng-template>
           <ng-template matTabContent>
-            <app-step2 (newItemEvent)="addItem($event)"></app-step2>
+            <app-step2 ></app-step2>
           </ng-template>
         </mat-tab>
 
         
-        <mat-tab>
+        <mat-tab [disabled]="isSelected(3)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
               <span class="round">3</span><span>Add specific details</span>
             </button>
           </ng-template>
           <ng-template matTabContent>
-              <app-step3 [multipleImage]="multipleImage"></app-step3>
+              <app-step3 ></app-step3>
           </ng-template>
         </mat-tab>
 
-        <!-- <button
-            class="button bg-primary fit-content"
-            (click)="importcollection()"
-          >
-            Import an existing smart contract
-          </button> -->
       </mat-tab-group>
 
     </div>

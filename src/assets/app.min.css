@@ -5198,7 +5198,7 @@ textarea.field__input {
 @media only screen and (max-width: 1023px) {
   .preview__inner {
     position: relative;
-    width: 352px;
+    width: 100%;
     margin: auto;
   }
 }
@@ -8288,7 +8288,7 @@ body.dark .followers__item {
   flex-shrink: 0;
   width: 88px;
   height: 88px;
-  margin-right: 20px;
+  margin-right: 24px;
 }
 @media only screen and (max-width: 767px) {
   .followers__avatar {

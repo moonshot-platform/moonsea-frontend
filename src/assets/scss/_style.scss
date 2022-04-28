@@ -2366,6 +2366,25 @@ table {
   background: $primary;
 }
 
+.loaderVideo {
+  width: 86px;
+  height: 86px;
+}
+.loaderFrame {
+  width: 100%;
+  border-radius: 0px;
+  min-width: 625px;
+  max-width: 625px;
+  min-height: 650px;
+  max-height: 650px;
+  object-fit: cover;
+  border: 1px solid $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ 
 .st0 {
   fill: none;
 }
@@ -2437,9 +2456,10 @@ table {
   display: inline-grid;
   width: 100%;
   justify-content: center;
-  // align-items: flex-start;
   gap: 30px;
+  // align-items: flex-start;
   // row-gap: 0px;
+  &.grid-2,
   &.grid-3,
   &.grid-4 {
     grid-template-columns: repeat(1, 1fr);
@@ -3147,6 +3167,9 @@ span.content_editable br {
 
 @media (min-width: 768px) {
   .grid {
+    &.grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
     &.grid-3 {
       grid-template-columns: repeat(3, 1fr);
     }

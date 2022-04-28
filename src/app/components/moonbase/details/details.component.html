@@ -212,8 +212,10 @@
         </div>
         <!-- <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/> -->
         
-        <video *ngIf="!data?.fileUrl" autoplay="" style="height: 500px;width: 500px;" loop=""><source  src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4"></video>
-        <img  [lazyLoad]="data?.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1">
+        <div class="loaderFrame">
+        <video class="loaderVideo" *ngIf="!data?.fileUrl" autoplay loop><source  src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4"></video>
+        </div>
+        <img [lazyLoad]="data?.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1">
 
         <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
           <source src="{{ data?.fileUrl }}"  type="video/mp4">
