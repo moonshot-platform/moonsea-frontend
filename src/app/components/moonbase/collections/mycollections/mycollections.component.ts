@@ -20,6 +20,14 @@ export class MycollectionsComponent implements OnInit {
     )
   }
 
+  isSelected(index: number) {
+    if (this.tabIndex == index) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
   goBack(): void {
     this.location.back();
   }

@@ -88,7 +88,7 @@
             </button>
           </ng-template>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="isSelected(1)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
               <span class="round">1</span><span>Choose a collection</span>
@@ -99,7 +99,7 @@
           </ng-template>
         </mat-tab>
 
-        <mat-tab>
+        <mat-tab [disabled]="isSelected(2)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
               <span class="round">2</span><span>Upload NFT's</span>
@@ -111,7 +111,7 @@
         </mat-tab>
 
         
-        <mat-tab>
+        <mat-tab [disabled]="isSelected(3)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
               <span class="round">3</span><span>Add specific details</span>

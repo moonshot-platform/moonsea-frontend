@@ -102,11 +102,11 @@
                 src="https://moonboxes.io/assets/media/images/astro_painter.svg"
               />
               <p class="orbitron p16 ml20">
-                <span>1 batch has been uploaded succesfully</span>
+                <span>{{uploadBatchCnt}} batch has been {{imageUploadignStatus ? 'uploadeding' : 'uploaded succesfully'}} </span>
               </p>
             </div>
 
-            <p class="w-normal"><span>100 items</span></p>
+            <p class="w-normal" *ngIf="selectedFiles"><span>{{selectedFiles.length}} items</span></p>
           </div>
         </div>
       </div>
@@ -119,14 +119,14 @@
         <div class="preview js-preview">
           <div class="preview__inner">
             <div class="card">
-              <div class="mb20" *ngIf="imageUrl.indexOf('video') == -1">
+              <div class="mb20" *ngIf="imageUrl.indexOf('.mp4') == -1">
                 <img
                   class="collection_img"
                   src="{{ imageUrl }}"
                   alt="NFT preview"
                 />
               </div>
-              <ng-container *ngIf="imageUrl.indexOf('video') != -1">
+              <ng-container *ngIf="imageUrl.indexOf('.mp4') != -1">
                 <video
                   class="video"
                   loop
@@ -142,9 +142,9 @@
               <div class="text-center">
                 <div class="mb20">
                   <p class="orbitron user__name text-primary">
-                    The Creator Network
+                    {{collectionDetails.tokenName}}
                   </p>
-                  <p class="w-normal text-primary">by Enrico Cole</p>
+                  <p class="w-normal text-primary">by {{collectionDetails?.walletAddress?.slice(0,5)}}...{{collectionDetails?.walletAddress?.slice(collectionDetails?.walletAddress?.length-5,collectionDetails?.walletAddress?.length)}}</p>
                 </div>
                 <div>
                   <p class="w-normal text-primary">Number of NFTs:</p>

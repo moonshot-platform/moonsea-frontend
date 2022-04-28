@@ -2366,6 +2366,25 @@ table {
   background: $primary;
 }
 
+.loaderVideo {
+  width: 86px;
+  height: 86px;
+}
+.loaderFrame {
+  width: 100%;
+  border-radius: 0px;
+  min-width: 625px;
+  max-width: 625px;
+  min-height: 650px;
+  max-height: 650px;
+  object-fit: cover;
+  border: 1px solid $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ 
 .st0 {
   fill: none;
 }

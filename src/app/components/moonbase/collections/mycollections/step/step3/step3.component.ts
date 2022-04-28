@@ -54,7 +54,7 @@ export class Step3Component implements OnInit {
     public datepipe: DatePipe,
     private ngZone: NgZone,
     public dialog: MatDialog,
-    private _getDataService : CollectionApiService
+    private _getDataService : CollectionApiService,
   ) {
     this.typeOfNft = 'single';
   }
@@ -103,5 +103,7 @@ export class Step3Component implements OnInit {
       this.getNftList();
     });
   }
-  
-}
+  gotoStep01(){
+    this.createNFTService.subject.next({ tabIndex: 1 });
+  }
+} 

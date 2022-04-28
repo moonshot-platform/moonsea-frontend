@@ -44,7 +44,7 @@
                   <div class="flex-col card__line w-normal text-center">
                    
                     <p class="wp100 orbitron text-primary">{{collectionDetails.tokenName }}</p>
-                    <p class="wp100 text-primary mb20">by {{collectionDetails.walletAddress.slice(0,5)}}...{{collectionDetails.walletAddress.slice(collectionDetails.walletAddress.length-5,collectionDetails.walletAddress.length)}}</p>
+                    <p class="wp100 text-primary mb20">by {{collectionDetails?.walletAddress?.slice(0,5)}}...{{collectionDetails?.walletAddress?.slice(collectionDetails?.walletAddress?.length-5,collectionDetails?.walletAddress?.length)}}</p>
                     <p class="text-primary normal_text text-center mb20">
                       {{collectionDetails.description}}
                       <br />
@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-        <button class="button bg-primary wp100">Confirm details</button>
+        <button class="button bg-primary wp100" (click)="gotoStep01()">Confirm details</button>
       </div>
       <div class="flex2 upload__wrapper">
         <div class="grid grid-2 row-gap">

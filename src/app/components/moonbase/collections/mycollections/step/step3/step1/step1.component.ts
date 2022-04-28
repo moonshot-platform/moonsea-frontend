@@ -97,7 +97,8 @@ edit(item:any){
  
   const dialogRef = this.dialog.open(CreateCollectionComponent, {
     width: 'auto',
-    data:{collectionId:item.collectionId}
+    data:{collectionId:item.collectionId},
+    disableClose:true
   });
   dialogRef.afterClosed().subscribe(result => {
   

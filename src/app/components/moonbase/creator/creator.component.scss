@@ -1,0 +1,12 @@
+.followers__avatar {
+    width: 135px;
+    height: 135px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+.creatorEllipsis {
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
