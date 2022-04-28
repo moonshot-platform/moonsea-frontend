@@ -106,7 +106,7 @@
             </button>
           </ng-template>
           <ng-template matTabContent>
-            <app-step2 (newItemEvent)="addItem($event)"></app-step2>
+            <app-step2 ></app-step2>
           </ng-template>
         </mat-tab>
 
@@ -118,16 +118,10 @@
             </button>
           </ng-template>
           <ng-template matTabContent>
-              <app-step3 [multipleImage]="multipleImage"></app-step3>
+              <app-step3 ></app-step3>
           </ng-template>
         </mat-tab>
 
-        <!-- <button
-            class="button bg-primary fit-content"
-            (click)="importcollection()"
-          >
-            Import an existing smart contract
-          </button> -->
       </mat-tab-group>
 
     </div>

@@ -41,6 +41,7 @@ export class CreateCollectionComponent implements OnInit {
   dateValue: Date = new Date();
   typeOfNft: any = 'single';
   addCollectionForm: FormGroup;
+  imageErrorMsg: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -51,7 +52,7 @@ export class CreateCollectionComponent implements OnInit {
     private formbuider: FormBuilder,
     private cs: ContractService,
     public datepipe: DatePipe,
-    private createNftService:CreateNftService,
+    private createNftService: CreateNftService,
     private _Activatedroute: ActivatedRoute,
     private _router: Router
   ) {}
@@ -62,32 +63,7 @@ export class CreateCollectionComponent implements OnInit {
   ngOnInit(): void {
     this.Address = localStorage.getItem('address');
     this.getCategotyList();
-    this.collectionId = this.data.collectionId
-    
-
-    
-
-    // if (Object.keys(this.data).length > 0) {
-    //   this.collectionId = this.data.collectionId;
-    //   this.imagePath = this.data.fileUrl;
-    //   this.addCollectionForm.patchValue({
-    //     file: this.imagePath,
-    //     tokenName: this.data.collectionName,
-    //     symbol: this.data.symbol,
-    //     description: this.data.description,
-    //     categoryId: this.data.categoryId,
-    //     yourSite: this.data.yourSite,
-    //     discord: this.data.discord,
-    //     twitter: this.data.twitter,
-    //     instagram: this.data.instagram,
-    //     medium: this.data.medium,
-    //     telegram: this.data.telegram,
-    //     royalties: this.data.royalties,
-    //     collectionCoverPhoto :this.data.collectionCoverPhoto,
-
-    //   });
-    // }
-   
+    this.collectionId = this.data.collectionId;
 
     this.addCollectionForm = this.formbuider.group({
       tokenName: ['', [Validators.required]],
@@ -109,14 +85,15 @@ export class CreateCollectionComponent implements OnInit {
       ],
       nftDefaultDescription: ['', [Validators.required]],
       putOnSale: [false],
-      typeOfSale :[1],
-      // fixedPrice: ['', [Validators.required]],
+      typeOfSale: ['1'],
       timeAuction: [''],
-      minimunBid: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
+      minimunBid: [''],
+      startDate: [''],
+      endDate: [''],
       openForBid: [''],
       propertysize: this.formbuider.array([this.addpropertysize010()]),
+      nftAddress :[''],
+      isMultiple:['']
     });
 
     this.addCollectionForm.get('putOnSale')?.valueChanges.subscribe((value) => {
@@ -124,39 +101,33 @@ export class CreateCollectionComponent implements OnInit {
     });
 
     this.addCollectionForm
-      .get('openForBid')
+      .get('typeOfSale')
       ?.valueChanges.subscribe((value) => {
         this.setTypeOfSale();
       });
 
-
-
-      if(this.collectionId){
-        let url ='api/getCollectionDetails?collectionId='+this.collectionId;
-        this.getDataService.getRequest(url).subscribe((res:any)=>{
-          console.log(res); 
-          if(res.status == 200){
-            this.imagePath = res.data.fileUrl;
-            this.addCollectionForm.patchValue(res.data);
-            this.addCollectionForm.patchValue({ typeOfSale:res.data.typeOfSale.toString(),});
-            let data = res.data.propertysize;
-            // console.log(data);
-            (this.addCollectionForm.controls.propertysize as FormArray).clear();
-            data.forEach((element:any) => {
-              (this.addCollectionForm.controls.propertysize as FormArray).push(this.formbuider.group({
-                properties:element.properties,
-                size :element.size
-            }))
-            });
-            
-         
-          }
-          
-        })
-      }
-
-
-
+    if (this.collectionId) {
+      let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
+      this.getDataService.getRequest(url).subscribe((res: any) => {
+        if (res.status == 200) {
+          this.imagePath = res.data.fileUrl;
+          this.addCollectionForm.patchValue(res.data);
+          this.addCollectionForm.patchValue({
+            typeOfSale: res.data.typeOfSale.toString(),
+          });
+          let data = res.data.propertysize;
+          (this.addCollectionForm.controls.propertysize as FormArray).clear();
+          data.forEach((element: any) => {
+            (this.addCollectionForm.controls.propertysize as FormArray).push(
+              this.formbuider.group({
+                properties: element.properties,
+                size: element.size,
+              })
+            );
+          });
+        }
+      });
+    }
   }
 
   get formControls() {
@@ -173,17 +144,28 @@ export class CreateCollectionComponent implements OnInit {
 
   addpropertysize010() {
     return this.formbuider.group({
-      properties: ['',[Validators.required]],
-      size: ['',[Validators.required]],
+      properties: ['', [Validators.required]],
+      size: ['', [Validators.required]],
     });
   }
 
   deletepropertysize01(lessonIndex: number) {
     this.propertysize01.removeAt(lessonIndex);
   }
+  toggleTypeOfNft(typeOfNft:any){
+    
+    if(typeOfNft == 'single'){
+      this.typeOfNft = 'multiple';
+    }
+
+    if(typeOfNft == 'multiple'){
+      this.typeOfNft = 'single';
+    }
+  }
 
   saveCollection(data: any) {
-    console.warn(data);
+    this.imageErrorMsg = false;
+
     this.isApiLoading = true;
     this.isSubmitted = true;
 
@@ -199,63 +181,65 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm.controls.endDate.value,
       'yyyy-MM-ddTHH:mm:ss'
     );
+    data.nftAddress =  this.typeOfNft == 'single'
+    ? this.cs.nft721Address
+    : this.cs.nft1155Address;
 
-    if(data.minimunBid == ''){
-      data.minimunBid = 0
+    if (data.minimunBid == '') {
+      data.minimunBid = 0;
     }
 
+    data.isMultiple = this.typeOfNft == 'single' ? 'false' : 'true';
 
-
-
-
-    if(!this.collectionId){
-      this.createNFT.addCollection(
-        data
-      ).subscribe((result:any)=>
-      {
-
-        if(result.isSuccess)
-        {
-          this.dialogRef.close();
-          this.createNFT.subject.next({"tabIndex":2});
-          this._router.navigate([], {
-            queryParams: {
-              collectionName: this.addCollectionForm.value.tokenName
-            },
-            queryParamsHandling: 'merge',
-            // preserve the existing query params in the route
-            // skipLocationChange: true
-            // do not trigger navigation
-          });
-        }
-        this.isSuccess = result.isSuccess;
-        this.getDataService.showToastr(result.message,result.isSuccess);
-        this.isApiLoading = false;
-      });
-    }else{
-      let url = "api/updateCollectionSave";
-      this.createNFT.postRequest(url,data).subscribe(
-        (res:any)=>{
-          console.log(res);
-          if(res.status == 200){
-            this.getDataService.showToastr(res.message,res.isSuccess);
+    if (this.imagePath) {
+      if (!this.collectionId) {
+        this.createNFT.addCollection(data).subscribe((result: any) => {
+          if (result.isSuccess) {
+            this.dialogRef.close();
+            this.createNFT.subject.next({ tabIndex: 2 });
+            this._router.navigate([], {
+              queryParams: {
+                collectionName: this.addCollectionForm.value.tokenName,
+                collectionId : result.data.collectionId
+              },
+              queryParamsHandling: 'merge',
+            });
+          }
+          this.isSuccess = result.isSuccess;
+          this.getDataService.showToastr(result.message, result.isSuccess);
+          this.isApiLoading = false;
+        });
+      } else {
+        let url = 'api/updateCollectionSave';
+        this.createNFT.postRequest(url, data).subscribe((res: any) => {
+          if (res.status == 200) {
+            this.getDataService.showToastr(res.message, res.isSuccess);
             this.isApiLoading = false;
-          }else{
-            this.getDataService.showToastr(res.message,res.isSuccess);
+            this.dialogRef.close();
+            this.createNFT.subject.next({ tabIndex: 2 });
+            this._router.navigate([], {
+              queryParams: {
+                collectionName: this.addCollectionForm.value.tokenName,
+                collectionId : this.collectionId
+              },
+              queryParamsHandling: 'merge',
+            });
+          } else {
+            this.getDataService.showToastr(res.message, res.isSuccess);
             this.isApiLoading = false;
           }
-
-        }
-      )
+        });
+      }
+    } else {
+      this.imageErrorMsg = true;
     }
 
-    console.log(this.addCollectionForm.value);
+
   }
 
   close(): void {
     this.dialogRef.close();
   }
-  imageErrorMsg: boolean;
 
   onLogoFile(event: any) {
     this.imageErrorMsg = false;
@@ -341,52 +325,35 @@ export class CreateCollectionComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  setTypeOfSale() {
+  setTypeOfSale() {  
     if (this.addCollectionForm.get('putOnSale')?.value) {
-      if (this.addCollectionForm.get('openForBid')?.value == 1) {
-        this.addCollectionForm
-          .get('fixedPrice')
-          ?.setValidators([
-            Validators.required,
-            Validators.min(0.001),
-            Validators.max(1000),
-          ]);
-      } else {
-        this.addCollectionForm.get('fixedPrice')?.clearValidators();
-      }
-
-      if (this.addCollectionForm.get('openForBid')?.value == 2) {
+      if (this.addCollectionForm.get('typeOfSale')?.value == 1) {
         this.addCollectionForm
           .get('minimunBid')
           ?.setValidators(Validators.required);
-        this.addCollectionForm
-          .get('startDate')
-          ?.setValidators(Validators.required);
-        this.addCollectionForm
-          .get('endDate')
-          ?.setValidators(Validators.required);
-      } else {
-        this.addCollectionForm.get('minimunBid')?.clearValidators();
+      }else{
         this.addCollectionForm.get('startDate')?.clearValidators();
         this.addCollectionForm.get('endDate')?.clearValidators();
       }
 
-      if (this.addCollectionForm.get('openForBid')?.value == 3) {
-        this.addCollectionForm
-          .get('minimunBid')
-          ?.setValidators(Validators.required);
-      } else {
-        this.addCollectionForm.get('minimunBid')?.clearValidators();
+      if (this.addCollectionForm.get('typeOfSale')?.value == 2) {
+        this.addCollectionForm.get('minimunBid')?.setValidators(Validators.required);
+        this.addCollectionForm.get('startDate')?.setValidators(Validators.required);
+        this.addCollectionForm.get('endDate')?.setValidators(Validators.required);
+      } 
+
+      if (this.addCollectionForm.get('typeOfSale')?.value == 3) {
+        this.addCollectionForm.get('minimunBid')?.setValidators(Validators.required);
+      }else{
+        this.addCollectionForm.get('startDate')?.clearValidators();
+        this.addCollectionForm.get('endDate')?.clearValidators();
       }
     } else {
-      this.addCollectionForm.get('fixedPrice')?.clearValidators();
       this.addCollectionForm.get('minimunBid')?.clearValidators();
       this.addCollectionForm.get('startDate')?.clearValidators();
       this.addCollectionForm.get('endDate')?.clearValidators();
     }
-    this.addCollectionForm.get('fixedPrice')?.updateValueAndValidity();
-    this.addCollectionForm.get('minimunBid')?.updateValueAndValidity();
-    this.addCollectionForm.get('startDate')?.updateValueAndValidity();
-    this.addCollectionForm.get('endDate')?.updateValueAndValidity();
+  
+
   }
 }

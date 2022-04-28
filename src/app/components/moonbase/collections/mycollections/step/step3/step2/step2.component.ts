@@ -30,6 +30,7 @@ export class Step2Component implements OnInit {
   message: string[] = [];
   fileInfos?: Observable<any>;
   collectionName : any ="";
+  collectionId :any;
 
   constructor(
     private createNFTService: CreateNftService,
@@ -41,6 +42,7 @@ export class Step2Component implements OnInit {
     this._activatedRoute.queryParams.subscribe(
       (res:any)=>{
         this.collectionName = res.collectionName;
+        this.collectionId = res.collectionId;
       }
     )
   }
@@ -155,7 +157,7 @@ export class Step2Component implements OnInit {
             this.toastr.success('upload completed ....');
           }
            file.imagePath = event.body.data.path;
-           this.newItemEvent.emit(file);
+           
             const msg = 'Uploaded the file successfully: ' + file.name;
             this.message.push(msg);
           }
@@ -172,6 +174,6 @@ export class Step2Component implements OnInit {
   }
 
   gotoTab3(){
-    this.createNFTService.subject.next({tabIndex:3,data:this.selectedFiles})
+    this.createNFTService.subject.next({tabIndex:3,collectionId:this.collectionId})
   }
 }

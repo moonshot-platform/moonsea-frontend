@@ -87,7 +87,6 @@ getmyCollectionList() {
       }
 
       this.myCollection = response.data;
-      // console.log("%%%%%=>",this.myCollection);
         
     }
    

@@ -205,4 +205,8 @@ export class GetDataService {
     return this.httpClient.get(environment.apiUrl+url);
   }
 
+  postRequest(url:any,body:any){
+    return this.httpClient.post(environment.apiUrl+url,body);
+  }
+
 }

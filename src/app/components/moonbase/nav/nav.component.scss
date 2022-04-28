@@ -1,7 +1,7 @@
 @import "includes";
 
 section.navigation {
-  @include paddingsInside(20px, 15px);
+  @include paddingsInside(14px, 15px);
   box-shadow: 0 4px 12px 0 #00000000;
   box-sizing: border-box;
   position: fixed;
