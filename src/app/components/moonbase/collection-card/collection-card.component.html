@@ -8,20 +8,20 @@
       src="{{ item.nftFileUrl01 }}"
       alt="Collections"
     /> -->
-    <!-- <img
+    <img
       [lazyLoad]="item.nftFileUrl01"
       [defaultImage]="'assets/icons/5904642857251113741.gif'"
       *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
-    /> -->
+    />
    
-    <img src="{{item.nftFileUrl01}}" (load)="loaded = true" alt=""
-      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1">
+    <!-- <img src="{{item.nftFileUrl01}}" (load)="loaded = true" alt=""
+      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"> -->
      
-    <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
+    <!-- <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
       [muted]="true" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1" (load)="loaded = false"
       [hidden]="loaded">
       <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
-    </video>
+    </video> -->
 
 
     <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
@@ -40,22 +40,22 @@
           alt="Collections"
           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
         /> -->
-        <!-- <img [lazyLoad]="inneritem.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'"
+        <img [lazyLoad]="inneritem.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'"
           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)" *ngIf="
             inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1
-          " /> -->
+          " />
 
-          <a [routerLink]="['/details',inneritem.nftAddress,inneritem.nftTokenID01]">
+          <!-- <a [routerLink]="['/details',inneritem.nftAddress,inneritem.nftTokenID]">
             <img src="{{inneritem.nftFileUrl}}"  alt=""
-          (load)="loaded01 = true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1">
+          (load)="loaded01 = true" *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1"> -->
 
-          <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
+          <!-- <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
           *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1"
            (load)="loaded01 = false"
            [hidden]="loaded01">
           <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
-        </video>
-          </a>
+        </video> 
+          </a>-->
           
 
         <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"

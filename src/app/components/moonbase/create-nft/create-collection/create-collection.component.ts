@@ -12,6 +12,7 @@ import {
   Validators,
   FormBuilder,
   FormArray,
+  AbstractControl,
 } from '@angular/forms';
 import { CreateNftService } from 'src/app/services/create-nft.service';
 import { DatePickerComponent } from '@syncfusion/ej2-angular-calendars';
@@ -19,6 +20,7 @@ import { ContractService } from 'src/app/services/contract.service';
 import { ModalForCreateNftComponent } from '../modal-for-create-nft/modal-for-create-nft.component';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-collection',
@@ -86,7 +88,7 @@ export class CreateCollectionComponent implements OnInit {
     public datepipe: DatePipe,
     private createNftService: CreateNftService,
     private _Activatedroute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
   ) {}
 
   imageUrl = '';
@@ -147,7 +149,7 @@ export class CreateCollectionComponent implements OnInit {
       symbol: ['', [Validators.required]],
       royalties: [
         '',
-        [Validators.required, Validators.pattern('^[0-9]{1,2}?$')],
+        [Validators.required,Validators.min(0),Validators.max(10), Validators.pattern('^[0-9]{1,2}?$')],
       ],
       categoryId: ['1', [Validators.required]],
     });
@@ -176,6 +178,14 @@ export class CreateCollectionComponent implements OnInit {
       ?.valueChanges.subscribe((value) => {
         this.setTypeOfSale();
       });
+
+
+      this.step01Form.get('tokenName').valueChanges.subscribe((value:any)=>{
+        this.checkCollectionName(value);
+      })
+
+
+
 
     if (this.collectionId) {
       let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
@@ -351,8 +361,14 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.nftDefaultDescription = this.step04Form.value.nftDefaultDescription;
       this.addCollectionForm_New.propertysize = this.step04Form.value.propertysize;
       this.addCollectionForm_New.putOnSale = this.step04Form.value.putOnSale; 
+      if(this.step04Form.value.putOnSale){
+        this.addCollectionForm_New.minimunBid = this.step04Form.value.minimunBid; 
+      }else{
+        this.addCollectionForm_New.minimunBid = 0;
+      }
+
+
       this.addCollectionForm_New.typeOfSale = this.step04Form.value.typeOfSale;
-      this.addCollectionForm_New.minimunBid = this.step04Form.value.minimunBid; 
       this.addCollectionForm_New.startDate = this.datepipe.transform(
         this.step04Form.controls.startDate.value,
         'yyyy-MM-ddTHH:mm:ss'
@@ -421,6 +437,18 @@ export class CreateCollectionComponent implements OnInit {
    
   }
 
+  skip(){
+    this.dialogRef.close();
+    this.createNFT.subject.next({ tabIndex: 2 });
+    this._router.navigate([], {
+      queryParams: {
+        collectionName: this.step01Form.value.tokenName,
+        collectionId: this.collectionId,
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   close(): void {
     this.dialogRef.close();
   }
@@ -465,26 +493,36 @@ export class CreateCollectionComponent implements OnInit {
 
   isShowNameValidation: boolean = false;
 
-  // checkCollectionName() {
-  //   console.log(this.addCollectionForm.controls['tokenName'].value.length);
-  //   let body = {
-  //     collectionName: this.addCollectionForm.controls['tokenName'].value,
-  //   };
+  checkCollectionName(collection_name:any) {
+   
+    let body = {
+      collectionName: collection_name
+    };
 
-  //   let url = 'api/checkCollectionNameValidation';
-  //   if (this.addCollectionForm.controls['tokenName'].value.length >= 3) {
-  //     this.createNFT.postRequest(url, body).subscribe((res: any) => {
-  //       console.log(res);
-  //       if (res.status == 200) {
-  //         this.isShowNameValidation = true;
-  //       } else {
-  //         this.isShowNameValidation = false;
-  //       }
-  //     });
-  //   } else {
-  //     this.isShowNameValidation = false;
-  //   }
-  // }
+    let url = 'api/checkCollectionNameValidation';
+    if (collection_name.length >= 3) {
+      this.createNFT.postRequest(url, body).subscribe((res: any) => {
+        if (res.status == 200) {
+          this.isShowNameValidation = false;
+          this.step01Form.controls.tokenName.setErrors(null)
+        } else {
+          this.isShowNameValidation = true;
+          if(!this.collectionId){
+            this.step01Form.controls.tokenName.setErrors({'incorrect': true})
+          }
+        }
+      });
+    } else {
+      this.isShowNameValidation = false;
+    }
+  }
+
+
+  
+
+
+
+
 
   collectionDetailsFunc() {
     this.collectionDetails++;
@@ -509,7 +547,7 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   setTypeOfSale() {
-    console.log(this.step04Form.get('putOnSale')?.value);
+    // console.log(this.step04Form.get('putOnSale')?.value);
 
     console.log(this.step04Form.get('typeOfSale')?.value);
     
@@ -520,8 +558,10 @@ export class CreateCollectionComponent implements OnInit {
           .get('minimunBid')
           ?.setValidators(Validators.required);
 
-          this.step04Form.get('startDate')?.clearValidators();
-          this.step04Form.get('endDate')?.clearValidators();
+          this.step04Form.get('startDate').clearValidators();
+          this.step04Form.get('startDate').updateValueAndValidity();
+          this.step04Form.get('endDate').clearValidators();
+          this.step04Form.get('endDate').updateValueAndValidity();
       } 
 
       if (this.step04Form.get('typeOfSale')?.value == 2) {
@@ -541,13 +581,22 @@ export class CreateCollectionComponent implements OnInit {
           .get('minimunBid')
           ?.setValidators(Validators.required);
 
-          this.step04Form.get('startDate')?.clearValidators();
-          this.step04Form.get('endDate')?.clearValidators();
+          this.step04Form.get('startDate').clearValidators();
+          this.step04Form.get('startDate').updateValueAndValidity();
+          this.step04Form.get('endDate').clearValidators();
+          this.step04Form.get('endDate').updateValueAndValidity();
       }
     } else {
-      this.step04Form.get('minimunBid')?.clearValidators();
-      this.step04Form.get('startDate')?.clearValidators();
-      this.step04Form.get('endDate')?.clearValidators();
+      this.step04Form.get('minimunBid').clearValidators();
+      this.step04Form.get('minimunBid').updateValueAndValidity();
+      this.step04Form.get('startDate').clearValidators();
+      this.step04Form.get('startDate').updateValueAndValidity();
+      this.step04Form.get('endDate').clearValidators();
+      this.step04Form.get('endDate').updateValueAndValidity();
     }
   }
 }
+
+
+
+

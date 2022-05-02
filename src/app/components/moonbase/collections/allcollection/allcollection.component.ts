@@ -42,6 +42,7 @@ export class AllcollectionComponent implements OnInit {
   propertiesValue: any = '';
   categoryId: any = 0;
   sortByPrice: any = 0;
+  totalCount :any;
 
   constructor(
     private collectionApi: CollectionApiService,
@@ -60,8 +61,7 @@ export class AllcollectionComponent implements OnInit {
   ngOnInit(): void {
     this.sortingType = 2;
     this.contractService.getWalletObs().subscribe((data: any) => {
-      this.data = data;
-      console.log("===========",data);      
+      this.data = data;      
       this.getNftList01();
     });
 
@@ -94,6 +94,7 @@ export class AllcollectionComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.isSuccess) {
           this.nftList = response.data;
+          this.totalCount = response.totalCount;
           this.count = response.data.length;
           this.isApiLoading = false;
           this.ngxService.stop();
@@ -128,18 +129,7 @@ export class AllcollectionComponent implements OnInit {
 
   searchCollection() {
     this.getNftList01();
-    // let nftArray =  [];
-
-    // this.nftList.filter((element:any) => {
-    //     if(element.title.toLowerCase().indexOf(this.searchKeyWord.toLowerCase())   >  -1 ){
-    //       nftArray.push(element);
-    //     }
-    // });
-
-    // if(nftArray.length > 0){
-    //   this.nftList = [];
-    //   this.nftList = nftArray;
-    // }
+    
   }
 
   searchAll() {

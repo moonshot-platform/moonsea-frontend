@@ -35,6 +35,8 @@ export class Step2Component implements OnInit {
   imageUploadignStatus :boolean=false;
   uploadBatchCnt = 0;
   collectionDetails :any = {};
+  imDoneUploadingButton:boolean;
+  isImgLoaded:boolean = false;
 
 
   constructor(
@@ -74,13 +76,15 @@ export class Step2Component implements OnInit {
     this.message = [];
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
-   
+    
+    
     this.uploadFiles();
   }
 
   forloopend :boolean;
 
   uploadFiles(): void {
+    this.imDoneUploadingButton = true;
     this.forloopend = false;
     this.message = [];
     if (this.selectedFiles) {
@@ -122,12 +126,20 @@ export class Step2Component implements OnInit {
          
 
           } else if (event instanceof HttpResponse) {
-          //  console.log(event);
+           console.log(event);
            if(idx == this.selectedFiles.length -1){
             this.toastr.success('upload completed ....');
             this.imageUploadignStatus = false;
             this.uploadBatchCnt++;
+            this.imDoneUploadingButton = false;
           }
+
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            this.progressInfos[idx].imagePath = reader.result; 
+          };
+
            file.imagePath = event.body.data.path;
            
             const msg = 'Uploaded the file successfully: ' + file.name;

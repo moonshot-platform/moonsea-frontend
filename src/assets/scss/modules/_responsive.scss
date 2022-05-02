@@ -21,7 +21,8 @@
   .new_collection {
     flex-grow: 1;
     margin-right: 0;
-    .mr30 {
+    .mr30,
+    .mr50 {
       margin-right: 0;
     }
   }
@@ -97,6 +98,16 @@
     .discover_collection .swiper {
       padding-bottom: 4rem;
     } 
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .mrr-1 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      width: 100%;
+      margin: 0;
+    }
   }
 
   .search-input {

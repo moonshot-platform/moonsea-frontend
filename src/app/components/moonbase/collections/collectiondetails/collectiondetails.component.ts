@@ -54,7 +54,7 @@ export class CollectiondetailsComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.correntRoute = window.location.href;
-    console.log("current Url ====>",window.location.href);
+
     
     
 

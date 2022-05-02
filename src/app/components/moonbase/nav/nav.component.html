@@ -260,3 +260,56 @@
     </nav>
   </div>
 </section>
+
+<!-- 
+<section class="mobile-only footer_menu tab-only navigation bottom-footer">
+  <div class="res_menu flex1">
+
+      <ul class="box">
+          <ng-container *ngIf="menuItem ; then doNotShowMenuIcon else showMenuIcon">
+          </ng-container>
+          <ng-template #doNotShowMenuIcon>
+              <li class="close-menu">
+                  <img src="assets/media/icons/close_bottom-menu_mobile.svg" (click)="closeMenu()">
+              </li>
+          </ng-template>
+          <ng-template #showMenuIcon>
+              <li class="hamburger-menu" (click)="menuopen()">
+                  <svg width="20px" height="26px" viewBox="0 0 32 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <title>Combined Shape</title>
+          <desc>Created with Sketch.</desc>
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <path d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
+              id="Combined-Shape" fill="#D5A642"></path>
+          </g>
+        </svg>
+              </li>
+          </ng-template>
+
+
+          <li>
+              <div (click)="openDialog()" class="wallet_block flex-center">
+                  <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" xml:space="preserve" style="enable-background: new 0 0 64 64;">
+        <g _ngcontent-jde-c123="">
+          <path
+            d="M18.7,12.8c-3.3,0-5.9,2.7-5.9,5.9v26.7c0,3.3,2.7,5.9,5.9,5.9h26.7c1.4,0,2.6-1.2,2.6-2.6v-6.8h3.3V31.4h-3.3v-6.8
+              c0-1.4-1.2-2.6-2.6-2.6h-4.1v-6.8c0-1.4-1.2-2.6-2.6-2.6H18.7z M45.4,48.8H18.7c-1.9,0-3.4-1.5-3.4-3.4V23.6l1.1,0.5
+              c0.7,0.3,1.5,0.5,2.4,0.5h26.7v6.8h-6.1c-2.9,0-5.2,2.4-5.2,5.3c0,2.9,2.4,5.2,5.2,5.2h6.1V48.8z M48.8,39.4h-9.4
+              c-1.5,0-2.8-1.2-2.8-2.8s1.2-2.8,2.8-2.8h9.4V39.4z M38.8,22.1H18.7c-1.9,0-3.4-1.5-3.4-3.4c0-1.9,1.5-3.4,3.4-3.4h20.1V22.1z">
+          </path>
+        </g>
+      </svg>
+              </div>
+          </li>
+      </ul>
+  </div>
+</section>
+
+<section class="mobile-only moonbox-menu" *ngIf="menuItem">
+  <div class="inner menu-item">
+
+      <a class="p17 mb20" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+  true}" [routerLink]="['']" (click)="closeMenu()">MoonBoxes</a>
+      <div class="divider mb20"></div>
+  </div>
+</section> -->

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractService } from 'src/app/services/contract.service';
 import { HomeService } from 'src/app/services/home.service';
@@ -25,6 +25,10 @@ SwiperCore.use([Grid, Navigation]);
   ],
 })
 export class LandingComponent implements OnInit ,OnDestroy{
+  @ViewChild('searchText') searchInput01 : ElementRef;
+
+
+
   static readonly routeName: string = '';
 
   boxes: any[] = [
@@ -159,6 +163,14 @@ export class LandingComponent implements OnInit ,OnDestroy{
     });
 
   }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    this.flag = false;
+    this.searchInput01.nativeElement.value = '';
+  }
+
+
 
   firstApi: boolean = false;
   secondApi: boolean = false;
