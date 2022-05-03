@@ -109,6 +109,18 @@
       margin: 0;
     }
   }
+  .footer_menu {
+    bottom: 0;
+    height: 40px;
+    background-color: $primary !important;
+    top: auto !important;
+  }
+  .wallet_block {
+    background: $secondary-dark;
+    width: 3rem;
+    height: 40px;
+    margin: -1rem;
+  }
 
   .search-input {
     width: calc(100% - 30px);
@@ -153,5 +165,8 @@
       justify-content: flex-start;
       padding: 0;
     }
+  }
+  .item__cost {
+    margin-bottom: 20px;
   }
 }

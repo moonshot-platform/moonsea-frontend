@@ -97,6 +97,14 @@ import { Step1Component } from './collections/mycollections/step/step3/step1/ste
 import { Step2Component } from './collections/mycollections/step/step3/step2/step2.component';
 import { Step3Component } from './collections/mycollections/step/step3/step3.component';
 import { AddEditNftComponent } from './collections/mycollections/step/add-edit-nft/add-edit-nft.component';
+import { LandingOneComponent } from './landing/landing-one/landing-one.component';
+import { LandingStaticsComponent } from './landing/landing-statics/landing-statics.component';
+import { LandingHotCollectionComponent } from './landing/landing-hot-collection/landing-hot-collection.component';
+import { LandingTopCollectionComponent } from './landing/landing-top-collection/landing-top-collection.component';
+import { LandingNewCollectionsComponent } from './landing/landing-new-collections/landing-new-collections.component';
+import { LangdingUpcomingCollectionsComponent } from './landing/langding-upcoming-collections/langding-upcoming-collections.component';
+import { LandingFooterComponent } from './landing/landing-footer/landing-footer.component';
+import { LandingSearchComponent } from './landing/landing-search/landing-search.component';
 
 
 
@@ -168,7 +176,15 @@ import { AddEditNftComponent } from './collections/mycollections/step/add-edit-n
     Step1Component,
     Step2Component,
     Step3Component,
-    AddEditNftComponent
+    AddEditNftComponent,
+    LandingOneComponent,
+    LandingStaticsComponent,
+    LandingHotCollectionComponent,
+    LandingTopCollectionComponent,
+    LandingNewCollectionsComponent,
+    LangdingUpcomingCollectionsComponent,
+    LandingFooterComponent,
+    LandingSearchComponent
   ],
   imports: [
     BrowserAnimationsModule ,

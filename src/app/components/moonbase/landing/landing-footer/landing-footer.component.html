@@ -1,0 +1,38 @@
+<section class="artist team pt-0 mrr-1 bg-light">
+    <div class="inner inner-width overflow-visible">
+      <div class="flex-space-between align-center">
+        <div class="flex1">
+          <div class="futuristic-container p40">
+            <p class="orbitron mb30">
+              <span class="text-dark"> Are you an artist? </span> <br /><span>
+                Start your own collection
+              </span>
+            </p>
+
+            <a class="button text-inherit dark-button" href="javascript:void(0)" [routerLink]="['/how_it_works']"
+              routerLinkActive="router-link-active">Learn how</a>
+          </div>
+        </div>
+
+        <div class="outer-box artist-container flex3">
+          <div class="bottom">
+            <div class="flex">
+              <swiper [config]="slider" [pagination]="{ clickable: true }" class="mySwiper pt-0 hover-effect"
+                [navigation]="true">
+                <ng-template *ngFor="let item of hotCollectionList; let i = index" swiperSlide>
+                  <a class="collections__item" href="javascript:void(0)">
+                    <div class="collections__gallery px-5">
+                      
+                      <app-collection-card [item]="item"></app-collection-card>
+                    </div>
+
+                  </a>
+
+                </ng-template>
+              </swiper>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

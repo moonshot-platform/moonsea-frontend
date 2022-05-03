@@ -102,7 +102,7 @@ export class SearchCollectionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.searchKey = res.searchKey;
       if (!res.searchKey) {
-        this.searchKey = 'search word';
+        this.searchKey = 'all';
         // this.getSearchResultNFT();
       }
       this.getSearchResultNFT();

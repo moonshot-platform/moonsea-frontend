@@ -1244,7 +1244,7 @@ section.tokenomics::-webkit-scrollbar {
       align-items: center;
 
       svg {
-        width: 30px;
+        width: 50px;
       }
     }
   }
@@ -2926,6 +2926,16 @@ app-nft-detail-list-tabs {
     border: 1px solid $primary;
   }
 }
+
+
+app-creator {
+  .followers__avatar img {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+  }
+}
+
 
 [contenteditable="true"].content_editable {
   white-space: nowrap;

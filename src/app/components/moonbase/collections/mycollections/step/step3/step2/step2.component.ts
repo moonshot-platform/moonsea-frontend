@@ -37,7 +37,9 @@ export class Step2Component implements OnInit {
   collectionDetails :any = {};
   imDoneUploadingButton:boolean;
   isImgLoaded:boolean = false;
-
+  progressValue :any;
+  cnt = 0;
+ 
 
   constructor(
     private createNFTService: CreateNftService,
@@ -111,6 +113,7 @@ export class Step2Component implements OnInit {
     }
   }
 
+
   upload(idx: number, file: any): void {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
@@ -123,7 +126,14 @@ export class Step2Component implements OnInit {
             this.progressInfos[idx].value = Math.round(
               (100 * event.loaded) / event.total
             );
-         
+            console.log("idx=>"+idx+"==>  "+this.progressInfos[idx].value);
+             
+           
+              if(this.progressInfos[idx].value === 100){
+                this.cnt ++;
+              }
+              
+              this.progressValue = (this.cnt/this.selectedFiles.length)*100;
 
           } else if (event instanceof HttpResponse) {
            console.log(event);

@@ -89,10 +89,10 @@ nav {
   }
 
   a {
-    font-weight: $semi-bold;
+    font-weight: $bold;
     font-family: $secondary-font;
     color: $white;
-
+    text-transform: uppercase;
     > span {
       color: $primary;
     }

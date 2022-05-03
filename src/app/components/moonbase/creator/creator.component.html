@@ -20,7 +20,7 @@
           {{ item.name }}
         </a> -->
         <a [routerLink]="['/profile',item.walletAddress]" class="creatorEllipsis p24 text-secondary"> {{ item.name }}</a>
-        <a [routerLink]="['/profile',item.walletAddress]" >{{item.walletAddress.substr(0,5)}}...{{item.walletAddress.substr(item.walletAddress.length-5,item.walletAddress.length)}}</a>
+        <a (click)="copyMessage(item.walletAddress)" href="javascript:void(0)">{{item.walletAddress.substr(0,5)}}...{{item.walletAddress.substr(item.walletAddress.length-5,item.walletAddress.length)}}</a>
 
         <div class="flex mt20">
 
@@ -74,7 +74,7 @@ c1.2-0.2,2.4-0.7,3.5-1.4c-0.4,1.3-1.3,2.4-2.4,3.1c1.1-0.1,2.2-0.4,3.2-0.9C26.3,3
                 style="enable-background: new 0 0 40 40" xml:space="preserve">
                 <style type="text/css">
                   .st0 {
-                    fill: #50aac5;
+                    fill: #c5e3ec;
                   }
                 </style>
                 <path class="st0" d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.3,23c-0.3,1-0.8,1.9-1.5,2.7l-2.7,2.7

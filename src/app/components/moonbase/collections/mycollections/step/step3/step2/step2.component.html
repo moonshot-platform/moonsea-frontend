@@ -64,11 +64,14 @@
               *ngIf="isShowMatspinner == 'hide'"
             >
               Drop a PNG, GIF, WEBP, MP4 or MP3. (Max 1 MB)
+              <mat-progress-bar *ngIf="progressValue >= 0" mode="determinate" value="{{progressValue}}"></mat-progress-bar>
+              {{progressValue}}
             </div>
 
-            <div *ngIf="isShowMatspinner == 'show'">
+            <!-- <div *ngIf="isShowMatspinner == 'show'">
               <mat-spinner></mat-spinner>
-            </div>
+            </div> -->
+            
           </div>
           <div *ngIf="showerrormsg == 'show'">
             Something wrong with the image..

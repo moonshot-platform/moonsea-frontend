@@ -1,0 +1,105 @@
+<div class="landing-flex ">
+    <section class="team">
+      <div class="inner">
+        <div class="flex-space-between align-center">
+          <div class="flex1">
+            <div class="futuristic-container p40">
+              <p class="orbitron mb30">
+                Discover a <br /><span class="color-white">
+                  sea full of NFT collections
+                </span>
+              </p>
+              <a class="button text-inherit bg-primary" [routerLink]="['/searchcollection']"
+                routerLinkActive="router-link-active">Start your Search</a>
+            </div>
+          </div>
+
+          <div class="discover_collection info-container flex3">
+            <div class="bottom">
+              <div class="flex">
+                <swiper [config]="slider" [pagination]="{ clickable: true }" class="mySwiper pt-0" [navigation]="true">
+                  <ng-template *ngFor="let item of newCollection; let i = index" swiperSlide>
+                  
+                    <a href="javascript:void(0)" class="collections__gallery mr30">
+                      <a class="collections__preview" [routerLink]="['/details',item.nftAddress, item.nftTokenID01]"
+                        routerLinkActive="router-link-active">
+                        <div class="content-overlay"></div>
+                       
+                        <img src="{{item.nftFileUrl01}}" (load)="loaded = true" alt=""
+                          *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1">
+                        <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                          onloadedmetadata="this.muted = true" [muted]="true"
+                          *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1" (load)="loaded = false"
+                          [hidden]="loaded">
+                          <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+                        </video>
+
+                        <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                          onloadedmetadata="this.muted = true" [muted]="true"
+                          *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+                          <source src="{{ item.nftFileUrl01 }}" type="video/mp4">
+                        </video>
+                        
+                      </a>
+                      <div class="flex flex-wrap flex100 gap15 justify-start">
+                        <div class="thumb__preview gap15" *ngFor="
+                            let iner of item.nftDetailsList.slice(1, 4);
+                            let j = index
+                          ">
+                          <ng-container *ngIf="j <= 2">
+                            <div class="content-overlay"></div>
+                           
+
+                            <a [routerLink]="['/details',iner.nftAddress, iner.nftTokenID01]"
+                              routerLinkActive="router-link-active">
+                              <img src="{{iner.nftFileUrl}}" (load)="loaded01 = true" alt=""
+                                *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1">
+                              <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                                onloadedmetadata="this.muted = true" [muted]="true"
+                                *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
+                                (load)="loaded01 = false" [hidden]="loaded01">
+                                <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+                              </video>
+                            </a>
+                            <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                              onloadedmetadata="this.muted = true" [muted]="true"
+                              *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') != -1"
+                              (click)="gotoNftDetails(iner.nftAddress, iner.nftTokenID)">
+                              <source src="{{ iner.nftFileUrl }}" type="video/mp4">
+                            </video>
+                            <img *ngIf="!iner.nftFileUrl" src="assets/images/default.jpg" alt="" />
+                          </ng-container>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="flex-col h-100">
+                      <div class="flex1 flex-col justify-center mt20">
+                        <div class="orbitron text-secondary p24">
+                          <a [routerLink]="['/collection', item.collectionName]" class="text-secondary">
+                            {{ item?.collectionName }} </a><br />
+                          <p class="montserrat text-primary p18 flex space-between-md-column">
+                            <a [routerLink]="[
+                            '/profile',
+                            item.ownerWalletAddress
+                          ]" class="text-primary owner_name">
+                              <strong class="w600"> by </strong>
+                              <span>
+                                {{ item?.name ?? item?.customeUrl }}
+                              </span></a>
+                            <span> {{ item?.totalNftCount }} items </span>
+                          </p>
+                        </div>
+                        <br />
+                        <a class="button text-inherit large-button" href="javascript:void(0)"
+                          [routerLink]="['/collection', item?.collectionName]">View Collection</a>
+                      </div>
+                    </div>
+                  </ng-template>
+                </swiper>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

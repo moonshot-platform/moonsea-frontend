@@ -166,9 +166,12 @@
               </div>
               <div class="popup__btns flex gap">
                 <button class="button wp100" (click)="prev()">Back</button>
-                <button type="submit" class="button text-inherit dark-button mb10 wp100">
+                <button  type="submit" class="button text-inherit dark-button mb10 wp100">
                   Next step
                   <div class="loader text-white" *ngIf="isApiLoading"></div>
+                </button>
+                <button *ngIf="collectionId" (click)="skip()" type="button" class="button text-inherit dark-button mb10 wp100">
+                  Skip
                 </button>
               </div>
             </div>
@@ -241,6 +244,9 @@
                   <button type="submit" class="button text-inherit dark-button mb10 wp100">
                     Next step
                     <div class="loader text-white" *ngIf="isApiLoading"></div>
+                  </button>
+                  <button *ngIf="collectionId" (click)="skip()" type="button" class="button text-inherit dark-button mb10 wp100">
+                    Skip
                   </button>
                 </div>
               </div>
@@ -459,7 +465,9 @@
                     Next
                     <div class="loader text-white" *ngIf="isApiLoading"></div>
                   </button>
-                  
+                  <button *ngIf="collectionId" (click)="skip()" type="button" class="button text-inherit dark-button mb10 wp100">
+                    Skip
+                  </button>
                 </div>
               </div>
             </div>
