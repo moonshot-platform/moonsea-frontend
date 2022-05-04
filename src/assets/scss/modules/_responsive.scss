@@ -97,7 +97,7 @@
     }
     .discover_collection .swiper {
       padding-bottom: 4rem;
-    } 
+    }
     .stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -107,6 +107,15 @@
       padding-right: 1rem;
       width: 100%;
       margin: 0;
+    }
+
+    .artist {
+      .outer-box {
+        margin-top: 0;
+      }
+      .px-5 {
+        padding: 0 !important;
+      }
     }
   }
   .footer_menu {

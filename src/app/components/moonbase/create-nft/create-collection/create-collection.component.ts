@@ -456,7 +456,8 @@ export class CreateCollectionComponent implements OnInit {
   onLogoFile(event: any) {
     this.imageErrorMsg = false;
     const file: File = event.target.files[0];
-    if (file) {
+    debugger
+    if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif')) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 

@@ -172,7 +172,7 @@ export class AllcollectionComponent implements OnInit {
 
             this.proeprties[index].count = count;
           });
-          // console.log( this.proeprties);
+          // console.log( JSON.stringify(this.proeprties));
         } else {
           alert(res.message);
         }
@@ -183,10 +183,13 @@ export class AllcollectionComponent implements OnInit {
     );
   }
 
-  propertiesSelection(i: any) {
+   filterArray :any =[];
+  
+  propertiesSelection(key: any,index:any) {
+  
     let values: any = [];
     let keys: any = [];
-
+   
     this.foo.filter(function (el: any) {
       if (el.length > 0) {
         for (let i = 0; i < el.length; i++) {
@@ -196,6 +199,36 @@ export class AllcollectionComponent implements OnInit {
       }
     });
 
+  
+    this.foo.forEach((el:any)=>{
+      let temp = [];
+      for(let i=0;i<el.length;i++){
+        if(el[i].key == key){
+          temp.push(el[i].value)
+         if(this.filterArray.length == 0){
+          this.filterArray.push({key:key,values:temp});
+         }else{
+          for(let j=0;j<this.filterArray.length;j++){
+            if(this.filterArray[j].key == key){
+              this.filterArray[j].values = temp ; 
+            }else{
+             let result = this.filterArray.find(x=>x.key == key);
+              if(!result){
+                this.filterArray.push({key:key,values:temp});
+              }
+            }
+          }
+        
+         }
+        
+        }
+      }
+    })
+
+      
+  
+    // console.log(JSON.stringify(this.filterArray));
+    
     this.oldpropertiesValue = values.join(',');
     this.oldpropertiesKey = keys.join(',');
     this.getNftList01();

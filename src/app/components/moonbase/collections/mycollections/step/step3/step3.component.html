@@ -115,7 +115,10 @@
             <div class="pt30 pb30 text-left wp100">
               <div class="flex text-primary">
                 <a [routerLink]="['/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">
-                  <img alt="NFT preview" src="{{item.fileUrl}}" class="nftPreview" />
+                  <img alt="NFT preview" src="{{item.fileUrl}}" class="nftPreview" *ngIf="item.fileUrl.indexOf('.mp4') == -1" />
+                  <video width="50" height="50" *ngIf="item.fileUrl.indexOf('.mp4') > -1" muted>
+                    <source src="{{item.fileUrl}}" type="video/mp4">
+                  </video>
                 </a>
                 <div class="flex-col flex1">
                   <a [routerLink]="['/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">

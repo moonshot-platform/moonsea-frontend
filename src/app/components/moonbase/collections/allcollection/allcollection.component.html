@@ -81,7 +81,7 @@
         <div class="wrap-filter">
           <mat-form-field appearance="fill" *ngFor="let keys of uniqueNamesData; let i = index">
             <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label>
-            <mat-select (selectionChange)="propertiesSelection(i)" [(ngModel)]="foo[i]" multiple>
+            <mat-select (selectionChange)="propertiesSelection(keys,i)" [(ngModel)]="foo[i]" multiple>
               <mat-option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
                 item.value }}({{ item.totalCount }})</mat-option>
             </mat-select>

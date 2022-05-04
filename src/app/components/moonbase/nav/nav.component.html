@@ -1,6 +1,6 @@
 <section class="navigation">
   <div class="inner flex-space-between align-center ml-0 mw-100 overflow-unset">
-    <div class="logo-container flex align-start">
+    <div class="logo-container flex align-start" [ngClass]="menuItem === true ? 'd-none' : '' ">
       <a
         href="javascript:void(0)"
         [routerLink]="['/']"
@@ -120,7 +120,7 @@
       </div>
     </div>
 
-    <div class="mobile-only">
+    <div class="mobile-only" [ngClass]="menuItem === true ? 'd-none' : '' " (click)="menuopen()">
       <svg
         width="30px"
         height="26px"
@@ -151,8 +151,8 @@
       alt="menu button"
       class="mob-menu"
     /> -->
-    <nav class="flex">
-      <div class="mobile-only">
+    <nav class="flex" [ngClass]="menuItem === true ? 'show' : '' ">
+      <div class="mob-menu" (click)="closeMenu()">
         <svg
           width="27px"
           height="27px"
@@ -171,20 +171,13 @@
             <path
               d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
               id="Combined-Shape"
-              fill="#000000"
+              fill="#50aac5"
             ></path>
           </g>
         </svg>
       </div>
-      <!-- <img
-        src="assets/media/icons/close-2.svg"
-        alt="menu button"
-        class="mob-menu"
-      /> -->
-      <ul>
+      <ul (click)="closeMenu()">
         <li>
-          <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/collections']"
-            href="javascript:void(0);">Collections</a> -->
           <a
             routerLinkActive="active"
             [routerLink]="['/searchcollection']"
@@ -210,14 +203,8 @@
             href="javascript:void(0);"
             >How it works</a
           >
-          <!---->
-          <!---->
-          <!---->
         </li>
         <li>
-          <!---->
-          <!-- <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/createNft']"
-            href="javascript:void(0);">Upload</a> -->
           <a
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -225,42 +212,13 @@
             href="javascript:void(0);"
             >Upload</a
           >
-          <!---->
-          <!---->
-          <!---->
-          <!---->
-          <!---->
-          <!---->
-          <!---->
-          <!---->
-        </li>
-        <!-- <li>
-          <a routerLink="/admin">
-            Admin
-          </a>
-        </li> -->
-        <!---->
-        <li class="mobile-only">
-          <ul class="extras flex-col">
-            <li>
-              <p id="nav-bar-tokenomics-text">Collections</p>
-            </li>
-            <li>
-              <a
-                href="https://dex.guru/token/0xd27d3f7f329d93d897612e413f207a4dbe8bf799-bsc"
-                >How it works</a
-              >
-            </li>
-            <li><a href="https://moonboxes.io/">How it works</a></li>
-            <li><a href="https://moonboxes.io/">Upload</a></li>
-          </ul>
         </li>
       </ul>
     </nav>
   </div>
 </section>
 
-
+<!-- 
 <section class="mobile-only footer_menu tab-only navigation bottom-footer">
   <div class="res_menu flex1">
 
@@ -296,4 +254,4 @@
   true}" [routerLink]="['']" (click)="closeMenu()">MoonBoxes</a>
       <div class="divider mb20"></div>
   </div>
-</section>
+</section> -->
