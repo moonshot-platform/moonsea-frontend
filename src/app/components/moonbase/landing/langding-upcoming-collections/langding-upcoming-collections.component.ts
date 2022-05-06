@@ -12,7 +12,6 @@ export class LangdingUpcomingCollectionsComponent implements OnInit {
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
-    pagination: { clickable: false },
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {

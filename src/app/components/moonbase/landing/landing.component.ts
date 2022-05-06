@@ -257,7 +257,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
 
@@ -267,7 +267,7 @@ export class LandingComponent implements OnInit, OnDestroy {
       rows: 3,
     },
     navigation: true,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
 

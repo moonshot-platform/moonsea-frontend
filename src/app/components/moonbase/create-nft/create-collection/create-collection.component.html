@@ -24,7 +24,11 @@
               <div class="popup__field mb20">
                 <div>
                   <!-- <h4>Type of nft: <a (click)="toggleTypeOfNft(typeOfNft)">{{typeOfNft | titlecase }}</a></h4> -->
-                  <div>Type of nft: <button type="button" class="button wp100" (click)="toggleTypeOfNft(typeOfNft)">{{typeOfNft | titlecase }}</button></div>
+                  <!-- <div>Type of nft: <button type="button" class="button wp100" (click)="toggleTypeOfNft(typeOfNft)">{{typeOfNft | titlecase }}</button></div> -->
+                  <select class="button wp100" #nftDrop (change)="toggleTypeOfNft(nftDrop.value)">
+                    <option value="single">Single</option>
+                    <option value="multiple">Multiple</option>
+                  </select>
                 </div>
                 
                 <div class="upload__item">
@@ -195,7 +199,7 @@
                   </div>
                 </div>
 
-                <div class="popup__field mb20">
+                <div class="popup__field mb20" *ngIf="!collectionId">
                   <div class="popup__col mb10 p12">Royalties</div>
                   <div class="field__wrap">
                     <input class="popup__input" formControlName="royalties" name="royalties" type="number" />
@@ -399,7 +403,7 @@
                         step04FormControls.putOnSale.value &&
                         (step04FormControls.typeOfSale.value == 1 || step04FormControls.typeOfSale.value == 2 || step04FormControls.typeOfSale.value == 3) 
                       ">
-                    <div class="popup__col mb10 p12">Minimum Bid</div>
+                    <div class="popup__col mb10 p12">{{step04FormControls.typeOfSale.value == 1 ? 'Price' : 'Minimum Bid'}}</div>
                     <div class="field__wrap">
                       <input class="popup__input" formControlName="minimunBid" name="minimunBid" type="number" />
                     </div>
@@ -408,7 +412,7 @@
                           (step04FormControls.minimunBid.touched ||
                           step04.submitted)
                         ">
-                      Minimum Bid required
+                        {{step04FormControls.typeOfSale.value == 1 ? 'Price' : 'Minimum Bid'}} required
                     </div>
                   </div>
 

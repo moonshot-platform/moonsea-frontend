@@ -468,6 +468,7 @@ debugger
 
   async signSellOrder(nftId: number, price: number, supply: number, nftAddress: string, isMultiple: boolean, salt: any, referralAddress: any,
     royalties: any = 0, royaltiesOwner: any = "0x0000000000000000000000000000000000000000", tokenAddress: any = '0x0000000000000000000000000000000000000000') {
+      debugger
     try {
 
       console.log(nftAddress);

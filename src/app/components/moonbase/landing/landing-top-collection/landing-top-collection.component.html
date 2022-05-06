@@ -6,7 +6,7 @@
             <span class="color-white">Top </span><span>collections </span>
           </p>
         </div>
-        <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper hover-effect">
+        <swiper [config]="config" class="mySwiper hover-effect">
           <ng-template *ngFor="let item of getTopcollection; let i = index" swiperSlide>
 
             <app-collection-card [item]="item"></app-collection-card>

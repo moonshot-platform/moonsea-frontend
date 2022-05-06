@@ -11,7 +11,8 @@
           <div class="preview__inner">
             <div class="card">
               <div class="flex justify-center" *ngIf="imageUrl.indexOf('.mp4') == -1">
-                <img src="{{ collectionDetails.fileUrl }}" class="border collectionImg" alt="NFT preview" />
+                <img  class="border collectionImg" alt="NFT preview"
+                [lazyLoad]="collectionDetails.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'"   />
 
 
               </div>
@@ -115,7 +116,8 @@
             <div class="pt30 pb30 text-left wp100">
               <div class="flex text-primary">
                 <a [routerLink]="['/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">
-                  <img alt="NFT preview" src="{{item.fileUrl}}" class="nftPreview" *ngIf="item.fileUrl.indexOf('.mp4') == -1" />
+                  <img alt="NFT preview"  class="nftPreview" *ngIf="item.fileUrl.indexOf('.mp4') == -1"
+                  [lazyLoad]="item.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" />
                   <video width="50" height="50" *ngIf="item.fileUrl.indexOf('.mp4') > -1" muted>
                     <source src="{{item.fileUrl}}" type="video/mp4">
                   </video>

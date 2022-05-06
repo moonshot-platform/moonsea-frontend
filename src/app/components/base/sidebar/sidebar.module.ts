@@ -6,6 +6,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { MoonbaseModule } from '../../moonbase/moonbase.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MoonbaseModule } from '../../moonbase/moonbase.module';
       defaultBgColor: 'transparent',
       defaultBoColor : 'black',
     }),
+    LazyLoadImageModule
   ],
   exports: [
     SidebarComponent

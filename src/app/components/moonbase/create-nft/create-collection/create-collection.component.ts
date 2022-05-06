@@ -267,6 +267,10 @@ export class CreateCollectionComponent implements OnInit {
     }
   }
 
+  toggleTypeOfNft01(event:any){
+    console.log(event);
+    
+  }
 
   step01PatchValue(data:any){
     this.step01Form.patchValue({

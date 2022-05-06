@@ -223,7 +223,7 @@ export class ModalForCreateNftComponent implements OnInit {
       (!this.data.details.isForSale && this.signatureStatus == 1) ||
       this.signatureStatus >= 2
     ) {
-      this.dialogRef.close(true);
+      this.dialogRef.close();
 
       if (!this.rejectedMetamask) {
         // this.router.navigate([
@@ -232,8 +232,8 @@ export class ModalForCreateNftComponent implements OnInit {
         //   'tab',
         //   'created',
         // ]);
-        this.createNFTService.subject.next({ tabIndex: 1 });
-        this.router.navigate(['/mycollections']);
+        // this.createNFTService.subject.next({ tabIndex: 1 });
+        // this.router.navigate(['/mycollections']);
       }
     }
   }

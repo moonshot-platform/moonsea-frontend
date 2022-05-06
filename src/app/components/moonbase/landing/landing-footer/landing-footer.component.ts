@@ -12,7 +12,7 @@ export class LandingFooterComponent implements OnInit {
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
   hotCollectionList :any = [];

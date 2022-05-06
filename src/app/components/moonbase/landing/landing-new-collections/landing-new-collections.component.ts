@@ -1,29 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { HomeService } from 'src/app/services/home.service';
 import { SwiperOptions } from 'swiper';
 
+// import Swiper core and required modules
+import SwiperCore, { Grid, Pagination } from "swiper";
+
+// install Swiper modules
+SwiperCore.use([Grid, Pagination]);
+
 @Component({
   selector: 'app-landing-new-collections',
   templateUrl: './landing-new-collections.component.html',
-  styleUrls: ['./landing-new-collections.component.scss']
+  styleUrls: ['./landing-new-collections.component.scss'],
 })
 export class LandingNewCollectionsComponent implements OnInit {
   newCollection :any = [];
   upCommingCollection :any = [];
   newCollectionslider: SwiperOptions = {
-    slidesPerView: 1,
+    slidesPerView: 3,
     grid: {
+      fill: 'row',
       rows: 3
     },
     navigation: true,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
   config: SwiperOptions = {
     slidesPerView: 5,
-    spaceBetween: 50,
-    pagination: { clickable: false },
+    spaceBetween: 10,
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {
