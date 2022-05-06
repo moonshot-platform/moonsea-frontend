@@ -1,0 +1,155 @@
+<section class="new_collection selection desktop-only">
+    <div class="inner">
+      <div class="flex align-center justify-space-between mb20 mt20">
+        <p class="orbitron">
+          <span class="color-white">New </span><span>collections</span>
+        </p>
+      </div>
+
+      <ng-container *ngFor="let item of newCollection; let i = index">
+        <div class="selection__center" *ngIf="i < 1">
+          <div class="selection__row mr50">
+            <div class="selection__col mr30">
+              <div class="selection__card" href="javascript:void(0);">
+                <a class="selection__preview" [routerLink]="['/details',item.nftAddress,item.nftTokenID01]" routerLinkActive="router-link-active"  >
+                  <div class="content-overlay"></div>
+                  <img *ngIf="item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') == -1" srcset="{{item.fileUrl}}"
+                    src="{{ item.nftFileUrl01 }}" alt="Selection" />
+                  <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                    onloadedmetadata="this.muted = true" [muted]="true"
+                    *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
+                    <source src="{{  item.nftFileUrl01 }}" type="video/mp4">
+                  </video>
+                  <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
+                </a>
+                <div class="flex100">
+                  <a class="color-secondary collections__subtitle orbitron"
+                    [routerLink]="['/collection', item.collectionName]">
+                    {{ item.collectionName }}
+                  </a>
+                  <div class="collections__line">
+                    <div class="collections__user">
+                      <div class="text-primary collections__author">
+                        by
+                        <a [routerLink]="['/profile', item.ownerWalletAddress]">{{ item?.name ?? item?.customeUrl
+                          }}</a>
+                      </div>
+                    </div>
+                    <div class="collections__counter">
+                      <span class="text-primary">{{ item?.totalNftCount }} items</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="selection__col">
+              <ng-container *ngFor="
+                  let item01 of item.nftDetailsList.slice(1, 4);
+                  let j = index
+                ">
+                <ng-container *ngIf="j <= 2">
+                  <a [routerLink]="['/details',item01.nftAddress,item01.nftTokenID]" routerLinkActive="router-link-active"   class="selection__item">
+                    <div class="selection__preview">
+                      <img *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') == -1"
+                        srcset="{{item01.nftFileUrl}}" src="{{ item01.nftFileUrl }}" alt="Selection" />
+                      <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                        onloadedmetadata="this.muted = true" [muted]="true"
+                        *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') != -1">
+                        <source src="{{  item01.nftFileUrl }}" type="video/mp4">
+                      </video>
+
+                    </div>
+                  </a>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <div class="selection__sidebar">
+            <div class="selection__col">
+              <swiper [config]="newCollectionslider" [slidesPerView]="1" class="mySwiper new_collection_arrow">
+                <ng-template *ngFor="let itemmm of upCommingCollection; let i = index" swiperSlide>
+                  <a class="collections__item" href="javascript:void(0)">
+                    <div class="selection__item mb30">
+                      <a [routerLink]="['/details',itemmm.nftAddress, itemmm.nftTokenID01]" routerLinkActive="router-link-active"  class="selection__preview" >
+                        <img *ngIf=" itemmm.nftFileUrl01 &&  itemmm.nftFileUrl01.search('.mp4') == -1"
+                          srcset="{{ itemmm.nftFileUrl01 }}" src="{{ itemmm.nftFileUrl01 }}" alt="Selection" />
+                        <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                          onloadedmetadata="this.muted = true" [muted]="true"
+                          *ngIf=" itemmm.nftFileUrl01 &&  itemmm.nftFileUrl01.search('.mp4') != -1">
+                          <source src="{{  itemmm.nftFileUrl01 }}" type="video/mp4">
+                        </video>
+                      </a>
+
+                      <div class="selection__description">
+                        <div class="orbitron p18 selection__title">
+                          <a class="flex color-secondary"
+                            [routerLink]="['/collections/collection', itemmm.collectionName]">
+                            {{
+                            itemmm.collectionName === null
+                            ? "Test"
+                            : itemmm.collectionName
+                            }}
+                          </a>
+                          <div class="p16 montserrat text-primary collections__author">
+                            by
+                            <a [routerLink]="[
+                                '/profile',
+                                itemmm.ownerWalletAddress
+                              ]">{{ itemmm?.name ?? itemmm?.customeUrl }}</a>
+                          </div>
+                        </div>
+                        <div class="collections__counter">
+                          <span class="text-primary">{{ itemmm?.totalNftCount }} items</span>
+                        </div>
+                        <div>
+                          <a class="button w-100 mt10" [routerLink]="['/collection', itemmm.collectionName]">
+                            View Collection
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </ng-template>
+              </swiper>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+
+  
+    <!-- New Collection Mobile-->
+
+
+    <section class="upcoming-collection mobile-only pb-0">
+
+      <div class="inner hover-effect">
+
+        <div>
+
+          <div class="relative">
+
+            <p class="title-name orbitron p18">
+
+              <span class="color-white">New </span><span>collections </span>
+
+            </p>
+
+          </div>
+
+          <swiper [config]="config" class="mySwiper hover-effect">
+
+            <ng-template *ngFor="let item of newCollection; let i = index" swiperSlide>
+
+              <app-collection-card [item]="item"></app-collection-card>
+
+            </ng-template>
+
+          </swiper>
+
+        </div>
+
+      </div>
+
+    </section>

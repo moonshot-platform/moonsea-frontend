@@ -1,0 +1,18 @@
+<section class="hot-collection">
+    <div class="inner">
+      <div>
+        <div class="relative">
+          <p class="title-name orbitron p18">
+            <span class="color-white">Hot </span><span>collections </span>
+          </p>
+        </div>
+        <swiper [config]="config" class="mySwiper hover-effect"
+          [navigation]="true">
+          <ng-template *ngFor="let item of hotCollectionList; let i = index" swiperSlide>
+
+            <app-collection-card [item]="item"></app-collection-card>
+          </ng-template>
+        </swiper>
+      </div>
+    </div>
+  </section>

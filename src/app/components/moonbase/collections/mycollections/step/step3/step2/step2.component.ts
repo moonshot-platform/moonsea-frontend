@@ -35,7 +35,11 @@ export class Step2Component implements OnInit {
   imageUploadignStatus :boolean=false;
   uploadBatchCnt = 0;
   collectionDetails :any = {};
-
+  imDoneUploadingButton:boolean;
+  isImgLoaded:boolean = false;
+  progressValue :any;
+  cnt = 0;
+ 
 
   constructor(
     private createNFTService: CreateNftService,
@@ -74,13 +78,15 @@ export class Step2Component implements OnInit {
     this.message = [];
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
-   
+    
+    
     this.uploadFiles();
   }
 
   forloopend :boolean;
 
   uploadFiles(): void {
+    this.imDoneUploadingButton = true;
     this.forloopend = false;
     this.message = [];
     if (this.selectedFiles) {
@@ -107,6 +113,7 @@ export class Step2Component implements OnInit {
     }
   }
 
+
   upload(idx: number, file: any): void {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
@@ -119,15 +126,30 @@ export class Step2Component implements OnInit {
             this.progressInfos[idx].value = Math.round(
               (100 * event.loaded) / event.total
             );
-         
+            console.log("idx=>"+idx+"==>  "+this.progressInfos[idx].value);
+             
+           
+              if(this.progressInfos[idx].value === 100){
+                this.cnt ++;
+              }
+              
+              this.progressValue = (this.cnt/this.selectedFiles.length)*100;
 
           } else if (event instanceof HttpResponse) {
-          //  console.log(event);
+           console.log(event);
            if(idx == this.selectedFiles.length -1){
             this.toastr.success('upload completed ....');
             this.imageUploadignStatus = false;
             this.uploadBatchCnt++;
+            this.imDoneUploadingButton = false;
           }
+
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            this.progressInfos[idx].imagePath = reader.result; 
+          };
+
            file.imagePath = event.body.data.path;
            
             const msg = 'Uploaded the file successfully: ' + file.name;

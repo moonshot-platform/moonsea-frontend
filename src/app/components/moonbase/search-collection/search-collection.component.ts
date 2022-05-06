@@ -20,7 +20,7 @@ export class SearchCollectionComponent implements OnInit {
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {
@@ -48,7 +48,7 @@ export class SearchCollectionComponent implements OnInit {
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
   isApiLoading: boolean = true;
@@ -102,7 +102,7 @@ export class SearchCollectionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.searchKey = res.searchKey;
       if (!res.searchKey) {
-        this.searchKey = 'search word';
+        this.searchKey = 'all';
         // this.getSearchResultNFT();
       }
       this.getSearchResultNFT();

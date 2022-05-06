@@ -4,9 +4,11 @@
     <div class="flex justify-space-between flex100 gap15">
       <a class="button lg-height-button text-inherit bg-primary button mt-auto" (click)="toggle()">
         Filter NFT's
-        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;width: 30px;height: 30px;margin-left: 10px;" xml:space="preserve">
+        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 40 40"
+          style="enable-background:new 0 0 40 40;width: 30px;height: 30px;margin-left: 10px;" xml:space="preserve">
           <polygon class="stroke_dark" points="35,5.5 5,5.5 17.5,22.2 17.5,34.5 22.5,34.5 22.5,22.2 "></polygon>
-          </svg>
+        </svg>
       </a>
 
       <!-- commented don't delete the code it is important code. -->
@@ -44,7 +46,8 @@
       </div>
 
       <div class="field desk-width">
-        <select nice-select class="select sorted" #mySelectprice (change)="filter01(mySelectprice.value)"   [value]="sortingType">
+        <select nice-select class="select sorted" #mySelectprice (change)="filter01(mySelectprice.value)"
+          [value]="sortingType">
           <option value=2>Recently listed</option>
           <option value=1>Oldest</option>
           <option value=4>Price: High to low</option>
@@ -58,7 +61,8 @@
 
       <div class="field desk-width relative">
         <span class="max-price">Status:</span>
-        <select nice-select class="select sorted pl-65" #status01 [value]="status" name="offer" (change)="filter02(status01.value)">
+        <select nice-select class="select sorted pl-65" #status01 [value]="status" name="offer"
+          (change)="filter02(status01.value)">
           <option value="-1">All items</option>
           <option value="1">Buy Now</option>
           <option value="2">On Auction</option>
@@ -69,7 +73,7 @@
   </div>
 </div>
 
-<ng-container >
+<ng-container>
   <div class="filter-menu" [ngClass]=" expanded ? 'fadeInDown showdiv' : 'hidediv'">
     <!-- properties -->
     <div class="landing-flex pt-0">
@@ -77,7 +81,7 @@
         <div class="wrap-filter">
           <mat-form-field appearance="fill" *ngFor="let keys of uniqueNamesData; let i = index">
             <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label>
-            <mat-select (selectionChange)="propertiesSelection(i)" [(ngModel)]="foo[i]" multiple>
+            <mat-select (selectionChange)="propertiesSelection(keys,i)" [(ngModel)]="foo[i]" multiple>
               <mat-option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
                 item.value }}({{ item.totalCount }})</mat-option>
             </mat-select>
@@ -92,45 +96,11 @@
   <div class="outer__inner">
     <div class="discover">
       <div class="catalog__center">
-        <!-- <div class="catalog__sorting">
-          <select
-            nice-select
-            #mySelect
-            (change)="getNftList(1, 0, 100, mySelect.value, 12, '', '', 0, 0)"
-          >
-            <option value="DESC">Newest</option>
-            <option value="ASC">Oldest</option>
-          </select>
-
-          <div class="catalog__nav" *ngFor="let list of nftListNames">
-            <a
-              class="catalog__link active pointer_on_card"
-              (click)="
-                getNftList(
-                  collectionId,
-                  0,
-                  0,
-                  'DESC',
-                  12,
-                  '',
-                  '',
-                  list.categoryId,
-                  0
-                )
-              "
-              >{{ list.categoryName }}</a
-            >
-          </div>
-        </div> -->
-
-       
-        
         <div class="catalog__row">
           <div class="flex100">
-           
+
             <div class="catalog__list">
               <div class="card" *ngFor="let item of nftList">
-                <!-- <div class="loader" *ngIf="isApiLoading"></div> -->
                 <app-nft-card [items]="item"></app-nft-card>
               </div>
               <div *ngIf="nftList?.length == 0">
@@ -140,13 +110,13 @@
 
 
             <div class="catalog__btns">
-              <button class="button wp100 mb100 mt50" (click)="loadmore()">
+              <button *ngIf="!(size > totalCount)" class="button wp100 mb100 mt50" (click)="loadmore()">
                 Load more
               </button>
             </div>
           </div>
         </div>
-    
+
       </div>
     </div>
   </div>

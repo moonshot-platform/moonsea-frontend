@@ -1,6 +1,6 @@
 <div class="rounded relative flex">
-  <img *ngIf="imagePath" src="{{imagePath}}" alt="Avatar" />
-  <img *ngIf="!imagePath" src="assets/media/images/moonsea/profile.png" alt="Avatar" />
+  <img *ngIf="imagePath" [lazyLoad]="imagePath" [defaultImage]="'assets/icons/5904642857251113741.gif'"  alt="Avatar" />
+  <!-- <img *ngIf="!imagePath" src="assets/media/images/moonsea/profile.png" alt="Avatar" /> -->
 
   <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/updateProfile']" class="edit-icon">
     <svg

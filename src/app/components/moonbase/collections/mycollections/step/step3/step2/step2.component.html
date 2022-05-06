@@ -64,11 +64,14 @@
               *ngIf="isShowMatspinner == 'hide'"
             >
               Drop a PNG, GIF, WEBP, MP4 or MP3. (Max 1 MB)
+              <!-- <mat-progress-bar *ngIf="progressValue >= 0" mode="determinate" value="{{progressValue}}"></mat-progress-bar>
+              {{progressValue}} -->
             </div>
 
-            <div *ngIf="isShowMatspinner == 'show'">
+            <!-- <div *ngIf="isShowMatspinner == 'show'">
               <mat-spinner></mat-spinner>
-            </div>
+            </div> -->
+            
           </div>
           <div *ngIf="showerrormsg == 'show'">
             Something wrong with the image..
@@ -82,9 +85,8 @@
             <p class="orbitron p18"><span>Uploaded batches</span></p>
           </div>
           <div
-            class="flex align-center justify-space-between pb30 pt30 border-bottom"
-          >
-            <div class="batch_uploaded flex align-center">
+            class="flex align-center justify-space-between pb30 pt30 border-bottom" *ngIf="uploadBatchCnt >=1">
+            <div class="batch_uploaded flex align-center" >
               <img
                 alt="NFT preview"
                 src="https://moonboxes.io/assets/media/images/astro_painter.svg"
@@ -101,7 +103,7 @@
                 alt="NFT preview"
                 src="https://moonboxes.io/assets/media/images/astro_painter.svg"
               />
-              <p class="orbitron p16 ml20">
+              <p class="orbitron p16 ml20" >
                 <span>{{uploadBatchCnt}} batch has been {{imageUploadignStatus ? 'uploadeding' : 'uploaded succesfully'}} </span>
               </p>
             </div>
@@ -148,7 +150,7 @@
                 </div>
                 <div>
                   <p class="w-normal text-primary">Number of NFTs:</p>
-                  <p class="w-normal text-primary">4555 items</p>
+                  <p class="w-normal text-primary">{{collectionDetails.noOfnft}} items</p>
                 </div>
               </div>
             </div>
@@ -156,7 +158,7 @@
         </div>
 
         <div class="mt-50">
-          <button class="button bg-primary wp100" (click)="gotoTab3()">
+          <button class="button bg-primary wp100" [disabled]="imDoneUploadingButton" (click)="gotoTab3()">
             I'm done uploading
           </button>
         </div>
@@ -164,7 +166,7 @@
     </div>
 
     <section class="pt50">
-      <div class="flex align-center justify-space-between pb20">
+      <div class="flex align-center justify-space-between pb20" *ngIf="progressInfos.length >0">
         <p class="orbitron p18"><span>NFT upload in progress</span></p>
       </div>
 
@@ -189,7 +191,8 @@
                     class="flex text-primary"
                     href="javascript:void(0)"
                     >
-                    <img class="nftPreview" alt="NFT preview" src="https://moonboxes.io/assets/media/images/astro_painter.svg">
+                    <img class="nftPreview" *ngIf="!isImgLoaded" alt="NFT preview" src="https://moonboxes.io/assets/media/images/astro_painter.svg">
+                    <img class="nftPreview" [hidden]="!isImgLoaded" [src]="uploadlit.imagePath" (load)="isImgLoaded = true" >
                     <span class="orbitron text-secondary p16">
                       {{ uploadlit.fileName.slice(0, 10) }}
                     </span></a

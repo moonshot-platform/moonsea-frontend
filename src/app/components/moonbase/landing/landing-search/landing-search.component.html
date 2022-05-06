@@ -1,0 +1,63 @@
+<div class="search_container">
+    <div class="search-box"></div>
+    <div class="search-input">
+      <input type="text" id="searchInput01" #searchText (keyup.enter)="searchClient(searchText.value)"
+        (keyup)="autoComplete(searchText.value)" placeholder="Search for collections, items or creators"
+        class="form-control" />
+      <a href="">
+        <svg version="1.1" id="search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 40 40" style="" xml:space="preserve">
+          <style type="text/css">
+            .st0 {
+              fill: none;
+              stroke: #50aac5;
+              stroke-miterlimit: 10;
+            }
+          </style>
+          <g>
+            <circle class="st0" cx="22" cy="18" r="12.5"></circle>
+            <line class="st0" x1="13.2" y1="26.8" x2="5.5" y2="34.5"></line>
+          </g>
+        </svg>
+      </a>
+
+      <ng-container *ngIf="flag">
+
+        <div class="search_result">
+          <div *ngFor="let item of uniquedata; let i = index">
+            <div class="border-left border-right">
+              <div *ngIf="item == 1 && properties[i].length > 0"
+                class="flex align-center p-3 border-bottom p12 text-secondary">
+                Items
+              </div>
+              <div *ngIf="item == 2 && properties[i].length > 0"
+                class="flex align-center p-3 border-bottom p12 text-secondary">
+                Profile
+              </div>
+              <div *ngIf="item == 3 && properties[i].length > 0"
+                class="flex align-center p-3 border-bottom p12 text-secondary">
+                collection
+              </div>
+              <div *ngFor="let inner of properties[i]" class="flex align-center p-3 border-bottom" (click)="
+                  onselectClient(
+                    inner.searchText,
+                    inner.serachType,
+                    inner.nftTokenId,
+                    inner.nftAddress
+                  )
+                ">
+                <div class="profilepic01">
+                  <img [src]="inner.profilePic" *ngIf="inner.profilePic" class="profilepic" alt="profile" />
+                  <img *ngIf="!inner.profilePic" src="assets/media/images/moonsea/avatar-big.jpg" class="profilepic"
+                    alt="" />
+                </div>
+                <div>
+                  {{ inner.searchText }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>

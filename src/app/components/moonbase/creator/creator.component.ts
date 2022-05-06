@@ -20,22 +20,22 @@ export class CreatorComponent implements OnInit {
   hideShow:any;
   isFollowByYou: any;
   imageUrl :any ="";
+  correntRoute :any;
   constructor(  public contractService:ContractService, public dialog: MatDialog, 
      public cs:ContractService,private getDataService:GetDataService, private toastrService:ToastrService,) { }
 
   ngOnInit(): void {
+    
+    this.correntRoute = window.location.href;
     this.cs.getWalletObs().subscribe((data:any)=>
     {
-     
       this.connectedAddress = data;
-
-      
     });
   }
 
   async followUser(address:string,index:number,listType:number)
   {
-    debugger
+    
 
     if(!this.contractService.checkValidAddress(this.connectedAddress))
     {
@@ -148,6 +148,23 @@ export class CreatorComponent implements OnInit {
     })
   }
   return false;
+  }
+
+
+
+  copyMessage(val: string){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.toastrService.success("Address copied....");
   }
 
 } 

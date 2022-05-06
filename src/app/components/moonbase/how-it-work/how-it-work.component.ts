@@ -37,7 +37,7 @@ export class HowItWorkComponent implements OnInit {
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {

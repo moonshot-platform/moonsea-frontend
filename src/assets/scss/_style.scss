@@ -407,6 +407,10 @@ mat-slider {
   @include paddingsInside(200px, 0px);
 }
 
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
 .pt-0 {
   padding-top: 0 !important;
 }
@@ -1240,7 +1244,7 @@ section.tokenomics::-webkit-scrollbar {
       align-items: center;
 
       svg {
-        width: 30px;
+        width: 50px;
       }
     }
   }
@@ -2052,7 +2056,15 @@ table {
 .thumb__preview:hover .content-overlay {
   opacity: 1;
 }
-
+.new_collection .content-overlay {
+  display: none;
+}
+.mySwiper .swiper-slide:last-child .collections__item .mb30 {
+  margin-bottom: 0 !important;
+}
+.selection .selection__card img:hover {
+  border: 1px solid $secondary;
+}
 // .collections__preview:hover img {
 //   box-shadow: 8px 8px #c5e3ec;
 // }
@@ -2621,10 +2633,15 @@ table {
       height: 170px;
       padding-bottom: 8px;
 
-      img {
+      img,
+      video {
         max-height: 170px;
         min-height: 170px;
       }
+    }
+    .swiper-slide:nth-child(5) .selection__item.mb30,
+    .swiper-slide:nth-child(6) .selection__item.mb30 {
+      margin-bottom: 0;
     }
   }
 
@@ -2639,7 +2656,8 @@ table {
     }
 
     img {
-      height: 477px;
+      height: 476px;
+      width: 476px;
       border: 1px solid $primary;
 
       &:hover {
@@ -2922,6 +2940,16 @@ app-nft-detail-list-tabs {
     border: 1px solid $primary;
   }
 }
+
+
+app-creator {
+  .followers__avatar img {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+  }
+}
+
 
 [contenteditable="true"].content_editable {
   white-space: nowrap;
