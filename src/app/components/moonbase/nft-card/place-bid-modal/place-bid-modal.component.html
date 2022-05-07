@@ -96,7 +96,10 @@
 
     <div class="popup__row">
       <div class="popup__col">Your balance</div>
-      <div class="popup__col">{{ balanceInBNB }} BNB</div>
+     
+      <div class="popup__col">
+        <div class="loader text-white loader01" *ngIf="!balanceInBNB"></div> <span *ngIf="balanceInBNB">{{ balanceInBNB }} BNB</span>
+      </div>
     </div>
     <div class="popup__row">
       <div class="popup__col">Service fee</div>

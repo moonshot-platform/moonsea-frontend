@@ -73,6 +73,7 @@ export class DetailsComponent implements OnInit {
     this._activatedRoute.params.subscribe((params) => {
       this.nftTokenID = params['nftTokenID'];
       this.nftAddress = params['nftAddress'];
+      
     });
     this.ID = this.nftTokenID;
 

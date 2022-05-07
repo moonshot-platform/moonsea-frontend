@@ -42,7 +42,6 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.warn(this.items);
     this.getAccount();
     this.checkNetwork();
   }
@@ -76,6 +75,7 @@ export class PlaceBidModalComponent implements OnInit {
             10 ** this.balanceDetailsToken.decimals
           ).toFixed(4)
         : "0";
+        debugger
     this.price = this.items.price / this.items.supply;
     this.invalidValue = false;
 
@@ -152,9 +152,9 @@ export class PlaceBidModalComponent implements OnInit {
     this.SignBuyerOrderModel.isMultiple =  this.items.isMultiple;
     this.SignBuyerOrderModel.ownerAddress = this.items.ownerAddress;
     this.SignBuyerOrderModel.royalties =  this.items.royalties;
-    this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner;
+    this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
     this.SignBuyerOrderModel.contractAddress = this.items.contractAddress;
-    this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress;
+    this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
 
 
 
