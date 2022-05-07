@@ -110,6 +110,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async approveToken(amount: any) {
+    debugger
     if (this.checkBalance(amount)) {
       try {
         let allowance: any = await this.contractService.checkAllowance(

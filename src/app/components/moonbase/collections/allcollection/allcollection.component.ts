@@ -42,6 +42,7 @@ export class AllcollectionComponent implements OnInit {
   propertiesValue: any = '';
   categoryId: any = 0;
   sortByPrice: any = 0;
+  totalCount :any;
 
   constructor(
     private collectionApi: CollectionApiService,
@@ -60,8 +61,7 @@ export class AllcollectionComponent implements OnInit {
   ngOnInit(): void {
     this.sortingType = 2;
     this.contractService.getWalletObs().subscribe((data: any) => {
-      this.data = data;
-      console.log("===========",data);      
+      this.data = data;      
       this.getNftList01();
     });
 
@@ -75,7 +75,7 @@ export class AllcollectionComponent implements OnInit {
  
   getNftList01() {
     this.ngxService.start();
-
+console.log(JSON.stringify(this.filterArray),"sasas")
     this.isApiLoading = true;
     this.collectionApi
       .getNFTListAll(
@@ -89,11 +89,13 @@ export class AllcollectionComponent implements OnInit {
         this.oldpropertiesValue,
         this.searchKeyWord,
         this.categoryId,
-        this.status
+        this.status,
+        JSON.stringify(this.filterArray)
       )
       .subscribe((response: any) => {
         if (response.isSuccess) {
           this.nftList = response.data;
+          this.totalCount = response.totalCount;
           this.count = response.data.length;
           this.isApiLoading = false;
           this.ngxService.stop();
@@ -128,18 +130,7 @@ export class AllcollectionComponent implements OnInit {
 
   searchCollection() {
     this.getNftList01();
-    // let nftArray =  [];
-
-    // this.nftList.filter((element:any) => {
-    //     if(element.title.toLowerCase().indexOf(this.searchKeyWord.toLowerCase())   >  -1 ){
-    //       nftArray.push(element);
-    //     }
-    // });
-
-    // if(nftArray.length > 0){
-    //   this.nftList = [];
-    //   this.nftList = nftArray;
-    // }
+    
   }
 
   searchAll() {
@@ -182,7 +173,7 @@ export class AllcollectionComponent implements OnInit {
 
             this.proeprties[index].count = count;
           });
-          // console.log( this.proeprties);
+          // console.log( JSON.stringify(this.proeprties));
         } else {
           alert(res.message);
         }
@@ -193,20 +184,57 @@ export class AllcollectionComponent implements OnInit {
     );
   }
 
-  propertiesSelection(i: any) {
-    let values: any = [];
+   filterArray :any =[];
+  
+  propertiesSelection(key: any,index:any) {
+  
+    let value: any = [];
     let keys: any = [];
-
+   
     this.foo.filter(function (el: any) {
       if (el.length > 0) {
         for (let i = 0; i < el.length; i++) {
-          values.push(el[i].value);
+          value.push(el[i].value);
           keys.push(el[i].key);
         }
       }
     });
 
-    this.oldpropertiesValue = values.join(',');
+    
+  debugger
+    this.foo.forEach((el:any,index:any)=>{
+      let temp = [];
+      for(let i=0;i<el.length;i++){
+        if(el[i].key == key){
+          temp.push(el[i].value)
+         if(this.filterArray.length == 0){
+          this.filterArray.push({keys:key,value:temp});
+         }else{
+          for(let j=0;j<this.filterArray.length;j++){
+            if(this.filterArray[j].keys == key){
+              this.filterArray[j].value = temp ; 
+            }
+             let result = this.filterArray.find((x: any[])=>x.keys == key);
+              if(!result){
+                this.filterArray.push({keys:key,value:temp});
+              }
+            
+          }
+        
+         }
+        
+        }
+      }
+      if(el.length == 0){
+        this.filterArray.splice(index,1)
+      }
+    })
+
+      
+  
+    console.log(JSON.stringify(this.filterArray));
+    
+    this.oldpropertiesValue = value.join(',');
     this.oldpropertiesKey = keys.join(',');
     this.getNftList01();
    

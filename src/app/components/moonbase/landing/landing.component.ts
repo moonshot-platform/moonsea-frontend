@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractService } from 'src/app/services/contract.service';
 import { HomeService } from 'src/app/services/home.service';
@@ -12,7 +19,6 @@ import { resolve } from 'dns';
 import { rejects } from 'assert';
 import { Meta } from '@angular/platform-browser';
 
-
 SwiperCore.use([Grid, Navigation]);
 
 @Component({
@@ -24,7 +30,8 @@ SwiperCore.use([Grid, Navigation]);
     './../intro/intro.component.scss',
   ],
 })
-export class LandingComponent implements OnInit ,OnDestroy{
+export class LandingComponent implements OnInit, OnDestroy {
+
   static readonly routeName: string = '';
 
   boxes: any[] = [
@@ -54,7 +61,7 @@ export class LandingComponent implements OnInit ,OnDestroy{
   hotBidList: any;
   connectedAddress: any;
   slidesPerView = 1;
-  newCollection :any = [];
+  newCollection: any = [];
   nullImg = './../../../assets/img/WPngtreectoruserssicon3762775.png';
   tabHeadings = [
     'On Sale',
@@ -91,10 +98,9 @@ export class LandingComponent implements OnInit ,OnDestroy{
   statics: any = {};
 
   defaultImage = 'assets/media/videos/moonsea-animated-logo.webm';
-  loaded :boolean;
-  loaded01 :boolean;
-  loaded02 :boolean;
-
+  loaded: boolean;
+  loaded01: boolean;
+  loaded02: boolean;
 
   constructor(
     private homeService: HomeService,
@@ -107,9 +113,18 @@ export class LandingComponent implements OnInit ,OnDestroy{
     private meta: Meta
   ) {
     this.meta.addTags([
-      { name: 'og:description', content: 'A cross-chain NFT Marketplace engineered by Moonshot for Artists & Creators.' },
+      {
+        name: 'og:description',
+        content:
+          'A cross-chain NFT Marketplace engineered by Moonshot for Artists & Creators.',
+      },
       { name: 'og:title', content: 'Moonsea' },
-      {  name:"og:image" ,itemprop:"image",content:'https://ui8-crypter-nft-html.herokuapp.com/img/content/photo-2.1.jpg'}
+      {
+        name: 'og:image',
+        itemprop: 'image',
+        content:
+          'https://ui8-crypter-nft-html.herokuapp.com/img/content/photo-2.1.jpg',
+      },
     ]);
   }
   ngOnDestroy(): void {
@@ -118,11 +133,15 @@ export class LandingComponent implements OnInit ,OnDestroy{
     const viewport1 = this.meta.getTag('name="og:title"');
     const viewport2 = this.meta.getTag('name="og:image"');
 
-    if (viewport){ this.meta.removeTagElement(viewport);}
-    if (viewport1) {this.meta.removeTagElement(viewport1);}
-    if (viewport2){ this.meta.removeTagElement(viewport2);}
-
-
+    if (viewport) {
+      this.meta.removeTagElement(viewport);
+    }
+    if (viewport1) {
+      this.meta.removeTagElement(viewport1);
+    }
+    if (viewport2) {
+      this.meta.removeTagElement(viewport2);
+    }
   }
   discoverNFTList = [];
   oldtype: any;
@@ -130,34 +149,21 @@ export class LandingComponent implements OnInit ,OnDestroy{
   oldpriceRange: any;
   isApiLoading: boolean = true;
   browsCategory: any;
-  upCommingCollection:any=[];
-  getCollectionDetails:any=[];
-  getTopcollection:any=[];
+  upCommingCollection: any = [];
+  getCollectionDetails: any = [];
+  getTopcollection: any = [];
 
-  
   ngOnInit() {
-
-    // let that = this;
-
-    // window.onclick = function (event) {
-    //   let search = !event.target.matches('#searchInput')
-    //   if (search) {
-    //     that.flag = false;
-    //   }
-    // };
-
-    if ((localStorage.getItem("item") ?? "0") != "1") {
+    if ((localStorage.getItem('item') ?? '0') != '1') {
       this.openDialog();
     }
 
-    localStorage.setItem("item", "1");
-    
+    localStorage.setItem('item', '1');
+
     this.cs.getWalletObs().subscribe((data: any) => {
       this.connectedAddress = data;
       this.getCollectionList();
-      // this.HomePageList(1, 'DESC', 1, 12);
     });
-
   }
 
   firstApi: boolean = false;
@@ -181,62 +187,20 @@ export class LandingComponent implements OnInit ,OnDestroy{
   getCollectionList() {
     this.ngxService.start();
     this.hotCollectionList = [];
-    this.homeService
-      .getCollectionList(this.connectedAddress)
-      .subscribe((response: any) => {
-       
-        if(response.isSuccess){
+    this.homeService.getCollectionList(this.connectedAddress).subscribe(
+      (response: any) => {
+        if (response.isSuccess) {
           this.getCollectionDetails = response.data;
           this.ngxService.stop();
         }
 
         this.ngxService.stop();
         this.firstApi = true;
-      },(err:any)=>{
+      },
+      (err: any) => {
         this.ngxService.stop();
-      });
-
-
-    this.homeService.getHotBidCollectionList().subscribe((response: any) => {
-     
-      for (let i = 0; i < response.data.length; i++) {
-        for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-          response.data[i].nftFileUrl01 =
-            response.data[i].nftDetailsList[0].nftFileUrl;
-          response.data[i].nftTokenID01 =
-            response.data[i].nftDetailsList[0].nftTokenID;
-          response.data[i].nftAddress =
-            response.data[i].nftDetailsList[0].nftAddress;
-        }
       }
-      this.ngxService.stop();
-      this.hotCollectionList = response.data;
-      this.secondApi = true;
-    },(err:any)=>{
-      this.ngxService.stop();
-    }
     );
-
-    this.homeService.getNewCollections().subscribe((response: any) => {
-      this.ngxService.stop();
-      for (let i = 0; i < response.data.length; i++) {
-        for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-          response.data[i].nftFileUrl01 =
-            response.data[i].nftDetailsList[0].nftFileUrl;
-          response.data[i].nftTokenID01 =
-            response.data[i].nftDetailsList[0].nftTokenID;
-          response.data[i].nftAddress =
-            response.data[i].nftDetailsList[0].nftAddress;
-        }
-      }
-
-      this.newCollection = response.data;
-      
-      
-      this.thirdApi = true;
-    },(err:any)=>{
-      this.ngxService.stop();
-    });
 
     this.homeService
       .getBrowseBycategoryCollectionList()
@@ -249,56 +213,7 @@ export class LandingComponent implements OnInit ,OnDestroy{
       this.statics = res.data;
       this.fifthApi = true;
     });
-
-
-    this.homeService.getUpcommingCollection().subscribe(
-      (response:any)=>{
-        if(response.isSuccess){
-          this.ngxService.stop();
-          for (let i = 0; i < response.data.length; i++) {
-            for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-              response.data[i].nftFileUrl01 =
-                response.data[i].nftDetailsList[0].nftFileUrl;
-              response.data[i].nftTokenID01 =
-                response.data[i].nftDetailsList[0].nftTokenID;
-              response.data[i].nftAddress =
-                response.data[i].nftDetailsList[0].nftAddress;
-            }
-          }
-          this.upCommingCollection = response.data;
-          
-        }
-        
-      },(err:any)=>{
-        this.ngxService.stop();
-      }
-    )
-
-    this.homeService.getTopCollectionlist().subscribe(
-      (response:any)=>{
-        if(response.isSuccess){
-          this.ngxService.stop();
-          for (let i = 0; i < response.data.length; i++) {
-            for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-              response.data[i].nftFileUrl01 =
-                response.data[i].nftDetailsList[0].nftFileUrl;
-              response.data[i].nftTokenID01 =
-                response.data[i].nftDetailsList[0].nftTokenID;
-              response.data[i].nftAddress =
-                response.data[i].nftDetailsList[0].nftAddress;
-            }
-          }
-
-          this.getTopcollection = response.data;
-        }
-        
-      },(err:any)=>{
-        this.ngxService.stop();
-      }
-    )
-
   }
-  
 
   goToCallection(data: any) {
     this.router.navigate(['collections/', data]);
@@ -342,17 +257,17 @@ export class LandingComponent implements OnInit ,OnDestroy{
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
-  
+
   newCollectionslider: SwiperOptions = {
     slidesPerView: 1,
     grid: {
-      rows: 3
+      rows: 3,
     },
     navigation: true,
-    pagination: { clickable: true },
+    
     scrollbar: { draggable: true },
   };
 
@@ -361,91 +276,23 @@ export class LandingComponent implements OnInit ,OnDestroy{
   }
 
   searchClient(searchText: any) {
-    //  if(searchText.length > 3){
-    //   this.getDataService.searchResult(
-    //     searchText
-    //   ).subscribe(
-    //     response => {
-    //       this.searchResult = response.data;
-
-    //     });
-    //  }
     this.router.navigate(['/searchcollection'], {
       queryParams: { searchKey: searchText },
     });
   }
 
-  uniquedata :any=[];
-  properties:any= [];
-  autoComplete(searchText) {
-    this.uniquedata =[];
-    this.properties= [];
-    if (searchText.length > 2) {
-      this.getDataService.searchResult(searchText).subscribe(async (response) => {
-        if (response.isSuccess) {
-          this.flag = true;
-          this.searchResult = response.data;
-          this.searchResult.forEach(element => {
-              if(this.uniquedata.indexOf(element.serachType) === -1){
-                this.uniquedata.push(element.serachType);
-              }
-          });
-
-         await this.arraymove(this.uniquedata,2,1);
-          
-
-          this.uniquedata.forEach((element:any,index:any) => {
-            this.properties[index] = [];
-            this.searchResult.forEach((el:any) => {
-                if(el.serachType == element){
-                  this.properties[index].push(el)
-                }
-            });
-          });
-          console.log(this.uniquedata);
-          console.log(this.properties);
-          
-        }else{
-          this.flag = false;
-        }
-      });
-    }
-    else{
-      this.flag = false;
-    }
-  }
-
-
   arraymove(arr, fromIndex, toIndex) {
-    let prmise = new Promise((resolve,rejects)=>{
+    let prmise = new Promise((resolve, rejects) => {
       var element = arr[fromIndex];
       arr.splice(fromIndex, 1);
       arr.splice(toIndex, 0, element);
-      resolve('a')
+      resolve('a');
+    });
 
-    })
- 
     return prmise;
-  
-}
-
-  onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any) {
-  
-   
-    if (serachType == 1) {
-      this.router.navigate(['/details',nftAddress, nftToken]);
-    } else if (serachType == 2) {
-      this.router.navigate(['/profile', enterText]);
-    } else if (serachType == 4) {
-      this.router.navigate(['/profile', enterText]);
-    } else {
-      this.router.navigate(['collection', enterText]);
-    }
   }
 
   gotoNftDetails(nftAddress: any, id: any) {
     this.router.navigate(['details', nftAddress, id]);
   }
-
-  
 }

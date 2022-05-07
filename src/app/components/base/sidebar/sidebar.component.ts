@@ -12,7 +12,8 @@ export class SidebarComponent implements OnInit {
   active = false;
   wallet = false;
   walletActive = '';
-
+  useData:any = {};
+  userProfilePic:any;
   constructor(
     private tokenomicsService: TokenomicsService,
     public dialog: MatDialog
@@ -22,6 +23,9 @@ export class SidebarComponent implements OnInit {
     this.tokenomicsService.whenToggled().subscribe((state:boolean) => {
       this.toggleTokenomicsView(state);
     });
+
+    this.useData = JSON.parse(localStorage.getItem('userData'));
+    this.userProfilePic = this.useData.userInfo.profilePic;
   }
 
   toggleTokenomicsView( active: boolean = false, walletActive: string = '' ) {

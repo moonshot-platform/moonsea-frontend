@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from '../../../services/get-data.service';
 
@@ -8,7 +8,7 @@ import { GetDataService } from '../../../services/get-data.service';
   templateUrl: './nft-detail-list-tabs.component.html',
   styleUrls: ['./nft-detail-list-tabs.component.scss']
 })
-export class NftDetailListTabsComponent implements OnInit {
+export class NftDetailListTabsComponent implements OnInit ,OnChanges{
   @Input() ID: any;
   @Input() items: any={};
   @Input() response:any;
@@ -21,6 +21,10 @@ export class NftDetailListTabsComponent implements OnInit {
   indexForPlaceBid = -1;
   indexForPurchase = -1;
   constructor(private getDataService: GetDataService, private router:Router) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.response);
+    
+  }
 
   ngOnInit(): void {
     
@@ -28,6 +32,8 @@ export class NftDetailListTabsComponent implements OnInit {
    
     
   }
+
+
   goToProfile(data:any) {
   let url ="profile/"+data + "/tab/like"
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone, Inject, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, Inject, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {
   FormBuilder,
@@ -27,7 +27,7 @@ declare var $: any;
   templateUrl: './step3.component.html',
   styleUrls: ['./step3.component.scss'],
 })
-export class Step3Component implements OnInit {
+export class Step3Component implements OnInit ,OnDestroy{
 
   createNftForm: FormGroup;  
 
@@ -42,6 +42,7 @@ export class Step3Component implements OnInit {
   collectionId :any;
   nftList:any = [];
   collectionDetails:any={};
+  dialogRef :any ;
 
 
   constructor(
@@ -57,6 +58,11 @@ export class Step3Component implements OnInit {
     private _getDataService : CollectionApiService,
   ) {
     this.typeOfNft = 'single';
+  }
+  ngOnDestroy(): void {
+    if(this.dialogRef){
+      this.dialogRef.close();
+    }
   }
 
   ngOnInit(): void {
@@ -94,16 +100,21 @@ export class Step3Component implements OnInit {
  
 
   edit(item:any){
-    const dialogRef = this.dialog.open(AddEditNftComponent, {
+    
+    item.collectionId = this.collectionId;
+     this.dialogRef = this.dialog.open(AddEditNftComponent, {
       width: 'auto',
       data: item,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(result => {
       this.getNftList();
     });
   }
   gotoStep01(){
     this.createNFTService.subject.next({ tabIndex: 1 });
+  }
+  gotoProfile(walletAddress:any){
+    this.route.navigate(['/profile',walletAddress])
   }
 } 

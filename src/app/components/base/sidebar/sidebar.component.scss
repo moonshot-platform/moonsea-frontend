@@ -76,6 +76,15 @@ ul {
     }
   }
 }
+.userProfilePic{
+  height: 50px;
+  width: 50px;
+}
+.userProfilePic img{
+  height: 100%;
+  width: 100%;
+  border-radius: 50px;
+}
 
 @media only screen and (max-width: $md) {
   section.sidebar {

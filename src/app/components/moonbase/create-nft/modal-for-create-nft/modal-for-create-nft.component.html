@@ -55,8 +55,8 @@
         </div>
         <button class="button dark-button wp100" [disabled]="isdisabledDoneBtn" (click)="checkNetwork()">{{mintStatusText}}</button>
       </div>
-      <!-- *ngIf="this.data.details.isForSale && signatureStatus==1" -->
-      <div class="steps__item"  [ngClass]="{'done':signatureStatus>=2}" *ngIf="this.data.details.isForSale && !isContractApproved">
+      <!-- *ngIf="this.data.details.putOnSale && signatureStatus==1" -->
+      <div class="steps__item"  [ngClass]="{'done':signatureStatus>=2}" *ngIf="this.data.details.putOnSale && !isContractApproved">
         <div class="steps__head">
           <div class="steps__icon">
             <svg *ngIf="signatureStatus==1" class="icon icon-pencil">
@@ -73,8 +73,8 @@
         </div>
         <button [disabled]="signatureStatus!=1 || rejectedMetamask" [ngClass]="{'disabled': signatureStatus!=1}" class="button steps__button" (click)="startSale()">Submit</button>
       </div>
-      <!-- *ngIf="this.data.details.isForSale && signatureStatus==2" -->
-      <div class="steps__item" [ngClass]="{'done':signatureStatus>=3}" *ngIf="this.data.details.isForSale">
+      <!-- *ngIf="this.data.details.putOnSale && signatureStatus==2" -->
+      <div class="steps__item" [ngClass]="{'done':signatureStatus>=3}" *ngIf="this.data.details.putOnSale">
         <div class="steps__head">
           <div class="steps__icon">
             <svg *ngIf="signatureStatus==2" class="icon icon-pencil">
