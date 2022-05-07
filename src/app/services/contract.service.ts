@@ -447,7 +447,7 @@ debugger
           '0x0000000000000000000000000000000000000000',
           supply,
           params2,
-          this.pricingDetails.serviceFees
+          this.pricingDetails.serviceFees*100,
         ],
       );
 
