@@ -152,6 +152,7 @@ export class CreateCollectionComponent implements OnInit {
         [Validators.required,Validators.min(0),Validators.max(10), Validators.pattern('^[0-9]{1,2}?$')],
       ],
       categoryId: ['1', [Validators.required]],
+      royaltiesWalletAddress:['',[Validators.required]]
     });
 
 
@@ -355,6 +356,7 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.symbol = this.step03Form.value.symbol;
       this.addCollectionForm_New.royalties = this.step03Form.value.royalties;
       this.addCollectionForm_New.categoryId = this.step03Form.value.categoryId;
+      this.addCollectionForm_New.royaltiesWalletAddress = this.step03Form.value.royaltiesWalletAddress;
   
       this.collectionDetailsFunc();
     }

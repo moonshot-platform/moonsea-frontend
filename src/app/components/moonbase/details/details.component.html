@@ -364,12 +364,13 @@
                 "
                 below place bid div condition is above 
                -->
-              <div class="wp100 mt30" *ngIf="ownersData?.length > 0 && data?.blockchainId">
+              <div class="wp100 mt30" *ngIf="ownersData?.length > 0 && data?.blockchainId ">
                 <app-place-bid
                   [fromPage]="1"
                   [items]="ownersData[0]"
                   [nftName]="data?.title"
                   [blockchainId]="data?.blockchainId"
+                  [typeOfSale]="data?.typeOfSale"
                 >
                 </app-place-bid>
               </div>

@@ -16,11 +16,15 @@ export class BidsComponent implements OnInit {
   @Input() nftAddress:any;
   data:any;
   totalCount :any = 0;
+  loggedInUseAddress:any;
+
   constructor(private nftInteractionService:NftInteractionService,
     public dialog: MatDialog,
     private contractService : ContractService) { }
 
   ngOnInit(): void {
+    this.loggedInUseAddress = localStorage.getItem('address');
+    
     this.getInfo();
   }
 
@@ -33,7 +37,6 @@ export class BidsComponent implements OnInit {
     ).subscribe((response:any)=>
     {
       this.data = response.data;
-      console.log("get bid history api==>",this.data);
       this.totalCount = this.data.length;
     })
   }
