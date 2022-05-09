@@ -27,6 +27,6 @@ export class CollectionCardComponent implements OnInit {
 
 
   gotoNftDetails(nftAddress:any,nftTokenID:any){
-    this.router.navigate(['/details', nftAddress, nftTokenID]);
+    this.router.navigate(['/detailsCom/details', nftAddress, nftTokenID]);
   }
 }

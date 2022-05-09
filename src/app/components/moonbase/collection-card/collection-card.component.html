@@ -1,6 +1,6 @@
 <a href="javascript:void(0)" class="collections__gallery">
   <a class="collections__preview" 
-    [routerLink]="['/details',item.nftAddress,item.nftTokenID01]" routerLinkActive="router-link-active" >
+    [routerLink]="['/detailsCom/details',item.nftAddress,item.nftTokenID01]" routerLinkActive="router-link-active" >
     <!-- ['/details', nftAddress, nftTokenID] -->
     <div class="content-overlay"></div>
     <!-- <img
@@ -40,7 +40,7 @@
           alt="Collections"
           (click)="gotoNftDetails(inneritem.nftAddress, inneritem.nftTokenID)"
         /> -->
-       <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID]" routerLinkActive="router-link-active" >
+       <a [routerLink]="['/detailsCom/details', inneritem.nftAddress, inneritem.nftTokenID]" routerLinkActive="router-link-active" >
         <img [lazyLoad]="inneritem.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'"  *ngIf="
           inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1" />
        </a>
@@ -58,7 +58,7 @@
           </a>-->
           
 
-        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID]">
+        <a [routerLink]="['/detailsCom/details', inneritem.nftAddress, inneritem.nftTokenID]">
           <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true"
           *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1">
           <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
@@ -76,7 +76,7 @@
   </div>
 
   <div class="flex100">
-    <a class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
+    <a class="color-secondary collections__subtitle orbitron" [routerLink]="['/mycollection/collection', item.collectionName]">
       {{ item.collectionName | titlecase}}
     </a>
     <div class="collections__line">

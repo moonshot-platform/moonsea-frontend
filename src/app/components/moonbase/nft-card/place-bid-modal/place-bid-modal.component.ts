@@ -6,6 +6,7 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { NftInteractionService } from 'src/app/services/nft-interaction.service';
 import { ToastrService } from 'ngx-toastr';
 import { SignBuyerOrder } from 'src/app/model/signBuyerOrder';
+import { CollectionApiService } from 'src/app/services/collection-api.service';
 
 @Component({
   selector: 'app-place-bid-modal',
@@ -36,7 +37,8 @@ export class PlaceBidModalComponent implements OnInit {
     private dialogRef: MatDialogRef<PlaceBidModalComponent>,
     private nftInteractionService: NftInteractionService,
     private pricingDetails: PricingApiService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private collectionApiService :CollectionApiService
   ) {
     this.serviceFeesVal = pricingDetails.serviceFees;
   }
@@ -88,6 +90,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   validatePrice(event: any) {
+    debugger
     if (this.price > event.target.value) {
       this.invalidValue = true;
     } else {
@@ -152,10 +155,17 @@ export class PlaceBidModalComponent implements OnInit {
     this.SignBuyerOrderModel.isMultiple =  this.items.isMultiple;
     this.SignBuyerOrderModel.ownerAddress = this.items.ownerAddress;
     this.SignBuyerOrderModel.royalties =  this.items.royalties;
-    this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
+    // this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
     this.SignBuyerOrderModel.contractAddress = this.items.contractAddress;
-    this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
-
+    // this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
+    if(this.items.btnType == 'offer'){
+      this.SignBuyerOrderModel.royaltiesOwner = "0x0000000000000000000000000000000000000000";
+      this.SignBuyerOrderModel.referalAddress = "0x0000000000000000000000000000000000000000";
+    }
+    else{
+      this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
+      this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
+    }
 
 
 
@@ -164,8 +174,8 @@ export class PlaceBidModalComponent implements OnInit {
       debugger
     if (signature.status) {
       this.btnText = "Submitting data...";
-      this.nftInteractionService
-        .placeBid({
+      if(this.items.btnType != 'offer'){
+        this.nftInteractionService.placeBid({
           nftId: this.items.nftTokenID,
           price: amount,
           walletAddress: this.contractService.userAddress,
@@ -191,6 +201,30 @@ export class PlaceBidModalComponent implements OnInit {
             response.status
           );
         });
+      }
+      else{
+        let url ='api/placeBidAll';
+        let body = {
+          "nftId": this.items.nftTokenID,
+          "price": amount,
+          "walletAddress": this.contractService.userAddress,
+          "signature": signature.signature,
+          "currency": 1,
+          "quantity": 1,
+          "supply": 1,
+          "listingId": this.items.listingId.toString(),
+          "salt": salt,
+          "nftAddress": this.items.nftAddress,
+          "tokenAddress": this.items.contractAddress,
+          "isMultiple": this.items.isMultiple
+        }
+        this.collectionApiService.postRequest(body,url).subscribe((res:any)=>{
+          console.log(res);
+          
+        },(err:any)=>{
+
+        })
+      }
     } else {
       this.btnText = "Place Bid";
     }

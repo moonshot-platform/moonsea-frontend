@@ -85,13 +85,13 @@ onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any) {
   
    
   if (serachType == 1) {
-    this.router.navigate(['/details',nftAddress, nftToken]);
+    this.router.navigate(['/detailsCom/details',nftAddress, nftToken]);
   } else if (serachType == 2) {
     this.router.navigate(['/profile', enterText]);
   } else if (serachType == 4) {
     this.router.navigate(['/profile', enterText]);
   } else {
-    this.router.navigate(['collection', enterText]);
+    this.router.navigate(['/mycollection/collection', enterText]);
   }
 }
 }

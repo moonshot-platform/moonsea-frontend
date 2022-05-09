@@ -152,7 +152,7 @@ connectWallet()
 }
 
 gotoDetails(id:any){
-  this.router.navigate(['/details',this.items.nftAddress,id])
+  this.router.navigate(['/detailsCom/details',this.items.nftAddress,id])
 }
 
 }

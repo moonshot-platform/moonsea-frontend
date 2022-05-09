@@ -21,7 +21,7 @@
                   <ng-template *ngFor="let item of newCollection; let i = index" swiperSlide>
                   
                     <a href="javascript:void(0)" class="collections__gallery mr30">
-                      <a class="collections__preview" [routerLink]="['/details',item.nftAddress, item.nftTokenID01]"
+                      <a class="collections__preview" [routerLink]="['/detailsCom/details',item.nftAddress, item.nftTokenID01]"
                         routerLinkActive="router-link-active">
                         <div class="content-overlay"></div>
                        
@@ -45,7 +45,7 @@
                             <div class="content-overlay"></div>
                            
 
-                            <a [routerLink]="['/details',iner.nftAddress, iner.nftTokenID01]"
+                            <a [routerLink]="['/detailsCom/details',iner.nftAddress, iner.nftTokenID01]"
                               routerLinkActive="router-link-active">
                               <img alt="" [lazyLoad]="iner.nftFileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'"
                                 *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1">
@@ -65,7 +65,7 @@
                     <div class="flex-col h-100 wp100">
                       <div class="flex1 flex-col justify-center mt20">
                         <div class="orbitron text-secondary p24">
-                          <a [routerLink]="['/collection', item.collectionName]" class="text-secondary">
+                          <a [routerLink]="['/mycollection/collection', item.collectionName]" class="text-secondary">
                             {{ item?.collectionName }} </a><br />
                           <p class="montserrat text-primary p18 flex space-between-md-column">
                             <a [routerLink]="[
@@ -81,7 +81,7 @@
                         </div>
                         <br />
                         <a class="button text-inherit large-button" href="javascript:void(0)"
-                          [routerLink]="['/collection', item?.collectionName]">View Collection</a>
+                          [routerLink]="['/mycollection/collection', item?.collectionName]">View Collection</a>
                       </div>
                     </div>
                   </ng-template>

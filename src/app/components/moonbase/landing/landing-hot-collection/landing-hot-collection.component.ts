@@ -37,15 +37,19 @@ export class LandingHotCollectionComponent implements OnInit {
     },
   };
   hotCollectionList :any = [];
+  walletAddress:any;
   constructor(private homeService:HomeService, private ngxService: NgxUiLoaderService,) { }
 
   ngOnInit(): void {
+    this.walletAddress = localStorage.getItem('address');
+    this.getHotCollection();
   }
 
 
   getHotCollection(){
     this.ngxService.start();
-    this.homeService.getHotBidCollectionList().subscribe((response: any) => {
+    let url = `home/getHotBidList?walletAddress=${this.walletAddress}`;
+    this.homeService.getRequest(url).subscribe((response: any) => {
      
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
