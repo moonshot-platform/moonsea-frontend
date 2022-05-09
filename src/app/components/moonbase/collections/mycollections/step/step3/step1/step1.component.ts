@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { HomeService } from 'src/app/services/home.service';
 import { ContractService } from 'src/app/services/contract.service';
-import { CreateNftService } from 'src/app/services/create-nft.service';
 import { CreateCollectionComponent } from 'src/app/components/moonbase/create-nft/create-collection/create-collection.component';
 import { ImportCollectionComponent } from '../../../import-collection/import-collection.component';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-step1',
   templateUrl: './step1.component.html',
   styleUrls: ['./step1.component.scss']
 })
-export class Step1Component implements OnInit {
+export class Step1Component implements OnInit,OnDestroy {
 
 myCollection: any =[];
 connectedAddress: any;
+unSubscribeRequest:Subscription;
 
 constructor(private route:Router,
   private location: Location,
@@ -26,6 +27,9 @@ constructor(private route:Router,
   private homeService: HomeService,
   private cs: ContractService,
   private _activatedRoute: ActivatedRoute,) { }
+  ngOnDestroy(): void {
+    this.unSubscribeRequest.unsubscribe();
+  }
 
 ngOnInit(): void {
   
@@ -73,7 +77,7 @@ openDialogCreateCollection(): void {
 
 getmyCollectionList() {
 
-  this.homeService.myCollectionList(this.connectedAddress).subscribe((response: any) => {
+  this.unSubscribeRequest = this.homeService.myCollectionList(this.connectedAddress).subscribe((response: any) => {
     if(response.status == 200){
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {

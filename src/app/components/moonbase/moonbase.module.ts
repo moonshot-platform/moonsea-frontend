@@ -8,13 +8,11 @@ import { IntroComponent } from './intro/intro.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { AngularCountdownDateTimeModule } from 'angular-countdown-date-time';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InfoComponent } from './info/info.component';
-import { ActivityComponent } from './activity/activity.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -42,20 +40,16 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { ArraytransformPipe } from './pipe/arraytransform.pipe';
 import { WalletConnectComponent } from './wallet-connect/wallet-connect.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
-import { StatsMModule } from './stats-m/stats-m.module';
 import { AcceptBidPopupComponent } from './nft-detail-list-tabs/bids/accept-bid-popup/accept-bid-popup.component';
 import { LineChartsComponent } from './stats/line-charts/line-charts.component';
 import { SearchCollectionComponent } from './search-collection/search-collection.component';
 import { ShareModule } from 'ngx-sharebuttons';
 import { LandingIntroComponent } from './landing/landing-intro/landing-intro.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SocialbuttonsComponent } from './social-share/socialbuttons/socialbuttons.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChooseCollectionComponent } from './create-nft-new/choose-collection/choose-collection.component';
@@ -72,14 +66,12 @@ import { BetaversionModalComponent } from './landing/betaversion-modal/betaversi
 import { ImportCollectionComponent } from './collections/mycollections/import-collection/import-collection.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
-import { ListOfCollectionsComponent } from './collections/list-of-collections/list-of-collections.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { NftCardComponent } from './nft-card/nft-card.component';
 import { CountDownComponent } from './count-down/count-down.component';
 import { ChooseNfttypeComponent } from './choose-nfttype/choose-nfttype.component';
 import { AllcollectionComponent } from './collections/allcollection/allcollection.component';
 import { CollectiondetailsComponent } from './collections/collectiondetails/collectiondetails.component';
-import { CreateNftComponent } from './create-nft/create-nft.component';
 import { DetailsComponent } from './details/details.component';
 import { NftDetailListTabsComponent } from './nft-detail-list-tabs/nft-detail-list-tabs.component';
 import { BidsComponent } from './nft-detail-list-tabs/bids/bids.component';
@@ -111,7 +103,6 @@ import { SharedModule } from './commanShared/shared/shared.module';
     IntroComponent,
     FooterComponent,
     InfoComponent,
-    ActivityComponent,
     AvatarComponent,
     CollectionsComponent,
     NftCardComponent,
@@ -120,7 +111,6 @@ import { SharedModule } from './commanShared/shared/shared.module';
     AllcollectionComponent,
     CollectiondetailsComponent,
     ConnectWalletComponent,
-    CreateNftComponent,
     CreateCollectionComponent,
     ModalForCreateNftComponent,
     DetailsComponent,
@@ -148,12 +138,10 @@ import { SharedModule } from './commanShared/shared/shared.module';
     ConnectWalletPopupComponent,
     LandingComponent,
     RatesComponent,
-    ArraytransformPipe,
     WalletConnectComponent,
     AcceptBidPopupComponent,
     LineChartsComponent,
     SearchCollectionComponent,
-    ListOfCollectionsComponent,
     LandingIntroComponent,
     SocialbuttonsComponent,
     ChooseCollectionComponent,
@@ -184,7 +172,6 @@ import { SharedModule } from './commanShared/shared/shared.module';
     MoonbaseRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxPaginationModule,
     AngularCountdownDateTimeModule,
     ShareButtonsModule,
     ShareIconsModule,
@@ -203,11 +190,7 @@ import { SharedModule } from './commanShared/shared/shared.module';
     NgApexchartsModule,
     MatSelectModule,
     MatButtonModule,
-    StatsMModule,
-    FormsModule,
     ShareModule,
-    InfiniteScrollModule,
-    NgxSkeletonLoaderModule,
     MatStepperModule,
     MatTabsModule,
     LazyLoadImageModule,

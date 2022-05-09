@@ -209,9 +209,9 @@ export class NavComponent implements OnInit {
     if (serachType == 1) {
       this.route.navigate(['/detailsCom/details',nftAddress, nftToken]);
     } else if (serachType == 2) {
-      this.route.navigate(['/profile', enterText]);
+      this.route.navigate(['/profileinfo/profile', enterText]);
     } else if (serachType == 4) {
-      this.route.navigate(['/profile', enterText]);
+      this.route.navigate(['/profileinfo/profile', enterText]);
     } else {
       this.route.navigate(['/mycollection/collection', enterText]);
     }

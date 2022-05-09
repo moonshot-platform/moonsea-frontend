@@ -35,7 +35,7 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
 
 
   goToProfile(data:any) {
-  let url ="profile/"+data + "/tab/like"
+  let url ="/profileinfo/profile/"+data + "/tab/like"
 
 
     this.router.navigate([url]);

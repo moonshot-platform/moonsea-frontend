@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ContractService } from 'src/app/services/contract.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { Location } from '@angular/common'
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material/dialog';
 import { SocialSharePopUpComponent } from '../../common/social-share-pop-up/social-share-pop-up.component';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { SocialSharePopUpComponent } from '../../common/social-share-pop-up/soci
   templateUrl: './collectiondetails.component.html',
   styleUrls: ['./collectiondetails.component.scss']
 })
-export class CollectiondetailsComponent implements OnInit {
+export class CollectiondetailsComponent implements OnInit ,OnDestroy{
   name: string="";
   collectionDetails: any;
   showEditCoverForm : boolean =false;
@@ -35,6 +36,9 @@ export class CollectiondetailsComponent implements OnInit {
   listItemsFollowers: any;
   connectedAddress = "";
   correntRoute :any;
+  unSubscibeRequest:Subscription;
+
+
 
   constructor(public cs:ContractService, private toastrService:ToastrService,
      private collectionApi:CollectionApiService,private _activatedRoute: ActivatedRoute,
@@ -50,6 +54,9 @@ export class CollectiondetailsComponent implements OnInit {
 
       
    }
+  ngOnDestroy(): void {
+    this.unSubscibeRequest.unsubscribe();
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -83,7 +90,7 @@ export class CollectiondetailsComponent implements OnInit {
   getCollectionDetails()
   {
     
-    this.collectionApi.getCollectionDetails(this.name).subscribe((response:any)=>{
+  this.unSubscibeRequest = this.collectionApi.getCollectionDetails(this.name).subscribe((response:any)=>{
       this.check = response.data.walletAddress
       let check2 =(localStorage.getItem("address"));
       

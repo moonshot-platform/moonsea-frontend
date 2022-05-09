@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/services/home.service';
 import { SwiperOptions } from 'swiper';

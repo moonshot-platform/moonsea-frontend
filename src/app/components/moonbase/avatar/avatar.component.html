@@ -2,7 +2,7 @@
   <img *ngIf="imagePath" [lazyLoad]="imagePath" [defaultImage]="'assets/icons/5904642857251113741.gif'"  alt="Avatar" />
   <!-- <img *ngIf="!imagePath" src="assets/media/images/moonsea/profile.png" alt="Avatar" /> -->
 
-  <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/updateProfile']" class="edit-icon">
+  <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/profileinfo/updateProfile']" class="edit-icon">
     <svg
       version="1.1"
       id="website"

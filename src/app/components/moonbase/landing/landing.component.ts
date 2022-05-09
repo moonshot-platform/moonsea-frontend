@@ -1,10 +1,7 @@
 import {
   Component,
-  ElementRef,
-  HostListener,
   OnDestroy,
   OnInit,
-  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractService } from 'src/app/services/contract.service';
@@ -15,8 +12,6 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material/dialog';
 import { BetaversionModalComponent } from './betaversion-modal/betaversion-modal.component';
-import { resolve } from 'dns';
-import { rejects } from 'assert';
 import { Meta } from '@angular/platform-browser';
 
 SwiperCore.use([Grid, Navigation]);
@@ -162,7 +157,6 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     this.cs.getWalletObs().subscribe((data: any) => {
       this.connectedAddress = data;
-      this.getCollectionList();
     });
   }
 
@@ -184,36 +178,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCollectionList() {
-    this.ngxService.start();
-    this.hotCollectionList = [];
-    this.homeService.getCollectionList(this.connectedAddress).subscribe(
-      (response: any) => {
-        if (response.isSuccess) {
-          this.getCollectionDetails = response.data;
-          this.ngxService.stop();
-        }
-
-        this.ngxService.stop();
-        this.firstApi = true;
-      },
-      (err: any) => {
-        this.ngxService.stop();
-      }
-    );
-
-    this.homeService
-      .getBrowseBycategoryCollectionList()
-      .subscribe((res: any) => {
-        this.browsCategory = res.data;
-        this.fourthApi = true;
-      });
-
-    this.homeService.getHompageStatics().subscribe((res: any) => {
-      this.statics = res.data;
-      this.fifthApi = true;
-    });
-  }
+ 
 
   goToCallection(data: any) {
     this.router.navigate(['collections/', data]);
@@ -272,7 +237,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   };
 
   stats() {
-    this.router.navigate(['/stats']);
+    this.router.navigate(['/others/stats']);
   }
 
   searchClient(searchText: any) {

@@ -136,7 +136,7 @@
 
     <div class="card__line" *ngIf="items.currentSupply != null">
       <div class="card__users">
-        <a [routerLink]="['/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
+        <a [routerLink]="['/profileinfo/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
       </div>
       <div class="text-primary card__counter">
         {{ items.ownerCurrentSupply }} in stock

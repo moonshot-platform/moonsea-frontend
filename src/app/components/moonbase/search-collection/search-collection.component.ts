@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debug } from 'console';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
@@ -16,11 +18,11 @@ SwiperCore.use([Navigation]);
     './../collections/allcollection/allcollection.component.scss',
   ],
 })
-export class SearchCollectionComponent implements OnInit {
+export class SearchCollectionComponent implements OnInit ,OnDestroy{
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
-    
+
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {
@@ -48,7 +50,7 @@ export class SearchCollectionComponent implements OnInit {
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    
+
     scrollbar: { draggable: true },
   };
   isApiLoading: boolean = true;
@@ -74,6 +76,8 @@ export class SearchCollectionComponent implements OnInit {
 
   regardingDropdown: any = 'collections';
   createrList: any = [];
+  unSubscribeSubscription:Subscription;
+  unSubribeDescoverCollectionList:Subscription;
 
   constructor(
     private homeService: HomeService,
@@ -81,8 +85,13 @@ export class SearchCollectionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dataService: CollectionApiService,
     private router: Router,
-    private createNFT: CreateNftService
+    private createNFT: CreateNftService,
+    private ngxService: NgxUiLoaderService
   ) {}
+  ngOnDestroy(): void {
+    this.unSubscribeSubscription.unsubscribe();
+    this.unSubribeDescoverCollectionList.unsubscribe();
+  }
 
   ngOnInit(): void {
     let that = this;
@@ -189,8 +198,8 @@ export class SearchCollectionComponent implements OnInit {
         this.blockchainId +
         '&categoryId=' +
         this.categoryId;
-    }
-    this.dataService.getRequest(url).subscribe(
+    };
+  this.unSubscribeSubscription = this.dataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.discoverNFTList = res.data;
@@ -207,6 +216,7 @@ export class SearchCollectionComponent implements OnInit {
 
   getCollection() {
     // this.dicoverCollectionList = []
+    this.ngxService.start();
     let url;
     if (this.searchKey.toLowerCase() == 'all') {
       url =
@@ -238,7 +248,7 @@ export class SearchCollectionComponent implements OnInit {
         this.sortingType;
     }
 
-    this.dataService.getRequest(url).subscribe(
+  this.unSubribeDescoverCollectionList =  this.dataService.getRequest(url).subscribe(
       (response: any) => {
         if (response.status == 200) {
           for (let i = 0; i < response.data.length; i++) {
@@ -252,12 +262,15 @@ export class SearchCollectionComponent implements OnInit {
             }
           }
           this.dicoverCollectionList = response.data;
+          this.ngxService.stop();
         } else {
           console.log(response.message);
+          this.ngxService.stop();
         }
       },
       (err) => {
         console.log(err);
+        this.ngxService.stop();
       }
     );
   }

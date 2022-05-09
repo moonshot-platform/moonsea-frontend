@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { GetDataService } from 'src/app/services/get-data.service';
 
 @Component({
@@ -7,12 +8,19 @@ import { GetDataService } from 'src/app/services/get-data.service';
   templateUrl: './landing-search.component.html',
   styleUrls: ['./landing-search.component.scss']
 })
-export class LandingSearchComponent implements OnInit {
+export class LandingSearchComponent implements OnInit ,OnDestroy{
   flag:boolean =false;
   searchResult: any;
   @ViewChild('searchText') searchInput01 : ElementRef;
+  unSubscribeSubscription:Subscription;
 
   constructor(private router:Router, private getDataService: GetDataService) { }
+  ngOnDestroy(): void {
+    if(this.unSubscribeSubscription){
+      this.unSubscribeSubscription.unsubscribe();
+    }
+    
+  }
 
   ngOnInit(): void {
   }
@@ -35,7 +43,7 @@ export class LandingSearchComponent implements OnInit {
     this.uniquedata =[];
     this.properties= [];
     if (searchText.length > 2) {
-      this.getDataService.searchResult(searchText).subscribe(async (response) => {
+      this.unSubscribeSubscription = this.getDataService.searchResult(searchText).subscribe(async (response) => {
         if (response.isSuccess) {
           this.flag = true;
           this.searchResult = response.data;
@@ -87,9 +95,9 @@ onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any) {
   if (serachType == 1) {
     this.router.navigate(['/detailsCom/details',nftAddress, nftToken]);
   } else if (serachType == 2) {
-    this.router.navigate(['/profile', enterText]);
+    this.router.navigate(['/profileinfo/profile', enterText]);
   } else if (serachType == 4) {
-    this.router.navigate(['/profile', enterText]);
+    this.router.navigate(['/profileinfo/profile', enterText]);
   } else {
     this.router.navigate(['/mycollection/collection', enterText]);
   }

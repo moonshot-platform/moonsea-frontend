@@ -65,12 +65,12 @@
         <div class="text-primary collections__author">
           By
           <ng-container *ngIf="item?.name ?? item?.customeUrl">
-            <a [routerLink]="['/profile', item.ownerWalletAddress]">
+            <a [routerLink]="['/profileinfo/profile', item.ownerWalletAddress]">
               {{ item?.name ?? item?.customeUrl }}
             </a>
           </ng-container>
           <ng-container *ngIf="!(item?.name ?? item?.customeUrl)">
-            <span [routerLink]="['/profile', item.ownerWalletAddress]">Unknown</span>
+            <span [routerLink]="['/profileinfo/profile', item.ownerWalletAddress]">Unknown</span>
           </ng-container>
         </div>
       </div>

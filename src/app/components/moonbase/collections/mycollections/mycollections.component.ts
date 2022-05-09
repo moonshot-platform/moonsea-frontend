@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { CreateNftService } from 'src/app/services/create-nft.service';
 
@@ -7,10 +7,14 @@ import { CreateNftService } from 'src/app/services/create-nft.service';
   templateUrl: './mycollections.component.html',
   styleUrls: ['./mycollections.component.scss']
 })
-export class MycollectionsComponent implements OnInit {
-  tabIndex :any =1;
+export class MycollectionsComponent implements OnInit ,OnDestroy{
+  tabIndex :any =1; 
+ 
   
   constructor(private location: Location,private createNftService:CreateNftService) { }
+  ngOnDestroy(): void {
+  
+  }
 
   ngOnInit(): void {
     this.createNftService.subject.subscribe(
@@ -28,9 +32,6 @@ export class MycollectionsComponent implements OnInit {
     }
 }
 
-  goBack(): void {
-    this.location.back();
-  }
 
   
 }
