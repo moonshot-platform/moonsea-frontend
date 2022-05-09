@@ -28,7 +28,11 @@ export class LandingOneComponent implements OnInit {
     private homeService: HomeService,
     private ngxService: NgxUiLoaderService,
     private router: Router,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient) {
+    for (let index = 0; index < 100; index++) {
+      this.elementsHasLoaded[index] = false;
+    }
+  }
 
   ngOnInit(): void {
     this.getCollection();
@@ -49,10 +53,6 @@ export class LandingOneComponent implements OnInit {
       }
 
       this.newCollection = response.data;
-
-      for (let index = 0; index < 100; index++) {
-        this.elementsHasLoaded[index] = false;
-      }
     }, (err: any) => {
       this.ngxService.stop();
     });
