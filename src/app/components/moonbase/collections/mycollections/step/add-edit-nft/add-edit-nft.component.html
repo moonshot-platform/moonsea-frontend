@@ -223,27 +223,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="popup__field mb20">
-                      <div class="popup__col mb10 p12">Royalties</div>
-                      <div class="field__wrap">
-                        <input class="popup__input" formControlName="royalties" name="royalties" type="number"  [attr.readonly]="data.isMinted ? true : null"/>
-                      </div>
-                      <div class="p12 w-normal mt10 mb10 error" *ngIf="
-                          formControls.royalties.invalid &&
-                          (formControls.royalties.touched || reportPost.submitted)
-                        ">
-                       <div *ngIf=" formControls.royalties.errors?.required">
-                        royalties required
-                       </div>
-                       <div *ngIf="formControls.royalties.errors?.max">
-                        royalties should below 10
-                      </div>
-                      <div *ngIf="formControls.royalties.errors?.min">
-                        royalties should be above 0
-                      </div>
-                     
-                      </div>
-                    </div>
+                    
 
                     <div class="popup__field mb20">
                       <div class="upload__option">

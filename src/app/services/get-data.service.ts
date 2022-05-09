@@ -204,7 +204,9 @@ export class GetDataService {
   getRequest(url:any){
     return this.httpClient.get(environment.apiUrl+url);
   }
-
+  getcryptos(url:any){
+    return this.httpClient.get(url);
+  }
   postRequest(url:any,body:any){
     return this.httpClient.post(environment.apiUrl+url,body);
   }

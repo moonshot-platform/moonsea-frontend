@@ -219,6 +219,20 @@
                     </div>
                   </div>
                 </div>
+                <div class="flex1">
+                  <div class="popup__field mb20">
+                    <div class="popup__col mb10 p12">Blockchain</div>
+                    <div class="field__wrap">
+                      <select nice-select class="select" formControlName="blockchainId" #blockchainId>
+                        <option *ngFor="let itemblock of blockchainList" [value]="itemblock.blockchainId">
+                          <img  class="collection-icon" src="{{ itemblock.fileUrl }}" />
+                          {{ itemblock.networkName }}
+                        </option>
+                      </select>
+                    </div>
+                    
+                  </div>
+                </div>
               </div>
 
               <div class="flex1">
@@ -253,6 +267,7 @@
                   </div>
                 </div>
               </div>
+             
             </div>
             <div class="flex gap">
               <div class="flex1"></div>

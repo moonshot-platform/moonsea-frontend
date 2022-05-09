@@ -186,7 +186,7 @@ console.log(JSON.stringify(this.filterArray),"sasas")
 
    filterArray :any =[];
   
-  propertiesSelection(key: any,index:any) {
+  propertiesSelection(key: any) {
   
     let value: any = [];
     let keys: any = [];
@@ -224,10 +224,23 @@ console.log(JSON.stringify(this.filterArray),"sasas")
          }
         
         }
+       
       }
-      if(el.length == 0){
-        this.filterArray.splice(index,1)
-      }
+      let elKeys :any;
+      this.foo.filter(function (elem: any) {
+          for (let i = 0; i < elem.length; i++) {
+            if(elem[i].key == key){
+              elKeys = elem[i].key;
+            }
+          }
+      });
+        if(this.foo[index].length == 0 && !elKeys){
+          var resultIndex=this.filterArray.findIndex(x=>x.keys == key); 
+         if(resultIndex >=0){
+          this.filterArray.splice(resultIndex,1);
+         }
+        }
+       
     })
 
       

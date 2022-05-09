@@ -123,58 +123,7 @@
 
   </div>
 
-  <!-- <div class="relative mt50 mb50 z-index-low">
-    <div class="search-box"></div>
-    <div class="landing-flex pt-0 z-index-high position_01">
-      <div class="flex justify-space-between flex100 gap remove__flex">
-        <div class="flex mr-auto mw-30">
-          <div class="search-input">
-            <span class="max-price">Min Price:</span>
-            <input
-              type="text"
-              placeholder="0"
-              [(ngModel)]="minPrice"
-              class="form-control pr-3"
-            />
-          </div>
-          <div class="search-input">
-            <span class="max-price">Max Price:</span>
-            <input
-              type="text"
-              placeholder="500000"
-              [(ngModel)]="maxPrice"
-              (change)="getListofCollection()"
-              class="form-control pr-3"
-            />
-          </div>
-        </div>
-
-        
-        <div class="flex">
-          <div class="wp100 mt10">
-            <div class="bg-black">
-              <div class="field__wrap pointer desk-width">
-                <select 
-                  nice-select
-                  class="select maximum-content" 
-                  [(ngModel)]="status"
-                  (change)="getListofCollection()"
-                >
-                 
-                  <option value=2>Recently listed</option>
-                  <option value=1>Oldest</option>
-                  <option value=4>price: High to low</option>
-                  <option value=3>price: Low to high</option>
-                  <option value=6>Last price: High to low</option>
-                  <option value=5>Last price: Low to high</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+  
 
   <div class="landing-flex pt30">
     <div class="discover p-0">
@@ -185,103 +134,9 @@
               <div>
                 <div class="flex wrap flex100 gap">
                   <div class="grid grid-3">
-                    <!-- above ng-tenplate add for loop -->
+                
                     <a class="collections__item" href="javascript:void(0)" *ngFor="let item of collectionlist">
-                      <!--<div class="loader" *ngIf="isShowLoader"></div>
-                      <div class="collections__gallery">
-                        <div
-                          class="collections__preview"
-                          (click)="
-                            gotoNftDetails(item.nftAddress, item.nftTokenID01)
-                          "
-                        >
-                          <div class="content-overlay"></div>
-                          <img
-                            *ngIf="item.nftFileUrl01"
-                            src="{{ item.nftFileUrl01 }}"
-                            alt="Collections"
-                          />
-                          <img
-                            *ngIf="!item.nftFileUrl01"
-                            src="assets/images/default.jpg"
-                            alt=""
-                          />
-                        </div>
-
-                        <div class="flex flex-wrap flex100 gap15 justify-start">
-                          <div
-                            class="thumb__preview gap15"
-                            *ngFor="
-                              let inneritem of item.nftDetailsList.slice(1, 4);
-                              let j = index
-                            "
-                          >
-                            <ng-container *ngIf="j <= 2">
-                              <div class="content-overlay"></div>
-                              <img
-                                src="{{ inneritem.nftFileUrl }}"
-                                alt="Collections"
-                                (click)="
-                                  gotoNftDetails(
-                                    inneritem.nftAddress,
-                                    inneritem.nftTokenID
-                                  )
-                                "
-                              />
-                            </ng-container>
-                          </div>
-                        </div>
-
-                        <div class="flex100">
-                          <div
-                            class="color-secondary collections__subtitle orbitron"
-                            [routerLink]="['/collection', item.collectionName]"
-                          >
-                            {{ item.symbol }}
-                          </div>
-                          <div class="collections__line">
-                            <div class="collections__user">
-                              <div class="text-primary collections__author">
-                                by
-                                <span
-                                  [routerLink]="[
-                                    '/profile',
-                                    item.creatorWalletAddress
-                                  ]"
-                                >
-                                  {{ item.collectionName }}
-                                </span>
-                              </div>
-                            </div>
-                            <!-- <div class="collections__counter">
-                              <span class="text-primary"
-                                >{{ item.TotalNftCount }} items</span
-                              >
-                            </div> 
-                          </div>
-                        </div>
-                        <div
-                          class="flex flex100 justify-space-between text-center mt10 border-top"
-                        >
-                          <div class="border-right pr20 pt10 text-primary">
-                            <p class="p12">items</p>
-                            <p class="p18 pt10">{{ item.TotalNftCount }}</p>
-                          </div>
-                          <div class="border-right pr20 pt10 text-primary">
-                            <p class="p12">Owners</p>
-                            <p class="p18 pt10">{{ item.ownershipCount }}</p>
-                          </div>
-                          <div class="border-right pr20 pt10 text-primary">
-                            <p class="p12">Floor price</p>
-                            <p class="p18 pt10">{{ item.floorPrice }}</p>
-                          </div>
-                          <div class="border-right pr20 pt10 text-primary">
-                            <p class="p12">Volume</p>
-                            <p class="p18 pt10">{{ item.totalSale }}</p>
-                          </div>
-                        </div>
-                      </div> -->
-
+                    
                       <app-collection-card [item]="item"></app-collection-card>
                     </a>
 

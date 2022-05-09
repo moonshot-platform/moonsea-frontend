@@ -79,7 +79,7 @@
         </p>
         <a
           class="item__description owner_name text-primary"
-          [routerLink]="['/collection', data?.tokenName]"
+          [routerLink]="['/mycollection/collection', data?.tokenName]"
         >
         by
           <span class="p16"> {{ data?.tokenName }}</span>
@@ -279,7 +279,7 @@
             <div class="flex align-center w-100">
               <div
                 class="item__avatar"
-                [routerLink]="['/collection', data?.tokenName]"
+                [routerLink]="['/mycollection/collection', data?.tokenName]"
               >
         
                 <img *ngIf="data?.collectionFileUrl" src="{{ data?.collectionFileUrl }}" alt="Avatar" />
@@ -302,7 +302,7 @@
                     Highest bid by
                     <a
                       class="mb10"
-                      [routerLink]="['/collection', data?.tokenName]"
+                      [routerLink]="['/mycollection/collection', data?.tokenName]"
                     >
                       <span class="text-primary p14">{{
                         data?.tokenName

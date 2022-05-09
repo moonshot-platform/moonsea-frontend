@@ -1,4 +1,4 @@
-<a [routerLink]="['/details',items.nftAddress,items.nftTokenID]" routerLinkActive="router-link-active" >
+<a [routerLink]="['/detailsCom/details',items.nftAddress,items.nftTokenID]" routerLinkActive="router-link-active" >
   <div class="card__preview pointer" >
     <div *ngIf="items.fileUrl == null" class="skeleton-loader"></div>
   
@@ -15,7 +15,7 @@
       </p>
       <a
         href="javascript:void(0)"
-        [routerLink]="['/details', items.nftTokenID]"
+        [routerLink]="['/detailsCom/details', items.nftTokenID]"
         class="button text-inherit dark-button mt-auto"
       >
         <span
@@ -41,7 +41,7 @@
       [defaultImage]="'assets/icons/5904642857251113741.gif'"
       *ngIf="items.fileUrl != null && items.fileUrl.search('.mp4') == -1"
       alt="Card preview"
-      [routerLink]="['/details', items.nftTokenID]"
+      [routerLink]="['/detailsCom/details', items.nftTokenID]"
     />
     <video class="video" playsinline  controls onloadedmetadata="this.muted = true" *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1">
       <source src="{{ items.fileUrl }}"  type="video/mp4">
@@ -112,7 +112,7 @@
       <div
         class="card__title text-secondary"
         *ngIf="items.title != null"
-        [routerLink]="['/details', items.nftTokenID]"
+        [routerLink]="['/detailsCom/details', items.nftTokenID]"
       >
         {{ items.title }}
       </div>
@@ -136,7 +136,7 @@
 
     <div class="card__line" *ngIf="items.currentSupply != null">
       <div class="card__users">
-        <a [routerLink]="['/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
+        <a [routerLink]="['/profileinfo/profile', items.customeUrl,'tab','created']" href="javascript:void(0)" class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
       </div>
       <div class="text-primary card__counter">
         {{ items.ownerCurrentSupply }} in stock
@@ -149,5 +149,5 @@
       style="height: 20px; width: 100%"
     ></div>
   </div>
-  
+
 </div>

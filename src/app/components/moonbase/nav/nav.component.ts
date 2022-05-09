@@ -207,13 +207,13 @@ export class NavComponent implements OnInit {
 
   onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any) {
     if (serachType == 1) {
-      this.route.navigate(['/details',nftAddress, nftToken]);
+      this.route.navigate(['/detailsCom/details',nftAddress, nftToken]);
     } else if (serachType == 2) {
-      this.route.navigate(['/profile', enterText]);
+      this.route.navigate(['/profileinfo/profile', enterText]);
     } else if (serachType == 4) {
-      this.route.navigate(['/profile', enterText]);
+      this.route.navigate(['/profileinfo/profile', enterText]);
     } else {
-      this.route.navigate(['collection', enterText]);
+      this.route.navigate(['/mycollection/collection', enterText]);
     }
   }
 

@@ -115,7 +115,7 @@
           <div *ngFor="let item of nftList" class="border-bottom flex justify-space-between">
             <div class="pt30 pb30 text-left wp100">
               <div class="flex text-primary">
-                <a [routerLink]="['/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">
+                <a [routerLink]="['/detailsCom/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">
                   <img alt="NFT preview"  class="nftPreview" *ngIf="item.fileUrl.indexOf('.mp4') == -1"
                   [lazyLoad]="item.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" />
                   <video width="50" height="50" *ngIf="item.fileUrl.indexOf('.mp4') > -1" muted>
@@ -123,7 +123,7 @@
                   </video>
                 </a>
                 <div class="flex-col flex1">
-                  <a [routerLink]="['/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">
+                  <a [routerLink]="['/detailsCom/details',item.nftAddress,item.nftTokenID]" routerLinkActive="router-link-active">
                     <span class="orbitron text-secondary p16 mb10">
                       {{item.title ? item.title : 'no title'}}
                     </span>

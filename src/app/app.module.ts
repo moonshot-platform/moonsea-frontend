@@ -17,7 +17,7 @@ import { NavModule } from './components/moonbase/nav/nav.module';
 import { SidebarModule } from './components/base/sidebar/sidebar.module';
 import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { NgxUiLoaderModule,  SPINNER } from 'ngx-ui-loader';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {MatStepperModule} from '@angular/material/stepper';
 
 

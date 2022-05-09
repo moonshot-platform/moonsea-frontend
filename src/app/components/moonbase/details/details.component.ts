@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsPopUpComponent } from '../details-pop-up/details-pop-up.component';
@@ -14,13 +14,14 @@ import { PurchaseNowModalComponent } from '../nft-card/purchase-now-modal/purcha
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Title, Meta } from '@angular/platform-browser';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit ,OnDestroy {
   @Input() ID: any;
   data: any;
   nftTokenID: any;
@@ -47,6 +48,9 @@ export class DetailsComponent implements OnInit {
   ];
   nftAddress: any;
 
+  unSubscribeRequest :Subscription;
+  unSubscribeRequest01: Subscription;
+
   constructor(
     public dialog: MatDialog,
     private getDataService: GetDataService,
@@ -61,6 +65,10 @@ export class DetailsComponent implements OnInit {
     private meta: Meta,
     private titleService: Title
   ) {}
+  ngOnDestroy(): void {
+    this.unSubscribeRequest.unsubscribe();
+    this.unSubscribeRequest01.unsubscribe();
+  }
 
   ngOnInit(): void {
     // const charsetTag = this.meta.getTag('name="twitter:site"');
@@ -128,7 +136,7 @@ export class DetailsComponent implements OnInit {
 
   async nftDetails(nftTokenId: any, walletAddress: any) {
     this.ngxService.start();
-    this.getDataService
+    this.unSubscribeRequest = this.getDataService
       .nftDetails(nftTokenId, walletAddress, this.nftAddress)
       .subscribe(
         (response: any) => {
@@ -211,7 +219,7 @@ export class DetailsComponent implements OnInit {
   }
 
   async getList() {
-    this.getDataService
+ this.unSubscribeRequest01 = this.getDataService
       .getListOwners(this.ID, this.Address, this.nftAddress)
       .subscribe((response: any) => {
         if (response.isSuccess) {

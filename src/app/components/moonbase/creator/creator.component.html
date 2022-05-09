@@ -6,7 +6,7 @@
       <div class="followers__avatar">
         <a
           class="orbitron text-secondary p16 overflow-ellipsis"
-          [routerLink]="['/profile', item.walletAddress]"
+          [routerLink]="['/profileinfo/profile', item.walletAddress]"
         >
          <app-avatar [imagePath]="item.profilePic"></app-avatar>
         </a>
@@ -19,7 +19,7 @@
         >
           {{ item.name }}
         </a> -->
-        <a [routerLink]="['/profile',item.walletAddress]" class="creatorEllipsis p24 text-secondary"> {{ item.name }}</a>
+        <a [routerLink]="['/profileinfo/profile',item.walletAddress]" class="creatorEllipsis p24 text-secondary"> {{ item.name }}</a>
         <a (click)="copyMessage(item.walletAddress)" href="javascript:void(0)">{{item.walletAddress.substr(0,5)}}...{{item.walletAddress.substr(item.walletAddress.length-5,item.walletAddress.length)}}</a>
 
         <div class="flex mt20">

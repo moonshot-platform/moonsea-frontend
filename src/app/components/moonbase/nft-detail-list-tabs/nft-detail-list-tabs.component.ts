@@ -22,7 +22,7 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
   indexForPurchase = -1;
   constructor(private getDataService: GetDataService, private router:Router) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.response);
+   
     
   }
 
@@ -35,7 +35,7 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
 
 
   goToProfile(data:any) {
-  let url ="profile/"+data + "/tab/like"
+  let url ="/profileinfo/profile/"+data + "/tab/like"
 
 
     this.router.navigate([url]);

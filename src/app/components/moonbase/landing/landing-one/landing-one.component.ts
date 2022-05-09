@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subscription } from 'rxjs';
 import { HomeService } from 'src/app/services/home.service';
 import { SwiperOptions } from 'swiper';
 
@@ -9,7 +10,7 @@ import { SwiperOptions } from 'swiper';
   templateUrl: './landing-one.component.html',
   styleUrls: ['./landing-one.component.scss']
 })
-export class LandingOneComponent implements OnInit {
+export class LandingOneComponent implements OnInit ,OnDestroy{
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
@@ -20,8 +21,11 @@ export class LandingOneComponent implements OnInit {
   loaded :boolean;
   loaded01 :boolean;
   loaded02 :boolean;
-
+  unSubscribeNewCollection :Subscription;
     constructor(private homeService: HomeService,private ngxService: NgxUiLoaderService, private router :Router) { }
+  ngOnDestroy(): void {
+    this.unSubscribeNewCollection.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.getCollection();
@@ -29,7 +33,7 @@ export class LandingOneComponent implements OnInit {
 
 
   getCollection(){
-    this.homeService.getNewCollections().subscribe((response: any) => {
+    this.unSubscribeNewCollection =   this.homeService.getNewCollections().subscribe((response: any) => {
       this.ngxService.stop();
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {

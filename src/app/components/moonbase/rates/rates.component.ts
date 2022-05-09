@@ -99,7 +99,7 @@ export class RatesComponent implements OnInit {
   getCurrency(){
    
     let url = 'https://api.nomics.com/v1/currencies/ticker?key=920658b737563c66db773020070f4f13ff705c6b&ids=&interval=1d,30d&convert=EUR&platform-currency=&per-page=100&page=1'
-     this.getDataService.getRequest(url).subscribe(
+     this.getDataService.getcryptos(url).subscribe(
        (res:any)=>{
         //  console.log(res);
         res.forEach(element => {

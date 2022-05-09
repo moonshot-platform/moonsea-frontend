@@ -75,8 +75,9 @@ export class CreateCollectionComponent implements OnInit {
     nftAddress: null,
     isMultiple: null,
     nftId :null,
+    blockchainId:null
   }
-
+  blockchainList :any = [];
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<CreateCollectionComponent>,
@@ -86,7 +87,6 @@ export class CreateCollectionComponent implements OnInit {
     private formbuider: FormBuilder,
     private cs: ContractService,
     public datepipe: DatePipe,
-    private createNftService: CreateNftService,
     private _Activatedroute: ActivatedRoute,
     private _router: Router,
   ) {}
@@ -99,38 +99,8 @@ export class CreateCollectionComponent implements OnInit {
     this.Address = localStorage.getItem('address');
     this.getCategotyList();
     this.collectionId = this.data.collectionId;
-
-    // this.addCollectionForm = this.formbuider.group({
-    //   tokenName: ['', [Validators.required]],
-    //   walletAddress: [''],
-    //   fileUrl: [''],
-    //   collectionCoverPhoto: [''],
-    //   symbol: ['', [Validators.required]],
-    //   description: ['', [Validators.required]],
-    //   categoryId: ['1', [Validators.required]],
-    //   yourSite: [''],
-    //   discord: [''],
-    //   twitter: [''],
-    //   instagram: [''],
-    //   medium: [''],
-    //   telegram: [''],
-    //   royalties: [
-    //     '',
-    //     [Validators.required, Validators.pattern('^[0-9]{1,2}?$')],
-    //   ],
-    //   nftDefaultDescription: ['', [Validators.required]],
-    //   putOnSale: [false],
-    //   typeOfSale: ['1'],
-    //   timeAuction: [''],
-    //   minimunBid: [''],
-    //   startDate: [''],
-    //   endDate: [''],
-    //   openForBid: [''],
-    //   propertysize: this.formbuider.array([this.addpropertysize010()]),
-    //   nftAddress: [''],
-    //   isMultiple: [''],
-    // });
-
+    this.getBlockchainList();
+   
     this.step01Form = this.formbuider.group({
       tokenName: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -152,7 +122,8 @@ export class CreateCollectionComponent implements OnInit {
         [Validators.required,Validators.min(0),Validators.max(10), Validators.pattern('^[0-9]{1,2}?$')],
       ],
       categoryId: ['1', [Validators.required]],
-      royaltiesWalletAddress:['',[Validators.required]]
+      royaltiesWalletAddress:['',[Validators.required]],
+      blockchainId:['1']
     });
 
 
@@ -357,6 +328,7 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.royalties = this.step03Form.value.royalties;
       this.addCollectionForm_New.categoryId = this.step03Form.value.categoryId;
       this.addCollectionForm_New.royaltiesWalletAddress = this.step03Form.value.royaltiesWalletAddress;
+      this.addCollectionForm_New.blockchainId = this.step03Form.value.blockchainId;
   
       this.collectionDetailsFunc();
     }
@@ -601,6 +573,12 @@ export class CreateCollectionComponent implements OnInit {
       this.step04Form.get('endDate').clearValidators();
       this.step04Form.get('endDate').updateValueAndValidity();
     }
+  }
+
+  getBlockchainList() {
+    this.createNFT.getBlockchainList().subscribe((response: any) => {
+      this.blockchainList = response.data;
+    });
   }
 }
 
