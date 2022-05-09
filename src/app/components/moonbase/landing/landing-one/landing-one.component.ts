@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/services/home.service';
 import { SwiperOptions } from 'swiper';
 
@@ -10,30 +12,35 @@ import { SwiperOptions } from 'swiper';
   templateUrl: './landing-one.component.html',
   styleUrls: ['./landing-one.component.scss']
 })
-export class LandingOneComponent implements OnInit ,OnDestroy{
+export class LandingOneComponent implements OnInit {
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    
+
     scrollbar: { draggable: true },
   };
-  newCollection :any = [];
-  loaded :boolean;
-  loaded01 :boolean;
-  loaded02 :boolean;
-  unSubscribeNewCollection :Subscription;
-    constructor(private homeService: HomeService,private ngxService: NgxUiLoaderService, private router :Router) { }
-  ngOnDestroy(): void {
-    this.unSubscribeNewCollection.unsubscribe();
+  newCollection: any = [];
+  elementsHasLoaded: boolean[] = [];
+  loaded: boolean;
+  loaded01: boolean;
+  loaded02: boolean;
+
+  constructor(
+    private homeService: HomeService,
+    private ngxService: NgxUiLoaderService,
+    private router: Router,
+    private httpClient: HttpClient) {
+    for (let index = 0; index < 100; index++) {
+      this.elementsHasLoaded[index] = false;
+    }
   }
 
   ngOnInit(): void {
     this.getCollection();
   }
 
-
-  getCollection(){
-    this.unSubscribeNewCollection =   this.homeService.getNewCollections().subscribe((response: any) => {
+  getCollection() {
+    this.homeService.getNewCollections().subscribe((response: any) => {
       this.ngxService.stop();
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
@@ -47,12 +54,22 @@ export class LandingOneComponent implements OnInit ,OnDestroy{
       }
 
       this.newCollection = response.data;
-    },(err:any)=>{
+    }, (err: any) => {
       this.ngxService.stop();
     });
   }
 
   gotoNftDetails(nftAddress: any, id: any) {
     this.router.navigate(['details', nftAddress, id]);
+  }
+
+  onMediaLoad(event, index) {
+    if (event && event.target) {
+      // console.log("IMAGE HAS LOADED!");
+      this.elementsHasLoaded[index] = true;
+    } else {
+      this.elementsHasLoaded[index] = false;
+      // console.log("IMAGE HAS NOT LOADED!");
+    }
   }
 }

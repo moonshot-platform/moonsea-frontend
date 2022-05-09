@@ -200,8 +200,7 @@ import { SharedModule } from './commanShared/shared/shared.module';
     LandingIntroComponent,
     RatesComponent,
     WalletConnectComponent,
-    SharedModule,
-    
+    SharedModule
   ],
   providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ,NO_ERRORS_SCHEMA]
