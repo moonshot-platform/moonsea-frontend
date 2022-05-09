@@ -86,4 +86,8 @@ getDiscoverNFTList(walletAddress: any,type: any,orderBy :any,priceRange:any,size
   getTopCollectionlist(){
     return this.httpClient.get(environment.apiUrl+'home/topCollectionList');
   }
+
+  getRequest(url:any){
+    return this.httpClient.get(environment.apiUrl+url);
+  }
 }

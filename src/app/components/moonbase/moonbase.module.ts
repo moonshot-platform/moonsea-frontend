@@ -1,4 +1,3 @@
-import { NavComponent } from './nav/nav.component';
 import { NavModule } from './nav/nav.module';
 import { NgModule ,CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -90,12 +89,7 @@ import { PlaceBidComponent } from './nft-card/place-bid/place-bid.component';
 import { PurchaseNowComponent } from './nft-card/purchase-now/purchase-now.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { MycollectionsComponent } from './collections/mycollections/mycollections.component';
-import { CollectionCardComponent } from './collection-card/collection-card.component';
 import { CreatorComponent } from './creator/creator.component';
-import { Step1Component } from './collections/mycollections/step/step3/step1/step1.component';
-import { Step2Component } from './collections/mycollections/step/step3/step2/step2.component';
-import { Step3Component } from './collections/mycollections/step/step3/step3.component';
 import { AddEditNftComponent } from './collections/mycollections/step/add-edit-nft/add-edit-nft.component';
 import { LandingOneComponent } from './landing/landing-one/landing-one.component';
 import { LandingStaticsComponent } from './landing/landing-statics/landing-statics.component';
@@ -105,6 +99,8 @@ import { LandingNewCollectionsComponent } from './landing/landing-new-collection
 import { LangdingUpcomingCollectionsComponent } from './landing/langding-upcoming-collections/langding-upcoming-collections.component';
 import { LandingFooterComponent } from './landing/landing-footer/landing-footer.component';
 import { LandingSearchComponent } from './landing/landing-search/landing-search.component';
+import { SharedModule } from './commanShared/shared/shared.module';
+
 
 
 
@@ -149,7 +145,6 @@ import { LandingSearchComponent } from './landing/landing-search/landing-search.
     UpdateProfileComponent,
     UserProfileComponent,
     ImportComponent,
-    MycollectionsComponent,
     ConnectWalletPopupComponent,
     LandingComponent,
     RatesComponent,
@@ -171,11 +166,7 @@ import { LandingSearchComponent } from './landing/landing-search/landing-search.
     SearchKeyComponent,
     BetaversionModalComponent,
     ImportCollectionComponent,
-    CollectionCardComponent,
     CreatorComponent,
-    Step1Component,
-    Step2Component,
-    Step3Component,
     AddEditNftComponent,
     LandingOneComponent,
     LandingStaticsComponent,
@@ -220,12 +211,13 @@ import { LandingSearchComponent } from './landing/landing-search/landing-search.
     MatStepperModule,
     MatTabsModule,
     LazyLoadImageModule,
+    SharedModule
   ],
   exports : [
     LandingIntroComponent,
     RatesComponent,
     WalletConnectComponent,
-    Step3Component,
+    SharedModule
   ],
   providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ,NO_ERRORS_SCHEMA]

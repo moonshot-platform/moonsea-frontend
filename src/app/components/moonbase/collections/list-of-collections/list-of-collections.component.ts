@@ -240,6 +240,6 @@ export class ListOfCollectionsComponent implements OnInit {
 
   gotoNftDetails(nftAddress: any, id: any) {
 
-    this.router.navigate(['/details', nftAddress, id]);
+    this.router.navigate(['/detailsCom/details', nftAddress, id]);
   }
 }

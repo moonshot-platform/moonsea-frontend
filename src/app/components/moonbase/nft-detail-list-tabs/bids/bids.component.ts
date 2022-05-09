@@ -17,6 +17,7 @@ export class BidsComponent implements OnInit {
   data:any;
   totalCount :any = 0;
   loggedInUseAddress:any;
+  isShowAcceptButtonForAll:boolean= false;
 
   constructor(private nftInteractionService:NftInteractionService,
     public dialog: MatDialog,
@@ -33,7 +34,7 @@ export class BidsComponent implements OnInit {
     this.nftInteractionService.getBidHistoryForNft(
       this.ID,
       this.contractService.userAddress,
-      this.nftAddress
+      this.nftAddress,
     ).subscribe((response:any)=>
     {
       this.data = response.data;

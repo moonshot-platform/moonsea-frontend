@@ -277,7 +277,7 @@ export class SearchCollectionComponent implements OnInit {
   // }
 
   gotoNftDetails(nftAddress: any, id: any) {
-    this.router.navigate(['/details', nftAddress, id]);
+    this.router.navigate(['/detailsCom/details', nftAddress, id]);
   }
 
   getBlockchainList() {
