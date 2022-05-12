@@ -18,7 +18,7 @@ SwiperCore.use([Navigation]);
     './../collections/allcollection/allcollection.component.scss',
   ],
 })
-export class SearchCollectionComponent implements OnInit ,OnDestroy{
+export class SearchCollectionComponent implements OnInit, OnDestroy {
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
@@ -76,8 +76,8 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
 
   regardingDropdown: any = 'collections';
   createrList: any = [];
-  unSubscribeSubscription:Subscription;
-  unSubribeDescoverCollectionList:Subscription;
+  unSubscribeSubscription: Subscription;
+  unSubribeDescoverCollectionList: Subscription;
 
   constructor(
     private homeService: HomeService,
@@ -87,15 +87,15 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
     private router: Router,
     private createNFT: CreateNftService,
     private ngxService: NgxUiLoaderService
-  ) {}
+  ) { }
   ngOnDestroy(): void {
-    if(this.unSubscribeSubscription){
-    this.unSubscribeSubscription.unsubscribe();
+    if (this.unSubscribeSubscription) {
+      this.unSubscribeSubscription.unsubscribe();
     }
 
-    if(this.unSubribeDescoverCollectionList){
+    if (this.unSubribeDescoverCollectionList) {
       this.unSubribeDescoverCollectionList.unsubscribe();
-      }
+    }
   }
 
   ngOnInit(): void {
@@ -162,6 +162,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
 
   getSearchResultNFT() {
     let url: any;
+
     if (this.searchKey.toLowerCase() == 'all') {
       url =
         'home/getNftSearchResult?' +
@@ -201,7 +202,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
         '&categoryId=' +
         this.categoryId;
     };
-  this.unSubscribeSubscription = this.dataService.getRequest(url).subscribe(
+    this.unSubscribeSubscription = this.dataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.discoverNFTList = res.data;
@@ -249,7 +250,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
         this.sortingType;
     }
 
-  this.unSubribeDescoverCollectionList =  this.dataService.getRequest(url).subscribe(
+    this.unSubribeDescoverCollectionList = this.dataService.getRequest(url).subscribe(
       (response: any) => {
         if (response.status == 200) {
           for (let i = 0; i < response.data.length; i++) {
@@ -276,7 +277,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
     );
   }
 
-  
+
 
   gotoNftDetails(nftAddress: any, id: any) {
     this.router.navigate(['/detailsCom/details', nftAddress, id]);
@@ -305,7 +306,11 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
    */
 
   filter(searchText: any, col: any) {
-    this.searchKey = searchText;
+    if (searchText == '') {
+      this.searchKey = 'all';
+    } else {
+      this.searchKey = searchText;
+    }
     if (this.regardingDropdown == 'items') {
       this.getSearchResultNFT();
     }
@@ -399,7 +404,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
         } else {
         }
       },
-      (err: any) => {}
+      (err: any) => { }
     );
   }
 
@@ -441,4 +446,12 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
     this.outsideClick();
     document.getElementById('myDropdown3').classList.toggle('show');
   }
+
+  onSearchFieldClicked() {
+    if (this.searchKey == 'all')
+      this.searchKey = '';
+  }
+  // document.getElementById("editor").addEventListener("input", inputEvt => {
+  //   console.log("input event fired");
+  // }, false);
 }
