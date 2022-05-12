@@ -76,9 +76,14 @@ ul {
     }
   }
 }
-.userProfilePic{
-  height: 50px;
-  width: 50px;
+.userProfilePic {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  border: 1px solid $black;
+  &:hover {
+    border-color: $white;
+  }
 }
 .userProfilePic img{
   height: 100%;

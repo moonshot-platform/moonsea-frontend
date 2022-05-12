@@ -26,6 +26,9 @@ export class StatsComponent implements OnInit {
   categoryId:any;
   isShowLoader: boolean = false;
   currencySymbol :any ='';
+  chartData: any = [];
+  data01 :any = [];
+
 
   constructor(private homeService: HomeService, public dialog: MatDialog,
           private router:Router,private createNFT: CreateNftService,
@@ -75,8 +78,45 @@ export class StatsComponent implements OnInit {
     });
   }
   }
-  openChart(collectionId:any) {
-    const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%',data:{collectionId:collectionId}});
+
+  getSaleChart(collectionId:any) {
+   let promise = new Promise ((resolve,reject)=>{
+    let url =`api/getSaleChart?collectionId=${collectionId}`;
+    this.dataservice.getTemparory(url).subscribe(
+      (res: any) => {
+        if (res.status == 200) {
+          this.chartData = res.data;
+
+          for (let i = 0; i < this.chartData.length; i++) {
+            this.data01.push([
+              this.chartData[i].dateTime,
+              this.chartData[i].AveragePrice,
+              this.chartData[i].Sales,
+            ]);
+          }
+          resolve(this.data01);
+        } else {
+          console.log(res.message);
+        }
+      },
+      (err) => {
+        console.log(err);
+        reject(err);
+      }
+    );
+   });
+
+   return promise;
+  }
+
+
+  async openChart(collectionId:any) {
+    let lineChartData = [];
+   await this.getSaleChart(collectionId).then((res:any)=>{
+      lineChartData = res;
+    })
+
+    const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%',data:{arr:lineChartData}});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);

@@ -64,7 +64,7 @@
           <form
             class="needs-validation"
             [formGroup]="updateProfile"
-            (ngSubmit)="updateProfileSubmit()"
+            (ngSubmit)="ff.valid && updateProfileSubmit()"
             #ff="ngForm"
           >
             <div class="flex justify-center pb100">
@@ -163,8 +163,11 @@
                         type="text"
                         name="name"
                         placeholder="Enter your display name"
-                        required
                       />
+                      
+                    </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.name.invalid && (updateProfileControl.name.touched || ff.submitted)">
+                      Name required
                     </div>
                   </div>
                   <div class="field">
@@ -179,8 +182,11 @@
                         type="text"
                         name="url"
                         placeholder="Your custom URL"
-                        required
+                        
                       />
+                    </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.customUrl.invalid && (updateProfileControl.customUrl.touched || ff.submitted)">
+                      Custom url required
                     </div>
                   </div>
                   <div class="field field_textarea">
@@ -191,8 +197,12 @@
                         formControlName="bio"
                         name="bio"
                         placeholder="About yourselt in a few words"
-                        required
+                        
                       ></textarea>
+                     
+                    </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.bio.invalid && (updateProfileControl.bio.touched || ff.submitted)">
+                      bio required
                     </div>
                   </div>
 
@@ -216,7 +226,7 @@
                         type="text"
                         name="portfolio"
                         placeholder="Enter URL"
-                        required
+                        
                       />
                     </div>
                   </div>
@@ -229,9 +239,13 @@
                         type="email"
                         name="url"
                         placeholder="nft@email.com"
-                        required
+                        
                       />
                     </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.emailId.invalid && (updateProfileControl.emailId.touched || ff.submitted)">
+                      emailId required
+                    </div>
+
                   </div>
                   <div class="field">
                     <div class="field__label">Facebook Url</div>
@@ -242,7 +256,7 @@
                         type="text"
                         name="url"
                         placeholder="Your Facebook Url"
-                        required
+                        
                       />
                     </div>
                   </div>
@@ -255,7 +269,7 @@
                         type="text"
                         name="url"
                         placeholder="Your Discord URL"
-                        required
+                        
                       />
                     </div>
                   </div>

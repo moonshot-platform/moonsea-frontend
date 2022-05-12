@@ -197,14 +197,17 @@ nav {
   .mobile-only {
     display: block;
   }
+  .desktop-only.mobile-only {
+    display: flex !important;
+  }
 
   .inner > nav {
     display: none;
-    overflow: scroll;
+    overflow: auto;
     background: rgba(12, 12, 12, 0.9);
 
     > ul {
-      overflow: scroll;
+      overflow: auto;
       height: fit-content;
       display: block;
       max-width: initial;
@@ -279,6 +282,9 @@ nav {
   .inner > img.mob-menu {
     display: block;
   }
+  .search_result {
+    top: 37px;
+  }
 }
 
 
@@ -298,6 +304,14 @@ section.moonbox-menu {
   height: 100vh;
   max-height: 250px;
   overflow: auto;
+}
+
+#search {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  margin-right: 0;
+  transform: rotate(270deg);
 }
 
 .mobile-only.d-none {

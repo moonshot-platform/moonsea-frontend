@@ -43,12 +43,12 @@ export class UpdateProfileComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0)
     this.updateProfile = this.formBuilder.group({
-      name: [null, Validators.required],
-      customUrl: [null, Validators.required],
-      bio: ['', Validators.required],
+      name: ['', Validators.required],
+      customUrl: ['', Validators.required],
+      bio: ['', [Validators.required]],
       twitterUsername: [''],
       portfolioWebsite: [''],
-      emailId: ['', Validators.email],
+      emailId: ['', [Validators.required,Validators.email]],
       facebook: [''],
       discord: ['']
     })
@@ -74,9 +74,13 @@ export class UpdateProfileComponent implements OnInit {
     this.location.back()
   }
 
-  get name() {
-    return this.updateProfile.get('name');
+  get updateProfileControl(){
+    return this.updateProfile.controls;
   }
+
+
+
+ 
 
 
   setValidators() {
@@ -160,7 +164,7 @@ export class UpdateProfileComponent implements OnInit {
   async updateProfileSubmit() {
 
     this.submitted = true;
-    this.setValidators();
+    // this.setValidators();
 
     if (this.updateProfile.valid) {
 
@@ -197,7 +201,8 @@ export class UpdateProfileComponent implements OnInit {
           .subscribe(
             response => {
               var data = response;
-              this.toastrService.success("Profile updated successfully...")
+              this.toastrService.success("Profile updated successfully...");
+              this.fetchData();
               this.updateBtnText = "Update Profile";
             });
       }
