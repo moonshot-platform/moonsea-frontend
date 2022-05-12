@@ -111,7 +111,7 @@ export class LandingComponent implements OnInit, OnDestroy {
       {
         name: 'og:description',
         content:
-          'A cross-chain NFT Marketplace engineered by Moonshot for Artists & Creators.',
+          'A Multi Chain NFT Marketplace',
       },
       { name: 'og:title', content: 'Moonsea' },
       {
@@ -178,7 +178,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     });
   }
 
- 
+
 
   goToCallection(data: any) {
     this.router.navigate(['collections/', data]);
@@ -222,7 +222,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   slider: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
-    
+
     scrollbar: { draggable: true },
   };
 
@@ -232,7 +232,7 @@ export class LandingComponent implements OnInit, OnDestroy {
       rows: 3,
     },
     navigation: true,
-    
+
     scrollbar: { draggable: true },
   };
 
