@@ -1,14 +1,20 @@
 @import "includes";
 
+.filter {
+  z-index: -10;
+}
+
 .filter-menu {
   border-bottom: 2px solid;
   padding-bottom: 1rem;
+
   .wrap-filter {
     display: flex;
     flex-wrap: wrap;
     margin: 0px -16px;
     max-height: 220px;
     overflow: auto;
+
     .mat-form-field {
       display: inline-block;
       position: relative;
@@ -18,6 +24,7 @@
     }
   }
 }
+
 .fadeInDown {
   animation: fadeIn .5s ease-in both;
 }
@@ -26,34 +33,34 @@
   animation: fadeUp .5s ease-in both;
 }
 
-
-.hidediv{
+.hidediv {
   display: none;
 }
-.showdiv{
+
+.showdiv {
   display: block;
 }
 
-
 @keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translate3d(0, -20%, 0);
-	}
-	to {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes fadeUp {
   from {
-      transform: translate3d(0,40px,0)
+    transform: translate3d(0, 40px, 0)
   }
 
   to {
-      transform: translate3d(0,0,0);
-      opacity: 1
+    transform: translate3d(0, 0, 0);
+    opacity: 1
   }
 }
 
@@ -66,6 +73,7 @@
 @media (max-width: $md-header) {
   .wrap-filter {
     margin: 0;
+
     .mat-form-field {
       max-width: 100%;
       margin: 0;
@@ -95,21 +103,26 @@ mat-slider {
   justify-content: space-between;
   padding: 0 10px 0 10px;
 }
+
 .d-flex1:hover {
   background-color: #50aac5;
   color: white;
 }
+
 .mat-expansion-panel {
   background: none !important;
   color: #50aac5;
 }
+
 .mat-expansion-panel-header-title {
   color: rgb(80 170 197);
 }
+
 .mat-expansion-panel-header {
   padding: 0 0 !important;
 }
-::ng-deep .specific-class > .mat-expansion-indicator:after {
+
+::ng-deep .specific-class>.mat-expansion-indicator:after {
   color: rgb(80 170 197);
 }
 
@@ -130,12 +143,15 @@ mat-slider {
   border-color: #50aac5;
   border: 1px solid;
 }
+
 .lg-height-button {
   height: 54px;
 }
+
 .pb-5 {
   padding-bottom: 3rem !important;
 }
+
 .search-box {
   position: absolute;
   width: 100%;
@@ -145,11 +161,13 @@ mat-slider {
   z-index: -1;
   border: 1px solid;
 }
+
 .search-input {
   margin: auto;
   position: relative;
   z-index: 10;
   background: #090d16;
+
   .form-control {
     font-size: 16px;
     border: 1px solid #50aac5;
@@ -165,9 +183,11 @@ mat-slider {
     font-weight: 600;
   }
 }
+
 .mw-30 .form-control {
   padding-left: 97px;
 }
+
 .search-input:last-child .form-control {
   border-left: 0 !important;
 }
