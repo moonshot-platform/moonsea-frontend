@@ -13,7 +13,7 @@
 
 @media only screen and (max-width: $md) {
   .inner.align-center {
-    align-items: center;
+    align-items: center !important;
   }
   .p52 {
     font-size: toRem(41px);
@@ -177,5 +177,17 @@
   }
   .item__cost {
     margin-bottom: 20px;
+  }
+  .px-3 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .profile__nav:before, .profile__nav:after {
+    content: none;
+  }
+  .profile__nav {
+    border-bottom: 1px solid $primary;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

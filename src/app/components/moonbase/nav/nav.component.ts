@@ -50,6 +50,7 @@ export class NavComponent implements OnInit {
   condition:any = false;
   dialogRef:any;
   menuItem = false;
+  search = false;
 
 
   constructor(private route: Router, private windowRef: WindowRefService, private cs: ContractService, private getDataService: GetDataService, private ngZone: NgZone, private dialog: MatDialog) {
@@ -319,6 +320,13 @@ export class NavComponent implements OnInit {
 
   menuopen() {
     this.menuItem = true;
+  }
+  
+  searchCollection() {
+    this.search = true;
+  }
+  back() {
+    this.search = false;
   }
 
   closeMenu() {

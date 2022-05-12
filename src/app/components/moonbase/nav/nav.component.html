@@ -1,6 +1,9 @@
 <section class="navigation">
-  <div class="inner flex-space-between align-center ml-0 mw-100 overflow-unset">
-    <div class="logo-container flex align-start" [ngClass]="menuItem === true ? 'd-none' : '' ">
+    <div class="inner flex-space-between align-center ml-0 mw-100 overflow-unset">
+    <div
+      class="logo-container flex align-start"
+      [ngClass]="menuItem === true || search === true ? 'd-none' : ''"
+    >
       <a
         href="javascript:void(0)"
         [routerLink]="['/']"
@@ -32,19 +35,28 @@
       </a>
     </div>
 
-    <div class="desktop-only wp100 mr50">
-      <div
-        class="nav-input w-100"
-      >
-      <input
-      type="text"
-      id="searchBox"
-      #searchText
-      (keyup.enter)="searchClient(searchText.value)"
-      (keyup)="autoComplete(searchText.value)"
-      placeholder="Search for collections, items or creators"
-      class="form-control"
-    />
+    <div class="desktop-only wp100 mr50" [ngClass]="search === true ? 'mobile-only m0' : ''">
+      <div (click)="back()" class="mobile-only">
+      <svg version="1.1" id="Laag_1" class="mr10" width="36" height="36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve">
+        <g>
+          <circle class="st4" cx="20" cy="20" r="18"></circle>
+          <g>
+            <line class="st4" x1="27.1" y1="20" x2="13.3" y2="20"></line>
+            <polyline class="st4" points="19.7,13.2 12.9,20.1 19.6,26.8 		"></polyline>
+          </g>
+        </g>
+        </svg>
+      </div>
+      <div class="nav-input w-100" [ngClass]="search === true ? 'mobile-only' : ''">
+        <input
+          type="text"
+          id="searchBox"
+          #searchText
+          (keyup.enter)="searchClient(searchText.value)"
+          (keyup)="autoComplete(searchText.value)"
+          placeholder="Search for collections, items or creators"
+          class="form-control"
+        />
         <a href="javascript:void(0)"
           ><svg
             version="1.1"
@@ -59,72 +71,102 @@
             <g>
               <circle cx="22" cy="18" r="12.5" class="st0"></circle>
               <line x1="13.2" y1="26.8" x2="5.5" y2="34.5" class="st0"></line>
-            </g></svg></a>
-            <ng-container *ngIf="flag">
-              <div class="search_result">
-                <div *ngFor="let item of uniquedata; let i = index">
-                  <div class="border-left border-right">
-                    <div
-                      *ngIf="item == 1 && properties[i].length > 0"
-                      class="flex align-center p-3 border-bottom p12 text-secondary"
-                    >
-                      Items
-                    </div>
-                    <div
-                      *ngIf="item == 2 && properties[i].length > 0"
-                      class="flex align-center p-3 border-bottom p12 text-secondary"
-                    >
-                      Profile
-                    </div>
-                    <div
-                      *ngIf="item == 3 && properties[i].length > 0"
-                      class="flex align-center p-3 border-bottom p12 text-secondary"
-                    >
-                      collection
-                    </div>
-                    <div
-                      *ngFor="let inner of properties[i]"
-                      class="flex align-center p-3 border-bottom"
-                      (click)="
-                        onselectClient(
-                          inner.searchText,
-                          inner.serachType,
-                          inner.nftTokenId,
-                          inner.nftAddress
-                        )
-                      "
-                    >
-                      <div class="profilepic01">
-                        <img
-                          [src]="inner.profilePic"
-                          *ngIf="inner.profilePic"
-                          class="profilepic"
-                          alt="profile"
-                        />
-                        <img
-                          *ngIf="!inner.profilePic"
-                          src="assets/media/images/moonsea/avatar-big.jpg"
-                          class="profilepic"
-                          alt=""
-                        />
-                      </div>
-                      <div>
-                        {{ inner.searchText }}
-                      </div>
-                    </div>
+            </g></svg
+        ></a>
+        <ng-container *ngIf="flag">
+          <div class="search_result">
+            <div *ngFor="let item of uniquedata; let i = index">
+              <div class="border-left border-right">
+                <div
+                  *ngIf="item == 1 && properties[i].length > 0"
+                  class="flex align-center p-3 border-bottom p12 text-secondary"
+                >
+                  Items
+                </div>
+                <div
+                  *ngIf="item == 2 && properties[i].length > 0"
+                  class="flex align-center p-3 border-bottom p12 text-secondary"
+                >
+                  Profile
+                </div>
+                <div
+                  *ngIf="item == 3 && properties[i].length > 0"
+                  class="flex align-center p-3 border-bottom p12 text-secondary"
+                >
+                  collection
+                </div>
+                <div
+                  *ngFor="let inner of properties[i]"
+                  class="flex align-center p-3 border-bottom"
+                  (click)="
+                    onselectClient(
+                      inner.searchText,
+                      inner.serachType,
+                      inner.nftTokenId,
+                      inner.nftAddress
+                    )
+                  "
+                >
+                  <div class="profilepic01">
+                    <img
+                      [src]="inner.profilePic"
+                      *ngIf="inner.profilePic"
+                      class="profilepic"
+                      alt="profile"
+                    />
+                    <img
+                      *ngIf="!inner.profilePic"
+                      src="assets/media/images/moonsea/avatar-big.jpg"
+                      class="profilepic"
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    {{ inner.searchText }}
                   </div>
                 </div>
               </div>
-            </ng-container>
-
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
 
-    <div class="mobile-only" [ngClass]="menuItem === true ? 'd-none' : '' " (click)="menuopen()">
+    <div class="mobile-only" (click)="searchCollection()" [ngClass]="search === true ? 'd-none' : ''">
+      <svg
+        version="1.1"
+        id="search"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 40 40"
+        xml:space="preserve"
+      >
+        <style type="text/css">
+          .st0 {
+            fill: none;
+            stroke: #50aac5;
+            stroke-miterlimit: 10;
+          }
+        </style>
+        <g>
+          <circle cx="22" cy="18" r="12.5" class="st0"></circle>
+          <line x1="13.2" y1="26.8" x2="5.5" y2="34.5" class="st0"></line>
+        </g>
+      </svg>
+    </div>  
+    <div
+      class="mobile-only align-center"
+      [ngClass]="menuItem === true || search === true ? 'd-none' : ''"
+      (click)="menuopen()"
+    >
+
       <svg
         width="30px"
         height="26px"
         viewBox="0 0 32 25"
+        class="ml10"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -151,7 +193,7 @@
       alt="menu button"
       class="mob-menu"
     /> -->
-    <nav class="flex" [ngClass]="menuItem === true ? 'show' : '' ">
+    <nav class="flex" [ngClass]="menuItem === true ? 'show' : ''">
       <div class="mob-menu" (click)="closeMenu()">
         <svg
           width="27px"

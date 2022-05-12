@@ -1,5 +1,7 @@
+@import "includes";
+
 .showtab {
-  display: block !important;
+  display: inline-flex !important;
 }
 
 .hidetab {
@@ -16,4 +18,15 @@
 }
 .break-word {
   word-break: break-all;
+}
+
+@media (max-width: $md-header) {
+  .showtab {
+    width: 100%;
+    display: flex !important;
+    flex: 0 0 100%;
+    .item__users {
+      width: 100%;
+    }
+  }
 }

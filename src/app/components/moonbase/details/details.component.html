@@ -1,7 +1,7 @@
 <div>
   <div class="landing-flex item__center pb100">
     <div class="flex1 item__details justify-space-between mr30">
-      <div class="mb20">
+      <div class="flex mb20 justify-space-between">
         <button (click)="goBack()">
           <svg
             version="1.1"
@@ -11,9 +11,11 @@
             x="0px"
             y="0px"
             viewBox="0 0 136 56"
-            style="enable-background: new 0 0 136 56;
-            width: 130px;
-            height: 54px;"
+            style="
+              enable-background: new 0 0 136 56;
+              width: 130px;
+              height: 54px;
+            "
             xml:space="preserve"
             xml:space="preserve"
           >
@@ -50,9 +52,42 @@
             </g>
           </svg>
         </button>
+
+        <a href="javascript:void(0)" (click)="refresh()" class="max-content mobile-only"
+          ><svg
+            version="1.1"
+            id="refresh"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 60 60"
+            xml:space="preserve"
+            style="enable-background: new 0 0 60 60; width: 60px; height: 60px"
+          >
+            <style>
+              .st4 {
+                fill: none;
+                stroke: #50aac5;
+                stroke-miterlimit: 10;
+              }
+              #refresh:hover .st4 {
+                stroke: #c5e3ec;
+              }
+            </style>
+            <circle cx="30" cy="30" r="27" class="st4"></circle>
+            <path
+              d="M40.9,20.9C38.1,17.8,34.2,16,30,16c-8.7,0-14.5,7.5-14.5,14.5c0,7,5.8,14.5,14.5,14.5
+          c8.7,0,14.5-7.5,14.5-14.5"
+              class="st4"
+            ></path>
+            <polyline
+              points="40.9,15 40.9,20.9 35,20.9 "
+              class="st4"
+            ></polyline></svg
+        ></a>
       </div>
       <div>
-
         <div class="item__preview mobile-only">
           <div class="item__categories">
             <div class="status-black item__category">
@@ -61,14 +96,27 @@
             <!-- <div class="status-purple item__category">unlockable</div> -->
           </div>
           <!-- <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/> -->
-          
+
           <!-- <div class="loaderFrame">
           <video class="loaderVideo" *ngIf="!data?.fileUrl" autoplay loop><source  src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4"></video>
           </div> -->
-          <img [lazyLoad]="data?.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1">
-  
-          <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
-            <source src="{{ data?.fileUrl }}"  type="video/mp4">
+          <img
+            [lazyLoad]="data?.fileUrl"
+            [defaultImage]="'assets/icons/5904642857251113741.gif'"
+            *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"
+          />
+
+          <video
+            class="video"
+            loop
+            autoplay
+            playsinline
+            oncanplay="this.play()"
+            onloadedmetadata="this.muted = true"
+            [muted]="true"
+            *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1"
+          >
+            <source src="{{ data?.fileUrl }}" type="video/mp4" />
           </video>
         </div>
 
@@ -81,7 +129,7 @@
           class="item__description owner_name text-primary"
           [routerLink]="['/mycollection/collection', data?.tokenName]"
         >
-        by
+          by
           <span class="p16"> {{ data?.tokenName }}</span>
         </a>
 
@@ -98,23 +146,26 @@
 
         <div class="user__control flex mobile-only">
           <div class="flex1">
-            <div data-url="https://ui8.net" class="flex justify-space-between align-center">
+            <div
+              data-url="https://ui8.net"
+              class="flex justify-space-between align-center"
+            >
               <div class="flex align-center">
-              <a data-id="fb" class="user__direction btn-facebook">
-                <span
-                  ><svg
-                    version="1.1"
-                    id="chart"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 40 40"
-                    style="enable-background: new 0 0 40 40"
-                    xml:space="preserve"
-                  >
-                    <path
-                      d="M20,2C10.1,2,2,10.1,2,20c0,9.9,8.1,18,18,18s18-8.1,18-18C38,10.1,29.9,2,20,2z M28.1,18L28.1,18
+                <a data-id="fb" class="user__direction btn-facebook">
+                  <span
+                    ><svg
+                      version="1.1"
+                      id="chart"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 40 40"
+                      style="enable-background: new 0 0 40 40"
+                      xml:space="preserve"
+                    >
+                      <path
+                        d="M20,2C10.1,2,2,10.1,2,20c0,9.9,8.1,18,18,18s18-8.1,18-18C38,10.1,29.9,2,20,2z M28.1,18L28.1,18
                   c-0.1,0-0.1,0-0.2,0l-3.1,4.6c0.3,0.4,0.4,1,0.3,1.5c-0.1,0.6-0.4,1.2-0.9,1.6c-0.5,0.4-1.1,0.6-1.8,0.5c-0.6-0.1-1.2-0.4-1.6-0.9
                   c-0.3-0.4-0.5-1-0.5-1.5c0-0.3,0.1-0.7,0.2-1l-2.3-2.3c-0.5,0.2-1.1,0.2-1.7,0.1l-2.5,2.9c0.5,1,0.3,2.3-0.7,3
                   c-0.4,0.3-1,0.5-1.5,0.5c-0.7,0-1.4-0.3-1.9-0.9c-0.8-1.1-0.6-2.6,0.4-3.4c0.4-0.3,1-0.5,1.5-0.5c0,0,0,0,0,0c0.2,0,0.4,0,0.5,0.1
@@ -122,49 +173,49 @@
                   c0,0.1,0,0.1,0,0.2c0,0.2,0,0.5-0.1,0.8l2.4,2.5c0.2-0.1,0.5-0.1,0.7-0.1c0.2,0,0.3,0,0.5,0.1l2.9-4.4c-0.3-0.4-0.5-0.9-0.5-1.4
                   c0-0.6,0.2-1.3,0.7-1.7c0.4-0.5,1-0.7,1.7-0.7c0.6,0,1.3,0.2,1.7,0.7c0.3,0.3,0.6,0.8,0.7,1.2h0.1l0,0.5C30.5,16.9,29.4,18,28.1,18z
                   "
-                      class="st0"
-                    ></path></svg
-                ></span>
-              </a>
-  
-              <a data-id="fb" class="user__direction btn-facebook"
-                ><span
-                  ><svg
-                    version="1.1"
-                    id="discord"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 40 40"
-                    xml:space="preserve"
-                    style="enable-background: new 0 0 40 40"
-                  >
-                    <g>
-                      <path
-                        d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.7,27.1c0,0-0.6-0.7-1.1-1.4
+                        class="st0"
+                      ></path></svg
+                  ></span>
+                </a>
+
+                <a data-id="fb" class="user__direction btn-facebook"
+                  ><span
+                    ><svg
+                      version="1.1"
+                      id="discord"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 40 40"
+                      xml:space="preserve"
+                      style="enable-background: new 0 0 40 40"
+                    >
+                      <g>
+                        <path
+                          d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.7,27.1c0,0-0.6-0.7-1.1-1.4
                        c2.2-0.6,3.1-2,3.1-2c-0.7,0.5-1.4,0.8-2,1c-0.9,0.3-1.7,0.6-2.5,0.7c-1.6,0.3-3.1,0.2-4.4,0c-1-0.2-1.8-0.4-2.5-0.7
                        c-0.4-0.1-0.8-0.3-1.3-0.6c0,0-0.1,0-0.1-0.1c0,0,0,0,0,0c-0.3-0.2-0.5-0.3-0.5-0.3s0.8,1.4,3,2c-0.5,0.6-1.2,1.4-1.2,1.4
                        C11.5,27,10,24.6,10,24.6c0-5.5,2.5-9.9,2.5-9.9c2.5-1.8,4.8-1.8,4.8-1.8l0.2,0.2c-3.1,0.9-4.5,2.2-4.5,2.2s0.4-0.2,1-0.5
                        c1.8-0.8,3.3-1,3.9-1.1c0.1,0,0.2,0,0.3,0c1.1-0.1,2.2-0.2,3.4,0c1.6,0.2,3.4,0.7,5.1,1.6c0,0-1.4-1.3-4.3-2.1l0.2-0.3
                        c0,0,2.3,0,4.8,1.8c0,0,2.5,4.4,2.5,9.9C30,24.6,28.5,27,24.7,27.1z"
-                        class="st0"
-                      ></path>
-                      <path
-                        d="M23,19.2c-1,0-1.7,0.8-1.7,1.9c0,1.1,0.8,1.9,1.7,1.9s1.7-0.8,1.7-1.9C24.8,20,24,19.2,23,19.2z"
-                        class="st0"
-                      ></path>
-                      <ellipse
-                        cx="16.8"
-                        cy="21.1"
-                        rx="1.7"
-                        ry="1.9"
-                        class="st0"
-                      ></ellipse>
-                    </g></svg
-                ></span>
-              </a>
-            </div>
+                          class="st0"
+                        ></path>
+                        <path
+                          d="M23,19.2c-1,0-1.7,0.8-1.7,1.9c0,1.1,0.8,1.9,1.7,1.9s1.7-0.8,1.7-1.9C24.8,20,24,19.2,23,19.2z"
+                          class="st0"
+                        ></path>
+                        <ellipse
+                          cx="16.8"
+                          cy="21.1"
+                          rx="1.7"
+                          ry="1.9"
+                          class="st0"
+                        ></ellipse>
+                      </g></svg
+                  ></span>
+                </a>
+              </div>
               <a data-id="fb" class="user__direction btn-facebook"
                 ><span
                   ><svg
@@ -254,7 +305,7 @@
                     <g></g>
                   </svg>
                 </span>
-  
+
                 <!-- <div class="drop_container">
                   <a href="">
                     <div>Add in listing</div>
@@ -281,10 +332,16 @@
                 class="item__avatar"
                 [routerLink]="['/mycollection/collection', data?.tokenName]"
               >
-        
-                <img *ngIf="data?.collectionFileUrl" src="{{ data?.collectionFileUrl }}" alt="Avatar" />
-                <img *ngIf="!data?.collectionFileUrl" src="assets/media/images/moonsea/profile.png" alt="Avatar" />
-              
+                <img
+                  *ngIf="data?.collectionFileUrl"
+                  src="{{ data?.collectionFileUrl }}"
+                  alt="Avatar"
+                />
+                <img
+                  *ngIf="!data?.collectionFileUrl"
+                  src="assets/media/images/moonsea/profile.png"
+                  alt="Avatar"
+                />
               </div>
 
               <div
@@ -302,7 +359,10 @@
                     Highest bid by
                     <a
                       class="mb10"
-                      [routerLink]="['/mycollection/collection', data?.tokenName]"
+                      [routerLink]="[
+                        '/mycollection/collection',
+                        data?.tokenName
+                      ]"
                     >
                       <span class="text-primary p14">{{
                         data?.tokenName
@@ -364,7 +424,10 @@
                 "
                 below place bid div condition is above 
                -->
-              <div class="wp100 mt30" *ngIf="ownersData?.length > 0 && data?.blockchainId ">
+              <div
+                class="wp100 mt30"
+                *ngIf="ownersData?.length > 0 && data?.blockchainId"
+              >
                 <app-place-bid
                   [fromPage]="1"
                   [items]="ownersData[0]"
@@ -383,8 +446,11 @@
                 >
                 </app-purchase-now>
               </div> -->
-           
-              <div class="wp100 mt30" *ngIf="indexForPurchase >= 0 && data?.blockchainId">
+
+              <div
+                class="wp100 mt30"
+                *ngIf="indexForPurchase >= 0 && data?.blockchainId"
+              >
                 <app-purchase-now
                   [fromPage]="1"
                   [items]="ownersData[indexForPurchase]"
@@ -394,8 +460,9 @@
                 </app-purchase-now>
               </div>
 
-              <p class="p12 w-normal mt20 align-self-start"><span class="w600">S-Fee </span> — 1.5% / 2.563 ETH / $4,540.60</p>
-
+              <p class="p12 w-normal mt20 align-self-start">
+                <span class="w600">S-Fee </span> — 1.5% / 2.563 ETH / $4,540.60
+              </p>
             </ng-container>
           </div>
         </div>
@@ -411,14 +478,27 @@
           <!-- <div class="status-purple item__category">unlockable</div> -->
         </div>
         <!-- <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/> -->
-        
+
         <!-- <div class="loaderFrame">
         <video class="loaderVideo" *ngIf="!data?.fileUrl" autoplay loop><source  src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4"></video>
         </div> -->
-        <img [lazyLoad]="data?.fileUrl" [defaultImage]="'assets/icons/5904642857251113741.gif'" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1">
+        <img
+          [lazyLoad]="data?.fileUrl"
+          [defaultImage]="'assets/icons/5904642857251113741.gif'"
+          *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"
+        />
 
-        <video class="video" loop autoplay playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1">
-          <source src="{{ data?.fileUrl }}"  type="video/mp4">
+        <video
+          class="video"
+          loop
+          autoplay
+          playsinline
+          oncanplay="this.play()"
+          onloadedmetadata="this.muted = true"
+          [muted]="true"
+          *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1"
+        >
+          <source src="{{ data?.fileUrl }}" type="video/mp4" />
         </video>
       </div>
       <div class="user__control ml10 flex1">
@@ -598,7 +678,7 @@
       </div>
     </div>
 
-    <a (click)="refresh()" class="max-content" href="javascript:void(0)">
+    <a (click)="refresh()" class="max-content desktop-only" href="javascript:void(0)">
       <svg
         version="1.1"
         id="refresh"
