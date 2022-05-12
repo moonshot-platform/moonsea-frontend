@@ -8,6 +8,7 @@ import { ContractService } from 'src/app/services/contract.service';
 import { CreateCollectionComponent } from 'src/app/components/moonbase/create-nft/create-collection/create-collection.component';
 import { ImportCollectionComponent } from '../../../import-collection/import-collection.component';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-step1',
@@ -26,9 +27,13 @@ constructor(private route:Router,
   private toastr: ToastrService,
   private homeService: HomeService,
   private cs: ContractService,
-  private _activatedRoute: ActivatedRoute,) { }
+  private _activatedRoute: ActivatedRoute,
+  private ngxLoader:NgxUiLoaderService) { }
   ngOnDestroy(): void {
-    this.unSubscribeRequest.unsubscribe();
+    if(this.unSubscribeRequest){
+      this.unSubscribeRequest.unsubscribe();
+    }
+    
   }
 
 ngOnInit(): void {
@@ -76,7 +81,7 @@ openDialogCreateCollection(): void {
 }
 
 getmyCollectionList() {
-
+  this.ngxLoader.start();
   this.unSubscribeRequest = this.homeService.myCollectionList(this.connectedAddress).subscribe((response: any) => {
     if(response.status == 200){
       for (let i = 0; i < response.data.length; i++) {
@@ -91,9 +96,13 @@ getmyCollectionList() {
       }
 
       this.myCollection = response.data;
-        
+      this.ngxLoader.stop();
+    }else{
+      this.ngxLoader.stop();
     }
    
+  },(err:any)=>{
+    this.ngxLoader.stop();
   });
 }
 

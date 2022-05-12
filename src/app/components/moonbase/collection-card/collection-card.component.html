@@ -12,8 +12,8 @@
     <img [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
       [ngClass]="{'not-visible': !elementsHasLoaded[0]}" (load)="onMediaLoad($event, 0)" />
 
-    <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[0]}" loop autoplay playsinline
-      oncanplay="this.play()" (loadeddata)="onMediaLoad($event,0)" onloadedmetadata="this.muted = true" [muted]="true"
+    <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[0]}" 
+       (loadeddata)="onMediaLoad($event,0)" onloadedmetadata="this.muted = true" [muted]="true"
       *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
       <source src="{{ item.nftFileUrl01 }}" type="video/mp4" />
     </video>
@@ -38,8 +38,8 @@
         </a>
 
         <a [routerLink]="['/detailsCom/details', inneritem.nftAddress, inneritem.nftTokenID]">
-          <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" loop autoplay playsinline
-            oncanplay="this.play()" onloadedmetadata="this.muted = true"
+          <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" playsinline
+             onloadedmetadata="this.muted = true"
             *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1" (load)="onMediaLoad($event, j+1)">
             <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
           </video>

@@ -31,7 +31,7 @@
                   </select>
                 </div>
                 
-                <div class="upload__item">
+                <div class="upload__item" [n]>
                   <div class="popup__col mb10 p16">
                     Upload a collection avatar
                   </div>
@@ -39,7 +39,7 @@
                       'background-image':
                         imagePath?.length > 0 ? 'url(' + imagePath + ')' : '',
                       'background-size': '100% 100%'
-                    }">
+                    ,'border':imageErrorMsg?'1px solid #ff0000':''}">
                     <input class="upload__input" (change)="onLogoFile($event)" type="file" />
                     <div></div>
                     <svg version="1.1" id="stroke_dark" xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@
                         <line x1="14.3" y1="28" x2="25.7" y2="28" class="stroke_dark"></line>
                       </g>
                     </svg>
-                    <div class="upload__format">
+                    <div class="upload__format" [ngStyle]="{'color': imageErrorMsg?'#ff0000':''}">
                       Drop a PNG, GIF, WEBP or MP4. (Max 1MB).
                     </div>
                   </div>

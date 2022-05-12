@@ -56,9 +56,14 @@ export class Step3Component implements OnInit, OnDestroy {
     if (this.dialogRef) {
       this.dialogRef.close();
     }
-
+    if( this.unSubscribeRequest){
     this.unSubscribeRequest.unsubscribe();
+
+    }
+    if( this.unSubscribeRequest01){
     this.unSubscribeRequest01.unsubscribe();
+      
+      }
 
   }
 

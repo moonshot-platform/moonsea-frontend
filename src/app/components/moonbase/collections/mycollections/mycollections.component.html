@@ -22,10 +22,10 @@
   </div>
   <div id="upload_nft" class="relative mt100">
     <div class="flex wrap align-center justify-space-between">
-      <mat-tab-group [selectedIndex]="tabIndex">
+      <mat-tab-group [selectedIndex]="tabIndex"  (selectedIndexChange)="informChange($event)">
         <mat-tab>
           <ng-template mat-tab-label>
-            <button [routerLink]="['/']" routerLinkActive="router-link-active" >
+            <button type="button" (click)="gotoback()" >
               <svg
                 version="1.1"
                 id="back_btn"
@@ -90,7 +90,7 @@
         </mat-tab>
         <mat-tab [disabled]="isSelected(1)">
           <ng-template mat-tab-label>
-            <button class="flex align-center w-normal text-primary p16">
+            <button class="flex align-center w-normal text-primary p16" >
               <span class="round">1</span><span>Choose a collection</span>
             </button>
           </ng-template>
@@ -102,7 +102,7 @@
         <mat-tab [disabled]="isSelected(2)">
           <ng-template mat-tab-label>
             <button class="flex align-center w-normal text-primary p16">
-              <span class="round">2</span><span>Upload NFT's</span>
+              <span class="round">2</span><span>Upload Item's</span>
             </button>
           </ng-template>
           <ng-template matTabContent>

@@ -37,7 +37,7 @@
                       <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}" loop autoplay
                         playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true"
                         *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1"
-                        (load)="onMediaLoad($event,i * 4)">
+                        (loadeddata)="onMediaLoad($event,i * 4)">
                         <source src="{{ item.nftFileUrl01 }}" type="video/mp4">
                       </video>
 

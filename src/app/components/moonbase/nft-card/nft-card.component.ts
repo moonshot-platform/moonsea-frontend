@@ -19,6 +19,7 @@ declare var $: any;
 export class NftCardComponent implements OnInit {
 
   @Input() items:any;
+  @Input() index:any;
   @Output() newItemEvent = new EventEmitter<string>();
   balanceInBNB:  string="";
   price:Number=0;
@@ -27,7 +28,8 @@ export class NftCardComponent implements OnInit {
   getTopSellerCreatorsList:any;
   connectedAddress:any;
   hotBidList: any;
-  loading:boolean= false
+  loading:boolean= false;
+  isImageLoaded:any=[];
   constructor(private contractService:ContractService,
     private http:HttpClient,
     private toastrService:ToastrService,
@@ -155,4 +157,15 @@ gotoDetails(id:any){
   this.router.navigate(['/detailsCom/details',this.items.nftAddress,id])
 }
 
+onMediaLoad(event:any,indexx:any){
+  console.log(indexx);
+  
+  if (event && event.target) {
+    // console.log("IMAGE HAS LOADED!");
+    this.isImageLoaded[indexx] = true;
+  } else {
+    this.isImageLoaded[indexx] = false;
+    // console.log("IMAGE HAS NOT LOADED!");
+  }
+}
 }

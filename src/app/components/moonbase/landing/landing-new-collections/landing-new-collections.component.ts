@@ -62,7 +62,8 @@ export class LandingNewCollectionsComponent implements OnInit {
 
 
   getNewCollections(){
-     this.homeService.getNewCollections().subscribe((response: any) => {
+    //  this.homeService.getNewCollections().subscribe((response: any) => {
+     this.homeService.getUpcommingCollection().subscribe((response: any) => {
       this.ngxService.stop();
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {

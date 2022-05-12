@@ -15,7 +15,8 @@
     </div>
     <!-- <button *ngIf="items.isListed && item.isAccepted == 0 && (item.isShowAcceptButton || item.typeOfSale==3)" class="button-stroke item__button" (click)="openDialog(i)"  data-effect="mfp-zoom-in">Accept</button> -->
     <button
-      *ngIf="items.isListed && item.isAccepted == 0 && (nftAddress == loggedInUseAddress)"
+      *ngIf="items.isListed == 1 && !item.isAccepted   && (item.isShowAcceptButton ||
+      item.isShowAcceptButtonForAll )"
       class="button-stroke item__button"
       (click)="openDialog(i)"
       data-effect="mfp-zoom-in"

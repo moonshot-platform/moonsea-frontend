@@ -61,7 +61,6 @@ import { CreateCollectionModelComponent } from './create-nft-new/create-collecti
 import { HowItWorkComponent } from './how-it-work/how-it-work.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { SocialSharePopUpComponent } from './common/social-share-pop-up/social-share-pop-up.component';
-import { SearchKeyComponent } from './search-key/search-key.component';
 import { BetaversionModalComponent } from './landing/betaversion-modal/betaversion-modal.component';
 import { ImportCollectionComponent } from './collections/mycollections/import-collection/import-collection.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -151,7 +150,6 @@ import { SharedModule } from './commanShared/shared/shared.module';
     CreateCollectionModelComponent,
     HowItWorkComponent,
     SocialSharePopUpComponent,
-    SearchKeyComponent,
     BetaversionModalComponent,
     ImportCollectionComponent,
     CreatorComponent,
