@@ -27,7 +27,8 @@ export class LandingFooterComponent implements OnInit {
   getHotCollection(){
     this.ngxService.start();
     let url = `home/getHotBidList?walletAddress=${this.walletAddress}`;
-       this.homeService.getRequest(url).subscribe((response: any) => {
+      //  this.homeService.getRequest(url).subscribe((response: any) => {
+        this.homeService.getUpcommingCollection().subscribe((response: any) => {
      
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {

@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ContractService } from './services/contract.service';
 import { PricingApiService } from './services/pricing-api.service';
-import { TokenomicsService } from './services/tokenomics.service';
 declare let particlesJS: any;
 
 @Component({

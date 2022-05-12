@@ -75,8 +75,8 @@ export class StatsComponent implements OnInit {
     });
   }
   }
-  openChart() {
-    const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%'});
+  openChart(collectionId:any) {
+    const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%',data:{collectionId:collectionId}});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);

@@ -55,7 +55,9 @@ export class CollectiondetailsComponent implements OnInit ,OnDestroy{
       
    }
   ngOnDestroy(): void {
+    if(this.unSubscibeRequest){
     this.unSubscibeRequest.unsubscribe();
+    }
   }
 
   ngOnInit(): void {

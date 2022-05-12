@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {
   ChartComponent,
   ApexChart,
@@ -141,7 +142,8 @@ export class LineChartsComponent implements OnInit {
     //   },
     // },
   };
-  constructor(private dataservice: CollectionApiService) {}
+  constructor(private dataservice: CollectionApiService, public dialogRef: MatDialogRef<LineChartsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,) {}
 
   ngOnInit(): void {
     var ago1Month = new Date();
@@ -192,28 +194,8 @@ export class LineChartsComponent implements OnInit {
   }
 
   getSaleChart() {
-    // this.dataservice.getRequest('api/getSaleChart').subscribe(
-    //   (res: any) => {
-    //     if (res.status == 200) {
-    //       this.chartData = res.data;
-
-    //       for (let i = 0; i < this.chartData.length; i++) {
-    //         this.data01.push([
-    //           this.chartData[i].dateTime,
-    //           this.chartData[i].AveragePrice,
-    //         ]);
-    //       };
-    //       this.chartOptions.series[0].data = this.data01;
-    //     } else {
-    //       console.log(res.message);
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-    // ******tempary*******//
-    this.dataservice.getTemparory('api/getSaleChart').subscribe(
+    let url =`api/getSaleChart?collectionId=${this.data.collectionId}`;
+    this.dataservice.getTemparory(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.chartData = res.data;

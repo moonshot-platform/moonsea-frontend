@@ -40,7 +40,8 @@ export class LandingOneComponent implements OnInit {
   }
 
   getCollection() {
-    this.homeService.getNewCollections().subscribe((response: any) => {
+    // this.homeService.getNewCollections().subscribe((response: any) => {
+    this.homeService.getUpcommingCollection().subscribe((response: any) => {
       this.ngxService.stop();
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
@@ -64,6 +65,7 @@ export class LandingOneComponent implements OnInit {
   }
 
   onMediaLoad(event, index) {
+   
     if (event && event.target) {
       // console.log("IMAGE HAS LOADED!");
       this.elementsHasLoaded[index] = true;

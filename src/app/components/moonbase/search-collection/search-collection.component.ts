@@ -65,7 +65,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
   priceRangeMin: any = 0;
   priceRangeMax: any = 100;
   orderBy: any = 'DESC';
-  size: any = 12;
+  size: any = 10000;
   sortByPrice: any = 1;
   blockchainList: any = [];
   blockchainId: any = 0;
@@ -89,8 +89,13 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
     private ngxService: NgxUiLoaderService
   ) {}
   ngOnDestroy(): void {
+    if(this.unSubscribeSubscription){
     this.unSubscribeSubscription.unsubscribe();
-    this.unSubribeDescoverCollectionList.unsubscribe();
+    }
+
+    if(this.unSubribeDescoverCollectionList){
+      this.unSubribeDescoverCollectionList.unsubscribe();
+      }
   }
 
   ngOnInit(): void {
@@ -112,9 +117,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
       this.searchKey = res.searchKey;
       if (!res.searchKey) {
         this.searchKey = 'all';
-        // this.getSearchResultNFT();
       }
-      this.getSearchResultNFT();
       this.getCollection();
     });
 
@@ -158,7 +161,6 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
   }
 
   getSearchResultNFT() {
-    // this.discoverNFTList = [];
     let url: any;
     if (this.searchKey.toLowerCase() == 'all') {
       url =
@@ -215,7 +217,6 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
   }
 
   getCollection() {
-    // this.dicoverCollectionList = []
     this.ngxService.start();
     let url;
     if (this.searchKey.toLowerCase() == 'all') {
@@ -275,19 +276,7 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
     );
   }
 
-  // searchMin(minprice) {
-  //   this.minPrice = minprice;
-  //   this.getSearchResultNFT();
-  // }
-  // searchMax(maxPrice) {
-  //   this.maxPrice = maxPrice;
-  //   this.getSearchResultNFT();
-  // }
-
-  // sort(priceSort) {
-  //   this.priceSort = priceSort;
-  //   this.getSearchResultNFT();
-  // }
+  
 
   gotoNftDetails(nftAddress: any, id: any) {
     this.router.navigate(['/detailsCom/details', nftAddress, id]);
@@ -376,7 +365,6 @@ export class SearchCollectionComponent implements OnInit ,OnDestroy{
     this.getCollection();
   }
   getRegarding(value: any) {
-    console.log(value);
 
     this.regardingDropdown = value;
     if (this.regardingDropdown == 'creators') {

@@ -66,8 +66,13 @@ export class DetailsComponent implements OnInit ,OnDestroy {
     private titleService: Title
   ) {}
   ngOnDestroy(): void {
+    if(this.unSubscribeRequest){
     this.unSubscribeRequest.unsubscribe();
-    this.unSubscribeRequest01.unsubscribe();
+    }
+    if(this.unSubscribeRequest01){
+      this.unSubscribeRequest01.unsubscribe();
+    }
+   
   }
 
   ngOnInit(): void {
@@ -79,6 +84,8 @@ export class DetailsComponent implements OnInit ,OnDestroy {
 
     window.scrollTo(0, 0);
     this._activatedRoute.params.subscribe((params) => {
+      console.log(params);
+      
       this.nftTokenID = params['nftTokenID'];
       this.nftAddress = params['nftAddress'];
       

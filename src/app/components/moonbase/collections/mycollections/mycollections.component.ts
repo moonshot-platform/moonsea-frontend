@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { CreateNftService } from 'src/app/services/create-nft.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-mycollections',
@@ -11,7 +12,7 @@ export class MycollectionsComponent implements OnInit ,OnDestroy{
   tabIndex :any =1; 
  
   
-  constructor(private location: Location,private createNftService:CreateNftService) { }
+  constructor(private location: Location,private createNftService:CreateNftService,private route:Router,private  _activatedroute: ActivatedRoute) { }
   ngOnDestroy(): void {
   
   }
@@ -32,6 +33,13 @@ export class MycollectionsComponent implements OnInit ,OnDestroy{
     }
 }
 
-
+gotoback(){
+  this.route.navigate(['/mycollection'], { relativeTo: this._activatedroute, queryParams: {}});
+  window.location.reload();
   
+}
+informChange(event:any){
+  console.log(event);
+  
+}
 }

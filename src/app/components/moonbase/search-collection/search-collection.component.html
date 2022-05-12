@@ -4,7 +4,7 @@
     <div class="orbitron p30">
       <p class="max-word">
         Show me
-        <!-- [innerHTML]="searchKey" -->
+     
         <span #searchText class="content_editable text-secondary" data-maxlength="5" data-minlength="5" id="textSearch"
           placeholder="Enter text here..." (keyup.enter)="filter(searchText.innerText,'col')" [innerHTML]="searchKey"
           contenteditable="true"></span>
@@ -189,13 +189,7 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
       </div>
     </section>
   </div>
-  <div *ngIf="dicoverCollectionList.length == 0 && regardingDropdown == 'collections'" class="loader-01">
-   <div>
-    <video autoplay controls [muted]="true" [loop]="true" [controls]="false">
-      <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
-    </video>
-   </div>
-  </div>
+
 
 
 
@@ -208,9 +202,9 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
   <div *ngIf="discoverNFTList.length > 0 && regardingDropdown == 'items'">
 
     <div class="catalog__list" *ngIf="discoverNFTList.length > 0">
-      <div class="grid-4" *ngFor="let item of discoverNFTList">
+      <div class="grid-4" *ngFor="let item of discoverNFTList ;let i=index;">
         <div class="loader" *ngIf="isApiLoading"></div>
-        <app-nft-card [items]="item" [ngClass]="{ visibility_hidden: isApiLoading }"></app-nft-card>
+        <app-nft-card [items]="item" [index]="i" [ngClass]="{ visibility_hidden: isApiLoading }"></app-nft-card>
       </div>
     </div>
     <!-- 

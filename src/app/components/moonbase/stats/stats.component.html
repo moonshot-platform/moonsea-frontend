@@ -141,7 +141,7 @@
                   </span>
                   <span> items - ({{ items.totalNftCount }}) </span></a>
               </td>
-              <td class="pt30 pb30">{{ items.averagePrice24h }} ETH</td>
+              <td class="pt30 pb30">{{ items.averagePrice24h | number }} ETH</td>
               <td class="pt30 pb30">{{ items.marketCap }}</td>
               <td class="pt30 pb30">{{ items.marketCap7day }}</td>
               <td class="pt30 pb30">
@@ -152,7 +152,7 @@
                       ? 'badge-grey'
                       : 'badge-danger'
                   ">
-                  {{ items.marketCap24h }}</span>
+                  {{ items.marketCap24h  | number}}</span>
               </td>
               <td class="pt30 pb30">{{ items.floorPrice }} ETH</td>
               <td class="pt30 pb30">
@@ -174,7 +174,7 @@
                     </g>
                   </svg>
 
-                  <a (click)="openChart()">
+                  <a (click)="openChart(items.collectionId)">
                     <svg version="1.1" id="chart" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
                       style="enable-background: new 0 0 40 40" xml:space="preserve">

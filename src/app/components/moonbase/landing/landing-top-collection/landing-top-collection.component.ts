@@ -46,7 +46,8 @@ export class LandingTopCollectionComponent implements OnInit {
 
   getTopCollection(){
     this.ngxService.start();
-    this.homeService.getTopCollectionlist().subscribe(
+    // this.homeService.getTopCollectionlist().subscribe(
+    this.homeService.getUpcommingCollection().subscribe(
       (response:any)=>{
         if(response.isSuccess){
           this.ngxService.stop();
