@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  FormGroup,
-} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DatePickerComponent } from '@syncfusion/ej2-angular-calendars';
 import { DatePipe } from '@angular/common';
@@ -17,6 +9,7 @@ import { CreateNftService } from 'src/app/services/create-nft.service';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { AddEditNftComponent } from '../add-edit-nft/add-edit-nft.component';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 declare var $: any;
 
@@ -48,7 +41,8 @@ export class Step3Component implements OnInit, OnDestroy {
     private createNFTService: CreateNftService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
-    private _getDataService: CollectionApiService
+    private _getDataService: CollectionApiService,
+    private ngxLoader: NgxUiLoaderService
   ) {
     this.typeOfNft = 'single';
   }
@@ -56,15 +50,12 @@ export class Step3Component implements OnInit, OnDestroy {
     if (this.dialogRef) {
       this.dialogRef.close();
     }
-    if( this.unSubscribeRequest){
-    this.unSubscribeRequest.unsubscribe();
-
+    if (this.unSubscribeRequest) {
+      this.unSubscribeRequest.unsubscribe();
     }
-    if( this.unSubscribeRequest01){
-    this.unSubscribeRequest01.unsubscribe();
-      
-      }
-
+    if (this.unSubscribeRequest01) {
+      this.unSubscribeRequest01.unsubscribe();
+    }
   }
 
   ngOnInit(): void {
@@ -78,20 +69,26 @@ export class Step3Component implements OnInit, OnDestroy {
   }
 
   getNftList() {
+    this.ngxLoader.start();
     let url =
       'api/getCollectionIdWiseNftList?collectionId=' + this.collectionId;
-      this.unSubscribeRequest = this._getDataService.getRequest(url).subscribe(
+    this.unSubscribeRequest = this._getDataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.nftList = res.data;
+          this.ngxLoader.stop();
+        } else {
+          this.ngxLoader.stop();
         }
       },
-      (err: any) => {}
+      (err: any) => {
+        this.ngxLoader.stop();
+      }
     );
   }
   getCollectionDetails() {
     let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
-    this.unSubscribeRequest01 =  this._getDataService.getRequest(url).subscribe(
+    this.unSubscribeRequest01 = this._getDataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.collectionDetails = res.data;
@@ -114,7 +111,7 @@ export class Step3Component implements OnInit, OnDestroy {
     });
   }
   gotoStep01() {
-    this.createNFTService.subject.next({ tabIndex: 1 });
+    this.createNFTService.subject.next({ tabIndex: 0 });
   }
   gotoProfile(walletAddress: any) {
     this.route.navigate(['/profileinfo/profile', walletAddress]);

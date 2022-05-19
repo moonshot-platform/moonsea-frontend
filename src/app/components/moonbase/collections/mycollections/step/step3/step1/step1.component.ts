@@ -80,6 +80,24 @@ openDialogCreateCollection(): void {
  
 }
 
+openDialogImportCollection(): void {
+  let isWalletConnected ;
+  isWalletConnected  =  localStorage.getItem('wallet')
+  if( isWalletConnected == 1){
+    const dialogRef = this.dialog.open(ImportCollectionComponent, {
+      width: 'auto',
+      data: {
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    
+    });
+  }else{
+    this.toastr.error("please connect the wallet...");
+  }
+ 
+}
+
 getmyCollectionList() {
   this.ngxLoader.start();
   this.unSubscribeRequest = this.homeService.myCollectionList(this.connectedAddress).subscribe((response: any) => {

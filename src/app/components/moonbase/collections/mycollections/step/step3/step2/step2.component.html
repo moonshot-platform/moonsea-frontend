@@ -159,7 +159,7 @@
 
         <div class="mt-50">
           <button class="button bg-primary wp100" [disabled]="imDoneUploadingButton" (click)="gotoTab3()">
-            I'm done uploading
+            I'm done uploading  <div class="loader text-white" *ngIf="isApiLoading"></div>
           </button>
         </div>
       </div>

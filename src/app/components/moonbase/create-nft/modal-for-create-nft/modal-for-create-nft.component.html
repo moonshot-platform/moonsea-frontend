@@ -53,7 +53,10 @@
             <div class="steps__text">Call contract method</div>
           </div>
         </div>
-        <button class="button dark-button wp100" [disabled]="isdisabledDoneBtn" (click)="checkNetwork()">{{mintStatusText}}</button>
+        <button class="button dark-button wp100" [disabled]="isdisabledDoneBtn" (click)="checkNetwork()">
+          {{mintStatusText}}
+          <div class="loader text-white" *ngIf="isApiLoading"></div>
+        </button>
       </div>
       <!-- *ngIf="this.data.details.putOnSale && signatureStatus==1" -->
       <div class="steps__item"  [ngClass]="{'done':signatureStatus>=2}" *ngIf="this.data.details.putOnSale && !isContractApproved">

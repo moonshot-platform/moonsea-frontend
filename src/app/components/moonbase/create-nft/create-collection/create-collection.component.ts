@@ -378,7 +378,7 @@ export class CreateCollectionComponent implements OnInit {
         this.createNFT.addCollection(data).subscribe((result: any) => {
           if (result.isSuccess) {
             this.dialogRef.close();
-            this.createNFT.subject.next({ tabIndex: 2 });
+            this.createNFT.subject.next({ tabIndex: 1 });
             this._router.navigate([], {
               queryParams: {
                 collectionName: this.addCollectionForm_New.tokenName,
@@ -398,7 +398,7 @@ export class CreateCollectionComponent implements OnInit {
             this.getDataService.showToastr(res.message, res.isSuccess);
             this.isApiLoading = false;
             this.dialogRef.close();
-            this.createNFT.subject.next({ tabIndex: 2 });
+            this.createNFT.subject.next({ tabIndex: 1 });
             this._router.navigate([], {
               queryParams: {
                 collectionName: this.addCollectionForm_New.tokenName,
@@ -417,7 +417,7 @@ export class CreateCollectionComponent implements OnInit {
 
   skip(){
     this.dialogRef.close();
-    this.createNFT.subject.next({ tabIndex: 2 });
+    this.createNFT.subject.next({ tabIndex: 1 });
     this._router.navigate([], {
       queryParams: {
         collectionName: this.step01Form.value.tokenName,
@@ -435,7 +435,7 @@ export class CreateCollectionComponent implements OnInit {
     this.imageErrorMsg = false;
     const file: File = event.target.files[0];
     debugger
-    if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif')) {
+    if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif' || file.type == 'image/webp')) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
@@ -528,7 +528,7 @@ export class CreateCollectionComponent implements OnInit {
   setTypeOfSale() {
     // console.log(this.step04Form.get('putOnSale')?.value);
 
-    console.log(this.step04Form.get('typeOfSale')?.value);
+    // console.log(this.step04Form.get('typeOfSale')?.value);
     
 
     if (this.step04Form.get('putOnSale')?.value) {

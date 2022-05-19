@@ -158,13 +158,29 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.cs.getWalletObs().subscribe((data: any) => {
       this.connectedAddress = data;
     });
+    this.getUpcomingCollection();
   }
 
-  firstApi: boolean = false;
-  secondApi: boolean = false;
-  thirdApi: boolean = false;
-  fourthApi: boolean = false;
-  fifthApi: boolean = false;
+  getUpcomingCollection(){
+    this.ngxService.start();
+    this.homeService.getUpcommingCollection().subscribe((response: any) => {
+      this.ngxService.stop();
+      for (let i = 0; i < response.data.length; i++) {
+        for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
+          response.data[i].nftFileUrl01 =
+            response.data[i].nftDetailsList[0].nftFileUrl;
+          response.data[i].nftTokenID01 =
+            response.data[i].nftDetailsList[0].nftTokenID;
+          response.data[i].nftAddress =
+            response.data[i].nftDetailsList[0].nftAddress;
+        }
+      }
+
+      this.newCollection = response.data;
+    }, (err: any) => {
+      this.ngxService.stop();
+    });
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(BetaversionModalComponent, {

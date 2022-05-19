@@ -22,7 +22,6 @@ export class PlaceBidComponent implements OnInit {
   constructor(public dialog: MatDialog,private contractService:ContractService) { }
 
   ngOnInit(): void {
-    console.warn(this.typeOfSale);
     
     
     this.items.nftName = this.nftName;

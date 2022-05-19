@@ -84,7 +84,6 @@ export class DetailsComponent implements OnInit ,OnDestroy {
 
     window.scrollTo(0, 0);
     this._activatedRoute.params.subscribe((params) => {
-      console.log(params);
       
       this.nftTokenID = params['nftTokenID'];
       this.nftAddress = params['nftAddress'];

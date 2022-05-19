@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./mycollections.component.scss']
 })
 export class MycollectionsComponent implements OnInit ,OnDestroy{
-  tabIndex :any =1; 
+  tabIndex :any =0; 
  
   
   constructor(private location: Location,private createNftService:CreateNftService,private route:Router,private  _activatedroute: ActivatedRoute) { }
@@ -34,12 +34,10 @@ export class MycollectionsComponent implements OnInit ,OnDestroy{
 }
 
 gotoback(){
-  this.route.navigate(['/mycollection'], { relativeTo: this._activatedroute, queryParams: {}});
-  window.location.reload();
+  // this.route.navigate(['/mycollection'], { relativeTo: this._activatedroute, queryParams: {}});
+  // window.location.reload();
+  this.tabIndex = 0;
   
 }
-informChange(event:any){
-  console.log(event);
-  
-}
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { HomeService } from 'src/app/services/home.service';
 import { SwiperOptions } from 'swiper';
@@ -15,8 +15,8 @@ SwiperCore.use([Grid, Pagination]);
   styleUrls: ['./landing-new-collections.component.scss'],
 })
 export class LandingNewCollectionsComponent implements OnInit {
-  newCollection :any = [];
-  upCommingCollection :any = [];
+  @Input() newCollection :any = [];
+  @Input() upCommingCollection :any = [];
   newCollectionslider: SwiperOptions = {
     slidesPerView: 3,
     grid: {
@@ -56,54 +56,54 @@ export class LandingNewCollectionsComponent implements OnInit {
   constructor(private homeService:HomeService,private ngxService:NgxUiLoaderService) { }
 
   ngOnInit(): void {
-    this.getNewCollections();
-    this.getUpcommingCollection();
+    // this.getNewCollections();
+    // this.getUpcommingCollection();
   }
 
 
-  getNewCollections(){
-    //  this.homeService.getNewCollections().subscribe((response: any) => {
-     this.homeService.getUpcommingCollection().subscribe((response: any) => {
-      this.ngxService.stop();
-      for (let i = 0; i < response.data.length; i++) {
-        for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-          response.data[i].nftFileUrl01 =
-            response.data[i].nftDetailsList[0].nftFileUrl;
-          response.data[i].nftTokenID01 =
-            response.data[i].nftDetailsList[0].nftTokenID;
-          response.data[i].nftAddress =
-            response.data[i].nftDetailsList[0].nftAddress;
-        }
-      }
+  // getNewCollections(){
+  //   //  this.homeService.getNewCollections().subscribe((response: any) => {
+  //    this.homeService.getUpcommingCollection().subscribe((response: any) => {
+  //     this.ngxService.stop();
+  //     for (let i = 0; i < response.data.length; i++) {
+  //       for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
+  //         response.data[i].nftFileUrl01 =
+  //           response.data[i].nftDetailsList[0].nftFileUrl;
+  //         response.data[i].nftTokenID01 =
+  //           response.data[i].nftDetailsList[0].nftTokenID;
+  //         response.data[i].nftAddress =
+  //           response.data[i].nftDetailsList[0].nftAddress;
+  //       }
+  //     }
 
-      this.newCollection = response.data;
-    },(err:any)=>{
-      this.ngxService.stop();
-    });
-  }
+  //     this.newCollection = response.data;
+  //   },(err:any)=>{
+  //     this.ngxService.stop();
+  //   });
+  // }
 
-  getUpcommingCollection(){
-    this.homeService.getUpcommingCollection().subscribe(
-      (response:any)=>{
-        if(response.isSuccess){
-          this.ngxService.stop();
-          for (let i = 0; i < response.data.length; i++) {
-            for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-              response.data[i].nftFileUrl01 =
-                response.data[i].nftDetailsList[0].nftFileUrl;
-              response.data[i].nftTokenID01 =
-                response.data[i].nftDetailsList[0].nftTokenID;
-              response.data[i].nftAddress =
-                response.data[i].nftDetailsList[0].nftAddress;
-            }
-          }
-          this.upCommingCollection = response.data;
+  // getUpcommingCollection(){
+  //   this.homeService.getUpcommingCollection().subscribe(
+  //     (response:any)=>{
+  //       if(response.isSuccess){
+  //         this.ngxService.stop();
+  //         for (let i = 0; i < response.data.length; i++) {
+  //           for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
+  //             response.data[i].nftFileUrl01 =
+  //               response.data[i].nftDetailsList[0].nftFileUrl;
+  //             response.data[i].nftTokenID01 =
+  //               response.data[i].nftDetailsList[0].nftTokenID;
+  //             response.data[i].nftAddress =
+  //               response.data[i].nftDetailsList[0].nftAddress;
+  //           }
+  //         }
+  //         this.upCommingCollection = response.data;
           
-        }
+  //       }
         
-      },(err:any)=>{
-        this.ngxService.stop();
-      }
-    )
-  }
+  //     },(err:any)=>{
+  //       this.ngxService.stop();
+  //     }
+  //   )
+  // }
 }
