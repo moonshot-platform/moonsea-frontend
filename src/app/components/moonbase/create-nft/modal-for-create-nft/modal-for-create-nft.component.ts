@@ -24,6 +24,7 @@ export class ModalForCreateNftComponent implements OnInit {
   userBalance = 0;
   netWorkId = 0;
   isdisabledDoneBtn: boolean = false;
+  isApiLoading :boolean=false;
 
   constructor(
     public dialogRef: MatDialogRef<ModalForCreateNftComponent>,
@@ -82,38 +83,24 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.imageUrl
         );
       }
+     
+
       if (status?.status) {
         this.data.details.transactionHash = status.hash;
 
-        // this.createNFTService.createNft(this.data.details).subscribe(
-        //   response => {
-        //     if (response.isSuccess) {
-        //       this.royaltiesDetails = response.data;
-        //       this.mintStatusText = "Done";
-        //       if(this.data.details.isForSale){
-        //       this.signatureStatus = 1;
-        //       }
-        //       else
-        //       {
-        //         this.signatureStatus = 4;
-        //         this.isCompleted = true;
-        //       }
-        //     }
-        //     else {
-        //       this.mintStatusText = "Error Occured";
-        //     }
-        //     this.getDataService.showToastr(response.message, response.isSuccess);
-
-        //   });
+      
 
         let url = 'api/UpdateNftToken';
         this.getDataService.postRequest(url, this.data.details).subscribe(
-          (res: any) => {
+          async (res: any) => {
             console.log(res);
             if (res.status == 200) {
               this.royaltiesDetails = res.data;
-              this.getDataService.showToastr(res.message, res.isSuccess);
+              this.isApiLoading = true;
+              await this.delay(60000);
+              this.isApiLoading = false;
               this.mintStatusText = 'Done';
+              this.getDataService.showToastr(res.message, res.isSuccess);
               this.isdisabledDoneBtn = true;
               if(!this.data.details.putOnSale){
                 this.dialogRef.close();
@@ -240,5 +227,9 @@ export class ModalForCreateNftComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  delay(ms:any){
+    return new Promise((resolve,reject)=>{setTimeout(resolve,ms)})
   }
 }

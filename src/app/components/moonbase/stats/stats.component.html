@@ -141,18 +141,35 @@
                   </span>
                   <span> items - ({{ items.totalNftCount }}) </span></a>
               </td>
-              <td class="pt30 pb30">{{ items.averagePrice24h }} ETH</td>
+              <td class="pt30 pb30">
+                <span *ngIf="items.averagePrice24h == '-'">
+                  - ETH
+                </span>
+                <span *ngIf="items.averagePrice24h != '-'">
+                  {{ items.averagePrice24h | number :'1.1-4' }} ETH
+                </span>
+              </td>
               <td class="pt30 pb30">{{ items.marketCap }}</td>
               <td class="pt30 pb30">{{ items.marketCap7day }}</td>
               <td class="pt30 pb30">
-                <span class="badge" [ngClass]="
+               
+                <span class="badge" *ngIf="items.marketCap24h == '-'" [ngClass]="
                     items.marketCap24h > 0
                       ? 'badge-success'
                       : items.marketCap24h == '-'
                       ? 'badge-grey'
                       : 'badge-danger'
-                  ">
-                  {{ items.marketCap24h  }}</span>
+                  " >
+                  - </span>
+                  <span class="badge" *ngIf="items.marketCap24h != '-'" [ngClass]="
+                  items.marketCap24h > 0
+                    ? 'badge-success'
+                    : items.marketCap24h == '-'
+                    ? 'badge-grey'
+                    : 'badge-danger'
+                " >
+                {{ items.marketCap24h  | number :'1.1-4'}}</span>
+
               </td>
               <td class="pt30 pb30">{{ items.floorPrice }} ETH</td>
               <td class="pt30 pb30">

@@ -267,6 +267,7 @@ export class CreateCollectionComponent implements OnInit {
       symbol:data.symbol,
       royalties:data.royalties,
       categoryId:data.categoryId,
+      royaltiesWalletAddress: data.walletAddress,
     })
   }
 
@@ -435,7 +436,7 @@ export class CreateCollectionComponent implements OnInit {
     this.imageErrorMsg = false;
     const file: File = event.target.files[0];
     debugger
-    if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif')) {
+    if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif' || file.type == 'image/webp')) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
@@ -528,7 +529,7 @@ export class CreateCollectionComponent implements OnInit {
   setTypeOfSale() {
     // console.log(this.step04Form.get('putOnSale')?.value);
 
-    console.log(this.step04Form.get('typeOfSale')?.value);
+    // console.log(this.step04Form.get('typeOfSale')?.value);
     
 
     if (this.step04Form.get('putOnSale')?.value) {

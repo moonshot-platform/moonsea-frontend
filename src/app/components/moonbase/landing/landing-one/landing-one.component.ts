@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ export class LandingOneComponent implements OnInit {
 
     scrollbar: { draggable: true },
   };
-  newCollection: any = [];
+  @Input() newCollection: any = [];
   elementsHasLoaded: boolean[] = [];
   loaded: boolean;
   loaded01: boolean;
@@ -36,29 +36,30 @@ export class LandingOneComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCollection();
+    // this.getCollection();
   }
 
-  getCollection() {
-    // this.homeService.getNewCollections().subscribe((response: any) => {
-    this.homeService.getUpcommingCollection().subscribe((response: any) => {
-      this.ngxService.stop();
-      for (let i = 0; i < response.data.length; i++) {
-        for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-          response.data[i].nftFileUrl01 =
-            response.data[i].nftDetailsList[0].nftFileUrl;
-          response.data[i].nftTokenID01 =
-            response.data[i].nftDetailsList[0].nftTokenID;
-          response.data[i].nftAddress =
-            response.data[i].nftDetailsList[0].nftAddress;
-        }
-      }
+  // getCollection() {
+  //   //dont delete below code
+  //   // this.homeService.getNewCollections().subscribe((response: any) => {
+  //   this.homeService.getUpcommingCollection().subscribe((response: any) => {
+  //     this.ngxService.stop();
+  //     for (let i = 0; i < response.data.length; i++) {
+  //       for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
+  //         response.data[i].nftFileUrl01 =
+  //           response.data[i].nftDetailsList[0].nftFileUrl;
+  //         response.data[i].nftTokenID01 =
+  //           response.data[i].nftDetailsList[0].nftTokenID;
+  //         response.data[i].nftAddress =
+  //           response.data[i].nftDetailsList[0].nftAddress;
+  //       }
+  //     }
 
-      this.newCollection = response.data;
-    }, (err: any) => {
-      this.ngxService.stop();
-    });
-  }
+  //     this.newCollection = response.data;
+  //   }, (err: any) => {
+  //     this.ngxService.stop();
+  //   });
+  // }
 
   gotoNftDetails(nftAddress: any, id: any) {
     this.router.navigate(['details', nftAddress, id]);

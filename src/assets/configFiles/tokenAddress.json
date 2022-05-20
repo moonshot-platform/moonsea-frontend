@@ -9,10 +9,10 @@
         "WETH":"",
         "nfterc721":"0x7e8f68EFf4ED2CC68fb0C0EBF5bBC22e021c072b", 
         "nfterc1155":"0xf0DA4514B929F943CaBED5bCdf04fCBa29d34DD3",
-        "exchangeAddress":"0xf30aa5cA0f15be69B23D04EA7f8D8dF7E94773D5",
-        "transferProxy":"0xAD6CFEc4E0dDF4a840434F514B01152F8aC51A1A",
-        "erc20TransferProxy" : "0x91F08Bd8a5998E803B78a2295d4b5194E5cb114a",
-        "transferProxyD":"0x9588FaAA561A407E448341BF623DcaB575b8E6Ff"
+        "exchangeAddress":"0x560DF8dF8988A97Ba4719A1BEe9Bcb38A5A1ff2F",
+        "transferProxy":"0x5528AFd8A6FD466295efF1cEE3B257358f038049",
+        "erc20TransferProxy" : "0x5a6a23Cd71f3C6f43208E594467f94114CD21A31",
+        "transferProxyD":"0xbF878B186Ebe69cC097f269C8a1A0104bDE75Cc5"
     },
     {
         "chainId":"3",
@@ -42,8 +42,8 @@
         "WETH":"",
         "nfterc721":"0x5490ba86C008E225a3C743DAe2f457D85f6Fa36d",
         "nfterc1155":"0xCf63B0eEC837225741f7aa92746Fd28b29Aeec6D",
-        "exchangeAddress":"0x9D1D1C7bD75F0C8aBcCF488566E6458596d6471D",
-        "transferProxy":"0xE5dA4D13cF0E7e5696616C282aB25121ce598f8A"
+        "exchangeAddress":"0xBd2c989940Bb8fE3a800b78fDA51AC7502B6517D",
+        "transferProxy":"0xAbebaed67B76074e0aAE37cce07155E834cC0cF4"
     },
     {
         "chainId":"80001",

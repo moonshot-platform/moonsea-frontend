@@ -17,11 +17,11 @@
         <div class="discover_collection info-container flex3">
           <div class="bottom">
             <div class="flex">
-              <swiper [config]="slider" class="mySwiper pt-0" [navigation]="true">
+              <swiper [config]="slider" class="" [navigation]="true">
                 <ng-template *ngFor="let item of newCollection; let i = index" swiperSlide>
 
                   <a href="javascript:void(0)" class="collections__gallery mr30">
-                    <a class="collections__preview" [routerLink]="['/details',item.nftAddress, item.nftTokenID01]"
+                    <a class="collections__preview" [routerLink]="['/detailsCom/details',item.nftAddress, item.nftTokenID01]"
                       routerLinkActive="router-link-active">
                       <div class="content-overlay"></div>
 
@@ -34,8 +34,8 @@
                         [lazyLoad]="item.nftFileUrl01" (load)="onMediaLoad($event,i * 4)"
                         [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}">
 
-                      <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}" loop autoplay
-                        playsinline oncanplay="this.play()" onloadedmetadata="this.muted = true" [muted]="true"
+                      <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}" 
+                       onloadedmetadata="this.muted = true" [muted]="true"
                         *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1"
                         (loadeddata)="onMediaLoad($event,i * 4)">
                         <source src="{{ item.nftFileUrl01 }}" type="video/mp4">

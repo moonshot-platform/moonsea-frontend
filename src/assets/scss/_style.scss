@@ -2358,7 +2358,7 @@ table {
     }
   }
   .upload__file {
-    height: 263px;
+    height: 215px;
   }
 }
 
@@ -3129,12 +3129,24 @@ span.content_editable br {
       top: 8px;
     }
     &.e-time-icon {
-      right: 0;
+      background: Url(../media/icon/Clock_default.svg);
+      background-size: 90%;
+      right: 35px;
+      background-repeat: no-repeat;
     }
     &.e-date-icon {
-      right: 30px;
+      background: Url(../media/icon/Calendar_default.svg);
+      background-size: 90%;
+      right: 5px;
+      background-repeat: no-repeat;
     }
   }
+}
+
+.e-input-group-icon.e-date-icon::before, 
+*.e-control-wrapper .e-input-group-icon.e-date-icon::before,
+.e-datetime-wrapper .e-time-icon.e-icons::before {
+  content: none;
 }
 
 // Responsive Code

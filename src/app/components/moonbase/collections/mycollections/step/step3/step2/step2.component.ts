@@ -2,6 +2,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Observable } from 'rxjs';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
@@ -39,13 +40,14 @@ export class Step2Component implements OnInit {
   isImgLoaded:boolean = false;
   progressValue :any;
   cnt = 0;
- 
+  isApiLoading :boolean;
 
   constructor(
     private createNFTService: CreateNftService,
     private toastr: ToastrService,
     private _activatedRoute : ActivatedRoute,
     private _getDataService : CollectionApiService,
+    private ngxLoader:NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -62,14 +64,18 @@ export class Step2Component implements OnInit {
   
 
   getCollectionDetails(){
+    this.ngxLoader.start();
     let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
     this._getDataService.getRequest(url).subscribe((res:any)=>{
       if(res.status == 200){
+        this.ngxLoader.stop();
         this.collectionDetails = res.data;
         this.imageUrl = this.collectionDetails.fileUrl;
+      }else{
+        this.ngxLoader.stop();
       }
   },(err:any)=>{
-
+    this.ngxLoader.stop();
   })
   }
 
@@ -97,7 +103,9 @@ export class Step2Component implements OnInit {
             this.selectedFiles[i].type == 'image/png' ||
             this.selectedFiles[i].type == 'image/jpg' ||
             this.selectedFiles[i].type == 'video/mp4' ||
-            this.selectedFiles[i].type == 'image/gif'
+            this.selectedFiles[i].type == 'image/gif' ||
+            this.selectedFiles[i].type == 'image/webp'
+
           ) {
             this.upload(i, this.selectedFiles[i]);
           }else{
@@ -113,20 +121,23 @@ export class Step2Component implements OnInit {
     }
   }
 
+  delay(ms:any){
+    return new Promise((resolve,reject)=>{setTimeout(resolve,ms)})
+  }
 
   upload(idx: number, file: any): void {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
 
       this.createNFTService.collectionWiseNftSave(file,this.collectionName).subscribe(
-        (event: any) => {
+        async (event: any) => {
          
 
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(
               (100 * event.loaded) / event.total
             );
-            console.log("idx=>"+idx+"==>  "+this.progressInfos[idx].value);
+            // console.log("idx=>"+idx+"==>  "+this.progressInfos[idx].value);
              
            
               if(this.progressInfos[idx].value === 100){
@@ -136,12 +147,14 @@ export class Step2Component implements OnInit {
               this.progressValue = (this.cnt/this.selectedFiles.length)*100;
 
           } else if (event instanceof HttpResponse) {
-           console.log(event);
+          //  console.log(event);
            if(idx == this.selectedFiles.length -1){
+            this.isApiLoading = true;
             this.toastr.success('upload completed ....');
             this.imageUploadignStatus = false;
             this.uploadBatchCnt++;
             this.imDoneUploadingButton = false;
+            this.isApiLoading = false;
           }
 
           let reader = new FileReader();

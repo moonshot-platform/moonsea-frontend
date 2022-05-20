@@ -38,8 +38,8 @@ gotoback(){
   window.location.reload();
   
 }
-informChange(event:any){
-  console.log(event);
+onTabChanged(index:any){
+  console.log(index);
   
 }
 }

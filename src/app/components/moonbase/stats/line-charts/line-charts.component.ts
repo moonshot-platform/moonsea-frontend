@@ -70,7 +70,6 @@ export class LineChartsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,) {}
 
   ngOnInit(): void {
-    console.log(this.data);
     
     var ago1Month = new Date();
     ago1Month.setMonth(ago1Month.getMonth() - 1);

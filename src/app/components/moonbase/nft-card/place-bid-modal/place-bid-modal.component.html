@@ -89,9 +89,13 @@
           />
           <div class="popup__currency">BNB</div>
         </div>
+        
       </div>
+     
     </div>
-
+    <p *ngIf="isShowMinimumBidValidation" class="error">
+      price should be greater than minimum bid
+    </p>
     <p class="p12 w-normal mt10 mb10">Minimum Bid {{ price }}</p>
 
     <div class="popup__row">

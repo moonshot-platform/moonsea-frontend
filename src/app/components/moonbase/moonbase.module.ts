@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularCountdownDateTimeModule } from 'angular-countdown-date-time';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { InfoComponent } from './info/info.component';
 import { CollectionsComponent } from './collections/collections.component';
 import { MatSliderModule } from '@angular/material/slider';
@@ -174,7 +173,6 @@ import { SharedModule } from './commanShared/shared/shared.module';
     ShareButtonsModule,
     ShareIconsModule,
     SwiperModule,
-    UiSwitchModule,
     MatSliderModule,
     MatTooltipModule,
     DateTimePickerModule,
