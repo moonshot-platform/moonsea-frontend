@@ -111,7 +111,7 @@ export class Step3Component implements OnInit, OnDestroy {
     });
   }
   gotoStep01() {
-    this.createNFTService.subject.next({ tabIndex: 0 });
+    this.createNFTService.subject.next({ tabIndex: 1 });
   }
   gotoProfile(walletAddress: any) {
     this.route.navigate(['/profileinfo/profile', walletAddress]);

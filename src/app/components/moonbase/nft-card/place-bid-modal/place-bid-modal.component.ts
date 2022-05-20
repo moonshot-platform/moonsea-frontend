@@ -24,6 +24,7 @@ export class PlaceBidModalComponent implements OnInit {
   serviceFeesVal: number = 0;
   wrongNetwork: boolean = false;
   step = 0;
+  isShowMinimumBidValidation:boolean;
 
   public SignBuyerOrderModel: SignBuyerOrder = new SignBuyerOrder();
 
@@ -93,8 +94,10 @@ export class PlaceBidModalComponent implements OnInit {
     debugger
     if (this.price > event.target.value) {
       this.invalidValue = true;
+      this.isShowMinimumBidValidation = true;
     } else {
       this.invalidValue = false;
+      this.isShowMinimumBidValidation = false;
     }
   }
 
@@ -163,9 +166,9 @@ export class PlaceBidModalComponent implements OnInit {
       this.SignBuyerOrderModel.referalAddress = "0x0000000000000000000000000000000000000000";
     }
     else{
-      this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
       this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
     }
+    this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
 
 
 
@@ -190,6 +193,7 @@ export class PlaceBidModalComponent implements OnInit {
           isMultiple : this.items.isMultiple
         })
         .subscribe((response: any) => {
+          debugger
           if (response.isSuccess) {
             this.btnText = "Done";
             this.closeDialog();
@@ -219,10 +223,28 @@ export class PlaceBidModalComponent implements OnInit {
           "isMultiple": this.items.isMultiple
         }
         this.collectionApiService.postRequest(body,url).subscribe((res:any)=>{
-          console.log(res);
+        
+          if(res.status == 200){
+            this.btnText = "Done";
+            this.nftInteractionService.showToastr(
+              res.message,
+              res.status
+            );
+            this.closeDialog();
+
+          }else{
+            this.btnText = "Place Bid";
+            this.nftInteractionService.showToastr(
+              res.message,
+              false
+            );
+            this.btnText = "Place Bid";
+            this.invalidValue = false;
+          }
           
         },(err:any)=>{
-
+          this.btnText = "Place Bid";
+          this.invalidValue = false;
         })
       }
     } else {

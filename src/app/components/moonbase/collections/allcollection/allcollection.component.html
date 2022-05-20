@@ -1,5 +1,5 @@
 <div class="filter mt-100 mb50">
-  <div class="search-box"></div>
+  <div class="search-box desktop-only"></div>
   <div class="landing-flex pt-0 z-index-high">
     <div class="flex justify-space-between flex100 gap15 gap">
       <a class="button lg-height-button text-inherit bg-primary button mt-auto" (click)="toggle()">
@@ -33,7 +33,7 @@
         </a>
       </div> -->
 
-      <div class="flex mx-auto mw-30">
+      <div class="flex mx-auto mw-30 desktop-only">
         <div class="search-input">
           <span class="max-price">Min Price:</span>
           <input type="text" placeholder="0" [(ngModel)]="minPrice" (change)="filter()" class="form-control pr-3" />

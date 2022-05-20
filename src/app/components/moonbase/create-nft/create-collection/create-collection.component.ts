@@ -267,6 +267,7 @@ export class CreateCollectionComponent implements OnInit {
       symbol:data.symbol,
       royalties:data.royalties,
       categoryId:data.categoryId,
+      royaltiesWalletAddress: data.walletAddress,
     })
   }
 
@@ -378,7 +379,7 @@ export class CreateCollectionComponent implements OnInit {
         this.createNFT.addCollection(data).subscribe((result: any) => {
           if (result.isSuccess) {
             this.dialogRef.close();
-            this.createNFT.subject.next({ tabIndex: 1 });
+            this.createNFT.subject.next({ tabIndex: 2 });
             this._router.navigate([], {
               queryParams: {
                 collectionName: this.addCollectionForm_New.tokenName,
@@ -398,7 +399,7 @@ export class CreateCollectionComponent implements OnInit {
             this.getDataService.showToastr(res.message, res.isSuccess);
             this.isApiLoading = false;
             this.dialogRef.close();
-            this.createNFT.subject.next({ tabIndex: 1 });
+            this.createNFT.subject.next({ tabIndex: 2 });
             this._router.navigate([], {
               queryParams: {
                 collectionName: this.addCollectionForm_New.tokenName,
@@ -417,7 +418,7 @@ export class CreateCollectionComponent implements OnInit {
 
   skip(){
     this.dialogRef.close();
-    this.createNFT.subject.next({ tabIndex: 1 });
+    this.createNFT.subject.next({ tabIndex: 2 });
     this._router.navigate([], {
       queryParams: {
         collectionName: this.step01Form.value.tokenName,

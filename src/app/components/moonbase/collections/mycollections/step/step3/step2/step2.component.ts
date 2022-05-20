@@ -150,7 +150,6 @@ export class Step2Component implements OnInit {
           //  console.log(event);
            if(idx == this.selectedFiles.length -1){
             this.isApiLoading = true;
-            await this.delay(60000);
             this.toastr.success('upload completed ....');
             this.imageUploadignStatus = false;
             this.uploadBatchCnt++;
@@ -182,6 +181,6 @@ export class Step2Component implements OnInit {
   }
 
   gotoTab3(){
-    this.createNFTService.subject.next({tabIndex:2,collectionId:this.collectionId})
+    this.createNFTService.subject.next({tabIndex:3,collectionId:this.collectionId})
   }
 }

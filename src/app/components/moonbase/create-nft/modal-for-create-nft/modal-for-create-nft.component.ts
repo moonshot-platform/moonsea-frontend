@@ -83,9 +83,7 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.imageUrl
         );
       }
-      this.isApiLoading = true;
-      await this.delay(60000);
-      this.isApiLoading = false;
+     
 
       if (status?.status) {
         this.data.details.transactionHash = status.hash;
@@ -94,12 +92,15 @@ export class ModalForCreateNftComponent implements OnInit {
 
         let url = 'api/UpdateNftToken';
         this.getDataService.postRequest(url, this.data.details).subscribe(
-          (res: any) => {
+          async (res: any) => {
             console.log(res);
             if (res.status == 200) {
               this.royaltiesDetails = res.data;
-              this.getDataService.showToastr(res.message, res.isSuccess);
+              this.isApiLoading = true;
+              await this.delay(60000);
+              this.isApiLoading = false;
               this.mintStatusText = 'Done';
+              this.getDataService.showToastr(res.message, res.isSuccess);
               this.isdisabledDoneBtn = true;
               if(!this.data.details.putOnSale){
                 this.dialogRef.close();
