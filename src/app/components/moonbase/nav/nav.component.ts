@@ -8,6 +8,8 @@ import { GetDataService } from 'src/app/services/get-data.service';
 import { environment } from 'src/environments/environment';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { WalletConnectComponent } from '../wallet-connect/wallet-connect.component';
+import { TokenomicsService } from 'src/app/services/tokenomics.service';
+import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
 
 
 @Component({
@@ -51,12 +53,38 @@ export class NavComponent implements OnInit {
   dialogRef:any;
   menuItem = false;
   search = false;
+  useData: any = {};
+  userProfilePic: any;
+  active = false;
+  wallet = false;
+  activeWallet: boolean = false;
+  userBalance=0;
+  connectedAddress="";
+  BlockchainNames = {
+    0 : "BNB",
+    56 : "BNB",
+    97 : "BNB",
+    1 : "ETH",
+  }
+  netWorkId = 0;
 
-
-  constructor(private route: Router, private windowRef: WindowRefService, private cs: ContractService, private getDataService: GetDataService, private ngZone: NgZone, private dialog: MatDialog) {
+  constructor(private route: Router, private windowRef: WindowRefService, private cs: ContractService, private getDataService: GetDataService, private ngZone: NgZone, private dialog: MatDialog,
+    private tokenomicsService: TokenomicsService) {
   }
 
   ngOnInit(): void {
+
+    this.cs.getWalletObs().subscribe((data:any)=>
+    {
+      this.isConnected = this.cs.checkValidAddress(data);
+      if(this.isConnected){
+      this.connectedAddress = data;
+      this.getUserBalance();
+      } 
+    });
+
+    this.useData = JSON.parse(localStorage.getItem('userData'));
+    this.userProfilePic = this.useData.userInfo.profilePic;
 
     let that = this;
 
@@ -88,7 +116,18 @@ export class NavComponent implements OnInit {
     });
     this.checkLoggedInUser();
 
+    this.tokenomicsService.whenToggled().subscribe((state: boolean) => {
+      this.toggleTokenomicsView(state);
+    });
+
   }
+
+  async getUserBalance()
+  {
+    this.netWorkId =await this.cs.getConnectedNetworkId();
+    this.userBalance = await this.cs.getBalance();
+  }
+
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
@@ -96,6 +135,22 @@ export class NavComponent implements OnInit {
     this.searchInput.nativeElement.value = '';
   }
 
+  toggleTokenomicsView(active: boolean = false, walletActive: string = '') {
+    if (active) {
+    if (walletActive == 'wallet') {
+        this.wallet = false;
+        this.active === true ? this.active = false : this.active = true;
+      }
+      if (walletActive == 'rates') {
+        this.active = false;
+        this.wallet === true ? this.wallet = false : this.wallet = true
+      }
+    }
+    else {
+      this.active = false;
+      this.wallet = false;
+    }
+  }
 
   condition_check(){
 
@@ -319,9 +374,13 @@ export class NavComponent implements OnInit {
   }
 
   menuopen() {
+    this.activeWallet = false;
     this.menuItem = true;
   }
-  
+  walletOpen() {
+    this.activeWallet = true;
+  }
+
   searchCollection() {
     this.search = true;
   }
@@ -330,15 +389,24 @@ export class NavComponent implements OnInit {
   }
 
   closeMenu() {
+    this.activeWallet = false;
     this.menuItem = false;
   }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(WalletConnectComponent, {
       width: 'auto',
+      backdropClass: 'popupBackdropClass', 
+      hasBackdrop: false,
     });
 
     dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  connectwallet() {
+    const dialogRef = this.dialog.open(ConnectWalletPopupComponent, {
+      width: 'auto',
     });
   }
 

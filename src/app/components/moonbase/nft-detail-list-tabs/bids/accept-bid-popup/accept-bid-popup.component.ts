@@ -63,6 +63,7 @@ export class AcceptBidPopupComponent implements OnInit {
       .getNftDetails(this.contractService.userAddress, this.items.nftId)
       .subscribe((response: any) => {
         if (response.isSuccess) {
+          
           this.nftDetails = response.data;
           this.shareUrl = location.origin+'/details/'+this.nftDetails.nftId;
           this.signaturePrice = this.items.data.price;
@@ -81,6 +82,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.step = 1;
   }
   gotoNextStep(temp: number) {
+    debugger
     this.exchangeToken();
   }
 
@@ -107,8 +109,8 @@ export class AcceptBidPopupComponent implements OnInit {
     );
    
     this.exchangeTokenObj.nftTokenID =   this.nftDetails.nftId;
-    this.exchangeTokenObj.supply =  this.items.supply;
-    this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
+    this.exchangeTokenObj.supply =  this.items.data.isShowAcceptButtonForAll ? 1 : this.items.supply;
+    this.exchangeTokenObj.nftAddress =   this.items.nftDetails.nftAddress;
     this.exchangeTokenObj.signature =   sign.signature;
     this.exchangeTokenObj.ownerAddress = this.contractService.userAddress;
     this.exchangeTokenObj.isMultiple = this.nftDetails.isMultiple;
@@ -120,8 +122,12 @@ export class AcceptBidPopupComponent implements OnInit {
     this.exchangeTokenObj.royaltiesOwner =this.items.nftDetails.royaltiesOwner;
     this.exchangeTokenObj.buyerSignature = this.items.data.signature;
     this.exchangeTokenObj.salt = salt;
-    this.exchangeTokenObj.referalAddress = this.items.data.referralAddress;
+    this.exchangeTokenObj.referalAddress =   this.items.data.referralAddress;
+    this.exchangeTokenObj.buyer = this.items.data.walletAddress;
+    this.exchangeTokenObj.isMakeOffer = this.items.data.isShowAcceptButtonForAll;
 
+    debugger
+      debugger
     var status: any = await this.contractService.exchangeToken01(
       this.exchangeTokenObj);
     // console.log(status);
@@ -135,6 +141,9 @@ export class AcceptBidPopupComponent implements OnInit {
   }
 
   closeDialog() {
+    this.dialogRef.close();
+  }
+  closePopup(){
     this.dialogRef.close();
   }
 

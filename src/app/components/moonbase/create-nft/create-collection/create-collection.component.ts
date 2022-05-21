@@ -78,6 +78,8 @@ export class CreateCollectionComponent implements OnInit {
     blockchainId:null
   }
   blockchainList :any = [];
+
+
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<CreateCollectionComponent>,
@@ -104,6 +106,7 @@ export class CreateCollectionComponent implements OnInit {
     this.step01Form = this.formbuider.group({
       tokenName: ['', [Validators.required]],
       description: ['', [Validators.required]],
+      typeOfNft:['']
     });
 
     this.step02Form = this.formbuider.group({
@@ -229,20 +232,18 @@ export class CreateCollectionComponent implements OnInit {
   deletepropertysize01(lessonIndex: number) {
     this.propertysize01.removeAt(lessonIndex);
   }
-  toggleTypeOfNft(typeOfNft: any) {
-    if (typeOfNft == 'single') {
+  
+  toggleTypeOfNft() {
+    if(this.step01Form.value.typeOfNft){
       this.typeOfNft = 'multiple';
     }
-
-    if (typeOfNft == 'multiple') {
+    else{
       this.typeOfNft = 'single';
     }
+   
   }
 
-  toggleTypeOfNft01(event:any){
-    console.log(event);
-    
-  }
+ 
 
   step01PatchValue(data:any){
     this.step01Form.patchValue({

@@ -30,6 +30,8 @@ export class exchangeToken {
   tokenAddress: any;
   buyerSignature: any;
   total: any;
+  buyer :string;
+  isMakeOffer : boolean = false;
 }
 
 export class SignSellOrder {

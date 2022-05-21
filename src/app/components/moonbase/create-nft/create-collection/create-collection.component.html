@@ -45,11 +45,11 @@
                 <p>Single</p>
                 <label class="switch">
                   <input
-                    #nftDrop
-                    (change)="toggleTypeOfNft(nftDrop.value)"
                     class="switch__input"
                     type="checkbox"
-                    checked="checked"
+                    formControlName="typeOfNft"
+                    (change)="toggleTypeOfNft()"
+                    [attr.disabled]="collectionId ? true : null"
                   />
                   <span class="switch__inner"
                     ><span class="switch__box"></span

@@ -9,10 +9,10 @@
         "WETH":"",
         "nfterc721":"0x7e8f68EFf4ED2CC68fb0C0EBF5bBC22e021c072b", 
         "nfterc1155":"0xf0DA4514B929F943CaBED5bCdf04fCBa29d34DD3",
-        "exchangeAddress":"0x560DF8dF8988A97Ba4719A1BEe9Bcb38A5A1ff2F",
-        "transferProxy":"0x5528AFd8A6FD466295efF1cEE3B257358f038049",
-        "erc20TransferProxy" : "0x5a6a23Cd71f3C6f43208E594467f94114CD21A31",
-        "transferProxyD":"0xbF878B186Ebe69cC097f269C8a1A0104bDE75Cc5"
+        "exchangeAddress":"0x561267DdCDB131d3a5C44255adfCd85F16096962",
+        "transferProxy":"0x75C10826575648daaF3be2ce5D45856F7bb95f3E",
+        "erc20TransferProxy" : "0x6183592dc93053Fc619f15C454648Be8B0DcFDDD",
+        "transferProxyD":"0xF5699488b9493A997E807616269DE69A2Fc2e80F"
     },
     {
         "chainId":"3",

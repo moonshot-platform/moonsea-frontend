@@ -46,7 +46,9 @@ export class AddInListingComponent implements OnInit {
     });
     this.checkNetwork();
     
-   
+    this.createNftForm.patchValue({
+      currencyId:this.data.blockchainId
+    });
    
   }
 

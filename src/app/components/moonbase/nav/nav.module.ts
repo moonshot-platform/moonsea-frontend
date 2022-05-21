@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatDialogModule,
     ReactiveFormsModule,
+    LazyLoadImageModule,
     UiSwitchModule.forRoot({
       color: 'rgb(0, 189, 99)',
       switchColor: 'black',

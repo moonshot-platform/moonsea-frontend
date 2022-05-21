@@ -56,10 +56,8 @@
               <div class="field">
                 <div class="field__label">Currency</div>
                 <div class="field__wrap">
-                  <select nice-select class="select" formControlName="currencyId" #currencyId>
-                              
+                  <select nice-select class="select" formControlName="currencyId" [disabled]="true" #currencyId>
                     <option *ngFor="let itemcur of currencyList;" [value]="itemcur.id">
-                      
                       {{itemcur.name}}
                     </option>  
                   </select>

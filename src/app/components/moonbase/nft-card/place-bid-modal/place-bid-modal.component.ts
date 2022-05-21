@@ -52,7 +52,7 @@ export class PlaceBidModalComponent implements OnInit {
   async checkNetwork() {
     debugger
     let checkNetwork: boolean = await this.contractService.createContract(
-      this.items.blockchainId
+      this.items.listing.blockchainId
     );
     // console.log(checkNetwork);
     
@@ -68,7 +68,7 @@ export class PlaceBidModalComponent implements OnInit {
   async getAccount() {
     debugger;
     this.balanceDetailsToken = await this.contractService.getTokenBalance(
-      this.items.contractAddress
+      this.items.listing.contractAddress
     );
     debugger;
     this.balanceInBNB =
@@ -79,7 +79,7 @@ export class PlaceBidModalComponent implements OnInit {
           ).toFixed(4)
         : "0";
         debugger
-    this.price = this.items.price / this.items.supply;
+    this.price = this.items.listing.price / this.items.listing.supply;
     this.invalidValue = false;
 
     console.log(this.balanceInBNB);
@@ -120,7 +120,7 @@ export class PlaceBidModalComponent implements OnInit {
     if (this.checkBalance(amount)) {
       try {
         let allowance: any = await this.contractService.checkAllowance(
-          this.items.contractAddress,
+          this.items.listing.contractAddress,
           amount
         );
         if (allowance.status && allowance.allowance) {
@@ -130,7 +130,7 @@ export class PlaceBidModalComponent implements OnInit {
         
           let allowToken: any = await this.contractService.approveToken(
             amount,
-            this.items.contractAddress
+            this.items.listing.contractAddress
           );
          
           if (allowToken.status) {
@@ -152,23 +152,22 @@ export class PlaceBidModalComponent implements OnInit {
     this.btnText = "Waiting for signature";
     this.SignBuyerOrderModel.salt = salt;
     this.SignBuyerOrderModel.amount = amount;
-    this.SignBuyerOrderModel.nftTokenID = this.items.nftTokenID;
+    this.SignBuyerOrderModel.nftTokenID = this.items.listing.nftTokenID;
     this.SignBuyerOrderModel.supply = 1;
-    this.SignBuyerOrderModel.nftAddress = this.items.nftAddress;
-    this.SignBuyerOrderModel.isMultiple =  this.items.isMultiple;
-    this.SignBuyerOrderModel.ownerAddress = this.items.ownerAddress;
-    this.SignBuyerOrderModel.royalties =  this.items.royalties;
-    // this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
-    this.SignBuyerOrderModel.contractAddress = this.items.contractAddress;
-    // this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
-    if(this.items.btnType == 'offer'){
-      this.SignBuyerOrderModel.royaltiesOwner = "0x0000000000000000000000000000000000000000";
+    this.SignBuyerOrderModel.nftAddress = this.items.listing.nftAddress;
+    this.SignBuyerOrderModel.isMultiple =  this.items.listing.isMultiple;
+    this.SignBuyerOrderModel.ownerAddress = this.items.listing.ownerAddress;
+    this.SignBuyerOrderModel.royalties =  (this.items.listing.royalties==0 || this.items.listing.royalties==null) ? (this.items.data.royalties ?? 0) : this.items.listing.royalties;
+    // this.SignBuyerOrderModel.royaltiesOwner = this.items.listing.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
+    this.SignBuyerOrderModel.contractAddress = this.items.listing.contractAddress;
+    // this.SignBuyerOrderModel.referalAddress =  this.items.listing.referalAddress ?? "0x0000000000000000000000000000000000000000";
+    if(this.items.listing.btnType == 'offer'){
       this.SignBuyerOrderModel.referalAddress = "0x0000000000000000000000000000000000000000";
     }
     else{
-      this.SignBuyerOrderModel.referalAddress =  this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
+      this.SignBuyerOrderModel.referalAddress =  this.items.listing.referalAddress ?? "0x0000000000000000000000000000000000000000";
     }
-    this.SignBuyerOrderModel.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
+    this.SignBuyerOrderModel.royaltiesOwner = this.items.listing.royaltiesOwner ?? this.items.data.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
 
 
 
@@ -177,20 +176,20 @@ export class PlaceBidModalComponent implements OnInit {
       debugger
     if (signature.status) {
       this.btnText = "Submitting data...";
-      if(this.items.btnType != 'offer'){
+      if(this.items.listing.btnType != 'offer'){
         this.nftInteractionService.placeBid({
-          nftId: this.items.nftTokenID,
+          nftId: this.items.listing.nftTokenID,
           price: amount,
           walletAddress: this.contractService.userAddress,
           signature: signature.signature,
           currency: 1,
           quantity: 1,
           supply:1,
-          listingId: this.items.listingId.toString(),
+          listingId: this.items.listing.listingId.toString(),
           salt: salt,
-          nftAddress : this.items.nftAddress,
-          tokenAddress : this.items.contractAddress,
-          isMultiple : this.items.isMultiple
+          nftAddress : this.items.listing.nftAddress,
+          tokenAddress : this.items.listing.contractAddress,
+          isMultiple : this.items.listing.isMultiple
         })
         .subscribe((response: any) => {
           debugger
@@ -209,18 +208,18 @@ export class PlaceBidModalComponent implements OnInit {
       else{
         let url ='api/placeBidAll';
         let body = {
-          "nftId": this.items.nftTokenID,
+          "nftId": this.items.listing.nftTokenID,
           "price": amount,
           "walletAddress": this.contractService.userAddress,
           "signature": signature.signature,
           "currency": 1,
           "quantity": 1,
           "supply": 1,
-          "listingId": this.items.listingId.toString(),
+          "listingId": this.items.listing.listingId.toString(),
           "salt": salt,
-          "nftAddress": this.items.nftAddress,
-          "tokenAddress": this.items.contractAddress,
-          "isMultiple": this.items.isMultiple
+          "nftAddress": this.items.listing.nftAddress,
+          "tokenAddress": this.items.listing.contractAddress,
+          "isMultiple": this.items.listing.isMultiple
         }
         this.collectionApiService.postRequest(body,url).subscribe((res:any)=>{
         

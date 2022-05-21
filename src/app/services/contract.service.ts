@@ -698,7 +698,7 @@ debugger
     }
     var spliSignBuyer = ethers.utils.splitSignature(exchangeToken.buyerSignature);
 
-    let Order = [
+    let SellOrder = [
       [
         exchangeToken.ownerAddress,//owner
         exchangeToken.salt,//salt
@@ -722,15 +722,41 @@ debugger
       params2,//buying
       this.pricingDetails.serviceFees * 100//sellerFee
     ];
+
+
+    let BuyOrder = [
+      [
+        exchangeToken.ownerAddress,//owner
+        exchangeToken.salt,//salt
+        [
+          exchangeToken.nftAddress,//sellAsset.token
+          (exchangeToken.nftTokenID).toString(),//sellAsset.tokenId
+          exchangeToken.isMultiple ? 2 : 3 //sellAsset.assetType
+        ],
+        [
+          exchangeToken.tokenAddress,//buyAsset.token
+          '0',//buyAsset.tokenId
+          ((exchangeToken.tokenAddress == '0x0000000000000000000000000000000000000000') ? 0 : 1)//buyAsset.assetType
+        ],
+        [
+          exchangeToken.royaltiesOwner,
+          exchangeToken.royalties * 100
+        ],
+        exchangeToken.isMakeOffer ? "0x0000000000000000000000000000000000000000" : exchangeToken.referalAddress
+      ],
+      exchangeToken.supply,//selling
+      params2,//buying
+      this.pricingDetails.serviceFees * 100//sellerFee
+    ];
     try {
-      var promise = await this.exchangeAbiContract.exchange(Order,
+      var promise = await this.exchangeAbiContract.exchange(SellOrder,
         [
           spliSign.v,
           spliSign.r,
           spliSign.s
         ],
         [
-          Order,
+          BuyOrder,
           priceB,
           exchangeToken.quantity
         ],//Buy Order
@@ -739,7 +765,7 @@ debugger
           spliSignBuyer.r,
           spliSignBuyer.s
         ],
-        this.userAddress,//buyer
+        exchangeToken.buyer ?? this.userAddress,//buyer
         {
           value: ((exchangeToken.tokenAddress == '0x0000000000000000000000000000000000000000')) ? priceB : 0
         })

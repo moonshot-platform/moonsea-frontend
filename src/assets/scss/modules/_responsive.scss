@@ -33,6 +33,7 @@
     padding-top: 0px;
   }
   .landing-flex {
+    padding-bottom: 5rem;
     padding-left: 1rem;
     padding-right: 1rem;
     width: 100%;
@@ -107,6 +108,7 @@
       padding-right: 1rem;
       width: 100%;
       margin: 0;
+      padding-bottom: 5rem;
     }
 
     .artist {
@@ -116,8 +118,40 @@
       .px-5 {
         padding: 0 !important;
       }
+      .swiper {
+        padding-top: 60px !important;
+        .swiper-button-prev {
+          top: 25px;
+          left: auto;
+        }
+        .swiper-button-next {
+          top: 25px;
+        }
+      }
     }
   }
+
+  app-user-profile {
+    .profile {
+      .border-right {
+        border-right: 0;
+      }
+      .share-btn {
+        display: flex !important;
+        align-items: center;
+      }
+    }
+    .filter {
+      margin-top: 1.5rem;
+    }
+    #profileTabs {
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
   .footer_menu {
     bottom: 0;
     height: 40px;
@@ -210,4 +244,20 @@
   .discover .card:nth-child(even) {
     margin-right: 0;
   }
+  .uploadProfilePic {
+    margin: auto;
+  }
+  .wrap-xs {
+    flex-wrap: wrap;
+    display: flex;
+    gap: 30px;
+  }
+  .flex.row-wrap {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+  .import {
+    height: auto;
+    line-height: 25px;
+  } 
 }
