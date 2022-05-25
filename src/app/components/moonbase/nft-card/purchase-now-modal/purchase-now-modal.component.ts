@@ -135,7 +135,7 @@ export class PurchaseNowModalComponent implements OnInit {
     this.exchangeTokenObj.referalAddress = this.items.referalAddress;
     
     debugger
-    var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj);
+    var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {
       this.txnConfirmation = "Waiting for transaction confirmation";

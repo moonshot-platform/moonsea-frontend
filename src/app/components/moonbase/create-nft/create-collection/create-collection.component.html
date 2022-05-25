@@ -58,22 +58,9 @@
                 <p class="ml20">Multiple</p>
               </div>
               <div class="popup__field mb20">
-                <!-- <h4>Type of nft: <a (click)="toggleTypeOfNft(typeOfNft)">{{typeOfNft | titlecase }}</a></h4> -->
-                <!-- <div>Type of nft: <button type="button" class="button wp100" (click)="toggleTypeOfNft(typeOfNft)">{{typeOfNft | titlecase }}</button></div> -->
-                <!-- <div>
-                <select
-                  nice-select
-                  class="select wp100"
-                  #nftDrop
-                  (change)="toggleTypeOfNft(nftDrop.value)"
-                  [disabled]="collectionId"
-                >
-                  <option value="single">Single</option>
-                  <option value="multiple">Multiple</option>
-                </select>
-              </div> -->
+                
 
-                <div class="upload__item" [n]>
+                <div class="upload__item" >
                   <div class="popup__col mb10 p16">
                     Upload a collection avatar
                   </div>
@@ -86,6 +73,7 @@
                       border: imageErrorMsg ? '1px solid #ff0000' : ''
                     }"
                   >
+                 
                     <input
                       class="upload__input"
                       (change)="onLogoFile($event)"
@@ -480,6 +468,29 @@
                   class="p12 w-normal mt10 mb10 error"
                 >
                   Royalties receiving address required
+                </div>
+              </div>
+              <div class="popup__field mb20" *ngIf="typeOfNft == 'multiple'">
+                <div class="popup__col mb10 p12">
+                  No of copies
+                </div>
+                <div class="field__wrap">
+                  <input
+                    class="popup__input"
+                    formControlName="numberOfCopies"
+                    name="numberOfCopies"
+                    type="text"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    step03FormControls.numberOfCopies.invalid &&
+                    (step03FormControls.numberOfCopies.touched ||
+                      step03.submitted)
+                  "
+                  class="p12 w-normal mt10 mb10 error"
+                >
+                  numberOfCopies required
                 </div>
               </div>
             </div>

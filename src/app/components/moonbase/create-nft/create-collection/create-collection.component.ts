@@ -126,7 +126,8 @@ export class CreateCollectionComponent implements OnInit {
       ],
       categoryId: ['1', [Validators.required]],
       royaltiesWalletAddress:['',[Validators.required]],
-      blockchainId:['1']
+      blockchainId:['1'],
+      numberOfCopies:[1]
     });
 
 
@@ -236,9 +237,13 @@ export class CreateCollectionComponent implements OnInit {
   toggleTypeOfNft() {
     if(this.step01Form.value.typeOfNft){
       this.typeOfNft = 'multiple';
+      this.step03Form.get('numberOfCopies').setValidators([Validators.required]);
     }
     else{
       this.typeOfNft = 'single';
+      this.step03Form.get('numberOfCopies').clearValidators();
+      this.step03Form.get('numberOfCopies').updateValueAndValidity();
+
     }
    
   }
@@ -269,6 +274,7 @@ export class CreateCollectionComponent implements OnInit {
       royalties:data.royalties,
       categoryId:data.categoryId,
       royaltiesWalletAddress: data.walletAddress,
+      numberOfCopies:data.numberOfCopies
     })
   }
 
@@ -331,6 +337,7 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.categoryId = this.step03Form.value.categoryId;
       this.addCollectionForm_New.royaltiesWalletAddress = this.step03Form.value.royaltiesWalletAddress;
       this.addCollectionForm_New.blockchainId = this.step03Form.value.blockchainId;
+      this.addCollectionForm_New.numberOfCopies = this.step03Form.value.numberOfCopies;
   
       this.collectionDetailsFunc();
     }
@@ -357,7 +364,8 @@ export class CreateCollectionComponent implements OnInit {
         this.step04Form.controls.endDate.value,
         'yyyy-MM-ddTHH:mm:ss'
       );
-      this.addCollectionForm_New.nftAddress = this.typeOfNft == 'single' ? this.cs.nft721Address : this.cs.nft1155Address;
+      debugger
+      this.addCollectionForm_New.nftAddress = this.typeOfNft == 'single' ? this.cs.getAddressSingle(this.addCollectionForm_New.blockchainId) : this.cs.getAddressMultiple(this.addCollectionForm_New.blockchainId);
       this.addCollectionForm_New.isMultiple = this.typeOfNft == 'single' ? 'false' : 'true';
       this.addCollectionForm_New.fileUrl =  this.imagePath;
       this.addCollectionForm_New.nftId =  this.data.ID;
@@ -434,6 +442,7 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   onLogoFile(event: any) {
+    this.imagePath = '';
     this.imageErrorMsg = false;
     const file: File = event.target.files[0];
     debugger

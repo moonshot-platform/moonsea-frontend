@@ -6,7 +6,7 @@
     {
         "chainId":"97",
         "ETH":"",
-        "WETH":"",
+        "WETH":"0x5a57A7fd963154543873E4E396E66959E6f626d5",
         "nfterc721":"0x7e8f68EFf4ED2CC68fb0C0EBF5bBC22e021c072b", 
         "nfterc1155":"0xf0DA4514B929F943CaBED5bCdf04fCBa29d34DD3",
         "exchangeAddress":"0x561267DdCDB131d3a5C44255adfCd85F16096962",
@@ -17,22 +17,24 @@
     {
         "chainId":"3",
         "ETH":"",
-        "WETH":"",
+        "WETH":"0x88B03cF84034A68Aae90174aA10E49e2D2FC14F8",
         "nfterc721":"0xbEC98Ad2C0bF42f0e96ffdAcF82bAa9575430bBF",
         "nfterc1155":"0x3DF430F3E4271ab2C2244C1d916C73d274d27Bd3",
-        "exchangeAddress":"0x3363099737faDAe1268060cB847eF0a7a234a869",
-        "transferProxy":"0x9340fB235528ef1aBeb86C7420A623a0441a60FD",
-        "erc20TransferProxy" : "0xD9a1DFbf67ddC322035fD1B595E6D3B258198Bb8",
-        "transferProxyD":"0x9dFE474b4b366E108d4351d7204D164468Ed8FE7"
+        "exchangeAddress":"0x00751ea296009c9e08508419fE210Ba4b7daE468",
+        "transferProxy":"0x247E874232d73fD815fb2717C68DC3f015bAf9b5",
+        "erc20TransferProxy" : "0x6Aeaa4D2302E5123FaCB38ACB16c67b76534f837",
+        "transferProxyD":"0xD2EDe9C5Cc0d2A9226cD95446568165d61017573"
     },
     {
-        "chainId":"1281",
+        "chainId":"80001",
         "ETH":"",
         "WETH":"",
-        "nfterc721":"",
-        "nfterc1155":"",
-        "exchangeAddress":"",
-        "transferProxy":""
+        "nfterc721":"0xf0307DB80662622e468109dB3BdfE6689044C669",
+        "nfterc1155":"0x5DaDB19096dDe9CEAd5156575bf5fe2C3E7ae8AB",
+        "exchangeAddress":"0xFBaEAf1bA0ddF40DA6b828deDDD4c7E0D071c332",
+        "transferProxy":"0xbbF21272ED061c1A8e3CFE1ebE9B4A761743ea58",
+        "erc20TransferProxy" : "0xd2A17543E1cC34Bdf9C2cCF08F445eedD13a518c",
+        "transferProxyD":"0x2781e305aa0A786dE5e9a8d1329F5Ea6a4060F6B"
     }
 ],
 "mainnet":[

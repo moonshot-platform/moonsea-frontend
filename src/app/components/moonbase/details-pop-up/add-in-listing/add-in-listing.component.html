@@ -56,7 +56,7 @@
               <div class="field">
                 <div class="field__label">Currency</div>
                 <div class="field__wrap">
-                  <select nice-select class="select" formControlName="currencyId" [disabled]="true" #currencyId>
+                  <select nice-select class="select" formControlName="currencyId" [attr.disabled]="true" #currencyId>
                     <option *ngFor="let itemcur of currencyList;" [value]="itemcur.id">
                       {{itemcur.name}}
                     </option>  
@@ -68,7 +68,7 @@
           </div>
 
           <div class="popup__btns">
-            <button class="button popup__button js-popup-close" type="submit">Add now
+            <button class="button popup__button js-popup-close" type="submit">{{btnText}}
               <div class="loader text-white" *ngIf="isApiLoading"></div>
             </button>
             <button class="button" (click)="onNoClick()" class="button-stroke popup__button js-popup-close">Cancel</button>

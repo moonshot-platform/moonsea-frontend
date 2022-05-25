@@ -25,12 +25,16 @@ export class PlaceBidModalComponent implements OnInit {
   wrongNetwork: boolean = false;
   step = 0;
   isShowMinimumBidValidation:boolean;
+  bidAmont:any;
+
+
 
   public SignBuyerOrderModel: SignBuyerOrder = new SignBuyerOrder();
 
 
 
   balanceDetailsToken!: { balance: any; status: boolean; decimals: any };
+  tokenAddress: any;
 
   constructor(
     private contractService: ContractService,
@@ -66,11 +70,10 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async getAccount() {
-    debugger;
+    this.tokenAddress =  this.contractService.getAddressWeth(this.items.listing.blockchainId);
     this.balanceDetailsToken = await this.contractService.getTokenBalance(
-      this.items.listing.contractAddress
+      this.tokenAddress
     );
-    debugger;
     this.balanceInBNB =
       this.balanceDetailsToken.balance > 0
         ? (
@@ -91,6 +94,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   validatePrice(event: any) {
+    this.bidAmont = event.target.value;
     debugger
     if (this.price > event.target.value) {
       this.invalidValue = true;
@@ -114,13 +118,13 @@ export class PlaceBidModalComponent implements OnInit {
     }
     return false;
   }
-
   async approveToken(amount: any) {
     debugger
+   
     if (this.checkBalance(amount)) {
       try {
         let allowance: any = await this.contractService.checkAllowance(
-          this.items.listing.contractAddress,
+          this.tokenAddress,
           amount
         );
         if (allowance.status && allowance.allowance) {
@@ -130,7 +134,7 @@ export class PlaceBidModalComponent implements OnInit {
         
           let allowToken: any = await this.contractService.approveToken(
             amount,
-            this.items.listing.contractAddress
+            this.tokenAddress
           );
          
           if (allowToken.status) {
@@ -159,9 +163,10 @@ export class PlaceBidModalComponent implements OnInit {
     this.SignBuyerOrderModel.ownerAddress = this.items.listing.ownerAddress;
     this.SignBuyerOrderModel.royalties =  (this.items.listing.royalties==0 || this.items.listing.royalties==null) ? (this.items.data.royalties ?? 0) : this.items.listing.royalties;
     // this.SignBuyerOrderModel.royaltiesOwner = this.items.listing.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
-    this.SignBuyerOrderModel.contractAddress = this.items.listing.contractAddress;
+    this.SignBuyerOrderModel.contractAddress = this.tokenAddress;
     // this.SignBuyerOrderModel.referalAddress =  this.items.listing.referalAddress ?? "0x0000000000000000000000000000000000000000";
     if(this.items.listing.btnType == 'offer'){
+      this.SignBuyerOrderModel.ownerAddress = "0x0000000000000000000000000000000000000000";
       this.SignBuyerOrderModel.referalAddress = "0x0000000000000000000000000000000000000000";
     }
     else{
@@ -188,7 +193,7 @@ export class PlaceBidModalComponent implements OnInit {
           listingId: this.items.listing.listingId.toString(),
           salt: salt,
           nftAddress : this.items.listing.nftAddress,
-          tokenAddress : this.items.listing.contractAddress,
+          tokenAddress : this.tokenAddress,
           isMultiple : this.items.listing.isMultiple
         })
         .subscribe((response: any) => {
@@ -218,7 +223,7 @@ export class PlaceBidModalComponent implements OnInit {
           "listingId": this.items.listing.listingId.toString(),
           "salt": salt,
           "nftAddress": this.items.listing.nftAddress,
-          "tokenAddress": this.items.listing.contractAddress,
+          "tokenAddress": this.tokenAddress,
           "isMultiple": this.items.listing.isMultiple
         }
         this.collectionApiService.postRequest(body,url).subscribe((res:any)=>{
