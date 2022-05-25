@@ -76,6 +76,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
     });
 
     if (this.data) {
+      debugger
       this.addEditNft.patchValue({
         title: this.data.title,
         nftDefaultDescription: this.data.description,

@@ -10,13 +10,12 @@
 <button
   *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress && (typeOfSale == 2 || typeOfSale == 3 )"
   class="button wp100"
-  (click)="openDialog('bid')"
->
+  (click)="openDialog('bid')" >
   Place a bid
 </button>
 
 <button
-  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress"
+  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress && !(typeOfSale == 2 || typeOfSale == 3 )"
   class="button wp100 mt10"
   (click)="openDialog('offer')">
   Make Offer

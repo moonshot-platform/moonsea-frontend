@@ -59,15 +59,28 @@ export class AcceptBidPopupComponent implements OnInit {
   async getNftDetails() {
     var balance = await this.contractService.getBalance();
     this.balanceInBNB = balance > 0 ? Number((balance / 1e18).toFixed(4)) : 0;
+    if(this.items.data.isShowAcceptButtonForAll){
+      this.shareUrl = location.origin+'/details/'+this.items.nftId;
+          this.signaturePrice = this.items.data.price;
+          this.price = (
+            Number(this.signaturePrice) / Number(1)
+          ).toFixed(4);
+          this.serviceFees = (this.nftDetails.serviceFee * this.price) / 100;
+          this.total = (Number(this.price) - Number(this.serviceFees)).toFixed(
+            4
+          );
+    }
+    else{
     this.nftInteractionService
       .getNftDetails(this.contractService.userAddress, this.items.nftId)
       .subscribe((response: any) => {
         if (response.isSuccess) {
+          
           this.nftDetails = response.data;
           this.shareUrl = location.origin+'/details/'+this.nftDetails.nftId;
           this.signaturePrice = this.items.data.price;
           this.price = (
-            Number(this.signaturePrice) / Number(this.nftDetails.supply)
+            Number(this.signaturePrice) / Number( this.nftDetails.supply)
           ).toFixed(4);
           this.serviceFees = (this.nftDetails.serviceFee * this.price) / 100;
           this.total = (Number(this.price) - Number(this.serviceFees)).toFixed(
@@ -75,12 +88,14 @@ export class AcceptBidPopupComponent implements OnInit {
           );
         }
       });
+    }
   }
 
   nextStep() {
     this.step = 1;
   }
   gotoNextStep(temp: number) {
+    debugger
     this.exchangeToken();
   }
 
@@ -88,11 +103,11 @@ export class AcceptBidPopupComponent implements OnInit {
 
  
     let salt = this.items.data.salt;
-    this.signSellOrder.nftId =  this.nftDetails.nftId,
+    this.signSellOrder.nftId =  this.items.nftId,
     this.signSellOrder.price =   this.items.data.price,
     this.signSellOrder.quantity =  this.items.data.quantity,
-    this.signSellOrder.nftAddress =   this.nftDetails.nftAddress,
-    this.signSellOrder.isMultiple = this.nftDetails.isMultiple,
+    this.signSellOrder.nftAddress =   this.items.nftDetails.nftAddress,
+    this.signSellOrder.isMultiple = this.items.nftDetails.isMultiple,
     this.signSellOrder.salt = salt
     this.signSellOrder.royalties =  this.items.nftDetails.royalties,
     this.signSellOrder.royaltiesOwner = this.items.nftDetails.royaltiesOwner,
@@ -105,13 +120,13 @@ export class AcceptBidPopupComponent implements OnInit {
     let sign = await this.contractService.signSellOrder01(
       this.signSellOrder
     );
-   
+   debugger
     this.exchangeTokenObj.nftTokenID =   this.nftDetails.nftId;
-    this.exchangeTokenObj.supply =  this.items.supply;
-    this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
+    this.exchangeTokenObj.supply =  this.items.data.isShowAcceptButtonForAll ? 1 : this.items.data.supply;
+    this.exchangeTokenObj.nftAddress =   this.items.nftDetails.nftAddress;
     this.exchangeTokenObj.signature =   sign.signature;
     this.exchangeTokenObj.ownerAddress = this.contractService.userAddress;
-    this.exchangeTokenObj.isMultiple = this.nftDetails.isMultiple;
+    this.exchangeTokenObj.isMultiple = this.items.nftDetails.isMultiple;
     this.exchangeTokenObj.total = this.total;
     this.exchangeTokenObj.signaturePrice = this.signaturePrice;
     this.exchangeTokenObj.quantity = this.items.data.quantity,
@@ -120,13 +135,24 @@ export class AcceptBidPopupComponent implements OnInit {
     this.exchangeTokenObj.royaltiesOwner =this.items.nftDetails.royaltiesOwner;
     this.exchangeTokenObj.buyerSignature = this.items.data.signature;
     this.exchangeTokenObj.salt = salt;
-    this.exchangeTokenObj.referalAddress = this.items.data.referralAddress;
+    this.exchangeTokenObj.referalAddress =   this.items.data.referralAddress;
+    this.exchangeTokenObj.buyer = this.items.data.walletAddress;
+    this.exchangeTokenObj.isMakeOffer = this.items.data.isShowAcceptButtonForAll;
 
+    var a:any =await this.contractService.isApprovedForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId);
+    if(a.status==true && a.hash==false){
+      let tx:any = await this.contractService.setApprovalForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId);
+      await tx.hash.wait(1);
+    }
+    debugger
+      
     var status: any = await this.contractService.exchangeToken01(
-      this.exchangeTokenObj);
+      this.exchangeTokenObj,
+      this.items.nftDetails.blockchainId);
     // console.log(status);
 
     if (status.status) {
+      this.step = 2;
       await status.hash.wait(5);
       this.txnHash = status.hash.hash;
       this.step = 3;
@@ -135,6 +161,9 @@ export class AcceptBidPopupComponent implements OnInit {
   }
 
   closeDialog() {
+    this.dialogRef.close();
+  }
+  closePopup(){
     this.dialogRef.close();
   }
 

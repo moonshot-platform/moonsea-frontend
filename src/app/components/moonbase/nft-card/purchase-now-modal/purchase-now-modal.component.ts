@@ -33,6 +33,7 @@ export class PurchaseNowModalComponent implements OnInit {
 
 
    exchangeTokenObj:exchangeToken =  new exchangeToken();
+   isBouthSuccessfully:boolean;
 
 
   constructor(private contractService: ContractService, @Inject(MAT_DIALOG_DATA) public items: any,
@@ -132,28 +133,31 @@ export class PurchaseNowModalComponent implements OnInit {
     this.exchangeTokenObj.buyerSignature = '-1' 
     this.exchangeTokenObj.salt = this.items.salt;
     this.exchangeTokenObj.referalAddress = this.items.referalAddress;
+    
     debugger
-    var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj);
+    var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {
       this.txnConfirmation = "Waiting for transaction confirmation";
       let data = await status.hash.wait(20);
       this.step = 3;
       this.txnData = status.hash.hash;
-      {
-
-      }
       this.toastr.success("Bought successfully");
+      this.isBouthSuccessfully = true;
+     
     }
     else {
-
+      this.isBouthSuccessfully = false;
       this.step = 1;
     }
   }
 
   closeDialog() {
     this.dialogRef.close();
-    location.reload();
+    if(this.isBouthSuccessfully){
+      location.reload();
+    }
+   
   }
   gotoTestNetBscScan(txnHash: any) {
     let url = environment.bscTestnetScan + txnHash;

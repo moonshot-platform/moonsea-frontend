@@ -17,6 +17,7 @@ export class PlaceBidComponent implements OnInit {
   @Input() fromPage=0;
   @Input() blockchainId=1;
   @Input() typeOfSale:any;
+  @Input() data:any;
   connectedAddress: any;
 
   constructor(public dialog: MatDialog,private contractService:ContractService) { }
@@ -39,11 +40,14 @@ export class PlaceBidComponent implements OnInit {
         this.connectWallet();
         return false;
     }
-    debugger
+    
     this.dialog.open(PlaceBidModalComponent, {
       width: 'auto',
-      data: this.items
-    });
+      data: {
+        listing : this.items,
+        data : this.data
+      }
+        });
     return false;
   }
 

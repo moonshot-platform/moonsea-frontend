@@ -71,7 +71,6 @@
             <!-- <div *ngIf="isShowMatspinner == 'show'">
               <mat-spinner></mat-spinner>
             </div> -->
-            
           </div>
           <div *ngIf="showerrormsg == 'show'">
             Something wrong with the image..
@@ -85,8 +84,10 @@
             <p class="orbitron p18"><span>Uploaded batches</span></p>
           </div>
           <div
-            class="flex align-center justify-space-between pb30 pt30 border-bottom" *ngIf="uploadBatchCnt >=1">
-            <div class="batch_uploaded flex align-center" >
+            class="flex align-center justify-space-between pb30 pt30 border-bottom"
+            *ngIf="uploadBatchCnt >= 1"
+          >
+            <div class="batch_uploaded flex align-center">
               <img
                 alt="NFT preview"
                 src="https://moonboxes.io/assets/media/images/astro_painter.svg"
@@ -103,12 +104,21 @@
                 alt="NFT preview"
                 src="https://moonboxes.io/assets/media/images/astro_painter.svg"
               />
-              <p class="orbitron p16 ml20" >
-                <span>{{uploadBatchCnt}} batch has been {{imageUploadignStatus ? 'uploadeding' : 'uploaded succesfully'}} </span>
+              <p class="orbitron p16 ml20">
+                <span
+                  >{{ uploadBatchCnt }} batch has been
+                  {{
+                    imageUploadignStatus
+                      ? "uploadeding"
+                      : "uploaded succesfully"
+                  }}
+                </span>
               </p>
             </div>
 
-            <p class="w-normal" *ngIf="selectedFiles"><span>{{selectedFiles.length}} items</span></p>
+            <p class="w-normal" *ngIf="selectedFiles">
+              <span>{{ selectedFiles.length }} items</span>
+            </p>
           </div>
         </div>
       </div>
@@ -144,13 +154,22 @@
               <div class="text-center">
                 <div class="mb20">
                   <p class="orbitron user__name text-primary">
-                    {{collectionDetails.tokenName}}
+                    {{ collectionDetails.tokenName }}
                   </p>
-                  <p class="w-normal text-primary">by {{collectionDetails?.walletAddress?.slice(0,5)}}...{{collectionDetails?.walletAddress?.slice(collectionDetails?.walletAddress?.length-5,collectionDetails?.walletAddress?.length)}}</p>
+                  <p class="w-normal text-primary">
+                    by {{ collectionDetails?.walletAddress?.slice(0, 5) }}...{{
+                      collectionDetails?.walletAddress?.slice(
+                        collectionDetails?.walletAddress?.length - 5,
+                        collectionDetails?.walletAddress?.length
+                      )
+                    }}
+                  </p>
                 </div>
                 <div>
                   <p class="w-normal text-primary">Number of NFTs:</p>
-                  <p class="w-normal text-primary">{{collectionDetails.noOfnft}} items</p>
+                  <p class="w-normal text-primary">
+                    {{ collectionDetails.noOfnft }} items
+                  </p>
                 </div>
               </div>
             </div>
@@ -158,55 +177,81 @@
         </div>
 
         <div class="mt-50">
-          <button class="button bg-primary wp100" [disabled]="imDoneUploadingButton" (click)="gotoTab3()">
-            I'm done uploading  <div class="loader text-white" *ngIf="isApiLoading"></div>
+          <button
+            class="button bg-primary wp100"
+            [disabled]="imDoneUploadingButton"
+            (click)="gotoTab3()"
+          >
+            I'm done uploading
+            <div class="loader text-white" *ngIf="isApiLoading"></div>
           </button>
         </div>
       </div>
     </div>
 
     <section class="pt50">
-      <div class="flex align-center justify-space-between pb20" *ngIf="progressInfos.length >0">
+      <div
+        class="flex align-center justify-space-between pb20"
+        *ngIf="progressInfos.length > 0"
+      >
         <p class="orbitron p18"><span>NFT upload in progress</span></p>
       </div>
 
       <div>
-      <!-- <div class="flex gap flex-wrap-123"> -->
+        <!-- <div class="flex gap flex-wrap-123"> -->
         <div>
           <div class="table-responsive">
             <div class="wp100 text-right">
-             <div class="grid grid-3">
-              <div class="border-bottom-thead flex justify-space-between pb10 slice" *ngFor="let uploadlit of progressInfos | slice:0:3">
-                <div class="text-left">#</div>
-                <div class="text-left">NFT</div>
-                <div class="text-right">Progress</div>
+              <div class="grid grid-3">
+                <div
+                  class="border-bottom-thead flex justify-space-between pb10 slice"
+                  *ngFor="let uploadlit of progressInfos | slice: 0:3"
+                >
+                  <div class="flex">
+                    <div class="text-left mr30">#</div>
+                    <div class="text-left">NFT</div>
+                  </div>
+                  <div class="text-right">Progress</div>
+                </div>
               </div>
-            </div>
- 
-            <div class="grid grid-3 row-gap">
-              <div *ngFor="let uploadlit of progressInfos; index as i" class="" class="border-bottom flex justify-space-between">
-                <div class="pt30 pb30 text-left">{{i + 1}}</div>
-                <div class="pt30 pb30 text-left">
-                  <a
-                    class="flex text-primary"
-                    href="javascript:void(0)"
+
+              <div class="grid grid-3 row-gap">
+                <div
+                  *ngFor="let uploadlit of progressInfos; index as i"
+                  class=""
+                  class="border-bottom flex justify-space-between"
+                >
+                  <div class="flex">
+                    <div class="pt30 pb30 text-left mr30">{{ i + 1 }}</div>
+                    <div class="pt30 pb30 text-left">
+                      <a class="flex text-primary" href="javascript:void(0)">
+                        <img
+                          class="nftPreview"
+                          *ngIf="!isImgLoaded"
+                          alt="NFT preview"
+                          src="https://moonboxes.io/assets/media/images/astro_painter.svg"
+                        />
+                        <img
+                          class="nftPreview"
+                          [hidden]="!isImgLoaded"
+                          [src]="uploadlit.imagePath"
+                          (load)="isImgLoaded = true"
+                        />
+                        <span class="orbitron text-secondary p16">
+                          {{ uploadlit.fileName.slice(0, 10) }}
+                        </span></a
+                      >
+                    </div>
+                  </div>
+                  <div class="pt30 pb30">
+                    <span
+                      class="badge badge-success"
+                      ng-reflect-ng-class="badge-success"
                     >
-                    <img class="nftPreview" *ngIf="!isImgLoaded" alt="NFT preview" src="https://moonboxes.io/assets/media/images/astro_painter.svg">
-                    <img class="nftPreview" [hidden]="!isImgLoaded" [src]="uploadlit.imagePath" (load)="isImgLoaded = true" >
-                    <span class="orbitron text-secondary p16">
-                      {{ uploadlit.fileName.slice(0, 10) }}
-                    </span></a
-                  >
+                      {{ uploadlit.value }}%
+                    </span>
+                  </div>
                 </div>
-                <div class="pt30 pb30">
-                  <span
-                    class="badge badge-success"
-                    ng-reflect-ng-class="badge-success"
-                  >
-                    {{ uploadlit.value }}%
-                  </span>
-                </div>
-              </div>
               </div>
             </div>
           </div>

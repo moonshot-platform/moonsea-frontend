@@ -153,7 +153,6 @@ nav {
       p {
         color: $primary;
         text-decoration: none;
-        font-weight: 600;
         font-size: 14px;
         cursor: pointer;
 
@@ -181,7 +180,7 @@ nav {
 @media only screen and (max-width: $md) {
   section.navigation {
     width: 100%;
-
+    border-top: 1px solid $black;
     &:hover {
       // background-color: transparent;
       ul.fragments {
@@ -229,8 +228,16 @@ nav {
         }
       }
     }
-
-    &.show {
+    &.show.wallet {
+      > ul {
+        text-align: left;
+      }
+    }
+    &.flexShow > ul {
+      text-align: left !important;
+    }
+    &.show,
+    &.flexShow {
       position: fixed;
       left: 0;
       top: 0;
@@ -250,9 +257,12 @@ nav {
         margin-left: 0;
         display: flex;
         flex-direction: column;
-        background-color: transparent;
+        background-color: $primary;
         padding: 20px;
         box-sizing: border-box;
+        height: calc(100% - 40px);
+        padding-bottom: 0;
+        text-align: center;
 
         > li {
           width: 100%;
@@ -265,12 +275,19 @@ nav {
 
           > a,
           > p {
+            color: $black;
             padding: 20px 0;
             display: block;
+            border-color: $black;
+            border-top: 2px solid $black;
           }
         }
       }
     }
+  }
+
+  .inner > nav.flexShow {
+    display: flex;
   }
 
   .logo-container {
@@ -287,8 +304,20 @@ nav {
   }
 }
 
+.flexShow .flex,
+nav.flex.wallet.d-none.flexShow,
+.inner > nav.show > ul > li > a.flex {
+  display: flex !important;
+}
 
-// Responsive Menu 
+.inner nav > ul > li a.profileTitle {
+  color: $black;
+  padding: 11px 0;
+  border: none;
+  display: block;
+}
+
+// Responsive Menu
 section.moonbox-menu {
   padding: 20px;
   border-bottom: 1px solid black;
@@ -316,4 +345,27 @@ section.moonbox-menu {
 
 .mobile-only.d-none {
   display: none !important;
+}
+
+.userProfilePicBox {
+  background: $secondary-dark;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .userProfilePic {
+    height: 25px;
+    width: 25px;
+    border-radius: 50px;
+    border: 1px solid $black;
+    img {
+      width: 100%;
+      border-radius: 50px;
+    }
+  }
+}
+
+.nexa {
+  background: transparent;
 }

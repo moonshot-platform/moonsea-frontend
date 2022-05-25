@@ -24,7 +24,7 @@ export class ModalForCreateNftComponent implements OnInit {
   userBalance = 0;
   netWorkId = 0;
   isdisabledDoneBtn: boolean = false;
-  isApiLoading :boolean=false;
+  isApiLoading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ModalForCreateNftComponent>,
@@ -32,7 +32,7 @@ export class ModalForCreateNftComponent implements OnInit {
     private createNFTService: CreateNftService,
     private getDataService: GetDataService,
     private contractService: ContractService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,20 +57,32 @@ export class ModalForCreateNftComponent implements OnInit {
       this.data.details.blockchainId
     );
     if (!checkNetwork) {
-      this.mintStatusText = 'Try Again...';
       this.wrongNetwork = true;
+      this.mintStatusText = 'Try Again...';
+      let switchNetwork = this.contractService.switchNetwork('0x61');
+      switchNetwork.then(
+        (res: any) => {
+          if (res == 'doneeeeee') {
+            this.wrongNetwork = false;
+          }
+        },
+        (err: any) => {
+          this.wrongNetwork = true;
+        }
+      );
+
     } else {
       this.wrongNetwork = false;
       this.initiateTransaction();
     }
   }
   async initiateTransaction() {
-    debugger;
+    
     try {
       var status: any;
       this.mintStatusText = 'Waiting for submission';
-
-      if (this.data.typeOfNft == 'single') {
+      debugger
+      if (this.data.details.isMultiple==false) {
         status = await this.data.globalService.mintTokenErc721(
           this.data.details.nftTokenID,
           this.data.details.royalties
@@ -83,12 +95,9 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.imageUrl
         );
       }
-     
 
       if (status?.status) {
         this.data.details.transactionHash = status.hash;
-
-      
 
         let url = 'api/UpdateNftToken';
         this.getDataService.postRequest(url, this.data.details).subscribe(
@@ -102,7 +111,7 @@ export class ModalForCreateNftComponent implements OnInit {
               this.mintStatusText = 'Done';
               this.getDataService.showToastr(res.message, res.isSuccess);
               this.isdisabledDoneBtn = true;
-              if(!this.data.details.putOnSale){
+              if (!this.data.details.putOnSale) {
                 this.dialogRef.close();
               }
               if (this.data.details.putOnSale) {
@@ -129,11 +138,21 @@ export class ModalForCreateNftComponent implements OnInit {
 
   async startSale() {
     var status: any;
-    status = await this.data.globalService.setApprovalForAll(
-      this.data.typeOfNft
+
+    status = await this.data.globalService.isApprovedForAll(
+      this.data.details.isMultiple,
+      this.data.details.blockchainId
     );
+
+    if(status.status==false){
+      status = await this.data.globalService.setApprovalForAll(
+        this.data.details.isMultiple,
+        this.data.details.blockchainId
+      );
+    }
+
     if (status.status) {
-      this.approvalTransactionHash = status.hash;
+      this.approvalTransactionHash = status.hash.hash;
       this.signatureStatus = 2;
     } else {
       this.rejectedMetamask = true;
@@ -141,7 +160,7 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async signSellOrder() {
-    debugger
+    debugger;
     try {
       var status: any;
       let salt = this.data.globalService.randomNo();
@@ -153,12 +172,12 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.nftTokenID,
           this.data.details.minimunBid,
           this.data.details.numberOfCopies,
-          this.data.typeOfNft == 'single'
+          this.data.details.isMultiple==false
             ? this.data.globalService.nft721Address
             : this.data.globalService.nft1155Address,
           this.data.details.isMultiple,
           salt,
-          userDate?.userInfo.referralAddress,
+          userDate?.referralAddress,
           this.royaltiesDetails.royalties,
           this.royaltiesDetails.royaltiesOwner
         );
@@ -186,7 +205,7 @@ export class ModalForCreateNftComponent implements OnInit {
             collectionId: this.data.details.collectionId,
             salt: salt,
             nftAddress:
-              this.data.typeOfNft == 'single'
+            this.data.details.isMultiple==false
                 ? this.data.globalService.nft721Address
                 : this.data.globalService.nft1155Address,
           })
@@ -229,7 +248,9 @@ export class ModalForCreateNftComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  delay(ms:any){
-    return new Promise((resolve,reject)=>{setTimeout(resolve,ms)})
+  delay(ms: any) {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, ms);
+    });
   }
 }
