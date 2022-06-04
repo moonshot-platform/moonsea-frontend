@@ -100,6 +100,7 @@ export class Step3Component implements OnInit, OnDestroy {
   }
 
   edit(item: any) {
+    
     item.collectionId = this.collectionId;
     this.dialogRef = this.dialog.open(AddEditNftComponent, {
       width: 'auto',

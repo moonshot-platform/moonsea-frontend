@@ -374,7 +374,7 @@
                     nice-select
                     class="select"
                     formControlName="blockchainId"
-                    #blockchainId
+                    #blockchainId [attr.readonly]="collectionId"
                   >
                     <option
                       *ngFor="let itemblock of blockchainList"
@@ -470,7 +470,7 @@
                   Royalties receiving address required
                 </div>
               </div>
-              <div class="popup__field mb20" *ngIf="typeOfNft == 'multiple'">
+              <!-- <div class="popup__field mb20" *ngIf="typeOfNft == 'multiple'">
                 <div class="popup__col mb10 p12">
                   No of copies
                 </div>
@@ -492,7 +492,7 @@
                 >
                   numberOfCopies required
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="flex gap">
@@ -660,6 +660,29 @@
             </div>
             <div class="flex1">
               <div>
+                <div class="popup__field mb20" *ngIf="typeOfNft == 'multiple'">
+                  <div class="popup__col mb10 p12">
+                    No of copies
+                  </div>
+                  <div class="field__wrap">
+                    <input
+                      class="popup__input"
+                      formControlName="numberOfCopies"
+                      name="numberOfCopies"
+                      type="text"
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      step04FormControls.numberOfCopies.invalid &&
+                      (step04FormControls.numberOfCopies.touched ||
+                        step04.submitted)
+                    "
+                    class="p12 w-normal mt10 mb10 error"
+                  >
+                    numberOfCopies required
+                  </div>
+                </div>
                 <div class="popup__field mb20">
                   <div class="upload__option">
                     <div class="upload__box">

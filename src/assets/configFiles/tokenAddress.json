@@ -44,7 +44,7 @@
         "WETH":"",
         "nfterc721":"0x5490ba86C008E225a3C743DAe2f457D85f6Fa36d",
         "nfterc1155":"0xCf63B0eEC837225741f7aa92746Fd28b29Aeec6D",
-        "exchangeAddress":"0xBd2c989940Bb8fE3a800b78fDA51AC7502B6517D",
+        "exchangeAddress":"0x0D8084d056Bc2618BF32a36c3FAA90C8229e404A",
         "transferProxy":"0xAbebaed67B76074e0aAE37cce07155E834cC0cF4"
     },
     {

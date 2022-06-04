@@ -201,7 +201,7 @@ console.log(JSON.stringify(this.filterArray),"sasas")
     });
 
     
-  debugger
+  
     this.foo.forEach((el:any,index:any)=>{
       let temp = [];
       for(let i=0;i<el.length;i++){

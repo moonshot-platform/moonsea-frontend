@@ -44,6 +44,7 @@ export class ModalForCreateNftComponent implements OnInit {
         this.connectedAddress = data;
         this.getUserBalance();
       }
+      // this.dialogRef.close();
     });
   }
   async getUserBalance() {
@@ -52,18 +53,23 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async checkNetwork() {
-    debugger;
+    
     let checkNetwork: boolean = await this.data.globalService.createContract(
       this.data.details.blockchainId
     );
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.mintStatusText = 'Try Again...';
-      let switchNetwork = this.contractService.switchNetwork('0x61');
+      let chainIdd = this.data.globalService.chainId;
+      chainIdd = parseInt(chainIdd);
+      chainIdd = chainIdd.toString(16);
+      let switchNetwork = this.contractService.switchNetwork("0x"+chainIdd);
       switchNetwork.then(
         (res: any) => {
           if (res == 'doneeeeee') {
             this.wrongNetwork = false;
+            // this.initiateTransaction();
+
           }
         },
         (err: any) => {
@@ -81,7 +87,7 @@ export class ModalForCreateNftComponent implements OnInit {
     try {
       var status: any;
       this.mintStatusText = 'Waiting for submission';
-      debugger
+      
       if (this.data.details.isMultiple==false) {
         status = await this.data.globalService.mintTokenErc721(
           this.data.details.nftTokenID,
@@ -95,22 +101,24 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.imageUrl
         );
       }
-
+      debugger
       if (status?.status) {
         this.data.details.transactionHash = status.hash;
+        this.isdisabledDoneBtn = true;
 
         let url = 'api/UpdateNftToken';
         this.getDataService.postRequest(url, this.data.details).subscribe(
           async (res: any) => {
             console.log(res);
             if (res.status == 200) {
+             
               this.royaltiesDetails = res.data;
               this.isApiLoading = true;
               await this.delay(60000);
               this.isApiLoading = false;
               this.mintStatusText = 'Done';
               this.getDataService.showToastr(res.message, res.isSuccess);
-              this.isdisabledDoneBtn = true;
+             
               if (!this.data.details.putOnSale) {
                 this.dialogRef.close();
               }
@@ -137,8 +145,9 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async startSale() {
-    var status: any;
-
+    let status: any;  
+    debugger
+    
     status = await this.data.globalService.isApprovedForAll(
       this.data.details.isMultiple,
       this.data.details.blockchainId
@@ -149,10 +158,14 @@ export class ModalForCreateNftComponent implements OnInit {
         this.data.details.isMultiple,
         this.data.details.blockchainId
       );
+      if(status){
+        this.approvalTransactionHash = status.hash.hash;
+      }
+      
     }
 
     if (status.status) {
-      this.approvalTransactionHash = status.hash.hash;
+     
       this.signatureStatus = 2;
     } else {
       this.rejectedMetamask = true;
@@ -160,13 +173,17 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async signSellOrder() {
-    debugger;
+    
     try {
       var status: any;
       let salt = this.data.globalService.randomNo();
       if (this.data.details.typeOfSale == 1) {
-        //  salt = this.data.globalService.randomNo();
         var userDate = JSON.parse(localStorage.getItem('userData') ?? '{}');
+
+        if(!userDate){
+          this.contractService.isRegisterd.next("not register");
+          return;
+        }
 
         status = await this.data.globalService.signSellOrder(
           this.data.details.nftTokenID,

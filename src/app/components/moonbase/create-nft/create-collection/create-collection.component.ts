@@ -127,7 +127,7 @@ export class CreateCollectionComponent implements OnInit {
       categoryId: ['1', [Validators.required]],
       royaltiesWalletAddress:['',[Validators.required]],
       blockchainId:['1'],
-      numberOfCopies:[1]
+     
     });
 
 
@@ -139,6 +139,7 @@ export class CreateCollectionComponent implements OnInit {
       minimunBid: [''],
       startDate: [''],
       endDate: [''],
+      numberOfCopies:[1]
     });
 
 
@@ -164,6 +165,7 @@ export class CreateCollectionComponent implements OnInit {
 
 
     if (this.collectionId) {
+      this.isApiLoading = true;
       let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
       this.getDataService.getRequest(url).subscribe((res: any) => {
         if (res.status == 200) {
@@ -172,29 +174,16 @@ export class CreateCollectionComponent implements OnInit {
           this.step02PatchValue(res.data);
           this.step03PatchValue(res.data);
           this.step04PatchValue(res.data);
-
-          // this.addCollectionForm.patchValue(res.data);
-          // this.addCollectionForm.patchValue({
-          //   typeOfSale: res.data.typeOfSale.toString(),
-          // });
-          // let data = res.data.propertysize;
-          // (this.addCollectionForm.controls.propertysize as FormArray).clear();
-          // data.forEach((element: any) => {
-          //   (this.addCollectionForm.controls.propertysize as FormArray).push(
-          //     this.formbuider.group({
-          //       properties: element.properties,
-          //       size: element.size,
-          //     })
-          //   );
-          // });
+          this.isApiLoading = false;
+        }else{
+          this.isApiLoading = false;
         }
+      },(err:any)=>{
+        this.isApiLoading = false;
       });
     }
   }
 
-  // get formControls() {
-  //   return this.addCollectionForm.controls;
-  // }
 
   get step01FormControls() {
     return this.step01Form.controls;
@@ -237,12 +226,12 @@ export class CreateCollectionComponent implements OnInit {
   toggleTypeOfNft() {
     if(this.step01Form.value.typeOfNft){
       this.typeOfNft = 'multiple';
-      this.step03Form.get('numberOfCopies').setValidators([Validators.required]);
+      this.step04Form.get('numberOfCopies').setValidators([Validators.required]);
     }
     else{
       this.typeOfNft = 'single';
-      this.step03Form.get('numberOfCopies').clearValidators();
-      this.step03Form.get('numberOfCopies').updateValueAndValidity();
+      this.step04Form.get('numberOfCopies').clearValidators();
+      this.step04Form.get('numberOfCopies').updateValueAndValidity();
 
     }
    
@@ -251,9 +240,20 @@ export class CreateCollectionComponent implements OnInit {
  
 
   step01PatchValue(data:any){
+  
+    if(data.isMultiple){
+      this.typeOfNft = 'multiple';
+      this.step04Form.get('numberOfCopies').setValidators([Validators.required]);
+    }
+    else{
+      this.typeOfNft = 'single'  ; 
+      this.step04Form.get('numberOfCopies').clearValidators();
+      this.step04Form.get('numberOfCopies').updateValueAndValidity();
+    }
     this.step01Form.patchValue({
       tokenName: data.tokenName,
       description:data.description,
+      typeOfNft : data.isMultiple,
     })
   }
 
@@ -274,7 +274,6 @@ export class CreateCollectionComponent implements OnInit {
       royalties:data.royalties,
       categoryId:data.categoryId,
       royaltiesWalletAddress: data.walletAddress,
-      numberOfCopies:data.numberOfCopies
     })
   }
 
@@ -286,6 +285,7 @@ export class CreateCollectionComponent implements OnInit {
       minimunBid: data.minimunBid,
       startDate: data.startDate,
       endDate: data.endDate,
+      numberOfCopies:data.numberOfCopies
     });
 
     
@@ -304,12 +304,14 @@ export class CreateCollectionComponent implements OnInit {
 
 
   saveStep01(value: any) {
+    
     this.imageErrorMsg = false;
 
     if (this.step01Form.valid) {
       if(this.imagePath){
         this.addCollectionForm_New.tokenName = this.step01Form.value.tokenName;
         this.addCollectionForm_New.description = this.step01Form.value.description;
+        this.addCollectionForm_New.isMultiple = this.typeOfNft == 'single' ? 'false' : 'true';
         this.collectionDetailsFunc();
       }else{
         this.imageErrorMsg = true;
@@ -337,7 +339,6 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.categoryId = this.step03Form.value.categoryId;
       this.addCollectionForm_New.royaltiesWalletAddress = this.step03Form.value.royaltiesWalletAddress;
       this.addCollectionForm_New.blockchainId = this.step03Form.value.blockchainId;
-      this.addCollectionForm_New.numberOfCopies = this.step03Form.value.numberOfCopies;
   
       this.collectionDetailsFunc();
     }
@@ -348,6 +349,8 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.nftDefaultDescription = this.step04Form.value.nftDefaultDescription;
       this.addCollectionForm_New.propertysize = this.step04Form.value.propertysize;
       this.addCollectionForm_New.putOnSale = this.step04Form.value.putOnSale; 
+      this.addCollectionForm_New.numberOfCopies = this.step04Form.value.numberOfCopies;
+
       if(this.step04Form.value.putOnSale){
         this.addCollectionForm_New.minimunBid = this.step04Form.value.minimunBid; 
       }else{
@@ -364,9 +367,9 @@ export class CreateCollectionComponent implements OnInit {
         this.step04Form.controls.endDate.value,
         'yyyy-MM-ddTHH:mm:ss'
       );
-      debugger
+    
       this.addCollectionForm_New.nftAddress = this.typeOfNft == 'single' ? this.cs.getAddressSingle(this.addCollectionForm_New.blockchainId) : this.cs.getAddressMultiple(this.addCollectionForm_New.blockchainId);
-      this.addCollectionForm_New.isMultiple = this.typeOfNft == 'single' ? 'false' : 'true';
+  
       this.addCollectionForm_New.fileUrl =  this.imagePath;
       this.addCollectionForm_New.nftId =  this.data.ID;
       this.addCollectionForm_New.walletAddress =  this.Address;
@@ -383,7 +386,7 @@ export class CreateCollectionComponent implements OnInit {
     this.isApiLoading = true;
     this.isSubmitted = true;
 
-   
+   debugger
       if (!this.collectionId) {
         this.createNFT.addCollection(data).subscribe((result: any) => {
           if (result.isSuccess) {
@@ -444,8 +447,18 @@ export class CreateCollectionComponent implements OnInit {
   onLogoFile(event: any) {
     this.imagePath = '';
     this.imageErrorMsg = false;
-    const file: File = event.target.files[0];
-    debugger
+    let file:File = event.target.files[0];
+  //   let str = file.name.split('');
+  //   for(let i=0;i<str.length;i++){
+  //     if(str[i] == '(' || str[i] == ')' ){
+  //         str[i] = '';
+  //     }
+  // }
+  //   let str1 = str.join('');
+  //   console.log(str1);
+    
+   // file.name = str.join('');
+    
     if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif' || file.type == 'image/webp')) {
       const reader = new FileReader();
       reader.readAsDataURL(file);

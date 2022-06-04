@@ -84,6 +84,7 @@ export class DetailsPopUpComponent implements OnInit {
   
     const dialogRef = this.dialog.open(AddInListingComponent, {
       width: 'auto',
+      panelClass: 'listingBig',
       data: {
         ID:this.data.ID,
         nftTokenId : this.data.nftTokenID,

@@ -68,7 +68,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   size: any = 10000;
   sortByPrice: any = 1;
   blockchainList: any = [];
-  blockchainId: any = 0;
+  blockchainId: any = 1;
   categotyList: any = [];
   currencySymbol: any;
   categoryName: any;

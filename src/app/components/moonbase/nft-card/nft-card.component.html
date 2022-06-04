@@ -30,7 +30,7 @@
       <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
     </video>
 
-    <video class="video" playsinline controls onloadedmetadata="this.muted = true"
+    <video class="video" playsinline onloadedmetadata="this.muted = true"
       *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1" (loadeddata)="onMediaLoad($event,index)">
       <source src="{{ items.fileUrl }}" type="video/mp4">
     </video>

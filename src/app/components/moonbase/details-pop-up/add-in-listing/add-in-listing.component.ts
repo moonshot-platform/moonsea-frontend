@@ -21,7 +21,7 @@ export class AddInListingComponent implements OnInit {
   errorMsg: any;
   createNftForm!: FormGroup;
   submitted = false;
-  currencyList: any;
+  currencyList: any = [];
   blockchainList: any;
   isSaleApproved: boolean = false;
   isContractApproved: any;
@@ -35,7 +35,7 @@ export class AddInListingComponent implements OnInit {
     private contractService: ContractService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isApiLoading = false;
@@ -79,6 +79,7 @@ export class AddInListingComponent implements OnInit {
   async getCurrencyList() {
     this.getDataService.getCurrencyList().subscribe((response: any) => {
       this.currencyList = response.data;
+
     });
 
     let isContractApproved = await this.contractService.isApprovedForAll(
@@ -95,6 +96,8 @@ export class AddInListingComponent implements OnInit {
   }
 
   async addListingSave(formData: any) {
+
+    debugger
     if (!this.isContractApproved) {
       await this.startSale();
     }
@@ -112,6 +115,12 @@ export class AddInListingComponent implements OnInit {
         salt = this.contractService.randomNo();
         var userDate = JSON.parse(localStorage.getItem('userData') ?? '{}');
 
+
+        if (!userDate) {
+          this.contractService.isRegisterd.next("not register");
+          return;
+        }
+
         status = await this.contractService.signSellOrder(
           this.data.ID,
           price,
@@ -119,11 +128,12 @@ export class AddInListingComponent implements OnInit {
           this.data.nftAddress,
           this.data.isMultiple,
           salt,
-          userDate?.userInfo.referralAddress,
+          userDate?.referralAddress,
           this.data.royalties,
           this.data.royaltiesOwner
         );
       } else {
+        debugger
         status = await this.contractService.signBidOrder(
           this.data.ID,
           price,
@@ -168,6 +178,8 @@ export class AddInListingComponent implements OnInit {
               this.dialogRef.close();
             }
           });
+      } else {
+        this.isApiLoading = false;
       }
     }
   }
@@ -188,4 +200,9 @@ export class AddInListingComponent implements OnInit {
       this.btnText = 'Add now';
     }
   }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
 }

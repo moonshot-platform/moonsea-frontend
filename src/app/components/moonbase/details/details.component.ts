@@ -50,6 +50,8 @@ export class DetailsComponent implements OnInit ,OnDestroy {
 
   unSubscribeRequest :Subscription;
   unSubscribeRequest01: Subscription;
+  elementsHasLoaded: boolean[] = [];
+  isImgLoaded :boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -64,7 +66,11 @@ export class DetailsComponent implements OnInit ,OnDestroy {
     private ngxService: NgxUiLoaderService,
     private meta: Meta,
     private titleService: Title
-  ) {}
+  ) {
+    for (let index = 0; index < 100; index++) {
+      this.elementsHasLoaded[index] = false;
+    }
+  }
   ngOnDestroy(): void {
     if(this.unSubscribeRequest){
     this.unSubscribeRequest.unsubscribe();
@@ -216,6 +222,23 @@ export class DetailsComponent implements OnInit ,OnDestroy {
     }
     return false;
   }
+
+  onMediaLoad(event, index) {
+    if (event && event.target) {
+      // console.log("IMAGE HAS LOADED!");
+      this.elementsHasLoaded[index] = true;
+    } else {
+      this.elementsHasLoaded[index] = false;
+      // console.log("IMAGE HAS NOT LOADED!");
+    }
+
+    if (event.readyState == 4) {
+      this.elementsHasLoaded[index] = true;
+    }
+  }
+
+
+
 
   connectWallet() {
     this.dialog.open(ConnectWalletPopupComponent, {

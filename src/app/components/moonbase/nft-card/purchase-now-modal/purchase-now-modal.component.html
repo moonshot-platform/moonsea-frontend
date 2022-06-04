@@ -84,7 +84,7 @@
               <!-- <div *ngIf="isSubmitted && formControls.quantity.errors" class="help-block _error">
                   <div *ngIf="formControls.quantity.errors.required" class="text-danger">Quantity is required</div>
               </div> -->
-              <div class="p12 popup_row" *ngIf="quantity.value>items.supply">
+              <div class="p12 popup_row" *ngIf="quantity.value>items.listingCurrentSupply">
                 Supply exceeds
               </div>
             </div>

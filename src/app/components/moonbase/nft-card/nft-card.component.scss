@@ -5,7 +5,8 @@
     &:hover {
         background: $primary;
     }
-    &:hover img {
+    &:hover img,
+    &:hover video {
         opacity: 0;
     }
     &:hover {
@@ -46,7 +47,8 @@
 //     opacity: 1;
 // }
 
-.card__preview > img {
+.card__preview > img,
+.card__preview > video {
     background: none !important;
     // max-height: 100%;
     max-width: 100%;

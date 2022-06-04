@@ -50,7 +50,11 @@ export class ContractService {
   //   chains: []
   // });
 
+  chainId: any;
+
+
   isAcountChangedSub = new Subject();
+  isRegisterd = new Subject();
 
   constructor(
     private windowRef: WindowRefService,
@@ -219,11 +223,27 @@ export class ContractService {
       return false;
     }
     console.log(network);
-    
-    if (network && network.chainId == config[environment.configFile][chainIdVal].chainId) {
-      this.nft721Contract = new ethers.Contract(config[environment.configFile][chainIdVal].nfterc721, nft721Abi, this.signer);
-      this.nft1155Contract = new ethers.Contract(config[environment.configFile][chainIdVal].nfterc1155, nft1155Abi, this.signer);
-      this.exchangeAbiContract = new ethers.Contract(config[environment.configFile][chainIdVal].exchangeAddress, exchangeV1Abi, this.signer);
+    this.chainId = config[environment.configFile][chainIdVal].chainId;
+    ;
+    if (
+      network &&
+      network.chainId == config[environment.configFile][chainIdVal].chainId
+    ) {
+      this.nft721Contract = new ethers.Contract(
+        config[environment.configFile][chainIdVal].nfterc721,
+        nft721Abi,
+        this.signer
+      );
+      this.nft1155Contract = new ethers.Contract(
+        config[environment.configFile][chainIdVal].nfterc1155,
+        nft1155Abi,
+        this.signer
+      );
+      this.exchangeAbiContract = new ethers.Contract(
+        config[environment.configFile][chainIdVal].exchangeAddress,
+        exchangeV1Abi,
+        this.signer
+      );
       this.initializeAddress(chainIdVal);
       return true;
     } else {
@@ -231,18 +251,15 @@ export class ContractService {
     }
   }
 
-  getAddressSingle(chainIdVal:number)
-  {
+  getAddressSingle(chainIdVal: number) {
     return config[environment.configFile][chainIdVal].nfterc721;
   }
 
-  getAddressMultiple(chainIdVal:number)
-  {
+  getAddressMultiple(chainIdVal: number) {
     return config[environment.configFile][chainIdVal].nfterc1155;
   }
 
-  getAddressWeth(chainIdVal:number)
-  {
+  getAddressWeth(chainIdVal: number) {
     return config[environment.configFile][chainIdVal].WETH;
   }
 
@@ -343,13 +360,16 @@ export class ContractService {
     return promise;
   }
 
-  setApprovalForAll(type: boolean,blockchainId:any) {
-    var contractObj:any;
+  setApprovalForAll(type: boolean, blockchainId: any) {
+
+    debugger
+
+    var contractObj: any;
     if (type) {
       contractObj = new ethers.Contract(config[environment.configFile][blockchainId].nfterc1155, nft1155Abi, this.signer);
     }
-    else{
-       contractObj = new ethers.Contract(config[environment.configFile][blockchainId].nfterc721, nft721Abi, this.signer);
+    else {
+      contractObj = new ethers.Contract(config[environment.configFile][blockchainId].nfterc721, nft721Abi, this.signer);
 
     }
 
@@ -368,14 +388,14 @@ export class ContractService {
   }
 
 
-  async isApprovedForAll(type: boolean,blockchainId:any) {
-   
-    var contractObj:any;
+  async isApprovedForAll(type: boolean, blockchainId: any) {
+    debugger
+    var contractObj: any;
     if (type) {
       contractObj = new ethers.Contract(config[environment.configFile][blockchainId].nfterc1155, nft1155Abi, this.signer);
     }
-    else{
-       contractObj = new ethers.Contract(config[environment.configFile][blockchainId].nfterc721, nft721Abi, this.signer);
+    else {
+      contractObj = new ethers.Contract(config[environment.configFile][blockchainId].nfterc721, nft721Abi, this.signer);
 
     }
 
@@ -384,7 +404,7 @@ export class ContractService {
         this.userAddress,
         this.transaferProxy
       );
-      return { hash: promise, status: true };
+      return { hash: promise, status: promise };
     } catch (e) {
       console.log('ee=>', e);
 
@@ -476,6 +496,9 @@ export class ContractService {
     nftAddress: string,
     isMultiple: boolean
   ) {
+
+
+    debugger
     try {
       console.log(nftAddress);
       const params2 = ethers.utils.parseEther(price.toString());
@@ -526,7 +549,7 @@ export class ContractService {
     royaltiesOwner: any = '0x0000000000000000000000000000000000000000',
     tokenAddress: any = '0x0000000000000000000000000000000000000000'
   ) {
-    debugger;
+    debugger
     try {
       console.log(nftAddress);
       const params2 = ethers.utils.parseEther(price.toString());
@@ -559,7 +582,7 @@ export class ContractService {
           this.pricingDetails.serviceFees * 100,
         ]
       );
-      debugger;
+
 
       var a = ethers.utils.keccak256(a2).substring(2);
 
@@ -588,8 +611,10 @@ export class ContractService {
    */
 
   async signSellOrder01(signSellOrder: SignSellOrder) {
+
+    debugger;
     try {
-      debugger;
+
 
       const params2 = ethers.utils.parseEther(signSellOrder.price.toString());
       var abiCoder = new ethers.utils.AbiCoder();
@@ -614,7 +639,7 @@ export class ContractService {
               signSellOrder.contractAddress,
               '0',
               signSellOrder.contractAddress ==
-              '0x0000000000000000000000000000000000000000'
+                '0x0000000000000000000000000000000000000000'
                 ? 0
                 : 1,
             ],
@@ -626,7 +651,7 @@ export class ContractService {
           this.pricingDetails.serviceFees * 100,
         ]
       );
-      debugger;
+
       var a = ethers.utils.keccak256(a2).substring(2);
 
       var signature = await this.signer.signMessage(a);
@@ -749,11 +774,11 @@ export class ContractService {
    * @param buyer
    * @returns
    */
-  
-  
-    async exchangeToken01(exchangeToken:exchangeToken,blockchainId : any) {
-      
-    
+
+
+  async exchangeToken01(exchangeToken: exchangeToken, blockchainId: any) {
+
+    debugger;
 
     const params2 = ethers.utils.parseEther((exchangeToken.signaturePrice).toString());
     const priceB = BigNumber.from(params2).mul(exchangeToken.quantity).div(exchangeToken.supply);
@@ -778,7 +803,7 @@ export class ContractService {
           exchangeToken.tokenAddress, //buyAsset.token
           '0', //buyAsset.tokenId
           exchangeToken.tokenAddress ==
-          '0x0000000000000000000000000000000000000000'
+            '0x0000000000000000000000000000000000000000'
             ? 0
             : 1, //buyAsset.assetType
         ],
@@ -789,16 +814,11 @@ export class ContractService {
       params2, //buying
       this.pricingDetails.serviceFees * 100, //sellerFee
     ];
-
+    debugger
     let BuyOrder = [
       [
         exchangeToken.isMakeOffer ? "0x0000000000000000000000000000000000000000" : exchangeToken.ownerAddress,//owner
         exchangeToken.salt,//salt
-        [
-          exchangeToken.nftAddress,//sellAsset.token
-          (exchangeToken.nftTokenID).toString(),//sellAsset.tokenId
-          exchangeToken.isMultiple ? 2 : 3 //sellAsset.assetType
-        ],
         [
           exchangeToken.nftAddress, //sellAsset.token
           exchangeToken.nftTokenID.toString(), //sellAsset.tokenId
@@ -808,7 +828,7 @@ export class ContractService {
           exchangeToken.tokenAddress, //buyAsset.token
           '0', //buyAsset.tokenId
           exchangeToken.tokenAddress ==
-          '0x0000000000000000000000000000000000000000'
+            '0x0000000000000000000000000000000000000000'
             ? 0
             : 1, //buyAsset.assetType
         ],
@@ -817,7 +837,7 @@ export class ContractService {
           ? '0x0000000000000000000000000000000000000000'
           : exchangeToken.referalAddress,
       ],
-      exchangeToken.supply, //selling
+      1,//exchangeToken.supply, //selling
       params2, //buying
       this.pricingDetails.serviceFees * 100, //sellerFee
     ];
@@ -831,7 +851,7 @@ export class ContractService {
         {
           value:
             exchangeToken.tokenAddress ==
-            '0x0000000000000000000000000000000000000000'
+              '0x0000000000000000000000000000000000000000'
               ? priceB
               : 0,
         }
@@ -870,7 +890,7 @@ export class ContractService {
                 model.contractAddress,
                 '0',
                 model.contractAddress ==
-                '0x0000000000000000000000000000000000000000'
+                  '0x0000000000000000000000000000000000000000'
                   ? 0
                   : 1,
               ],
@@ -887,7 +907,8 @@ export class ContractService {
           model.supply,
         ]
       );
-      debugger;
+      ;
+      debugger
       console.log(ethers.utils.isAddress(model.referalAddress));
       var a = ethers.utils.keccak256(a2).substring(2);
 
@@ -895,7 +916,7 @@ export class ContractService {
 
       return { status: true, signature, address: this.nft721Address };
     } catch (e) {
-      debugger;
+      ;
       return { status: false, signature, address: this.nft721Address };
     }
   }

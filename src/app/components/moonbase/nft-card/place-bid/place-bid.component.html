@@ -1,21 +1,20 @@
-<a
+<!-- <a
   *ngIf="fromPage == 0 && this.connectedAddress != items.ownerAddress"
   class="button wp100"
   href="javascript:void(0)"
 >
   <span>Place a bid</span>
-</a>
+</a> -->
 
-<!-- *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress" it is origina if condition -->
 <button
-  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress && (typeOfSale == 2 || typeOfSale == 3 )"
+  *ngIf="(fromPage == 1 || fromPage == 2) && this.connectedAddress != items.ownerAddress && (typeOfSale == 2 || typeOfSale == 3 || typeOfSale) "
   class="button wp100"
   (click)="openDialog('bid')" >
   Place a bid
 </button>
 
 <button
-  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress && !(typeOfSale == 2 || typeOfSale == 3 )"
+  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress"
   class="button wp100 mt10"
   (click)="openDialog('offer')">
   Make Offer

@@ -41,7 +41,6 @@ ngOnInit(): void {
   this.cs.getWalletObs().subscribe((data: any) => {
     this.connectedAddress = data;
     this.getmyCollectionList();
-
   });
 
 

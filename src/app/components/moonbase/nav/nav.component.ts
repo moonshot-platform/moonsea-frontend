@@ -77,6 +77,9 @@ export class NavComponent implements OnInit {
     1: 'ETH',
   };
   netWorkId = 0;
+  walletAddresss:any;
+
+
 
   constructor(
     private route: Router,
@@ -113,7 +116,7 @@ export class NavComponent implements OnInit {
 
     this.cs.getWalletObs().subscribe((data: any) => {
       localStorage.setItem('address', data);
-
+      this.walletAddresss = data;
       try {
         if (data != undefined && this.cs.checkValidAddress(data)) {
           this.isConnected = true;
@@ -132,6 +135,12 @@ export class NavComponent implements OnInit {
     this.tokenomicsService.whenToggled().subscribe((state: boolean) => {
       this.toggleTokenomicsView(state);
     });
+
+    this.cs.isRegisterd.subscribe((res:any)=>{
+      if(res == 'not register'){
+        this.changeAccountDetected(this.walletAddresss);
+      }
+    })
   }
 
   async getUserBalance() {
@@ -215,7 +224,6 @@ export class NavComponent implements OnInit {
       ).subscribe(
         async response => {
           var data = response;
-          debugger
           if (data.isSuccess) {
             if (data.isNewUser) {
               // this.showRegisterPopup();
@@ -238,6 +246,9 @@ export class NavComponent implements OnInit {
                       this.toastr.error(data.message);
                     }
                   });
+                }else{
+                  localStorage.setItem('isRegistered',"false");
+                  localStorage.removeItem('userData');
                 }
             }
             else {
@@ -267,18 +278,19 @@ export class NavComponent implements OnInit {
   }
 
   searchClient(searchText: any) {
-    //   this.flag = true;
-    //  if(searchText.length > 3){
-    //   this.getDataService.searchResult(
-    //     searchText
-    //   ).subscribe(
-    //     response => {
-    //       this.searchResult = response.data;
-    //     });
-    //  }
-    this.route.navigate(['/searchcollection'], {
-      queryParams: { searchKey: searchText },
-    });
+   
+
+   if(this.properties[0].length > 0){
+    this.route.navigate(['/detailsCom/details', this.properties[0][0].nftAddress, this.properties[0][0].nftTokenId]);
+   }else if(this.properties[1].length > 0){
+    this.route.navigate(['/profileinfo/profile', searchText]);
+   }else if(this.properties[2].length > 0 && this.properties[2][0].serachType == 3){
+    this.route.navigate(['/mycollection/collection', searchText]);
+   }
+
+    // this.route.navigate(['/searchcollection'], {
+    //   queryParams: { searchKey: searchText },
+    // });
   }
 
   onselectClient(
@@ -365,7 +377,7 @@ export class NavComponent implements OnInit {
               });
             });
             console.log(this.uniquedata);
-            console.log(this.properties);
+            console.log("=========>",this.properties);
           } else {
             this.flag = false;
           }

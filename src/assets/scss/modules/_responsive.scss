@@ -6,6 +6,10 @@
     min-width: 630px !important;
     max-width: 630px !important;
   }
+  .listingBig mat-dialog-container,
+  app-add-in-listing .popup {
+    overflow: unset;
+  }
   // .new_collection {
   //   flex-grow: 1;
   // }
@@ -152,6 +156,14 @@
     }
   }
 
+  app-search-collection .mw-30 {
+    max-width: 100%;
+  }
+
+  app-step3 .pr100 {
+    padding-right: 0;
+  } 
+
   .footer_menu {
     bottom: 0;
     height: 40px;
@@ -188,7 +200,7 @@
   }
   .popup {
     max-width: 100%;
-    min-width: 100%;
+    min-width: 75vw;
   }
   .flex.gap {
     flex-direction: column;
@@ -260,4 +272,9 @@
     height: auto;
     line-height: 25px;
   } 
+  .card__preview > img,
+  .card__preview > video {
+    max-height: 240px;
+    min-height: 240px;
+  }
 }
