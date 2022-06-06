@@ -1,5 +1,5 @@
-<a [routerLink]="['/detailsCom/details',items.nftAddress,items.nftTokenID]" routerLinkActive="router-link-active">
-  <div class="card__preview pointer">
+<div class="card__preview pointer">
+    <a [routerLink]="['/detailsCom/details',items.nftAddress,items.nftTokenID]" routerLinkActive="router-link-active">
     <div *ngIf="items.fileUrl == null" class="skeleton-loader"></div>
 
     <div class="content-overlay"></div>
@@ -34,32 +34,32 @@
       *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1" (loadeddata)="onMediaLoad($event,index)">
       <source src="{{ items.fileUrl }}" type="video/mp4">
     </video>
-    <div class="">
-      <button *ngIf="items?.isLikeByYou == 0" class="card__favorite" (click)="Liked(items.nftTokenID)">
-        <a href="javascript:void(0);">
-          <svg version="1.1" id="favourite" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
-            style="enable-background: new 0 0 40 40" xml:space="preserve">
-            <path class="stroke"
-              d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
-          c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9c0,0,0,0,0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z">
-            </path>
-          </svg>
-        </a>
-      </button>
-      <button *ngIf="items?.isLikeByYou == 1" class="red-fill card__favorite" (click)="UnLiked(items.nftTokenID)">
-        <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px" y="0px" viewBox="0 0 40 40" style="enable-background: new 0 0 40 40" xml:space="preserve">
-          <path class="st0"
+  </a>
+  <div class="">
+    <button *ngIf="items?.isLikeByYou == 0" class="card__favorite" (click)="Liked(items.nftTokenID)">
+      <a href="javascript:void(0);">
+        <svg version="1.1" id="favourite" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+          style="enable-background: new 0 0 40 40" xml:space="preserve">
+          <path class="stroke"
             d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
-           c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9l0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z" />
+        c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9c0,0,0,0,0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z">
+          </path>
         </svg>
-      </button>
+      </a>
+    </button>
+    <button *ngIf="items?.isLikeByYou == 1" class="red-fill card__favorite" (click)="UnLiked(items.nftTokenID)">
+      <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px" y="0px" viewBox="0 0 40 40" style="enable-background: new 0 0 40 40" xml:space="preserve">
+        <path class="st0"
+          d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
+         c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9l0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z" />
+      </svg>
+    </button>
 
-    </div>
+  </div>
   </div>
 
-</a>
 
 <div class="card__link">
   <div class="card__body">
@@ -83,7 +83,8 @@
           class="text-primary card__counter">by <span>{{ items.creator }}</span></a>
       </div>
       <div class="text-primary card__counter">
-        {{ items.ownerCurrentSupply }} in stock
+        last {{ items.ownerCurrentSupply }}
+         <!-- {{ items.ownerCurrentSupply }} in stock -->
       </div>
     </div>
 

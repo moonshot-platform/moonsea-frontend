@@ -74,14 +74,24 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   onMouseEnter(event: any) {
-    if (!document.getElementById('dropdwonButton').contains(event.target)) {
+    if (!document.getElementById('dropdownButton').contains(event.target)) {
       var dropdowns = document.getElementsByClassName('dropdown-content');
       var i;
       for (i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];
         if (openDropdown.classList.contains('show')) {
           openDropdown.classList.remove('show');
-        }
+        } 
+      }
+    }
+    if (!document.getElementById('dropdownButtonTwo').contains(event.target)) {
+      var dropdowns = document.getElementsByClassName('dropdown-contenttt');
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        } 
       }
     }
   }
@@ -175,6 +185,10 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
   }
 
   openSharedrop() {
+    document.getElementById("myDropdownMobile").classList.toggle("show");
+  }
+  
+  openSharedropDesk() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 

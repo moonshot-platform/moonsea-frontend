@@ -173,7 +173,7 @@ export class DetailsComponent implements OnInit ,OnDestroy {
       );
   }
 
-  async Liked(nftId: any, walletAddress: string) {
+  async Liked(nftId: any) {
     if (!this.contractService.checkValidAddress(this.Address)) {
       this.connectWallet();
       return false;

@@ -1,9 +1,12 @@
 @import "includes";
 
 .red-fill path {
-  fill: red;
+  fill: $danger;
 }
 
+.red-fill #heart path {
+  fill: $primary;
+}
 .cardOfProperty {
   border: 1px solid $primary;
   border-radius: 0px;
@@ -76,6 +79,11 @@
   top: 0;
   max-width: 100%;
   max-height: 100%;
+}
+
+.right-auto {
+  right: 5px;
+  left: auto;
 }
 
 @media only screen and (max-width: $md) {

@@ -1,13 +1,13 @@
-<!-- <a
-  *ngIf="fromPage == 0 && this.connectedAddress != items.ownerAddress"
+
+<!-- <button
+  *ngIf="(fromPage == 1 || fromPage == 2) && this.connectedAddress != items.ownerAddress && (typeOfSale == 2 || typeOfSale == 3 || typeOfSale) "
   class="button wp100"
-  href="javascript:void(0)"
->
-  <span>Place a bid</span>
-</a> -->
+  (click)="openDialog('bid')" >
+  Place a bid
+</button> -->
 
 <button
-  *ngIf="(fromPage == 1 || fromPage == 2) && this.connectedAddress != items.ownerAddress && (typeOfSale == 2 || typeOfSale == 3 || typeOfSale) "
+  *ngIf="(fromPage == 1 || fromPage == 2) && this.connectedAddress != items.ownerAddress && ((typeOfSale == 3) || (typeOfSale == 2 && data?.timerType ==1 || data?.timerType == 2) ) "
   class="button wp100"
   (click)="openDialog('bid')" >
   Place a bid

@@ -1209,7 +1209,7 @@ body.dark .some-icon-dark {
   display: inline-block;
 }
 .dark .swiper-slide,
-.dark .card__preview > img {
+.dark .card__preview img {
   background: transparent;
 }
 .dark .whitebg__card {
@@ -3674,8 +3674,8 @@ body.dark .field__textarea:focus {
   border-radius: 0px;
   overflow: hidden;
 }
-.card__preview > img,
-.card__preview > video {
+.card__preview img,
+.card__preview video {
   transition: -webkit-transform 1s;
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
