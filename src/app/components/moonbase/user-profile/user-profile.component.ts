@@ -215,7 +215,7 @@ export class UserProfileComponent implements OnInit {
 
   async followUser(address:string,index:number,listType:number)
   {
-    debugger
+    
 
     if(!this.contractService.checkValidAddress(this.connectedAddress))
     {

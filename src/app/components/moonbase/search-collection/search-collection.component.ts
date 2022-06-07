@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
+import { GetDataService } from 'src/app/services/get-data.service';
 import { HomeService } from 'src/app/services/home.service';
 import SwiperCore, { SwiperOptions, Navigation } from 'swiper';
 
@@ -68,7 +69,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   size: any = 10000;
   sortByPrice: any = 1;
   blockchainList: any = [];
-  blockchainId: any = 0;
+  blockchainId: any = 1;
   categotyList: any = [];
   currencySymbol: any;
   categoryName: any;
@@ -86,7 +87,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     private dataService: CollectionApiService,
     private router: Router,
     private createNFT: CreateNftService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private getDataservice :GetDataService
   ) { }
   ngOnDestroy(): void {
     if (this.unSubscribeSubscription) {
@@ -264,6 +266,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
             }
           }
           this.dicoverCollectionList = response.data;
+          this.getDataservice.searchCollectionflag.next(1);
           this.ngxService.stop();
         } else {
           console.log(response.message);

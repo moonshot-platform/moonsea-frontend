@@ -75,7 +75,7 @@
           id="searchBox"
           #searchText
           (keyup.enter)="searchClient(searchText.value)"
-          (keyup)="autoComplete(searchText.value)"
+          (keyup)="autoComplete(searchText.value,$event)"
           placeholder="Search for collections, items or creators"
           class="form-control"
         />

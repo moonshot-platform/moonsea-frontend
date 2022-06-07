@@ -62,10 +62,10 @@ export class TransferTokenComponent implements OnInit {
     var status:any;
     if(this.data.isMultiple)
     {
-      debugger
+      
       status = await this.contractService.transferTokenMultiple(data.toWalletAddress,this.data.ID,data.quantity,this.data.nftAddress);
     }else{
-      debugger
+      
      status = await this.contractService.transferTokenSingle(data.toWalletAddress,this.data.ID,this.data.nftAddress);
     }
     

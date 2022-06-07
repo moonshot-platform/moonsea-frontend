@@ -307,7 +307,7 @@ export class CreateNftComponent implements OnInit {
 
   async createNftSubmit(formData: any) {
     this.submitted = true;
-    debugger
+    
     console.log(this.imagePath.length);
     
     if (this.createNftForm.valid && this.imagePath.length > 0 ) 

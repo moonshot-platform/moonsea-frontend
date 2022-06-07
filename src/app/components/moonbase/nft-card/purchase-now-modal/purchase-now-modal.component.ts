@@ -44,15 +44,35 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('from purchase now modal=====>',this.items);
+    
     this.checkNetwork();
   }
 
   async checkNetwork() {
-    debugger
+    
     let checkNetwork: boolean = await this.contractService.createContract(this.items.blockchainId);
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.step = 0;
+      let chainIdd = this.contractService.chainId;
+      chainIdd = parseInt(chainIdd);
+      chainIdd = chainIdd.toString(16);
+      let switchNetwork = this.contractService.switchNetwork("0x"+chainIdd);
+      switchNetwork.then(
+        (res: any) => {
+          if (res == 'doneeeeee') {
+            this.wrongNetwork = false;
+            this.step = 1;
+            this.dialogRef.close();
+            // this.calculatePrice();
+          }
+        },
+        (err: any) => {
+          this.wrongNetwork = true;
+          this.step = 0;
+        }
+      );
     }
     else {
       this.wrongNetwork = false;
@@ -85,9 +105,9 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   gotoNextStep(temp: number, quantity: any) {
-    debugger
+    
     if (temp == 2) {
-      if (this.items.supply < quantity) {
+      if (this.items.listingCurrentSupply < quantity) {
         return false;
       }
       if (this.balanceInBNB >= this.price) {
@@ -105,7 +125,7 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   calculatePriceQuantity(quantity: any) {
-    if (quantity > this.items.supply) {
+    if (quantity > this.items.listingCurrentSupply) {
 
       return false;
     }
@@ -134,7 +154,7 @@ export class PurchaseNowModalComponent implements OnInit {
     this.exchangeTokenObj.salt = this.items.salt;
     this.exchangeTokenObj.referalAddress = this.items.referalAddress;
     
-    debugger
+    
     var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {

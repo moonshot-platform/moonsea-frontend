@@ -131,6 +131,10 @@ mat-slider {
   color: $secondary;
 }
 
+.text-danger {
+  color: $danger;
+}
+
 .author:hover {
   color: $white;
 }
@@ -1184,6 +1188,20 @@ section.tokenomics::-webkit-scrollbar {
   &:hover {
     path {
       fill: $secondary;
+    }
+  }
+}
+
+
+.popup #social_share_btn {
+  svg {
+    path {
+      fill: $black;
+    }
+    &:hover {
+      path.stroke-dark {
+          fill: $primary
+      }
     }
   }
 }
@@ -2772,6 +2790,9 @@ table {
       padding: 0;
       justify-content: flex-start;
     }
+    &:last-child {
+      padding-right: 0;
+    }
   }
   .mat-tab-body-wrapper {
     width: 100%;
@@ -2940,8 +2961,8 @@ app-user-profile {
 app-nft-detail-list-tabs {
   .rounded img {
     width: 100%;
+    height: 100%;
     border-radius: 50%;
-    background: $primary;
     border: 1px solid $primary;
   }
 }
@@ -3223,4 +3244,14 @@ span.content_editable br {
       grid-template-columns: repeat(4, 1fr);
     }
   }
+}
+
+
+.not-visible {
+  width: 0px !important;
+  height: 0px !important;
+  min-width: 0px !important;
+  max-width: 0px !important;
+  min-height: 0px !important;
+  max-height: 0px !important;
 }

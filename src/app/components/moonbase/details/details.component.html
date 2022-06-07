@@ -2,7 +2,7 @@
   <div class="landing-flex item__center pb100">
     <div class="flex1 item__details justify-space-between mr30">
       <div class="flex mb20 justify-space-between align-center">
-        <button class="mobile-only">
+        <button class="mobile-only" (click)="goBack()">
           <svg
             version="1.1"
             id="Laag_1"
@@ -14,7 +14,6 @@
             xml:space="preserve"
             style="width: 100px; height: 36px"
           >
-            
             <g>
               <path
                 d="M54.7,17.9c0,1.9-1.4,3-4.2,3h-5.2V9.7h4.8c2.5,0,3.9,1.1,3.9,2.9c0,1.3-0.7,2.1-1.7,2.5
@@ -123,6 +122,7 @@
                 stroke: #50aac5;
                 stroke-miterlimit: 10;
               }
+
               #refresh:hover .st4 {
                 stroke: #c5e3ec;
               }
@@ -177,11 +177,11 @@
         <p class="text-ellipsis text-primary p16 mt20">
           {{ data?.description }}
         </p>
+        by
         <a
           class="item__description owner_name text-primary"
           [routerLink]="['/mycollection/collection', data?.tokenName]"
         >
-          by
           <span class="p16"> {{ data?.tokenName }}</span>
         </a>
 
@@ -458,7 +458,7 @@
               *ngIf="
                 data?.typeOfSale == 2 &&
                 data?.timerType != 0 &&
-                this.indexForPlaceBid >= 0
+                (indexForPlaceBid >= 0 || indexForPlaceBid == 0)
               "
               [startingDate]="
                 data?.timerType == 1 ? data?.startingDate : data?.expirationDate
@@ -530,16 +530,55 @@
           </div>
           <!-- <div class="status-purple item__category">unlockable</div> -->
         </div>
+        <div class="item__categories right-auto">
+          <button *ngIf="data?.isLikeByYou == 0" class="card__favorite" (click)="Liked(data.nftTokenID)">
+            <a href="javascript:void(0);">
+              <svg version="1.1" id="favourite" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                style="enable-background: new 0 0 40 40" xml:space="preserve">
+                <path class="stroke"
+                  d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
+              c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9c0,0,0,0,0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z">
+                </path>
+              </svg>
+            </a>
+          </button>
+          <button *ngIf="data?.isLikeByYou == 1" class="red-fill card__favorite" (click)="UnLiked(data.nftTokenID)">
+            <svg version="1.1" id="heart" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px" y="0px" viewBox="0 0 40 40" style="enable-background: new 0 0 40 40" xml:space="preserve">
+              <path class="st0"
+                d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
+               c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9l0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z" />
+            </svg>
+          </button>
+        </div>
+
         <!-- <img src="{{ data?.fileUrl }}" alt="Item" *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"/> -->
 
         <!-- <div class="loaderFrame">
         <video class="loaderVideo" *ngIf="!data?.fileUrl" autoplay loop><source  src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4"></video>
-        </div> -->
+        </div>  [defaultImage]="'assets/icons/5904642857251113741.gif'"-->
+
         <img
-          [lazyLoad]="data?.fileUrl"
-          [defaultImage]="'assets/icons/5904642857251113741.gif'"
+          [src]="data?.fileUrl"
+          (load)="isImgLoaded = true"
+          [hidden]="!isImgLoaded"
           *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') == -1"
         />
+
+        <video
+          class="video"
+          autoplay
+          [loop]="true"
+          onloadedmetadata="this.muted = true"
+          [muted]="true"
+          *ngIf="!isImgLoaded"
+        >
+          <source
+            src="assets/media/videos/moonsea-animated-logo.webm"
+            type="video/mp4"
+          />
+        </video>
 
         <video
           class="video"
@@ -549,6 +588,8 @@
           oncanplay="this.play()"
           onloadedmetadata="this.muted = true"
           [muted]="true"
+          (loadeddata)="isImgLoaded = true"
+          [hidden]="!isImgLoaded"
           *ngIf="data?.fileUrl && data?.fileUrl.search('.mp4') != -1"
         >
           <source src="{{ data?.fileUrl }}" type="video/mp4" />
@@ -733,8 +774,8 @@
 
     <a
       (click)="refresh()"
-      class="max-content desktop-only"
       href="javascript:void(0)"
+      class="max-content desktop-only"
     >
       <svg
         version="1.1"
@@ -753,6 +794,7 @@
             stroke: #50aac5;
             stroke-miterlimit: 10;
           }
+
           #refresh:hover .st4 {
             stroke: #c5e3ec;
           }

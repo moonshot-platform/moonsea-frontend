@@ -68,6 +68,14 @@ async checkNetwork()
     let salt = this.contractService.randomNo();
     var userDate= JSON.parse(localStorage.getItem("userData") ?? "{}");
 
+
+    
+    if(!userDate){
+      this.contractService.isRegisterd.next("not register");
+      return;
+    }
+
+
     var status:any= await this.contractService.signSellOrder(
       this.data.ID,
       data.newPrice,

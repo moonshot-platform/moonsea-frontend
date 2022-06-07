@@ -6,6 +6,10 @@
     min-width: 630px !important;
     max-width: 630px !important;
   }
+  .listingBig mat-dialog-container,
+  app-add-in-listing .popup {
+    overflow: unset;
+  }
   // .new_collection {
   //   flex-grow: 1;
   // }
@@ -72,6 +76,13 @@
     }
   }
 
+  .order-xs-1 {
+    order: 1;
+  }
+  .order-xs-2 {
+    order: 2;
+  }
+
   app-landing {
     .discover_collection {
       .swiper-slide {
@@ -129,6 +140,15 @@
         }
       }
     }
+
+    .search_container {
+      margin-top: 0;
+    }
+
+  }
+
+  app-landing-one .swiper {
+    padding-top: 0 !important;
   }
 
   app-user-profile {
@@ -150,6 +170,18 @@
         display: none;
       }
     }
+  }
+
+  app-search-collection .mw-30 {
+    max-width: 100%;
+  }
+
+  app-step3 .pr100 {
+    padding-right: 0;
+  } 
+
+  app-nft-card .card__favorite {
+    opacity: 1 !important;
   }
 
   .footer_menu {
@@ -188,7 +220,7 @@
   }
   .popup {
     max-width: 100%;
-    min-width: 100%;
+    min-width: 75vw;
   }
   .flex.gap {
     flex-direction: column;
@@ -260,4 +292,16 @@
     height: auto;
     line-height: 25px;
   } 
+  .card__preview img,
+  .card__preview video {
+    max-height: 240px;
+    min-height: 240px;
+  }
+  .collections__preview:first-child {
+    border: 1px solid #c5e3ec;
+  }
+  .collections__preview .content-overlay {
+    opacity: 1;
+  }
+  
 }

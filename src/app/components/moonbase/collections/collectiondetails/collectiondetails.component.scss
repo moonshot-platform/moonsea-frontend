@@ -90,7 +90,8 @@ text.st1.st2.w-normal {
   position: relative;
 }
 
-.dropdown-content {
+.dropdown-content,
+.dropdown-contenttt {
   display: none;
   position: absolute;
   background-color: $black;
@@ -109,7 +110,8 @@ text.st1.st2.w-normal {
   display: block !important;
 }
 
-.dropdown-content a {
+.dropdown-content a,
+.dropdown-contenttt a {
   text-align: left;
   color: $white;
   padding: 18px 0;

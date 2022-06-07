@@ -10,6 +10,7 @@ import { DatePickerComponent } from '@syncfusion/ej2-angular-calendars';
 import { ModalForCreateNftComponent } from 'src/app/components/moonbase/create-nft/modal-for-create-nft/modal-for-create-nft.component';
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
+import moment from "moment";
 
 @Component({
   selector: 'app-add-edit-nft',
@@ -76,7 +77,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
     });
 
     if (this.data) {
-      debugger
+      
       this.addEditNft.patchValue({
         title: this.data.title,
         nftDefaultDescription: this.data.description,
@@ -137,15 +138,18 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
   }
 
   saveNFT(value: any) {
-    this.addEditNft.value.startDate = this.datepipe.transform(
-      this.addEditNft.controls.startDate.value,
-      'yyyy-MM-ddTHH:mm:ss'
-    );
-    this.addEditNft.value.endDate = this.datepipe.transform(
-      this.addEditNft.controls.endDate.value,
-      'yyyy-MM-ddTHH:mm:ss'
-    );
+    this.addEditNft.value.startDate = moment(this.addEditNft.controls.startDate.value).toDate();
 
+    this.addEditNft.value.endDate =  moment(this.addEditNft.controls.endDate.value).toDate();
+    // this.addEditNft.value.startDate = this.datepipe.transform(
+    //   this.addEditNft.controls.startDate.value,
+    //   'yyyy-MM-ddTHH:mm:ss'
+    // );
+    // this.addEditNft.value.endDate = this.datepipe.transform(
+    //   this.addEditNft.controls.endDate.value,
+    //   'yyyy-MM-ddTHH:mm:ss'
+    // );
+    debugger
     if (this.data.isMinted) {
       let url = 'api/UpdateNftToken';
       this._getDataService.postRequest(url, this.addEditNft.value).subscribe(
@@ -168,7 +172,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
   }
 
   openDialogSubmitNFT(data: any): void {
-    debugger
+    
     const dialogRef01 = this.dialog.open(ModalForCreateNftComponent, {
       width: 'auto',
       disableClose: true,

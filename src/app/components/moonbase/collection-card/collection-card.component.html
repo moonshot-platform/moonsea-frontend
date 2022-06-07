@@ -69,12 +69,12 @@
               {{ item?.name ?? item?.customeUrl }}
             </a>
           </ng-container>
-          <ng-container *ngIf="!(item?.name ?? item?.customeUrl)">
+          <ng-container *ngIf="!(item?.name ?? item?.customeUrl) || item?.name == '-'">
             <span [routerLink]="['/profileinfo/profile', item.ownerWalletAddress]">Unknown</span>
           </ng-container>
         </div>
       </div>
-      <div class="collections__counter" [ngClass]="{ 'd-none': correntRoute == '/collections' }">
+      <div class="collections__counter" [ngClass]="{ 'd-none': correntRoute == '/collections' || correntRoute == ('/searchcollection?searchKey=' + searchKey) }">
         <span class="text-primary">{{ item.totalNftCount }} items</span>
       </div>
     </div>

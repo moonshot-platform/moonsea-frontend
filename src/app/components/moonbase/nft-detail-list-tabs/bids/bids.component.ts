@@ -27,7 +27,7 @@ export class BidsComponent implements OnInit {
     this.loggedInUseAddress = localStorage.getItem('address');
     
     this.getInfo();
-    console.log(this.items);
+    // console.log("BidsComponent ==========>",this.items);
     
   }
 
@@ -45,7 +45,7 @@ export class BidsComponent implements OnInit {
   }
 
   openDialog(index:any){
-    debugger
+    
     const dialogRef = this.dialog.open(AcceptBidPopupComponent, {
    //   width: '250px',
       data:{

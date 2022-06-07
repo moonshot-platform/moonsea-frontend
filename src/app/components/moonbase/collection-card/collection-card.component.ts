@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -18,8 +18,10 @@ export class CollectionCardComponent implements OnInit {
   loaded01: boolean;
 
   elementsHasLoaded: boolean[] = [];
+  searchKey: any = 'all';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute) {
     for (let index = 0; index < 100; index++) {
       this.elementsHasLoaded[index] = false;
     }
@@ -27,6 +29,10 @@ export class CollectionCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.correntRoute = this.router.url;
+    this.activatedRoute.queryParams.subscribe((res: any) => {
+    this.searchKey = res.searchKey;
+    });
+
   }
 
   gotoNftDetails(nftAddress: any, nftTokenID: any) {

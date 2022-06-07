@@ -12,7 +12,8 @@ import { LocalstorageService } from './localstorage.service';
 })
 export class GetDataService {
 
-  subjectTo = new Subject<any>()
+  subjectTo = new Subject<any>();
+  searchCollectionflag = new Subject();
 
 
 

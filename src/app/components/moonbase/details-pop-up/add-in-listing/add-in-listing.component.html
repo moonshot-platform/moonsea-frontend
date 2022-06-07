@@ -1,78 +1,103 @@
+<div class="popup">
+  <div class="flex justify-space-between">
+    <h5 class="orbitron p24 mb20">Add in listing</h5>
+    <a href="javascript:void(0)" (click)="close()"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 27 27" height="24px" width="24px">
+        <title>Close</title>
+        <desc>Created with Sketch.</desc>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <path
+            d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+            id="Combined-Shape" fill="#000000"></path>
+        </g>
+      </svg></a>
+  </div>
 
-<div mat-dialog-content>
-  <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)" #formData="ngForm">
+  <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)"
+    #formData="ngForm">
+    <div class="popup__info">
+      Do you really want to list your item from sale? You can remove it from
+      sale anytime
+    </div>
 
-    <div class="orbitron p24 mb20">Add in listing</div>
-          <div class="popup__note">Do you really want to list your item from sale? You can remove it from sale anytime</div>
-          
-          
-          <div class="upload__fieldset">
-            <div class="field">
-              <div class="checkbox">
-                <label class="checkbox-wrapper">
-                  <input type="radio" value="1" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" checked/>
-                  <span class="checkbox-tile">
-                    <span class="checkbox-icon">
-                    
-                    </span>
-                    <span class="checkbox-label">Fixed Price</span>
-                  </span>
-                </label>
-              </div>
-              <div class="checkbox">
-                <label class="checkbox-wrapper">
-                  <input type="radio" value="3" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" />
-                  <span class="checkbox-tile">
-                    <span class="checkbox-icon">
-                    </span>
-                    <span class="checkbox-label">Open for bids</span>
-                  </span>
-                </label>
-              </div>
-             
-              </div>
-              <div class="fixedPriceDetails" *ngIf="f.typeOfSale.value === '1'">
-                <div class="field">
-                    <div class="field__label">Price</div>
-                    <div class="field__wrap">
-                      <input class="field__input"  [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }" formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB" required>
-                    </div>
-                    <div class="label">Service fee 2.5% <br>
-                        You will receive {{f.fixedPrice?.value-(f.fixedPrice?.value*2.5/100)}}  </div>
-                  </div>
-              </div>
+    <div class="upload__fieldset">
+      <div class="flex gap flex-wrap wp100 mb20">
+        <div>
+          <label class="checkbox-wrapper">
+            <input type="radio" value="1" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input"
+              checked />
+            <span class="checkbox-tile">
+              <span class="checkbox-icon"> </span>
+              <span class="upload__category p14 ml10">Fixed Price</span>
+            </span>
+          </label>
+        </div>
+        <div>
+          <label class="flex align-center wp100">
+            <input type="radio" value="3" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" />
+            <span class="checkbox-tile">
+              <span class="checkbox-icon"> </span>
+              <span class="upload__category p14 ml10">Open for bids</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="fixedPriceDetails" *ngIf="f.typeOfSale.value === '1'">
+        <div class="field">
+          <div class="popup__col mb10 p12">Price</div>
+          <div class="field__wrap">
+            <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }"
+              formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB"
+              required />
+          </div>
+          <div class="flex justify-space-between mt10 mb10">
+            <span class="upload__text text-dark"> Service fee 2.5% </span>
+            <span class="p12"> You will receive
+              {{ f.fixedPrice?.value - (f.fixedPrice?.value * 2.5) / 100 }}
+            </span>
+          </div>
+        </div>
+      </div>
 
+      <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '3'">
+        <div class="field">
+          <div class="popup__col mb10 p12">Minimum bid</div>
+          <div class="field__wrap">
+            <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }"
+              formControlName="minimunBid" type="text" name="price" placeholder="e. g. Price 1 BNB" required />
+          </div>
+          <div class="upload__text text-dark mt10 mb10">Bids below this amount won’t be allowed.</div>
+        </div>
+      </div>
 
-              <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '3'">
-                <div class="field">
-                    <div class="field__label">Minimum bid</div>
-                    <div class="field__wrap">
-                      <input class="field__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }" formControlName="minimunBid"  type="text" name="price" placeholder="e. g. Price 1 BNB" required>
-                    </div>
-                    <div class="label">Bids below this amount won’t be allowed. </div>
-                  </div>
-              </div>
-
-              <div class="field">
-                <div class="field__label">Currency</div>
-                <div class="field__wrap">
-                  <select nice-select class="select" formControlName="currencyId" [attr.disabled]="true" #currencyId>
-                    <option *ngFor="let itemcur of currencyList;" [value]="itemcur.id">
+      <div class="field">
+        <div class="popup__col mb10 p12">Currency</div>
+        <div class="field__wrap">
+          <!-- <select nice-select class="select" formControlName="currencyId" [attr.disabled]="true ? true:null" #currencyId>
+                    <option *ngFor="let itemcur of currencyList" [value]="itemcur.id">
                       {{itemcur.name}}
                     </option>  
-                  </select>
-                </div>
-              </div>
-             
+                  </select> -->
+          <!-- <select nice-select class="select" formControlName="currencyId" #blockchainId >
+            <option *ngFor="let itemcur of currencyList" value="{{itemcur.id}}">
+              {{ itemcur.name }}
+            </option>
+          </select> -->
+          <select  class="select" formControlName="currencyId" [attr.disabled]="true ? true:null">
+            <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-          </div>
-
-          <div class="popup__btns">
-            <button class="button popup__button js-popup-close" type="submit">{{btnText}}
-              <div class="loader text-white" *ngIf="isApiLoading"></div>
-            </button>
-            <button class="button" (click)="onNoClick()" class="button-stroke popup__button js-popup-close">Cancel</button>
-          </div>
-        </form>
+    <div class="popup__btns">
+      <button class="button text-inherit dark-button mb10 wp100" type="submit">
+        {{ btnText }}
+        <div class="loader text-white" *ngIf="isApiLoading"></div>
+      </button>
+      <button (click)="onNoClick()" class="button wp100">
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>
-
