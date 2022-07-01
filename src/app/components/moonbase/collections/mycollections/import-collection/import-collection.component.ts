@@ -39,7 +39,7 @@ export class ImportCollectionComponent implements OnInit {
       console.warn('9999999999999999999999999999999999999');
       console.warn(response.data.collectionName);
 
-      this.router.navigate(['/mycollection/collection', response.data.collectionName]);
+      this.router.navigate(['/collection', response.data.collectionName]);
 
       // login successful so redirect to return url
       //this.router.navigateByUrl('collection/'+response.data);

@@ -62,11 +62,11 @@ export class CreateNftService {
   }
 
 
-  collectionWiseNftSave(file: File,collectionName:any):Observable<HttpEvent<any>> {
+  collectionWiseNftSave(file: File,collectionName:any,signature:any):Observable<HttpEvent<any>> {
     let formData = new FormData();
     formData.append("file", file);
     let headersforfile = new HttpHeaders()
-      .set('APPKEY', 'nft').set("collectionName",collectionName);
+      .set('APPKEY', 'nft').set("collectionName",collectionName).set('signature',signature);
     const req = new HttpRequest('POST',environment.apiUrl + 'api/collectionWiseNftsave', formData, { headers: headersforfile,reportProgress:true, responseType: "json"});
   
     return this.httpClient.request(req);

@@ -1,7 +1,7 @@
 <a href="javascript:void(0)" class="collections__gallery">
-  <a class="collections__preview" [routerLink]="['/detailsCom/details',item.nftAddress,item.nftTokenID01]"
+  <a class="collections__preview" [routerLink]="['/details',item.nftAddress,item.nftTokenID01]"
+  [queryParams]="{ blockchainId: item.blockchainId }"
     routerLinkActive="router-link-active">
-    <!-- ['/details', nftAddress, nftTokenID] -->
     <div class="content-overlay"></div>
 
     <video *ngIf="item.nftFileUrl01 && !elementsHasLoaded[0]" autoplay controls [muted]="true" [loop]="true"
@@ -31,13 +31,15 @@
           <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
         </video>
 
-        <a [routerLink]="['/detailsCom/details', inneritem.nftAddress, inneritem.nftTokenID]"
+        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID]"
+        [queryParams]="{ blockchainId: item.blockchainId }"
           routerLinkActive="router-link-active">
           <img [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" [lazyLoad]="inneritem.nftFileUrl" *ngIf="
           inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1" (load)="onMediaLoad($event, j+1)" />
         </a>
 
-        <a [routerLink]="['/detailsCom/details', inneritem.nftAddress, inneritem.nftTokenID]">
+        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID]"  [queryParams]="{ blockchainId: item.blockchainId }">
+          
           <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" playsinline
              onloadedmetadata="this.muted = true"
             *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1" (load)="onMediaLoad($event, j+1)">
@@ -55,26 +57,26 @@
     </div>
   </div>
 
-  <div class="flex100">
-    <a class="color-secondary collections__subtitle orbitron"
-      [routerLink]="['/mycollection/collection', item.collectionName]">
-      {{ item.collectionName | titlecase}}
+  <div class="flex100 overflow-hidden">
+    <a class="color-secondary collections__subtitle orbitron overflow-ellipsis d-block"
+      [routerLink]="['/collection', item.collectionName]">
+      {{ item.collectionName}}
     </a>
     <div class="collections__line">
       <div class="collections__user">
         <div class="text-primary collections__author">
-          By
-          <ng-container *ngIf="item?.name ?? item?.customeUrl">
-            <a [routerLink]="['/profileinfo/profile', item.ownerWalletAddress]">
-              {{ item?.name ?? item?.customeUrl }}
+          Owned by 
+          <ng-container *ngIf=" item.name">
+            <a [routerLink]="['/profile', item.customeUrl]">
+              {{  item.name | customUrlTransform}}
             </a>
           </ng-container>
-          <ng-container *ngIf="!(item?.name ?? item?.customeUrl) || item?.name == '-'">
-            <span [routerLink]="['/profileinfo/profile', item.ownerWalletAddress]">Unknown</span>
+          <ng-container *ngIf="!item.name">
+            <span >Anonymous</span>
           </ng-container>
         </div>
       </div>
-      <div class="collections__counter" [ngClass]="{ 'd-none': correntRoute == '/collections' || correntRoute == ('/searchcollection?searchKey=' + searchKey) }">
+      <div class="collections__counter" [ngClass]="{ 'd-none': correntRoute == '/collection' || correntRoute == ('/searchcollection?searchKey=' + searchKey) }">
         <span class="text-primary">{{ item.totalNftCount }} items</span>
       </div>
     </div>
@@ -91,9 +93,9 @@
     </div>
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Floor price</p>
-      <p class="p18 pt10 flex align-center">
+      <p class="p18 pt10 flex align-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
-          style="height: 20px;width:20px;margin: 0 5px 0 10px;" *ngIf="item.blockchainId == 1">
+          style="height: 20px;width:20px;margin: 0 5px 0 0px;" *ngIf="item.blockchainId == 1">
           <g fill="#f3ba2f">
             <path
               d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
@@ -128,15 +130,31 @@
             <polygon class="svg-grey-dark" points="20,32 27.4,21.6 20,26 	"></polygon>
           </g>
         </svg>
+
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 38.4 33.5" style="height: 20px;width:20px;margin: 0 5px 0 0px;" xml:space="preserve"
+   *ngIf="item.blockchainId == 3">
+<style type="text/css">
+	.matic{fill:#8247E5;}
+</style>
+<g>
+	<path class="matic" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
+		c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
+		c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+		c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
+		L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+		c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"/>
+</g>
+</svg>
 
         {{ item.floorPrice | number: "1.2-3" }}
       </p>
     </div>
     <div class="border-right pr20 pt10 text-primary">
       <p class="p12">Volume</p>
-      <p class="p18 pt10 flex align-center">
+      <p class="p18 pt10 flex align-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
-          style="height: 20px;width:20px;margin: 0 5px 0 10px;" *ngIf="item.blockchainId == 1">
+          style="height: 20px;width:20px;margin: 0 5px 0 0px;" *ngIf="item.blockchainId == 1">
           <g fill="#f3ba2f">
             <path
               d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
@@ -172,9 +190,25 @@
           </g>
         </svg>
 
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 38.4 33.5" style="height: 20px;width:20px;margin: 0 5px 0 0px;" xml:space="preserve"
+   *ngIf="item.blockchainId == 3">
+<style type="text/css">
+	.matic{fill:#8247E5;}
+</style>
+<g>
+	<path class="matic" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
+		c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
+		c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+		c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
+		L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+		c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"/>
+</g>
+</svg>
+        
+
         {{ item.totalSale | number }}
       </p>
-      <!-- <p class="p18 pt10">{{ item.totalSale | number }}</p> -->
     </div>
   </div>
 </a>

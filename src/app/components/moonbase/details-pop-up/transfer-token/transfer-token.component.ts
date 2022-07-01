@@ -71,7 +71,7 @@ export class TransferTokenComponent implements OnInit {
     
     if(status.status){
       await status.hash.wait(3);
-      this.toastrService.success("Transferred succesfully...");
+      this.toastrService.success("Transferred succesfully");
   }
   }
 

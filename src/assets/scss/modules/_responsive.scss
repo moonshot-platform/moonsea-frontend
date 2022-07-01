@@ -133,7 +133,8 @@
         padding-top: 60px !important;
         .swiper-button-prev {
           top: 25px;
-          left: auto;
+          left: 0;
+          right: auto;
         }
         .swiper-button-next {
           top: 25px;
@@ -144,7 +145,6 @@
     .search_container {
       margin-top: 0;
     }
-
   }
 
   app-landing-one .swiper {
@@ -178,7 +178,7 @@
 
   app-step3 .pr100 {
     padding-right: 0;
-  } 
+  }
 
   app-nft-card .card__favorite {
     opacity: 1 !important;
@@ -291,17 +291,30 @@
   .import {
     height: auto;
     line-height: 25px;
-  } 
+  }
   .card__preview img,
   .card__preview video {
     max-height: 240px;
     min-height: 240px;
   }
   .collections__preview:first-child {
-    border: 1px solid #c5e3ec;
+    border: 1px solid $secondary;
+  }
+  .artist .collections__preview {
+    border: 1px solid $black;
   }
   .collections__preview .content-overlay {
     opacity: 1;
   }
-  
+
+  .swiper-button-next,
+  .swiper-button-prev,
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    width: 36px;
+    height: 36px;
+  }
+  .title-name {
+    top: 10px;
+  }
 }

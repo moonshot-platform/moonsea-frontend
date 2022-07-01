@@ -3,10 +3,10 @@
   <div class="landing-flex z-index-high">
     <div class="orbitron p30">
       <p class="max-word">
-        Show me
+        Search for
 
         <span #searchText class="content_editable text-secondary" data-maxlength="5" data-minlength="5" id="textSearch"
-          placeholder="Enter text here..." (keyup.enter)="filter(searchText.innerText,'col')" [innerHTML]="searchKey"
+          placeholder="Enter text here" (keyup.enter)="filter(searchText.innerText,'col')" [innerHTML]="searchKey"
           contenteditable="true" (click)="onSearchFieldClicked()"></span>
 
 
@@ -22,7 +22,6 @@
                 .st0 {
                   fill: #c5e3ec;
                 }
-
               </style>
               <path class="st0" d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
               s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
@@ -34,7 +33,7 @@
         </span>
       </p>
       <p>
-        regarding
+        in
         <span class="color-secondary arrow_down">
           <!-- all items -->
           <div class="dropdown pointer" (click)="myFunction3()">
@@ -47,45 +46,18 @@
                   .st0 {
                     fill: #c5e3ec;
                   }
-
                 </style>
                 <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
 	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
               </svg>
             </button>
             <div id="myDropdown3" class="dropdown-content">
-              <a (click)="getRegarding('collections')">collections</a>
               <a (click)="getRegarding('items')">items</a>
+              <a (click)="getRegarding('collections')">collections</a>
               <a (click)="getRegarding('creators')">creators</a>
             </div>
           </div>
 
-        </span>
-
-        containing
-        <span class="color-secondary arrow_down">
-          <!-- all categories -->
-          <div class="dropdown pointer" (click)="myFunction1()">
-            <button class="dropbtn text-lowercase">
-              {{categoryName}}
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-                y="0px" id="down_arrow" viewBox="0 0 24 24" style="enable-background: new 0 0 24 24"
-                xml:space="preserve">
-                <style type="text/css">
-                  .st0 {
-                    fill: #c5e3ec;
-                  }
-
-                </style>
-                <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
-s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
-              </svg>
-            </button>
-            <div id="myDropdown1" class="dropdown-content">
-              <a *ngFor="let item of categotyList"
-                (click)="getNftlistbyCategory(item.categoryId,item.categoryName,'col')">{{item.categoryName}}</a>
-            </div>
-          </div>
         </span>
 
         on the
@@ -100,7 +72,6 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
                   .st0 {
                     fill: #c5e3ec;
                   }
-
                 </style>
                 <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
 	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
@@ -113,7 +84,33 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
           </div>
 
         </span>
-        blockchain
+        blockchain categorized as
+        <span class="color-secondary arrow_down">
+          <!-- all categories -->
+          <div class="dropdown pointer" (click)="myFunction1()">
+            <button class="dropbtn text-lowercase">
+              {{categoryName | titlecase }}
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" id="down_arrow" viewBox="0 0 24 24" style="enable-background: new 0 0 24 24"
+                xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
+              </svg>
+            </button>
+            <div id="myDropdown1" class="dropdown-content">
+              <a *ngFor="let item of categotyList"
+                (click)="getNftlistbyCategory(item.categoryId,item.categoryName,'col')">{{item.categoryName | titlecase }}</a>
+            </div>
+          </div>
+        </span>
+
+       
+      
 
       </p>
     </div>
@@ -122,7 +119,9 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
 </div>
 
 <div class="relative mt50 mb50 z-index">
-  <div class="search-box"></div>
+  <div class="search-box">
+    <hr class="center-line">
+  </div>
   <div class="landing-flex pt-0 z-index-high position_01">
     <div class="flex justify-space-between flex100 gap remove__flex">
       <div class="flex mw-30" *ngIf="regardingDropdown != 'creators'">
@@ -143,12 +142,12 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
             <div class="field__wrap pointer" [ngClass]="{'pos-123': regardingDropdown == 'creators'}">
               <select *ngIf="regardingDropdown == 'items'" nice-select class="select maximum-content" #lkks
                 [value]="sortingType" (change)="sortingType01(lkks.value)">
-                <option value="1">Price: High to low</option>
-                <option value="2">Price: Low to high</option>
-                <option value="3">Last price: High to low</option>
-                <option value="4">Last price: Low to high</option>
-                <option value="5">Recently listed</option>
-                <option value="6">Highest last sale</option>
+                <option value="4">Price: High to low</option>
+                <option value="3">Price: Low to high</option>
+                <option value="6">Last price: High to low</option>
+                <option value="5">Last price: Low to high</option>
+                <option value="2">Recently listed</option>
+                <option value="1">Highest last sale</option>
               </select>
 
               <select *ngIf="regardingDropdown == 'collections'" nice-select class="select maximum-content" #lkks
@@ -185,11 +184,12 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
     <section class="hot-collection mt-0">
       <div class="inner">
         <div class="grid grid-3">
-          <div *ngFor="let item of dicoverCollectionList" class="flex100">
+          <div *ngFor="let item of dicoverCollectionList" class="flex100 mb60">
             <app-collection-card [item]="item"></app-collection-card>
           </div>
-
         </div>
+        <button class="button text-inherit wp100" type="button" (click)="loadmoreCollectionList()">Load More</button>
+
       </div>
     </section>
   </div>
@@ -210,14 +210,8 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
         <div class="loader" *ngIf="isApiLoading"></div>
         <app-nft-card [items]="item" [index]="i" [ngClass]="{ visibility_hidden: isApiLoading }"></app-nft-card>
       </div>
+      <button class="button text-inherit wp100" type="button" (click)="loadmoreNftList()">Load More</button>
     </div>
-    <!-- 
-            /*
-            *Load more button commented
-            */
-         -->
-    <!-- <div>
-            <button type="submit" class="loadmore">Load more</button>
-        </div> -->
+
   </div>
 </div>

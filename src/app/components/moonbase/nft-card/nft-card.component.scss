@@ -85,3 +85,16 @@
     min-height: 86px !important;
     border: none !important;
 }
+.ml-5 {
+    margin-left: 5px;
+}
+.mw-75 {
+    max-width: 75%;
+}
+
+@media (max-width: $md-header) {
+    .mw-75 {
+        font-size: 12px;
+        max-width: 100%;
+    }
+}

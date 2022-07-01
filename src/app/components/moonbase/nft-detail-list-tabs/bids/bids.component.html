@@ -6,8 +6,7 @@
     </div>
     <div class="item__description">
       <div class="item__action">
-        Amount: <span>{{ item.price }} {{ item.currancy }}</span>
-        <span *ngIf="items.blockchainId == 1">
+        Amount:  <span *ngIf="items.blockchainId == 1">
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
             style="height: 20px;width:20px;margin: 0 5px 0 10px;">
@@ -43,9 +42,13 @@
             </g>
           </svg>
         </span>
+        <span> {{ item.price }} </span>
+       
       </div>
-      <div class="item__name" *ngIf="item.name">{{ item.name }}</div>
-      <div class="item__name" *ngIf="!item.name">--</div>
+      <div class="item__name" *ngIf="item.name">
+        <a [routerLink]="['/profile',item?.customeUrl]" routerLinkActive="router-link-active" >{{ item.name }}</a>
+      </div>
+      <div class="item__name" [routerLink]="['/profile',item?.customeUrl]" *ngIf="!item.name">unknown</div>
     <!-- <button *ngIf="items.isListed && item.isAccepted == 0 && (item.isShowAcceptButton || item.typeOfSale==3)" class="button-stroke item__button" (click)="openDialog(i)"  data-effect="mfp-zoom-in">Accept</button> -->
     
     <button
@@ -68,5 +71,5 @@
   </div>
 
   </div>
-  <span *ngIf="this.totalCount == 0">No data available</span>
+  <div *ngIf="data.length == 0">Be the first to place a bid on this item!</div>
 </div>

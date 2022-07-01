@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { PricingApiService } from 'src/app/services/pricing-api.service';
 
 @Component({
   selector: 'app-add-in-listing',
@@ -26,15 +27,16 @@ export class AddInListingComponent implements OnInit {
   isSaleApproved: boolean = false;
   isContractApproved: any;
   wrongNetwork: boolean = false;
-  btnText: string = 'Add now';
-
+  btnText: string = 'Complete Listing';
+  serviceFees:any;
   constructor(
     public dialogRef: MatDialogRef<AddInListingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private getDataService: GetDataService,
     private contractService: ContractService,
     private toastrService: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private pricingApi :PricingApiService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +56,9 @@ export class AddInListingComponent implements OnInit {
     this.createNftForm.patchValue({
       currencyId: this.data.blockchainId,
     });
+
+    this.pricingApi.getServiceFee();
+    this.serviceFees = this.pricingApi.serviceFees;
   }
 
   async checkNetwork() {
@@ -73,6 +78,7 @@ export class AddInListingComponent implements OnInit {
   }
 
   onNoClick(): void {
+    debugger
     this.dialogRef.close();
   }
 
@@ -142,7 +148,7 @@ export class AddInListingComponent implements OnInit {
           this.data.isMultiple
         );
       }
-
+      debugger
       if (status.status) {
         this.data1 = {
           nftId: this.data.ID,

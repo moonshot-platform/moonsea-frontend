@@ -17,7 +17,7 @@ export class NftInteractionService {
    }
 
    placeBid(data: any): Observable<any> {
-    return this.httpClient.post(environment.apiUrl + 'api/placeBid/', data);
+    return this.httpClient.post(environment.apiUrl + 'api/placeBid?nftAddress='+data.nftAddress+'&blockchainId='+data.blockchainId, data);
   }
 
   getDiscoverNFTList(): Observable<any> {
@@ -29,12 +29,12 @@ export class NftInteractionService {
     return this.httpClient.post(environment.apiUrl + 'api/purchaseOrderSave/', data);
   }
 
-  getBidHistoryForNft(nftTokenId: any,walletAddress:any,nftAddress:any): Observable<any> {
-    return this.httpClient.get(environment.apiUrl +'api/getBidHistory?nftTokenId='+nftTokenId+'&loginAddress='+walletAddress+"&nftAddress="+nftAddress);
+  getBidHistoryForNft(nftTokenId: any,walletAddress:any,nftAddress:any,blockchainId:any): Observable<any> {
+    return this.httpClient.get(environment.apiUrl +'api/getBidHistory?nftTokenId='+nftTokenId+'&loginAddress='+walletAddress+"&nftAddress="+nftAddress+'&blockchainId='+blockchainId);
   }
 
-  getNftDetails(walletAddress: any,nftId:any): Observable<any> {
-    return this.httpClient.get(environment.apiUrl +'api/getNftDeatailsByWalletAddress?walletAddress='+walletAddress+"&nftId="+nftId);
+  getNftDetails(walletAddress: any,nftId:any,nftAddress:any,blockchainId:any): Observable<any> {
+    return this.httpClient.get(environment.apiUrl +'api/getNftDeatailsByWalletAddress?walletAddress='+walletAddress+"&nftId="+nftId+"&nftAddress="+nftAddress+"&blockchainId="+blockchainId);
   }
 
   showToastr(message: any, isSuccess: boolean) {

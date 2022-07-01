@@ -1,7 +1,7 @@
 <section id="moonsea-sidebar" class="sidebar">
-  <a href="javascript:void(0)" (click)="toggleTokenomicsView(true, 'wallet')" class="wallet-button block flex-center">
-    <!-- <img src="assets/media/icons/wallet.svg" alt="wallet"> -->
-    <svg *ngIf="!userProfilePic" version="1.1" id="wallet" xmlns="http://www.w3.org/2000/svg"
+  <!-- (click)="toggleTokenomicsView(true, 'wallet')" -->
+  <a href="javascript:void(0)" (click)="checkWalletConnect()" class="wallet-button block flex-center">
+    <svg *ngIf="!userDetails" version="1.1" id="wallet" xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
       style="enable-background:new 0 0 40 40;width: 40px;height: 40px;" xml:space="preserve">
       <g>
@@ -13,15 +13,13 @@
       </g>
     </svg>
 
-    <div *ngIf="userProfilePic"  class="userProfilePic">
-      <img [lazyLoad]="userProfilePic" [defaultImage]="'assets/icons/5904642857251113741.gif'" alt="">
+    <div *ngIf="userDetails" class="userProfilePic">
+      <img [lazyLoad]="userDetails?.profilePic" [defaultImage]="'assets/media/images/moonsea/profile.png'" alt="">
     </div>
   </a>
   <ul>
-    <!-- <li><a href="javascript:void(0)" (click)="toggleTokenomicsView(true, 'rates')">Rates</a></li> -->
     <li><a href="https://project-moonshot-web.web.app/">Moonshot</a></li>
     <li><a href="https://moonboxes.io/">MoonBoxes</a></li>
-    <!-- <li><a (click)="switchNetwork()">switch Network</a></li> -->
   </ul>
 </section>
 

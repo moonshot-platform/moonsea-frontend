@@ -29,3 +29,8 @@
   }
 }
 
+@media (min-width: $md-header) {
+  .increase-height {
+    height: 370px;
+  }
+}

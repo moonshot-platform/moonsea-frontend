@@ -12,6 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 import { SignBuyerOrder } from 'src/app/model/signBuyerOrder';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 
+import blockjson from '../../../../../assets/blockchainjson/blockchain.json';
+import { environment } from 'src/environments/environment';
+
+
 @Component({
   selector: 'app-place-bid-modal',
   templateUrl: './place-bid-modal.component.html',
@@ -23,7 +27,6 @@ export class PlaceBidModalComponent implements OnInit {
   invalidValue = true;
   btnText = 'Place bid';
   serviceFees: number = 0;
-  total: string = '0';
   serviceFeesVal: number = 0;
   wrongNetwork: boolean = false;
   step = 0;
@@ -34,6 +37,7 @@ export class PlaceBidModalComponent implements OnInit {
 
   balanceDetailsToken!: { balance: any; status: boolean; decimals: any };
   tokenAddress: any;
+  blockchainInfo:any ={};
 
   constructor(
     private contractService: ContractService,
@@ -48,12 +52,22 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pricingDetails.getServiceFee();
+    // console.log("WWWWWWWWWW=>",this.items);
+    
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items.listing.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
     this.getAccount();
     this.checkNetwork();
+
+
   }
 
   async checkNetwork() {
-  
+    debugger
     let checkNetwork: boolean = await this.contractService.createContract(
       this.items.listing.blockchainId
     );
@@ -113,12 +127,12 @@ export class PlaceBidModalComponent implements OnInit {
 
   validatePrice(event: any) {
     this.bidAmont = event.target.value;
-    ;
     if (this.price > event.target.value) {
       this.invalidValue = true;
       this.isShowMinimumBidValidation = true;
     } else {
       this.invalidValue = false;
+      this.serviceFees = this.bidAmont * this.pricingDetails.serviceFees/100;
       this.isShowMinimumBidValidation = false;
     }
   }
@@ -148,7 +162,7 @@ export class PlaceBidModalComponent implements OnInit {
         if (allowance.status && allowance.allowance) {
           this.PlaceBid(amount);
         } else if (allowance.status && !allowance.allowance) {
-          this.btnText = 'Approve Token...';
+          this.btnText = 'Approve Token';
 
           let allowToken: any = await this.contractService.approveToken(
             amount,
@@ -157,7 +171,7 @@ export class PlaceBidModalComponent implements OnInit {
 
           if (allowToken.status) {
             allowToken.hash.wait(3);
-            this.btnText = 'Waiting for tokenApproval...';
+            this.btnText = 'Waiting for tokenApproval';
             this.PlaceBid(amount);
           }
         }
@@ -208,7 +222,7 @@ export class PlaceBidModalComponent implements OnInit {
     );
     ;
     if (signature.status) {
-      this.btnText = 'Submitting data...';
+      this.btnText = 'Submitting data';
       if (this.items.listing.btnType != 'offer') {
         this.nftInteractionService
           .placeBid({
@@ -222,6 +236,7 @@ export class PlaceBidModalComponent implements OnInit {
             listingId: this.items.listing.listingId.toString(),
             salt: salt,
             nftAddress: this.items.listing.nftAddress,
+            blockchainId:this.items.listing.blockchainId,
             tokenAddress: this.tokenAddress,
             isMultiple: this.items.listing.isMultiple,
           })
@@ -239,7 +254,7 @@ export class PlaceBidModalComponent implements OnInit {
             );
           });
       } else {
-        let url = 'api/placeBidAll';
+        let url = 'api/placeBidAll?nftAddress='+this.items.listing.nftAddress+"&blockchainId="+this.items.listing.blockchainId;
         let body = {
           nftId: this.items.listing.nftTokenID,
           price: amount,

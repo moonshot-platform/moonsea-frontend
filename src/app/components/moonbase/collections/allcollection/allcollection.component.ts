@@ -33,6 +33,7 @@ export class AllcollectionComponent implements OnInit {
   panelOpenState: boolean = false;
   foo: any = [];
   expanded = false;
+  expandedMobile = false;
   status: any = "-1";
   searchKeyWord: any = '';
   minPrice: any = 0;
@@ -75,7 +76,7 @@ export class AllcollectionComponent implements OnInit {
  
   getNftList01() {
     this.ngxService.start();
-console.log(JSON.stringify(this.filterArray),"sasas")
+// console.log(JSON.stringify(this.filterArray),"sasas")
     this.isApiLoading = true;
     this.collectionApi
       .getNFTListAll(
@@ -245,7 +246,7 @@ console.log(JSON.stringify(this.filterArray),"sasas")
 
       
   
-    console.log(JSON.stringify(this.filterArray));
+    // console.log(JSON.stringify(this.filterArray));
     
     this.oldpropertiesValue = value.join(',');
     this.oldpropertiesKey = keys.join(',');
@@ -256,4 +257,9 @@ console.log(JSON.stringify(this.filterArray),"sasas")
   toggle() {
     this.expanded = !this.expanded;
   }
+
+  toggleMobile() {
+    this.expandedMobile = !this.expandedMobile;
+  }
+
 }

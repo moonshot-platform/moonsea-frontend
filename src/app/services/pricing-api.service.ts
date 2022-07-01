@@ -7,19 +7,24 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PricingApiService {
-  bnbPriceInUsd = 400;
+  bnbPriceInUsd =400;
   serviceFees = 2.5;
   constructor(private httpClient: HttpClient) {
 
    }
 
-   getPriceForBNB()
+   getPriceForBNB(coin:any)
    {
+    return this.httpClient.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=USD`);
+   }
+
+   getPriceofBNB(){
     return this.httpClient.get('https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=USD').subscribe((response:any)=>
     {
       this.bnbPriceInUsd = response.binancecoin.usd;
     })
    }
+
 
    getServiceFee()
    {

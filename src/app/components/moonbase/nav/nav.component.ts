@@ -62,9 +62,9 @@ export class NavComponent implements OnInit {
   condition: any = false;
   dialogRef: any;
   menuItem = false;
+  sidebarMenu = false;
   search = false;
-  useData: any = {};
-  userProfilePic: any;
+  userProfilePic: any={};
   active = false;
   wallet = false;
   activeWallet: boolean = false;
@@ -78,8 +78,9 @@ export class NavComponent implements OnInit {
   };
   netWorkId = 0;
   walletAddresss:any;
-  
-
+  userAddress:any;
+  userDetails:any={};
+  activeWalletAddress:any;
 
   constructor(
     private route: Router,
@@ -93,20 +94,26 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userProfilePic = JSON.parse(localStorage.getItem('userData'));
+    this.getDataService.profilePic.subscribe((res:any)=>{
+      this.fetchData();
+    })
     this.cs.getWalletObs().subscribe((data: any) => {
-      
       this.isConnected = this.cs.checkValidAddress(data);
       if (this.isConnected) {
         this.connectedAddress = data;
         this.getUserBalance();
       }
+      
+      if(this.activeWalletAddress != data){
+        this.activeWalletAddress = data;
+        this.fetchData();
+      }
     });
 
-    this.getDataService.searchCollectionflag.subscribe((res:any)=>{
-      console.log("============>",res);
-      
+    this.getDataService.searchCollectionflag.subscribe((res: any) => {
       this.flag = false;
-    })
+    });
 
     let that = this;
 
@@ -122,7 +129,11 @@ export class NavComponent implements OnInit {
       localStorage.setItem('address', data);
       this.walletAddresss = data;
       try {
-        if (data != undefined && this.cs.checkValidAddress(data)) {
+        if (
+          data != undefined &&
+          this.cs.checkValidAddress(data) &&
+          this.walletAddress != data
+        ) {
           this.isConnected = true;
           this.walletAddress = data;
           this.shortAddress =
@@ -140,23 +151,18 @@ export class NavComponent implements OnInit {
       this.toggleTokenomicsView(state);
     });
 
-    this.cs.isRegisterd.subscribe((res:any)=>{
-      if(res == 'not register'){
+    this.cs.isRegisterd.subscribe((res: any) => {
+      if (res == 'not register') {
         this.changeAccountDetected(this.walletAddresss);
       }
-    })
+    });
   }
 
   async getUserBalance() {
-    
     try {
       this.userBalance = await this.cs.getBalance();
       this.netWorkId = await this.cs.getConnectedNetworkId();
-    
-    } catch (error) {
-      
-    }
-    
+    } catch (error) {}
   }
 
   @HostListener('document:click', ['$event'])
@@ -199,7 +205,6 @@ export class NavComponent implements OnInit {
     setTimeout(async () => {
       this.ngZone.run(async () => {
         var balance = await this.cs.getBalance();
-        //this.getDataService.getUser(this.addressConnected).then(result =>balance = getUser);
         this.subscription = this.getDataService
           .getUser(this.walletAddress)
           .subscribe((response: any) => {
@@ -221,50 +226,52 @@ export class NavComponent implements OnInit {
 
   ////////////////////code commented for some time dont delete it ////////////////////////////////////////
   async changeAccountDetected(accounts: any) {
-
-    if (localStorage.getItem("isRegistered") || localStorage.getItem("isRegistered") == null || localStorage.getItem("isRegistered") == "false") {
-      this.getDataService.checkIsRegister(
-        accounts
-      ).subscribe(
-        async response => {
+    if (
+      localStorage.getItem('isRegistered') ||
+      localStorage.getItem('isRegistered') == null ||
+      localStorage.getItem('isRegistered') == 'false'
+    ) {
+      this.getDataService
+        .checkIsRegister(accounts)
+        .subscribe(async (response) => {
           var data = response;
           if (data.isSuccess) {
             if (data.isNewUser) {
               // this.showRegisterPopup();
-              var signature = await this.cs.signMsgForRegister( this.walletAddress);
-              if(signature){
-                this.getDataService.registerUser({walletAddress:this.walletAddress,
-                  referralAddress:'',signature:signature})
-                .subscribe(
-                  response => {
-                    var data=response;
-                    if(data.isSuccess)
-                    {
+              var signature = await this.cs.signMsgForRegister(
+                this.walletAddress
+              );
+              if (signature) {
+                this.getDataService
+                  .registerUser({
+                    walletAddress: this.walletAddress,
+                    referralAddress: '',
+                    signature: signature,
+                  })
+                  .subscribe((response) => {
+                    var data = response;
+                    if (data.isSuccess) {
                       this.toastr.success(data.message);
-                      localStorage.setItem('isRegistered',"true");
+                      localStorage.setItem('isRegistered', 'true');
                       window.location.reload();
-                      
-                    }
-                    else
-                    {
+                    } else {
                       this.toastr.error(data.message);
                     }
                   });
-                }else{
-                  localStorage.setItem('isRegistered',"false");
-                  localStorage.removeItem('userData');
-                }
-            }
-            else {
+              } else {
+                localStorage.setItem('isRegistered', 'false');
+                localStorage.removeItem('userData');
+              }
+            } else {
               this.hideRegisterPopup();
-              if(this.dialogRef){
+              if (this.dialogRef) {
                 this.dialogRef.close();
               }
-              
-              localStorage.setItem('isRegistered', "true");
-              localStorage.setItem('userData',JSON.stringify(data.data));
+
+              localStorage.setItem('isRegistered', 'true');
+              localStorage.setItem('userData', JSON.stringify(data.data));
             }
-          }else{
+          } else {
             this.hideRegisterPopup();
           }
         });
@@ -287,7 +294,7 @@ export class NavComponent implements OnInit {
   //  if(this.properties[0].length > 0){
   //   this.route.navigate(['/detailsCom/details', this.properties[0][0].nftAddress, this.properties[0][0].nftTokenId]);
   //  }else if(this.properties[1].length > 0){
-  //   this.route.navigate(['/profileinfo/profile', searchText]);
+  //   this.route.navigate(['/profile', searchText]);
   //  }else if(this.properties[2].length > 0 && this.properties[2][0].serachType == 3){
   //   this.route.navigate(['/mycollection/collection', searchText]);
   //  }
@@ -295,33 +302,38 @@ export class NavComponent implements OnInit {
     this.route.navigate(['/searchcollection'], {
       queryParams: { searchKey: searchText },
     });
-
   }
 
   onselectClient(
     enterText: any,
     serachType: any,
     nftToken: any,
-    nftAddress: any
+    nftAddress: any,
+    blockchainId:any
   ) {
+
+    debugger
     if (serachType == 1) {
-      this.route.navigate(['/detailsCom/details', nftAddress, nftToken]);
+      this.route.navigate(['/details', nftAddress, nftToken],{queryParams: { blockchainId: blockchainId }});
     } else if (serachType == 2) {
-      this.route.navigate(['/profileinfo/profile', enterText]);
+      this.route.navigate(['/profile', enterText]);
     } else if (serachType == 4) {
-      this.route.navigate(['/profileinfo/profile', enterText]);
+      this.route.navigate(['/profile', enterText]);
     } else {
-      this.route.navigate(['/mycollection/collection', enterText]);
+      this.route.navigate(['/collection', enterText]);
     }
   }
 
   Disconnect() {
     localStorage.clear();
-    this.cs.setWalletObs(new Object());
+    // this.cs.setWalletObs(new Object());
     this.route.navigate(['']);
     this.getUser = '';
     this.notifyCount = '';
     this.isConnected = false;
+    this.activeWalletAddress =null;
+    this.userProfilePic =null;
+    this.getDataService.profilePic.next(1);
   }
 
   hideRegisterPopup() {
@@ -355,7 +367,7 @@ export class NavComponent implements OnInit {
     return prmise;
   }
 
-  autoComplete(searchText,event:any) {
+  autoComplete(searchText, event: any) {
     this.uniquedata = [];
     this.properties = [];
     if (searchText.length > 2) {
@@ -384,9 +396,9 @@ export class NavComponent implements OnInit {
             // console.log(this.uniquedata);
             // console.log("=========>",this.properties);
 
-          if(event.key == 'Enter'){
-            this.flag = false;
-          }
+            if (event.key == 'Enter') {
+              this.flag = false;
+            }
           } else {
             this.flag = false;
           }
@@ -404,6 +416,12 @@ export class NavComponent implements OnInit {
     this.activeWallet = true;
   }
 
+  sidebar() {
+    this.activeWallet = false;
+    this.menuItem = false;
+    this.sidebarMenu = true;
+  }
+
   searchCollection() {
     this.search = true;
   }
@@ -412,23 +430,43 @@ export class NavComponent implements OnInit {
   }
 
   closeMenu() {
-    this.activeWallet = false;
     this.menuItem = false;
+    this.sidebarMenu = false;
+    this.activeWallet = false;
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(WalletConnectComponent, {
-      width: 'auto',
-      backdropClass: 'popupBackdropClass',
-      hasBackdrop: false,
-    });
+    // let dialogRef = this.dialog.open(WalletConnectComponent, {
+    //   width: 'auto',
+    //   backdropClass: 'popupBackdropClass',
+    //   hasBackdrop: false,
+    // });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    // dialogRef.afterClosed().subscribe((result) => {});
+    let sd = localStorage.getItem('address');
+    if(!sd || sd == 'null'){
+      this.connectwallet();
+    }else{
+      this.walletOpen();
+    }
   }
 
   connectwallet() {
     const dialogRef = this.dialog.open(ConnectWalletPopupComponent, {
       width: 'auto',
     });
+  }
+
+
+
+  fetchData() {
+    this.getDataService
+      .getUserDetails(this.activeWalletAddress, null)
+      .subscribe((response: any) => {
+        this.userDetails = response.data[0];
+        if (this.userDetails) {
+          this.userProfilePic = this.userDetails;
+        }
+      });
   }
 }

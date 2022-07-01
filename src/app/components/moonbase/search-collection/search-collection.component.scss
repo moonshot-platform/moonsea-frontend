@@ -13,26 +13,32 @@
   font-size: 1rem;
   border: 1px solid $primary;
   height: 54px;
-  background: #090d16;
-  color: #50aac5;
+  background: $black;
+  color: $primary;
   width: 100%;
   z-index: 10;
   font-family: "Montserrat";
   font-weight: 600;
   padding-left: 5.5rem;
-  margin-top: 10px;
+  margin-top: 9px;
 }
 
 .search-box {
   position: absolute;
   width: 100%;
   left: 0;
-  border-color: #50aac5;
-  top: 50%;
+  border-color: $primary;
+  top: 55%;
   z-index: -1;
-  border: 1px solid;
+  border: none;
 }
-
+.center-line {
+  border-color: $primary;
+  margin: 0;
+  height: 2px;
+  border: none;
+  border-bottom: 1px solid $primary;
+}
 .orbitron {
   font-family: $secondary-font;
   font-weight: $black-bold;
@@ -43,7 +49,7 @@
   border: 1px solid $primary;
   height: 54px;
   background: transparent;
-  color: #50aac5;
+  color: $primary;
   width: 100%;
   z-index: 10;
   font-family: "Montserrat";
@@ -62,8 +68,8 @@
 
 .loadmore {
   width: 100%;
-  color: #50aac5;
-  border: 2px solid #50aac5;
+  color: $primary;
+  border: 2px solid $primary;
   padding: 20px;
   margin: 50px 0 15px 0;
 }
@@ -179,11 +185,9 @@
   max-width: 100%;
 }
 
-
 // *********************************************************************//
 // top filter css
 // *********************************************************************//
-
 
 input.search_word {
   background: transparent;
@@ -205,6 +209,7 @@ input.search_word {
   cursor: pointer;
   font-family: "Orbitron";
   font-weight: 900;
+  text-transform: capitalize;
 }
 
 .dropdown {
@@ -224,7 +229,9 @@ input.search_word {
   z-index: 1;
   border: solid 1px #fff;
 }
-
+#myDropdown3 a {
+  text-transform: capitalize;
+}
 .dropdown-content a {
   color: $white;
   padding: 18px 0;
@@ -235,7 +242,6 @@ input.search_word {
   font-family: $primary-font;
   font-size: 14px;
   font-weight: $semi-bold;
-  text-transform: lowercase;
 
   &:last-child {
     border-bottom: none;
@@ -270,7 +276,7 @@ input {
   position: absolute !important;
   right: 0 !important;
   top: -18px !important;
-  background-color: #090d16;
+  background-color: $black;
 }
 
 .loader-01 {
@@ -287,3 +293,10 @@ input {
 //   content: attr(placeholder);
 //   pointer-events: none;
 // }
+
+@media (max-width: $md-header) {
+  .catalog__list .grid-4 {
+    flex: 0 0 calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
+}

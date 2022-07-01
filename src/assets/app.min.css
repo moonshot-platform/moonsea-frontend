@@ -300,9 +300,9 @@ html {
 .nice-select:hover {
   border-color: #50aac5;
 }
+
 .nice-select:active,
-.nice-select.open,
-.nice-select:focus {
+.nice-select.open {
   border-color: #ffffff;
 }
 .nice-select.open .current {
@@ -1317,7 +1317,7 @@ body.dark .nice-select.open {
 .select.open:before {
   -webkit-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotate(180deg);
-  box-shadow: inset 0 0 0 2px #ffffff;
+  /* box-shadow: inset 0 0 0 2px #ffffff; */
 }
 .select .current {
   display: block;
@@ -3783,6 +3783,7 @@ body.dark .card__link {
 }
 .card__line {
   display: flex;
+  min-width: 100%;
   align-items: flex-start;
 }
 .card__line:first-child {
@@ -3800,11 +3801,12 @@ body.dark .card__link {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: auto;
 }
 .card__price {
   flex-shrink: 0;
   margin-left: 8px;
-  padding: 0 8px;
+  padding: 0 0px;
   border-radius: 4px;
   font-size: 12px;
   line-height: 26px;
@@ -5419,7 +5421,7 @@ body.dark .upload__list {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   height: 275px;
   margin-top: 8px;
@@ -5458,7 +5460,7 @@ body.dark .upload__file {
 
 .upload__category {
   font-size: 12px;
-  line-height: 14px;
+  line-height: 1.5;
   font-weight: 600;
 }
 
@@ -5700,6 +5702,7 @@ body.dark .switch__box {
 .loader {
   width: 1em;
   height: 1em;
+  margin: auto;
   border-radius: 50%;
   position: relative;
   font-size: 4px;
@@ -8153,6 +8156,9 @@ body.dark .user__direction span:hover {
 body.dark .user__direction span:hover .icon {
   fill: #fcfcfd;
 }
+.user__direction:first-child {
+  margin-top: 0;  
+}
 .user__direction:not(:last-child) {
   display: flex !important;
   margin-top: 10px;
@@ -8351,7 +8357,7 @@ body.dark .followers__item {
 }
 
 .followers .loader {
-  margin: 48px auto 10px;
+  margin: 0px auto;
 }
 
 .details__center {
@@ -9362,12 +9368,16 @@ body.dark .popup__row:first-child {
   font-family: "Montserrat";
   line-height: 1.5;
   color: #090d16;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0;
-  font-size: 16px;
+  font-size: 12px;
   padding: 1rem;
   width: 100%;
 }
+
+/* .nft_details .popup__input {
+  font-size: 12px;
+} */
 body.dark .popup__input {
   border-color: #353945;
   color: #fcfcfd;

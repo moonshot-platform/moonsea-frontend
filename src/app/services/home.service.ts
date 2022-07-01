@@ -23,9 +23,9 @@ export class HomeService {
     return this.httpClient.post(environment.apiUrl + 'api/collectionSave/', data);
   }
 
-  getStats(blockchainId:any,serachText:any): Observable<any> {
+  getStats(blockchainId:any,serachText:any,pageNo:any,PageSize:any): Observable<any> {
 
-    return this.httpClient.get(environment.apiUrl +'api/getStats?serachText='+serachText+'&blockchainId='+blockchainId);
+    return this.httpClient.get(environment.apiUrl +'api/getStats?serachText='+serachText+'&blockchainId='+blockchainId+'&pageNo='+pageNo+'&PageSize='+PageSize);
 }
 
 

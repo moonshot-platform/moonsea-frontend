@@ -45,7 +45,7 @@
     </div>
 
     <div class="popup__info">
-      By accepting offer you are agreeing to sell this NFT at {{ total }} WBNB
+      By accepting offer you are agreeing to sell this NFT at {{ total }} {{blockchainInfo.symbol}}
       price and end the auction. Do you want to sell now? at price
     </div>
     <div class="popup__btns">
@@ -88,21 +88,24 @@
       ></a>
     </div>
     <div class="popup__info">
-      You are about to purchase <strong>{{ nftDetails?.title }}</strong> from
+      You are about to purchase 
+      <strong *ngIf="nftDetails?.title">{{ nftDetails?.title }}</strong>
+      <strong *ngIf="!nftDetails?.title">unknown</strong>
+       from
       <strong>UI8</strong>
     </div>
     <div class="popup__table">
       <div class="popup__row">
         <div class="popup__col">{{ price }}</div>
-        <div class="popup__col">BNB</div>
+        <div class="popup__col">{{blockchainInfo.symbol}}</div>
       </div>
       <div class="popup__row">
         <div class="popup__col">Service fee</div>
-        <div class="popup__col">{{ serviceFees }} BNB</div>
+        <div class="popup__col">{{ serviceFees }} {{blockchainInfo.symbol}}</div>
       </div>
       <div class="popup__row">
         <div class="popup__col">You will get</div>
-        <div class="popup__col">{{ total }} BNB</div>
+        <div class="popup__col">{{ total }} {{blockchainInfo.symbol}}</div>
       </div>
     </div>
     <div class="popup__btns">

@@ -8,6 +8,9 @@ import { HomeService } from 'src/app/services/home.service';
 import { TopCollectionListComponent } from '../stats-m/top-collection-list/top-collection-list.component';
 import { LineChartsComponent } from './line-charts/line-charts.component';
 
+import blockjson from '../../../../assets/blockchainjson/blockchain.json';
+import { PricingApiService } from 'src/app/services/pricing-api.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-stats',
@@ -16,29 +19,39 @@ import { LineChartsComponent } from './line-charts/line-charts.component';
 })
 export class StatsComponent implements OnInit {
   getStatsList: any;
-  StatsList: any;
+  StatsList: any =[];
   blockchainList :any = [];
   blockchainId :any =1;
   searchKey: any = 'all collections';
   collectionlist: any = [];
-  pageNo: any = 0;
-  PageSize: any = 9;
+  pageNo: any = 1;
+  PageSize: any = 12;
   categoryId:any;
   isShowLoader: boolean = false;
   currencySymbol :any ='';
   chartData: any = [];
   data01 :any = [];
-
+  blockchainInfo :any ={};
+  globalstatDetails :any ={};
+  getCryptoPrice :any = {};
 
   constructor(private homeService: HomeService, public dialog: MatDialog,
           private router:Router,private createNFT: CreateNftService,
           private ngxService: NgxUiLoaderService,
-          private dataservice: CollectionApiService) {}
+          private dataservice: CollectionApiService,
+          private pricingApi :PricingApiService) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.StatList();
     this.getBlockchainList(); 
+
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
+    this.getPriceForBNB();
 
     let that = this;
     window.onclick = function (event) {
@@ -49,7 +62,7 @@ export class StatsComponent implements OnInit {
         that.outsideClick();
       }
     };
-
+    this.getGlobalstat();
   }
 
   outsideClick() {
@@ -65,16 +78,18 @@ export class StatsComponent implements OnInit {
 
   async StatList() {
     if(this.searchKey.toLowerCase() == 'all collections'){
-      this.homeService.getStats(this.blockchainId,'').subscribe((response: any) => {
+      this.homeService.getStats(this.blockchainId,'',this.pageNo,this.PageSize).subscribe((response: any) => {
         this.getStatsList = response.data.GlobalData;
-        this.StatsList = response.data;
-      });
+        response.data.forEach(element => {
+          this.StatsList.push(element)
+        });
+    });
     }else{
-
-   
-    this.homeService.getStats(this.blockchainId,this.searchKey).subscribe((response: any) => {
+    this.homeService.getStats(this.blockchainId,this.searchKey,this.pageNo,this.PageSize).subscribe((response: any) => {
       this.getStatsList = response.data.GlobalData;
-      this.StatsList = response.data;
+      response.data.forEach(element => {
+        this.StatsList.push(element)
+      });
     });
   }
   }
@@ -96,7 +111,6 @@ export class StatsComponent implements OnInit {
           }
           resolve(this.data01);
         } else {
-          console.log(res.message);
         }
       },
       (err) => {
@@ -119,7 +133,6 @@ export class StatsComponent implements OnInit {
     const dialogRef = this.dialog.open(LineChartsComponent,{width:'100%',data:{arr:lineChartData}});
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -132,10 +145,44 @@ export class StatsComponent implements OnInit {
   }
   
   selectBlockchain(blockchainId:any,networkName:any){
+    
     this.blockchainId = blockchainId;
     this.currencySymbol  = networkName;
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
+    this.StatsList = [];
     this.StatList();
+    this.getPriceForBNB();
   }
+
+
+  getPriceForBNB(){
+    let coinName :any;
+    if(this.blockchainInfo.name.toLowerCase() == 'binance'){
+      coinName = 'binancecoin';
+    }else if(this.blockchainInfo.name.toLowerCase() == 'polygon'){
+      coinName = 'matic-network';
+    }
+    else{
+      coinName = this.blockchainInfo.name.toLowerCase();
+    }
+    this.pricingApi.getPriceForBNB(coinName).subscribe((res:any)=>{
+      if(coinName == 'binancecoin'){
+        this.getCryptoPrice = res.binancecoin;
+      }
+      if(coinName.toLowerCase() == 'ethereum'){
+        this.getCryptoPrice = res.ethereum;
+      }
+      if(coinName.toLowerCase() == 'matic-network'){
+        this.getCryptoPrice = res[coinName];
+      }
+      
+    })
+  }
+
 
   searchClient(searchKey:any){
     this.searchKey = searchKey;
@@ -194,11 +241,22 @@ export class StatsComponent implements OnInit {
     document.getElementById('myDropdown').classList.toggle('show');
   }
 
-  getListofCollection01(blockchainId:any,currencySymbol:any){
-    this.blockchainId = blockchainId;
-    this.currencySymbol = currencySymbol;
-    this.collectionlist = [];
-     this.getListofCollection();
+ 
+
+
+   getGlobalstat(){
+    let url = `api/getStatGlobal?blockchainId=${this.blockchainId}`;
+    this.dataservice.getRequest(url).subscribe((res:any)=>{
+      if(res.isSuccess){
+        this.globalstatDetails = res.data;
+      }
+    },(err:any)=>{
+
+    })
    }
 
+   loadmore(){
+    this.pageNo = this.pageNo +1;
+    this.StatList();
+   }
 }

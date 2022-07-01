@@ -52,7 +52,7 @@ export class MycollectionsComponent implements OnInit, OnDestroy {
 
   gotoback() {
     this.tabIndex = 0;
-    this.route.navigate(['/mycollection'], { relativeTo: this._activatedroute, queryParams: {}});
+    this.route.navigate(['/collection'], { relativeTo: this._activatedroute, queryParams: {}});
   }
   onTabChanged(index: any) {
   }

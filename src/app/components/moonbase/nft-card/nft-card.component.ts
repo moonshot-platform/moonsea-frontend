@@ -8,6 +8,8 @@ import { HomeService } from 'src/app/services/home.service';
 import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GetDataService } from 'src/app/services/get-data.service';
+import blockjson from '../../../../assets/blockchainjson/blockchain.json';
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
@@ -30,6 +32,7 @@ export class NftCardComponent implements OnInit {
   hotBidList: any;
   loading:boolean= false;
   isImageLoaded:any=[];
+  blockchainInfo:any ={};
   constructor(private contractService:ContractService,
     private http:HttpClient,
     private toastrService:ToastrService,
@@ -38,7 +41,12 @@ export class NftCardComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit(): void {
-
+    
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
     this.defaltProfile()
     this.contractService.getWalletObs().subscribe((data:any)=>
     {
@@ -132,9 +140,6 @@ return false;
       }
       else{
 
-        // this.toastrService.error(result.message)
-
-
       }
 
 
@@ -154,11 +159,11 @@ connectWallet()
 }
 
 gotoDetails(id:any){
-  this.router.navigate(['/detailsCom/details',this.items.nftAddress,id])
+  this.router.navigate(['/details',this.items.nftAddress,id],{ queryParams: { blockchainId: this.items.blockchainId } })
 }
 
 onMediaLoad(event:any,indexx:any){
-  console.log(indexx);
+  
   
   if (event && event.target) {
     // console.log("IMAGE HAS LOADED!");

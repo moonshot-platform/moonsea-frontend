@@ -295,7 +295,7 @@ export class CreateNftComponent implements OnInit {
           );
         }
       } else {
-        this.toastr.error('please check file format....');
+        this.toastr.error('please check file format');
         this.isShowMatspinner = 'hide';
       }
     }else{
@@ -365,7 +365,7 @@ export class CreateNftComponent implements OnInit {
         this.getTokenId();
       });
     }else{
-      this.toastr.error('Wallet is not connected....');
+      this.toastr.error('Wallet is not connected');
     }
 
   

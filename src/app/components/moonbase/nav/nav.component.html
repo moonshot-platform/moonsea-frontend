@@ -39,32 +39,8 @@
       class="desktop-only wp100 mr50"
       [ngClass]="search === true ? 'mobile-only m0' : ''"
     >
-      <div (click)="back()" class="mobile-only">
-        <svg
-          version="1.1"
-          id="Laag_1"
-          class="mr10"
-          width="36"
-          height="36"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px"
-          y="0px"
-          viewBox="0 0 40 40"
-          style="enable-background: new 0 0 40 40"
-          xml:space="preserve"
-        >
-          <g>
-            <circle class="st4" cx="20" cy="20" r="18"></circle>
-            <g>
-              <line class="st4" x1="27.1" y1="20" x2="13.3" y2="20"></line>
-              <polyline
-                class="st4"
-                points="19.7,13.2 12.9,20.1 19.6,26.8 		"
-              ></polyline>
-            </g>
-          </g>
-        </svg>
+      <div (click)="back()" class="mobile-only align-center">
+        <svg width="26px" height="26px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="mr10"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z" id="Combined-Shape" fill="#50aac5"></path></g></svg>
       </div>
       <div
         class="nav-input w-100"
@@ -75,9 +51,10 @@
           id="searchBox"
           #searchText
           (keyup.enter)="searchClient(searchText.value)"
-          (keyup)="autoComplete(searchText.value,$event)"
-          placeholder="Search for collections, items or creators"
+          (keyup)="autoComplete(searchText.value, $event)"
+          placeholder="Search for collections, items or accounts"
           class="form-control"
+          autocomplete="off"
         />
         <a href="javascript:void(0)"
           ><svg
@@ -125,7 +102,8 @@
                       inner.searchText,
                       inner.serachType,
                       inner.nftTokenId,
-                      inner.nftAddress
+                      inner.nftAddress,
+                      inner.blockchainId
                     )
                   "
                 >
@@ -244,13 +222,30 @@
         </svg>
       </div>
       <ul (click)="closeMenu()">
+        <!-- <li class="bell">
+          <svg
+            class="notification"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 22.46 30"
+          >
+            <defs></defs>
+            <g id="Layer_2" data-name="Layer 2">
+              <g id="Layer_1-2" data-name="Layer 1">
+                <path
+                  class="st1"
+                  d="M11.23,0A3.26,3.26,0,0,0,8,3.26v1.1a9.28,9.28,0,0,0-6.05,8.69v7.39L.09,24.33A.88.88,0,0,0,.5,25.51a1,1,0,0,0,.38.08H6.47a4.77,4.77,0,0,0,9.52,0h5.58a.88.88,0,0,0,.89-.88.85.85,0,0,0-.09-.38l-1.85-3.89V13.05a9.27,9.27,0,0,0-6.06-8.69V3.26A3.25,3.25,0,0,0,11.23,0Zm0,1.76a1.47,1.47,0,0,1,1.47,1.5V3.9a9.06,9.06,0,0,0-2.94,0V3.26A1.46,1.46,0,0,1,11.23,1.76Zm0,3.78a7.48,7.48,0,0,1,7.52,7.51v7.59a.78.78,0,0,0,.09.37l1.34,2.82H2.28L3.62,21a.91.91,0,0,0,.08-.37V13.05A7.49,7.49,0,0,1,11.23,5.54Zm-3,20.05h6a3,3,0,0,1-6,0Z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </li> -->
         <li>
           <a
             routerLinkActive="active"
             [routerLink]="['/searchcollection']"
             [queryParams]="{ searchKey: 'all' }"
             href="javascript:void(0);"
-            >Collections</a
+            >Explore</a
           >
         </li>
         <li>
@@ -262,7 +257,7 @@
             >Stats</a
           >
         </li>
-        <li>
+        <!-- <li>
           <a
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -270,46 +265,34 @@
             href="javascript:void(0);"
             >How it works</a
           >
-        </li>
+        </li> -->
         <li>
           <a
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            [routerLink]="['/mycollection']"
+            [routerLink]="['/collection']"
             href="javascript:void(0);"
-            >Upload</a
+            >Create</a
           >
         </li>
       </ul>
     </nav>
+
+    <nav class="flex wallet d-none" [ngClass]="sidebarMenu === true ? 'flexShow' : ''">
+      <ul (click)="closeMenu()">
+        <li>
+          <a target="_blank" href="https://project-moonshot-web.web.app/"
+            >Moonshot</a
+          >
+        </li>
+        <li><a target="_blank" href="https://moonboxes.io/">MoonBoxes</a></li>
+      </ul>
+    </nav>
+
     <nav
       class="flex wallet d-none"
       [ngClass]="activeWallet === true ? 'flexShow' : ''"
     >
-      <div class="mob-menu" (click)="closeMenu()">
-        <svg
-          width="27px"
-          height="27px"
-          viewBox="0 0 27 27"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g
-            id="Page-1"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <path
-              d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
-              id="Combined-Shape"
-              fill="#090d16"
-            ></path>
-          </g>
-        </svg>
-      </div>
       <ul (click)="closeMenu()">
         <li>
           <p class="orbitron p14 w900 white text-dark border-0">
@@ -324,7 +307,7 @@
             (click)="connectwallet()"
             class="text-dark"
           >
-          <!-- (click)="toggleTokenomics()" -->
+            <!-- (click)="toggleTokenomics()" -->
             Connect Wallet</a
           >
         </li>
@@ -335,7 +318,7 @@
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
               [routerLink]="[
-                '/profileinfo/profile',
+                '/profile',
                 connectedAddress,
                 'tab',
                 'created'
@@ -346,7 +329,7 @@
             <a
               class="profileTitle"
               href="javascript:void(0)"
-              [routerLink]="['/profileinfo/updateProfile']"
+              [routerLink]="['/profile/updateProfile']"
             >
               <svg
                 version="1.1"
@@ -400,10 +383,18 @@
             </a>
           </div>
         </li>
+
         <li *ngIf="isConnected">
           <a
-          (click)="Disconnect()"
-            href="javascript:void(0);"
+            href="javascript:void(0)"
+            [routerLink]="['/collection']"
+            class="text-dark"
+            >My Collection</a
+          >
+        </li>
+
+        <li *ngIf="isConnected">
+          <a (click)="Disconnect()" href="javascript:void(0);"
             >Disconnect Wallet</a
           >
         </li>
@@ -424,45 +415,16 @@
         </li>
       </ng-template>
 
-      <li class="invisible">
-        <a href="javascript:void(0)"
-          ><svg
-            width="20px"
-            height="20px"
-            id="close"
-            viewBox="0 0 27 27"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <title>Close</title>
-            <desc>Created with Sketch.</desc>
-            <g
-              id="Page-1"
-              stroke="none"
-              stroke-width="1"
-              fill="none"
-              fill-rule="evenodd"
-            >
-              <path
-                d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
-                id="Combined-Shape"
-                fill="#000000"
-              ></path>
-            </g></svg
-        ></a>
-      </li>
       <li>
-        <a (click)="closeMenu()" href="javascript:void(0)"
+        <a *ngIf="!sidebarMenu" (click)="sidebar()" href="javascript:void(0)"
           ><svg
-            width="20px"
-            height="20px"
-            id="close"
-            viewBox="0 0 27 27"
+            width="26px"
+            height="26px"
+            viewBox="0 0 32 25"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            style=""
+            class="ml10 hamburger"
           >
             <title>Close</title>
             <desc>Created with Sketch.</desc>
@@ -474,19 +436,49 @@
               fill-rule="evenodd"
             >
               <path
-                d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
                 id="Combined-Shape"
-                fill="#000000"
+                fill="#000"
               ></path>
-            </g></svg
-        ></a>
+            </g>
+          </svg>
+        </a>
+
+        <a (click)="closeMenu()" *ngIf="sidebarMenu" href="javascript:void(0)">
+        <svg
+        width="26px"
+        height="26px"
+        viewBox="0 0 27 27"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+            id="Combined-Shape"
+            fill="#090d16"
+          ></path>
+        </g>
+      </svg>
+    </a>
+
       </li>
 
+     
+
       <li class="userProfilePicBox">
-        <a href="javascript:void(0)" (click)="walletOpen()">
+        <!-- (click)="walletOpen()" -->
+        <a (click)="openDialog()">
           <div
-            *ngIf="!useData"
-            (click)="openDialog()"
+           *ngIf="!userProfilePic"
+          
             class="wallet_block flex-center"
           >
             <svg
@@ -511,14 +503,18 @@
             </svg>
           </div>
 
-          <div *ngIf="useData" class="userProfilePic">
+          <div *ngIf="userProfilePic" class="userProfilePic" [ngClass]="{'d-none': activeWallet}">
             <img
-              [lazyLoad]="userProfilePic"
-              [defaultImage]="'assets/icons/5904642857251113741.gif'"
+              [lazyLoad]="userProfilePic?.profilePic"
+              [defaultImage]="'assets/media/images/moonsea/profile.png'"
               alt=""
             />
           </div>
+          
         </a>
+        <div *ngIf="userProfilePic" (click)="closeMenu()" [ngClass]="{'d-none': !activeWallet}">
+          <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z" id="Combined-Shape" fill="#090d16"></path></g></svg>
+        </div>
       </li>
     </ul>
   </div>

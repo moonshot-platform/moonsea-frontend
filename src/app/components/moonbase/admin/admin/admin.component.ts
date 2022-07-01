@@ -69,7 +69,7 @@ export class AdminComponent implements OnInit {
     const url = 'admin/uploadBannerImage';
     this.dataServices.uploadCover(fomdata, url).subscribe((res: any) => {
       if (res.status == 200) {
-        this.toastr.success('Successfully uploaded...');
+        this.toastr.success('Successfully uploaded');
         this.path = res.data.path;
         this.bannerSave.controls['fileUrl'].setValue(this.path);
         // console.log(this.bannerSave.value);
@@ -112,10 +112,10 @@ export class AdminComponent implements OnInit {
     const url = 'admin/uploadCurrencyImage';
     this.dataServices.uploadCover(fomdata, url).subscribe((res: any) => {
       if (res.status == 200) {
-        this.toastr.success('Successfully Uploaded...');
+        this.toastr.success('Successfully Uploaded');
         this.currency.controls['image'].setValue(res.data.path);
       } else {
-        this.toastr.error('Something Went Wrong....');
+        this.toastr.error('Something Went Wrong');
       }
     });
   }

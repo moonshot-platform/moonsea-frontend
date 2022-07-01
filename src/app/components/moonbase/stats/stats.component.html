@@ -3,14 +3,14 @@
     <div class="landing-flex mh-100">
       <div class="title-container mb50">
         <div class="orbitron p30d24m flex2">
-          <span> Statistics</span> <br />
+          <span> Rankings</span> <br />
           for 
           <span #searchText class="text-secondary content_editable" data-maxlength="5" data-minlength="5" id="textSearch"
             (keyup.enter)="searchClient(searchText.innerText)" [innerHTML]="searchKey" contenteditable="true"></span>
 
-            <span class="ml10">
-              <a (click)="clearSearch()" href="javascript:void(0)">
-                <svg
+          <span class="ml10">
+            <a (click)="clearSearch()" href="javascript:void(0)">
+              <svg
                 version="1.1"
                 id="close"
                 xmlns="http://www.w3.org/2000/svg"
@@ -38,16 +38,16 @@
                   c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z"
                 ></path>
               </svg>
-              </a>
-            </span>
-            <br />
-            On the 
-            <span class="color-secondary arrow_down">
-              <!-- all items -->
-              <div class="dropdown pointer">
-                <button (click)="myFunction()" class="dropbtn">
-                  {{ currencySymbol }}
-                  <svg
+            </a>
+          </span>
+          <br />
+          On the
+          <span class="color-secondary arrow_down">
+            <!-- all items -->
+            <div class="dropdown pointer">
+              <button (click)="myFunction()" class="dropbtn">
+                {{ currencySymbol }}
+                <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -69,47 +69,43 @@
       s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
                   />
                 </svg>
-                </button>
-                <div id="myDropdown" class="dropdown-content">
-                  <a *ngFor="let item of blockchainList"
-                    (click)="selectBlockchain(item.blockchainId,item.networkName)">{{item.networkName}}</a>
-                </div>
+              </button>
+              <div id="myDropdown" class="dropdown-content">
+                <a
+                  *ngFor="let item of blockchainList"
+                  (click)="
+                    selectBlockchain(item.blockchainId, item.networkName)
+                  "
+                  >{{ item.networkName }}</a
+                >
               </div>
-            </span>
-            blockchain
-
+            </div>
+          </span>
+          blockchain
         </div>
-        <!-- <div>
-          <select name=""  [value]="blockchainId" [(ngModel)]="blockchainId" (change)="selectBlockchain(blockchainId)">
-            <option *ngFor="let item of blockchainList" [value]="item.blockchainId" >{{item.networkName}}</option>
-          </select>
-        </div> -->
+
         <div class="flex flex2 wrap gap15">
           <div class="box flex-col">
             <span class="p12 mb10">Global Market Cap</span>
-            <h3 class="mb10">{{ getStatsList?.globalMarket }}</h3>
+            <h3 class="mb10">{{ globalstatDetails?.globalMarketCap | number}}</h3>
             <div class="flex justify-center">
-              <span class="badge badge-success"> +10% </span>
+              <span class="badge badge-success"> {{globalstatDetails?.globalMarketCapPercentage | number:'2.1-2'}}% </span>
             </div>
           </div>
           <div class="box flex-col">
             <span class="p12 mb10">7 Days Volume</span>
-            <h3>{{ getStatsList?.globalMarket7day }}</h3>
+            <h3 class="mb10">{{ globalstatDetails?.days7Volume | number}}</h3>
             <div class="flex justify-center">
-              <span class="badge badge-danger"> -10% </span>
+              <span class="badge badge-danger"> {{globalstatDetails?.days7VolumePercentage | number:'2.1-2'}}% </span>
             </div>
           </div>
           <div class="box flex-col">
-            <span class="p12 mb10">Moonshot Price</span>
+            <span class="p12 mb10">{{blockchainInfo.symbol}} Price</span>
             <h3 class="mb10">
-              {{
-              (getStatsList?.averagePrice48h -
-              getStatsList?.averagePrice24h) /
-              2
-              }}
+               {{getCryptoPrice.usd | number}}
             </h3>
             <div class="flex justify-center">
-              <span class="badge badge-grey"> 0% </span>
+              <span class="badge badge-grey"> USD </span>
             </div>
           </div>
         </div>
@@ -121,272 +117,328 @@
             <tr>
               <th class="text-left">#</th>
               <th class="text-left">Collection</th>
-              <th class="text-left">Average price (24h)</th>
+              <th class="text-right">Average price (24h)</th>
               <th>Market cap</th>
               <th>Volume (7D)</th>
               <th>Volume %(24h)</th>
               <th>Floor Price</th>
-              <th>Sales/Chart</th>
+              <!-- <th>Sales/Chart</th> -->
             </tr>
           </thead>
           <tbody>
-            <tr class="border-bottom" *ngFor="let items of StatsList; let i = index">
+            <tr
+              class="border-bottom"
+              *ngFor="let items of StatsList; let i = index"
+            >
               <td class="pt30 pb30 text-left">
                 {{ i + 1 }}
               </td>
               <td class="pt30 pb30 text-left">
-                <a class="flex-col text-primary" [routerLink]="['/mycollection/collection', items.collectionName]">
-                  <span class="orbitron text-secondary p16">
-                    {{ items.collectionName }}
-                  </span>
-                  <span> items - ({{ items.totalNftCount }}) </span></a>
+                <a
+                  class="flex text-primary"
+                  [routerLink]="[
+                    '/collection',
+                    items.collectionName
+                  ]"
+                >
+                  <img
+                    src="{{ items.fileUrl }}"
+                    class="small_img border mr20"
+                    alt=""
+                  />
+                  <div class="flex-col justify-center">
+                    <span class="orbitron text-secondary p16">
+                      {{ items.collectionName }}
+                    </span>
+                    <!-- <span> Items - ({{ items.totalNftCount }}) </span> -->
+                  </div>
+                </a>
               </td>
               <td class="pt30 pb30">
-                <span *ngIf="items.averagePrice24h == '-'">
-                 <span *ngIf="currencySymbol.toLowerCase() == 'bsc'">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
-                  style="height: 20px;width:20px;margin: 0 5px 0 10px;" >
-                  <g fill="#f3ba2f">
-                    <path
-                      d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
-                    <path
-                      d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11" />
-                  </g>
-                </svg>
-                 </span>
-                 <span *ngIf="currencySymbol.toLowerCase() == 'ethereum'">
-                  <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                  x="0px" y="0px" viewBox="0 0 35 40" style="height: 20px;width:20px;margin: 0 5px 0 10px;" xml:space="preserve"
-                  >
-                  <style type="text/css">
-                    .svg-grey {
-                      fill: #8c8c8c !important;
-                    }
-        
-                    .svg-grey-light {
-                      fill: #404040 !important;
-                    }
-        
-                    .svg-grey-dark {
-                      fill: #333333 !important;
-                    }
-        
-                  </style>
-                  <g>
-                    <polygon class="svg-grey" points="20,8 12.6,20.2 20,16.8 	"></polygon>
-                    <polygon class="svg-grey-light" points="20,16.8 12.6,20.2 20,24.6 	"></polygon>
-                    <polygon class="svg-grey-dark" points="27.4,20.2 20,8 20,16.8 	"></polygon>
-                    <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
-                    <polygon class="svg-grey-light" points="12.6,21.6 20,32 20,26 	"></polygon>
-                    <polygon class="svg-grey-dark" points="20,32 27.4,21.6 20,26 	"></polygon>
-                  </g>
-                </svg>
-                 </span>
-                 <span *ngIf="currencySymbol.toLowerCase() == 'matic'">
-                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                  viewBox="0 0 38.4 33.5" style="enable-background:new 0 0 38.4 33.5;height: 20px;width:20px;margin: 0 5px 0 10px;" xml:space="preserve">
-               <style type="text/css">
-                 .st0{fill:#8247E5;}
-               </style>
-               <g>
-                 <path class="st0" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
-                   c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
-                   c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
-                   c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
-                   L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
-                   c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"/>
-               </g>
-               </svg>
-                 </span>
+                <span *ngIf="items.averagePrice24h == '-' || !items.averagePrice24h || items.averagePrice24h <= 0">
+                  -
                 </span>
-                <span *ngIf="items.averagePrice24h != '-'">
-                  {{ items.averagePrice24h | number :'1.1-4' }}  
+                <span *ngIf="items.averagePrice24h != '-' && items.averagePrice24h > 0">
                   <span *ngIf="currencySymbol.toLowerCase() == 'bsc'">
-                    <!-- bnb -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
-                    style="height: 20px;width:20px;margin: 0 5px 0 10px;" >
-                    <g fill="#f3ba2f">
-                      <path
-                        d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
-                      <path
-                        d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11" />
-                    </g>
-                  </svg>
+                    
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 2000 2000"
+                      style="height: 20px; width: 20px; margin: 0 5px 0 10px"
+                    >
+                      <g fill="#f3ba2f">
+                        <path
+                          d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"
+                        />
+                        <path
+                          d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"
+                        />
+                      </g>
+                    </svg>
                   </span>
                   <span *ngIf="currencySymbol.toLowerCase() == 'ethereum'">
-                    <!-- eth -->
-                    <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px" y="0px" viewBox="0 0 35 40" style="height: 20px;width:20px;margin: 0 5px 0 10px;" xml:space="preserve"
+                    
+                    <svg
+                      version="1.1"
+                      id="Laag_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 35 40"
+                      style="height: 20px; width: 20px; margin: 0 5px 0 10px"
+                      xml:space="preserve"
                     >
-                    <style type="text/css">
-                      .svg-grey {
-                        fill: #8c8c8c !important;
-                      }
-          
-                      .svg-grey-light {
-                        fill: #404040 !important;
-                      }
-          
-                      .svg-grey-dark {
-                        fill: #333333 !important;
-                      }
-          
-                    </style>
-                    <g>
-                      <polygon class="svg-grey" points="20,8 12.6,20.2 20,16.8 	"></polygon>
-                      <polygon class="svg-grey-light" points="20,16.8 12.6,20.2 20,24.6 	"></polygon>
-                      <polygon class="svg-grey-dark" points="27.4,20.2 20,8 20,16.8 	"></polygon>
-                      <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
-                      <polygon class="svg-grey-light" points="12.6,21.6 20,32 20,26 	"></polygon>
-                      <polygon class="svg-grey-dark" points="20,32 27.4,21.6 20,26 	"></polygon>
-                    </g>
-                  </svg>
+                      <style type="text/css">
+                        .svg-grey {
+                          fill: #8c8c8c !important;
+                        }
+
+                        .svg-grey-light {
+                          fill: #404040 !important;
+                        }
+
+                        .svg-grey-dark {
+                          fill: #333333 !important;
+                        }
+                      </style>
+                      <g>
+                        <polygon
+                          class="svg-grey"
+                          points="20,8 12.6,20.2 20,16.8 	"
+                        ></polygon>
+                        <polygon
+                          class="svg-grey-light"
+                          points="20,16.8 12.6,20.2 20,24.6 	"
+                        ></polygon>
+                        <polygon
+                          class="svg-grey-dark"
+                          points="27.4,20.2 20,8 20,16.8 	"
+                        ></polygon>
+                        <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+                        <polygon
+                          class="svg-grey-light"
+                          points="12.6,21.6 20,32 20,26 	"
+                        ></polygon>
+                        <polygon
+                          class="svg-grey-dark"
+                          points="20,32 27.4,21.6 20,26 	"
+                        ></polygon>
+                      </g>
+                    </svg>
                   </span>
-                  <span *ngIf="currencySymbol.toLowerCase() == 'matic'">
-                    <!-- matic -->
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    viewBox="0 0 38.4 33.5" style="enable-background:new 0 0 38.4 33.5;height: 20px;width:20px;margin: 0 5px 0 10px;" xml:space="preserve">
-                 <style type="text/css">
-                   .st0{fill:#8247E5;}
-                 </style>
-                 <g>
-                   <path class="st0" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
+                  <span *ngIf="currencySymbol.toLowerCase() == 'polygon'">
+                    
+                    <svg
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 38.4 33.5"
+                      style="
+                        enable-background: new 0 0 38.4 33.5;
+                        height: 20px;
+                        width: 20px;
+                        margin: 0 5px 0 10px;
+                      "
+                      xml:space="preserve"
+                    >
+                      <style type="text/css">
+                        .st0 {
+                          fill: #8247e5;
+                        }
+                      </style>
+                      <g>
+                        <path
+                          class="st0"
+                          d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
                      c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
                      c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
                      c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
                      L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
-                     c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"/>
-                 </g>
-                 </svg>
+                     c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"
+                        />
+                      </g>
+                    </svg>
                   </span>
+                  {{ items.averagePrice24h | number: "1.1-4" }}
+                 
                 </span>
               </td>
-              <td class="pt30 pb30">{{ items.marketCap }}</td>
-              <td class="pt30 pb30">{{ items.marketCap7day }}</td>
               <td class="pt30 pb30">
-               
-                <span class="badge" *ngIf="items.marketCap24h == '-'" [ngClass]="
+                <div *ngIf="items?.marketCap>0">{{ items.marketCap }}</div>
+                <div *ngIf="items?.marketCap<=0">-</div>
+              </td>
+              <td class="pt30 pb30">
+                <div *ngIf="items?.marketCap7day >0">{{ items.marketCap7day }}</div>
+                <div *ngIf="items?.marketCap7day <=0">-</div>
+              </td>
+              <td class="pt30 pb30">
+                <span
+                  class="badge"
+                  *ngIf="items.marketCap24h == '-'"
+                  [ngClass]="
                     items.marketCap24h > 0
                       ? 'badge-success'
                       : items.marketCap24h == '-'
                       ? 'badge-grey'
                       : 'badge-danger'
-                  " >
-                  - </span>
-                  <span class="badge" *ngIf="items.marketCap24h != '-'" [ngClass]="
-                  items.marketCap24h > 0
-                    ? 'badge-success'
-                    : items.marketCap24h == '-'
-                    ? 'badge-grey'
-                    : 'badge-danger'
-                " >
-                {{ items.marketCap24h  | number :'1.1-4'}}</span>
-
-              </td>
-              <td class="pt30 pb30">{{ items.floorPrice }} 
-                <span *ngIf="currencySymbol.toLowerCase() == 'bsc'">
-                    <!-- bnb -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
-                    style="height: 20px;width:20px;margin: 0 5px 0 10px;" >
-                    <g fill="#f3ba2f">
-                      <path
-                        d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
-                      <path
-                        d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11" />
-                    </g>
-                  </svg>
+                  "
+                >
+                  -
                 </span>
-                <span *ngIf="currencySymbol.toLowerCase() == 'ethereum'">
-                    <!-- eth -->
-                    <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px" y="0px" viewBox="0 0 35 40" style="height: 20px;width:20px;margin: 0 5px 0 10px;" xml:space="preserve"
-                    >
-                    <style type="text/css">
-                      .svg-grey {
-                        fill: #8c8c8c !important;
-                      }
-          
-                      .svg-grey-light {
-                        fill: #404040 !important;
-                      }
-          
-                      .svg-grey-dark {
-                        fill: #333333 !important;
-                      }
-          
-                    </style>
-                    <g>
-                      <polygon class="svg-grey" points="20,8 12.6,20.2 20,16.8 	"></polygon>
-                      <polygon class="svg-grey-light" points="20,16.8 12.6,20.2 20,24.6 	"></polygon>
-                      <polygon class="svg-grey-dark" points="27.4,20.2 20,8 20,16.8 	"></polygon>
-                      <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
-                      <polygon class="svg-grey-light" points="12.6,21.6 20,32 20,26 	"></polygon>
-                      <polygon class="svg-grey-dark" points="20,32 27.4,21.6 20,26 	"></polygon>
-                    </g>
-                  </svg>
-                </span>
-                <span *ngIf="currencySymbol.toLowerCase() == 'matic'">
-                   <!-- matic -->
-                   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   viewBox="0 0 38.4 33.5" style="enable-background:new 0 0 38.4 33.5;height: 20px;width:20px;margin: 0 5px 0 10px;" xml:space="preserve">
-                <style type="text/css">
-                  .st0{fill:#8247E5;}
-                </style>
-                <g>
-                  <path class="st0" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
-                    c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
-                    c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
-                    c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
-                    L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
-                    c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"/>
-                </g>
-                </svg>
-                </span>
+                <span
+                  class="badge"
+                  *ngIf="items.marketCap24h != '-'"
+                  [ngClass]="
+                    items.marketCap24h > 0
+                      ? 'badge-success'
+                      : items.marketCap24h == '-'
+                      ? 'badge-grey'
+                      : 'badge-danger'
+                  "
+                >
+                  {{ items.marketCap24h | number: "1.1-4" }}</span
+                >
               </td>
               <td class="pt30 pb30">
+                <div *ngIf="items?.floorPrice > 0">
+                  <span *ngIf="currencySymbol.toLowerCase() == 'bsc'">
+                    <!-- BNB -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 2000 2000"
+                      style="height: 20px; width: 20px; margin: 0 5px 0 5px"
+                    >
+                      <g fill="#f3ba2f">
+                        <path
+                          d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"
+                        />
+                        <path
+                          d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <span *ngIf="currencySymbol.toLowerCase() == 'ethereum'">
+                    <!-- ETH -->
+                    <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" xml:space="preserve" style="enable-background: new 0 0 35 40;width: 30px;margin-left: -5px;"><style type="text/css"> .svg-grey { fill: #8c8c8c !important; } .svg-grey-light { fill: #404040 !important; } .svg-grey-dark { fill: #333333 !important; } </style><g><polygon points="20,8 12.6,20.2 20,16.8 	" class="svg-grey"></polygon><polygon points="20,16.8 12.6,20.2 20,24.6 	" class="svg-grey-light"></polygon><polygon points="27.4,20.2 20,8 20,16.8 	" class="svg-grey-dark"></polygon><polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon><polygon points="12.6,21.6 20,32 20,26 	" class="svg-grey-light"></polygon><polygon points="20,32 27.4,21.6 20,26 	" class="svg-grey-dark"></polygon></g></svg>
+                  </span>
+                  <span *ngIf="currencySymbol.toLowerCase() == 'polygon'">
+                    <!-- MATIC -->
+                    <svg
+                      version="1.1"
+                      id="Layer_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 38.4 33.5"
+                      style="
+                        enable-background: new 0 0 38.4 33.5;
+                        height: 20px;
+                        width: 20px;
+                        margin: 0 5px 0 5px;
+                      "
+                      xml:space="preserve"
+                    >
+                      <style type="text/css">
+                        .purple {
+                          fill: #8247e5;
+                        }
+                      </style>
+                      <g>
+                        <path
+                          class="purple"
+                          d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
+                      c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
+                      c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+                      c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
+                      L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+                      c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                 <span *ngIf="currencySymbol.toLowerCase() == 'moonriver'"> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/9285.png" height="28" width="28" alt="MOVR"></span>
+                  {{ items.floorPrice }}
+              
+                </div>
+                <div *ngIf="items?.floorPrice <= 0 || items?.floorPrice == '-'">
+                  -
+                </div>
+              </td>
+              <!-- <td class="pt30 pb30">
                 <div class="flex justify-end">
-                  <svg version="1.1" id="tag" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
-                    style="enable-background: new 0 0 40 40" xml:space="preserve">
+                  <svg
+                    version="1.1"
+                    id="tag"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 40 40"
+                    style="enable-background: new 0 0 40 40"
+                    xml:space="preserve"
+                  >
                     <style type="text/css">
                       .st0 {
                         fill: #50aac5;
                       }
                     </style>
                     <g>
-                      <path class="st0"
-                        d="M15,13.7c-0.7,0-1.3,0.6-1.3,1.3c0,0.7,0.6,1.3,1.3,1.3c0.7,0,1.3-0.6,1.3-1.3C16.3,14.3,15.7,13.7,15,13.7z" />
-                      <path class="st0" d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M29.8,22.1l-7.7,7.7
+                      <path
+                        class="st0"
+                        d="M15,13.7c-0.7,0-1.3,0.6-1.3,1.3c0,0.7,0.6,1.3,1.3,1.3c0.7,0,1.3-0.6,1.3-1.3C16.3,14.3,15.7,13.7,15,13.7z"
+                      />
+                      <path
+                        class="st0"
+                        d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M29.8,22.1l-7.7,7.7
                           C22,29.9,21.8,30,21.6,30c-0.2,0-0.3-0.1-0.4-0.2l-9-9c-0.1-0.1-0.2-0.3-0.2-0.4l0-7.7c0-0.4,0.3-0.6,0.6-0.6l7.7,0
-                          c0.2,0,0.3,0.1,0.4,0.2l9,9c0.1,0.1,0.2,0.3,0.2,0.5C30,21.8,29.9,22,29.8,22.1z" />
+                          c0.2,0,0.3,0.1,0.4,0.2l9,9c0.1,0.1,0.2,0.3,0.2,0.5C30,21.8,29.9,22,29.8,22.1z"
+                      />
                     </g>
                   </svg>
 
-                  <a (click)="openChart(items.collectionId)">
-                    <svg version="1.1" id="chart" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
-                      style="enable-background: new 0 0 40 40" xml:space="preserve">
+                  <a href="javascript:void(0)" (click)="openChart(items.collectionId)">
+                    <svg
+                      version="1.1"
+                      id="chart"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 40 40"
+                      style="enable-background: new 0 0 40 40"
+                      xml:space="preserve"
+                    >
                       <style type="text/css">
                         .st0 {
                           fill: #50aac5;
                         }
                       </style>
-                      <path class="st0" d="M20,2C10.1,2,2,10.1,2,20c0,9.9,8.1,18,18,18s18-8.1,18-18C38,10.1,29.9,2,20,2z M28.1,18L28.1,18
+                      <path
+                        class="st0"
+                        d="M20,2C10.1,2,2,10.1,2,20c0,9.9,8.1,18,18,18s18-8.1,18-18C38,10.1,29.9,2,20,2z M28.1,18L28.1,18
                           c-0.1,0-0.1,0-0.2,0l-3.1,4.6c0.3,0.4,0.4,1,0.3,1.5c-0.1,0.6-0.4,1.2-0.9,1.6c-0.5,0.4-1.1,0.6-1.8,0.5c-0.6-0.1-1.2-0.4-1.6-0.9
                           c-0.3-0.4-0.5-1-0.5-1.5c0-0.3,0.1-0.7,0.2-1l-2.3-2.3c-0.5,0.2-1.1,0.2-1.7,0.1l-2.5,2.9c0.5,1,0.3,2.3-0.7,3
                           c-0.4,0.3-1,0.5-1.5,0.5c-0.7,0-1.4-0.3-1.9-0.9c-0.8-1.1-0.6-2.6,0.4-3.4c0.4-0.3,1-0.5,1.5-0.5c0,0,0,0,0,0c0.2,0,0.4,0,0.5,0.1
                           l2.6-3c-0.1-0.3-0.2-0.6-0.2-0.9c0-0.6,0.2-1.2,0.6-1.7c0.4-0.5,1-0.8,1.7-0.8c0.6,0,1.3,0.2,1.7,0.6c0.5,0.4,0.8,1,0.8,1.7
                           c0,0.1,0,0.1,0,0.2c0,0.2,0,0.5-0.1,0.8l2.4,2.5c0.2-0.1,0.5-0.1,0.7-0.1c0.2,0,0.3,0,0.5,0.1l2.9-4.4c-0.3-0.4-0.5-0.9-0.5-1.4
                           c0-0.6,0.2-1.3,0.7-1.7c0.4-0.5,1-0.7,1.7-0.7c0.6,0,1.3,0.2,1.7,0.7c0.3,0.3,0.6,0.8,0.7,1.2h0.1l0,0.5C30.5,16.9,29.4,18,28.1,18z
-                          " />
+                          "
+                      />
                     </svg>
                   </a>
                 </div>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
       </div>
+      <div (click)="loadmore()" class="mt100 button text-inherit wp100">Load More</div>
     </div>
   </div>
 </section>

@@ -1,8 +1,10 @@
 <div class="search_container">
-    <div class="search-box"></div>
+  <div class="search-box">
+    <hr class="center-line">
+ </div>
     <div class="search-input">
       <input type="text" id="searchInput01" #searchText (keyup.enter)="searchClient(searchText.value)"
-        (keyup)="autoComplete(searchText.value)" placeholder="Search for collections, items or creators"
+        (keyup)="autoComplete(searchText.value)" placeholder="Search for collections, items."
         class="form-control" />
       <a href="">
         <svg version="1.1" id="search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

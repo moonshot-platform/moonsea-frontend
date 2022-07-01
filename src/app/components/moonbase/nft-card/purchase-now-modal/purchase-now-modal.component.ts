@@ -9,6 +9,7 @@ import { NftInteractionService } from 'src/app/services/nft-interaction.service'
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { exchangeToken } from 'src/app/model/signBuyerOrder';
+import blockjson from '../../../../../assets/blockchainjson/blockchain.json';
 
 @Component({
   selector: 'app-purchase-now-modal',
@@ -34,7 +35,7 @@ export class PurchaseNowModalComponent implements OnInit {
 
    exchangeTokenObj:exchangeToken =  new exchangeToken();
    isBouthSuccessfully:boolean;
-
+   blockchainInfo :any = {};
 
   constructor(private contractService: ContractService, @Inject(MAT_DIALOG_DATA) public items: any,
     private toastr: ToastrService, private nftInteractionService: NftInteractionService,
@@ -44,7 +45,11 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('from purchase now modal=====>',this.items);
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
     
     this.checkNetwork();
   }

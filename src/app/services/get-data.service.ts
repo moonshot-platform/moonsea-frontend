@@ -14,7 +14,7 @@ export class GetDataService {
 
   subjectTo = new Subject<any>();
   searchCollectionflag = new Subject();
-
+  profilePic = new Subject();
 
 
   userInfo: any;
@@ -46,12 +46,12 @@ export class GetDataService {
     return this.httpClient.post(environment.apiUrl + 'user/transferTokenSave/', data);
   }
 
-  reportSave(data: any): Observable<any> {
+  reportSave(data: any,nftAddress:any,blockchainId:any): Observable<any> {
     return this.httpClient.post(environment.apiUrl + 'Social/reportSave/', data);
   }
 
   updatePriceSave(data: any): Observable<any> {
-    return this.httpClient.post(environment.apiUrl + 'api/updateListingPrice/', data);
+    return this.httpClient.post(environment.apiUrl + 'api/updateListingPrice?blockchainId='+data.blockchainId, data);
   }
 
   burnTokenSave(data: any): Observable<any> {
@@ -80,16 +80,17 @@ export class GetDataService {
     return this.httpClient.post(environment.apiUrl + 'api/addInListingForSale/', data);
   }
 
-  nftDetails(nftTokenId: any, walletAddress: any,nftAddress:any): Observable<any> {
-    return this.httpClient.get(environment.apiUrl + 'api/getDetails?nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+"&nftAddress="+nftAddress);
+  nftDetails(nftTokenId: any, walletAddress: any,nftAddress:any,blockchainId:any): Observable<any> {
+    return this.httpClient.get(environment.apiUrl + 'api/getDetails?nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+"&nftAddress="+nftAddress+"&blockchainId="+blockchainId);
   }
 
-  getListBidHistory(nftTokenId: any,nftAddress:any): Observable<any> {
-    return this.httpClient.get(environment.apiUrl + 'user/getActivityList?nftId=' + nftTokenId+"&nftAddress="+nftAddress);
+  getListBidHistory(nftTokenId: any,nftAddress:any,blockchainId:any): Observable<any> {
+    // return this.httpClient.get(environment.apiUrl + 'user/getActivityList?nftId=' + nftTokenId+"&nftAddress="+nftAddress);
+    return this.httpClient.get(`${environment.apiUrl}user/getActivityList?nftId=${nftTokenId}&nftAddress=${nftAddress}&blockchainId=${blockchainId}`);
   }
 
-  getListOwners(nftTokenId: any, walletAddress: any,nftAddress:any): Observable<any> {
-    return this.httpClient.get(environment.apiUrl + 'api/getListOwners?nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+'&nftAddress='+nftAddress);
+  getListOwners(nftTokenId: any, walletAddress: any,nftAddress:any,blockchainId:any): Observable<any> {
+    return this.httpClient.get(environment.apiUrl + 'api/getListOwners?nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+'&nftAddress='+nftAddress+'&blockchainId='+blockchainId);
   }
 
 

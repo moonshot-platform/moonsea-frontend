@@ -1,8 +1,16 @@
 <div class="filter mt-100 mb50">
-  <div class="search-box desktop-only"></div>
+  <div class="search-box desktop-only">
+    <hr class="center-line">
+  </div>
   <div class="landing-flex pt-0 z-index-high">
     <div class="flex justify-space-between flex100 gap15 gap">
-      <a class="button lg-height-button text-inherit bg-primary button mt-auto" (click)="toggle()">
+      
+      <a class="mobile-only button text-inherit bg-primary button mt-auto filter_button" (click)="toggleMobile()">
+        Filter NFT's
+        <span>2</span>
+      </a>
+
+      <a class="desktop-only button lg-height-button text-inherit bg-primary button mt-auto" (click)="toggle()">
         Filter NFT's
         <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px" y="0px" viewBox="0 0 40 40"
@@ -10,28 +18,6 @@
           <polygon class="stroke_dark" points="35,5.5 5,5.5 17.5,22.2 17.5,34.5 22.5,34.5 22.5,22.2 "></polygon>
         </svg>
       </a>
-
-      <!-- commented don't delete the code it is important code. -->
-      <!-- <div class="search-input">
-        <input type="text" [(ngModel)]="searchKeyWord" (keyup)="searchAll()" (keyup.enter)="searchCollection()"
-          placeholder="Search collection" class="form-control" />
-        <a href="">
-          <svg version="1.1" id="search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve">
-            <style type="text/css">
-              .st0 {
-                fill: none;
-                stroke: #50aac5;
-                stroke-miterlimit: 10;
-              }
-            </style>
-            <g>
-              <circle class="st0" cx="22" cy="18" r="12.5"></circle>
-              <line class="st0" x1="13.2" y1="26.8" x2="5.5" y2="34.5"></line>
-            </g>
-          </svg>
-        </a>
-      </div> -->
 
       <div class="flex mx-auto mw-30 desktop-only">
         <div class="search-input">
@@ -80,7 +66,7 @@
       <div class="field">
         <div class="wrap-filter">
           <mat-form-field appearance="fill" *ngFor="let keys of uniqueNamesData; let i = index">
-            <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label>
+            <!-- <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label> -->
             <mat-select (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
               <mat-option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
                 item.value }}({{ item.totalCount }})</mat-option>
@@ -91,6 +77,58 @@
     </div>
   </div>
 </ng-container>
+
+<ng-container>
+  <div class="filter-menu" [ngClass]=" expandedMobile ? 'fadeInDown filterMobile' : 'hidediv'">
+    <!-- properties -->
+    <div class="landing-flex p-0">
+      <div class="field">
+        <div class="wrap-filter">
+          <div appearance="fill" *ngFor="let keys of uniqueNamesData; let i = index">
+            <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label>
+            <!-- <select nice-select (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
+              <option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
+                item.value }}({{ item.totalCount }})</option>
+            </select> -->
+
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> {{ keys }} ({{ this.proeprties[i]?.count }}) </mat-panel-title>
+                </mat-expansion-panel-header>
+
+               <!-- <select nice-select (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
+              <option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
+                item.value }}({{ item.totalCount }})</option>
+            </select> -->
+                
+
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-panel-title>
+                </mat-expansion-panel-header>
+
+                
+                
+                <div class="main_title" (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
+                  <label class="filter_label" *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">
+                    {{item.value }} <span> {{ item.totalCount }}</span>
+                    <input type="checkbox" checked="checked">
+                    <span class="checkmark"></span>
+                  </label>
+              </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
 
 <div class="landing-flex pt50">
   <div class="outer__inner">
@@ -103,9 +141,7 @@
               <div class="card" *ngFor="let item of nftList">
                 <app-nft-card [items]="item"></app-nft-card>
               </div>
-              <div *ngIf="nftList?.length == 0">
-                No such data found...
-              </div>
+           
             </div>
 
 

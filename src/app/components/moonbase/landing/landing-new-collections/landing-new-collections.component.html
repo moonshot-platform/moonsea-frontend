@@ -11,7 +11,7 @@
           <div class="selection__row mr50">
             <div class="selection__col mr30">
               <div class="selection__card" href="javascript:void(0);">
-                <a class="selection__preview" [routerLink]="['/detailsCom/details',item.nftAddress,item.nftTokenID01]" routerLinkActive="router-link-active"  >
+                <a class="selection__preview" [routerLink]="['/details',item.nftAddress,item.nftTokenID01]" routerLinkActive="router-link-active"  >
                   <div class="content-overlay"></div>
                   <img *ngIf="item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') == -1" srcset="{{item.fileUrl}}"
                     src="{{ item.nftFileUrl01 }}" alt="Selection" />
@@ -24,7 +24,7 @@
                 </a>
                 <div class="flex100">
                   <a class="color-secondary collections__subtitle orbitron"
-                    [routerLink]="['/mycollection/collection', item.collectionName]">
+                    [routerLink]="['/collection', item.collectionName]">
                     {{ item.collectionName }}
                   </a>
                   <div class="collections__line">
@@ -48,7 +48,7 @@
                   let j = index
                 ">
                 <ng-container *ngIf="j <= 2">
-                  <a [routerLink]="['/detailsCom/details',item01.nftAddress,item01.nftTokenID]" routerLinkActive="router-link-active"   class="selection__item">
+                  <a [routerLink]="['/details',item01.nftAddress,item01.nftTokenID]" routerLinkActive="router-link-active"   class="selection__item">
                     <div class="selection__preview">
                       <img *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') == -1"
                         srcset="{{item01.nftFileUrl}}" src="{{ item01.nftFileUrl }}" alt="Selection" />
@@ -70,7 +70,7 @@
                 <ng-template *ngFor="let itemmm of upCommingCollection; let i = index" swiperSlide>
                   <a class="collections__item" href="javascript:void(0)">
                     <div class="selection__item mb30">
-                      <a [routerLink]="['/detailsCom/details',itemmm.nftAddress, itemmm.nftTokenID01]" routerLinkActive="router-link-active"  class="selection__preview" >
+                      <a [routerLink]="['/details',itemmm.nftAddress, itemmm.nftTokenID01]" routerLinkActive="router-link-active"  class="selection__preview" >
                         <img *ngIf=" itemmm.nftFileUrl01 &&  itemmm.nftFileUrl01.search('.mp4') == -1"
                           srcset="{{ itemmm.nftFileUrl01 }}" src="{{ itemmm.nftFileUrl01 }}" alt="Selection" />
                         <video class="video" loop autoplay playsinline oncanplay="this.play()"
@@ -82,8 +82,8 @@
 
                       <div class="selection__description">
                         <div class="orbitron p18 selection__title">
-                          <a class="flex color-secondary"
-                            [routerLink]="['/mycollection/collection', itemmm.collectionName]">
+                          <a class="flex color-secondary multiline-ellipsis"
+                            [routerLink]="['/collection', itemmm.collectionName]">
                             {{
                             itemmm.collectionName === null
                             ? "Test"
@@ -102,7 +102,7 @@
                           <span class="text-primary">{{ itemmm?.totalNftCount }} items</span>
                         </div>
                         <div>
-                          <a class="button w-100 mt10" [routerLink]="['/mycollection/collection', itemmm.collectionName]">
+                          <a class="button w-100 mt10" [routerLink]="['/collection', itemmm.collectionName]">
                             View Collection
                           </a>
                         </div>

@@ -3,16 +3,17 @@ import { CommonModule } from '@angular/common';
 import { CollectionCardComponent } from '../../collection-card/collection-card.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { CustomUrlTransformPipe } from 'src/app/services/custom-url-transform.pipe';
 
 
 
 @NgModule({
-  declarations: [CollectionCardComponent],
+  declarations: [CollectionCardComponent,CustomUrlTransformPipe],
   imports: [
     CommonModule,
     AppRoutingModule,
     LazyLoadImageModule
   ],
-  exports:[CollectionCardComponent]
+  exports:[CollectionCardComponent,CustomUrlTransformPipe]
 })
 export class SharedModule { }
