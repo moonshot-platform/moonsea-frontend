@@ -8,7 +8,9 @@ export const environment = {
   apiUrl : "http://209.126.10.42/moonsea/api/",
   defaultProfilePic : "img/profile.png",
   configFile : 'testnet',
-  bscTestnetScan:"https://testnet.bscscan.com/tx/"
+  bscTestnetScan:"https://testnet.bscscan.com/tx/",
+  paginationSize :12,
+  tockenUri:'http://209.126.10.42/moonsea/api/api/Metadata/'
   };
 
 /*

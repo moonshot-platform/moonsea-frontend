@@ -11,6 +11,11 @@ import { ModalForCreateNftComponent } from 'src/app/components/moonbase/create-n
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
 import moment from "moment";
+import {noOfCopies} from './noOfCopies.validator';
+import blockjson from '../../../../../../../assets/blockchainjson/blockchain.json';
+import { environment } from 'src/environments/environment';
+
+
 
 @Component({
   selector: 'app-add-edit-nft',
@@ -25,6 +30,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
   dateValue: Date = new Date();
   isApiLoading: boolean;
   typeOfNft: any;
+  blockchainInfo:any={};
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddEditNftComponent>,
@@ -40,7 +46,6 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     if (this.data.isMultiple) {
       this.typeOfNft = 'multiple';
     } else {
@@ -48,15 +53,16 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
     }
 
     this.addEditNft = this.fb.group({
-      title: ['', [Validators.required]],
+      title: [''],
       nftTokenID: [''],
-      nftDefaultDescription: ['', [Validators.required]],
+      nftDefaultDescription: ['',],
       propertysize: this.fb.array([this.propertysizeGroup()]),
       putOnSale: [false],
       typeOfSale: ['1'],
       minimunBid: [''],
       startDate: [''],
-      endDate: [''],
+      // endDate: [''],
+      noOfDaysAuction:['3'],
       currentSupply: [''],
       // royalties: ['', [Validators.required,Validators.min(0),Validators.max(10), Validators.pattern('^[0-9]{1,2}?$')]],
       royalties: [''],
@@ -64,7 +70,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
       nftAddress: [''],
       blockchainId: [''],
       imageUrl: [''],
-      numberOfCopies: ['1'],
+      numberOfCopies: ['1',[Validators.required,noOfCopies]],
       collectionId: [''],
     });
 
@@ -83,10 +89,11 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
         nftDefaultDescription: this.data.description,
         propertysize: this.data.propertysize,
         putOnSale: this.data.isForSale,
-        typeOfSale: this.data.typeOfSale.toString(),
+        typeOfSale: this.data.typeOfSale?.toString(),
         minimunBid: this.data.minimunBid,
         startDate: this.data.startingDate,
-        endDate: this.data.expirationDate,
+        // endDate: this.data.expirationDate,
+        noOfDaysAuction:this.data.noOfDaysAuction,
         nftTokenID: this.data.nftTokenID,
         currentSupply: this.data.currentSupply,
         royalties: this.data.royalties,
@@ -108,6 +115,14 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
         );
       });
     }
+
+
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId == this.data.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
+
   }
 
   get formControls() {
@@ -120,8 +135,8 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
 
   propertysizeGroup() {
     return this.fb.group({
-      size: ['', [Validators.required]],
-      properties: ['', [Validators.required]],
+      size: [''],
+      properties: [''],
     });
   }
 
@@ -140,7 +155,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
   saveNFT(value: any) {
     this.addEditNft.value.startDate = moment(this.addEditNft.controls.startDate.value).toDate();
 
-    this.addEditNft.value.endDate =  moment(this.addEditNft.controls.endDate.value).toDate();
+    // this.addEditNft.value.endDate =  moment(this.addEditNft.controls.endDate.value).toDate();
     // this.addEditNft.value.startDate = this.datepipe.transform(
     //   this.addEditNft.controls.startDate.value,
     //   'yyyy-MM-ddTHH:mm:ss'
@@ -149,7 +164,6 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
     //   this.addEditNft.controls.endDate.value,
     //   'yyyy-MM-ddTHH:mm:ss'
     // );
-    debugger
     if (this.data.isMinted) {
       let url = 'api/UpdateNftToken';
       this._getDataService.postRequest(url, this.addEditNft.value).subscribe(
@@ -194,31 +208,40 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
         this.addEditNft.get('minimunBid')?.setValidators(Validators.required);
         this.addEditNft.get('startDate')?.clearValidators();
         this.addEditNft.get('startDate')?.updateValueAndValidity();
-        this.addEditNft.get('endDate')?.clearValidators();
-        this.addEditNft.get('endDate')?.updateValueAndValidity();
+        // this.addEditNft.get('endDate')?.clearValidators();
+        // this.addEditNft.get('endDate')?.updateValueAndValidity();
+         this.addEditNft.get('noOfDaysAuction')?.clearValidators();
+         this.addEditNft.get('noOfDaysAuction')?.updateValueAndValidity();
+
+
       }
 
       if (this.addEditNft.get('typeOfSale')?.value == 2) {
         this.addEditNft.get('minimunBid')?.setValidators(Validators.required);
         this.addEditNft.get('startDate')?.setValidators(Validators.required);
-        this.addEditNft.get('endDate')?.setValidators(Validators.required);
+        // this.addEditNft.get('endDate')?.setValidators(Validators.required);
+        this.addEditNft.get('noOfDaysAuction')?.setValidators(Validators.required);
       }
 
       if (this.addEditNft.get('typeOfSale')?.value == 3) {
         this.addEditNft.get('minimunBid')?.setValidators(Validators.required);
 
         this.addEditNft.get('startDate')?.clearValidators();
-        this.addEditNft.get('endDate')?.clearValidators();
+        // this.addEditNft.get('endDate')?.clearValidators();
         this.addEditNft.get('startDate')?.updateValueAndValidity();
-        this.addEditNft.get('endDate')?.updateValueAndValidity();
+        // this.addEditNft.get('endDate')?.updateValueAndValidity();
+        this.addEditNft.get('noOfDaysAuction')?.clearValidators();
+        this.addEditNft.get('noOfDaysAuction')?.updateValueAndValidity();
       }
     } else {
       this.addEditNft.get('minimunBid')?.clearValidators();
       this.addEditNft.get('startDate')?.clearValidators();
-      this.addEditNft.get('endDate')?.clearValidators();
+      // this.addEditNft.get('endDate')?.clearValidators();
       this.addEditNft.get('minimunBid')?.updateValueAndValidity();
       this.addEditNft.get('startDate')?.updateValueAndValidity();
-      this.addEditNft.get('endDate')?.updateValueAndValidity();
+      // this.addEditNft.get('endDate')?.updateValueAndValidity();
+      this.addEditNft.get('noOfDaysAuction')?.clearValidators();
+      this.addEditNft.get('noOfDaysAuction')?.updateValueAndValidity();
     }
   }
 }

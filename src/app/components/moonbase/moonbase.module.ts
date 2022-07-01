@@ -160,7 +160,8 @@ import { SharedModule } from './commanShared/shared/shared.module';
     LandingNewCollectionsComponent,
     LangdingUpcomingCollectionsComponent,
     LandingFooterComponent,
-    LandingSearchComponent
+    LandingSearchComponent,
+    
   ],
   imports: [
     BrowserAnimationsModule ,

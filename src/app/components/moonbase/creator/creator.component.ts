@@ -164,7 +164,7 @@ export class CreatorComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    this.toastrService.success("Address copied....");
+    this.toastrService.success("Address copied");
   }
 
 } 

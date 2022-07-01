@@ -27,7 +27,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     LazyLoadImageModule,
     SharedModule,
     MatTabsModule,
-    AppRoutingModule
+    // AppRoutingModule
   ]
 })
 export class CollectionModule { 

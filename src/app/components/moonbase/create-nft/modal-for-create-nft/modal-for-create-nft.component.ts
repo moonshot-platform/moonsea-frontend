@@ -25,6 +25,9 @@ export class ModalForCreateNftComponent implements OnInit {
   netWorkId = 0;
   isdisabledDoneBtn: boolean = false;
   isApiLoading: boolean = false;
+  startSaleButton:any = "Submit";
+  signSellorderButton:any = 'Sign';
+
 
   constructor(
     public dialogRef: MatDialogRef<ModalForCreateNftComponent>,
@@ -33,7 +36,7 @@ export class ModalForCreateNftComponent implements OnInit {
     private getDataService: GetDataService,
     private contractService: ContractService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.dialogRef.disableClose = true;
@@ -53,22 +56,22 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async checkNetwork() {
-    
+
     let checkNetwork: boolean = await this.data.globalService.createContract(
       this.data.details.blockchainId
     );
     if (!checkNetwork) {
       this.wrongNetwork = true;
-      this.mintStatusText = 'Try Again...';
+      this.mintStatusText = 'Try Again';
       let chainIdd = this.data.globalService.chainId;
       chainIdd = parseInt(chainIdd);
       chainIdd = chainIdd.toString(16);
-      let switchNetwork = this.contractService.switchNetwork("0x"+chainIdd);
+      let switchNetwork = this.contractService.switchNetwork("0x" + chainIdd);
       switchNetwork.then(
         (res: any) => {
           if (res == 'doneeeeee') {
             this.wrongNetwork = false;
-            // this.initiateTransaction();
+            this.mintStatusText = 'Submit';
 
           }
         },
@@ -83,12 +86,12 @@ export class ModalForCreateNftComponent implements OnInit {
     }
   }
   async initiateTransaction() {
-    
+
     try {
       var status: any;
       this.mintStatusText = 'Waiting for submission';
-      
-      if (this.data.details.isMultiple==false) {
+
+      if (this.data.details.isMultiple == false) {
         status = await this.data.globalService.mintTokenErc721(
           this.data.details.nftTokenID,
           this.data.details.royalties
@@ -97,8 +100,7 @@ export class ModalForCreateNftComponent implements OnInit {
         status = await this.data.globalService.mintTokenErc1155(
           this.data.details.nftTokenID,
           this.data.details.royalties,
-          this.data.details.numberOfCopies,
-          this.data.details.imageUrl
+          this.data.details.numberOfCopies
         );
       }
       debugger
@@ -109,16 +111,16 @@ export class ModalForCreateNftComponent implements OnInit {
         let url = 'api/UpdateNftToken';
         this.getDataService.postRequest(url, this.data.details).subscribe(
           async (res: any) => {
-            console.log(res);
+            
             if (res.status == 200) {
-             
+
               this.royaltiesDetails = res.data;
               this.isApiLoading = true;
               await this.delay(60000);
               this.isApiLoading = false;
               this.mintStatusText = 'Done';
               this.getDataService.showToastr(res.message, res.isSuccess);
-             
+
               if (!this.data.details.putOnSale) {
                 this.dialogRef.close();
               }
@@ -138,34 +140,37 @@ export class ModalForCreateNftComponent implements OnInit {
         );
       } else {
         this.rejectedMetamask = true;
+        this.mintStatusText = 'Try Again';
+        this.getDataService.showToastr('Something went wrong, please try again.', false);
       }
     } catch (e) {
       this.rejectedMetamask = true;
+      this.getDataService.showToastr('Something went wrong, please try again.', false);
     }
   }
 
   async startSale() {
-    let status: any;  
+    let status: any;
     debugger
-    
+
     status = await this.data.globalService.isApprovedForAll(
       this.data.details.isMultiple,
       this.data.details.blockchainId
     );
 
-    if(status.status==false){
+    if (status.status == false) {
       status = await this.data.globalService.setApprovalForAll(
         this.data.details.isMultiple,
         this.data.details.blockchainId
       );
-      if(status){
+      if (status) {
         this.approvalTransactionHash = status.hash.hash;
       }
-      
+
     }
 
     if (status.status) {
-     
+      this.startSaleButton = 'Done';
       this.signatureStatus = 2;
     } else {
       this.rejectedMetamask = true;
@@ -173,14 +178,14 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async signSellOrder() {
-    
+    debugger
     try {
       var status: any;
       let salt = this.data.globalService.randomNo();
       if (this.data.details.typeOfSale == 1) {
         var userDate = JSON.parse(localStorage.getItem('userData') ?? '{}');
 
-        if(!userDate){
+        if (!userDate) {
           this.contractService.isRegisterd.next("not register");
           return;
         }
@@ -189,7 +194,7 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.nftTokenID,
           this.data.details.minimunBid,
           this.data.details.numberOfCopies,
-          this.data.details.isMultiple==false
+          this.data.details.isMultiple == false
             ? this.data.globalService.nft721Address
             : this.data.globalService.nft1155Address,
           this.data.details.isMultiple,
@@ -207,7 +212,7 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.isMultiple
         );
       }
-
+      debugger
       if (status.status) {
         this.signatureStatus = 3;
 
@@ -222,7 +227,7 @@ export class ModalForCreateNftComponent implements OnInit {
             collectionId: this.data.details.collectionId,
             salt: salt,
             nftAddress:
-            this.data.details.isMultiple==false
+              this.data.details.isMultiple == false
                 ? this.data.globalService.nft721Address
                 : this.data.globalService.nft1155Address,
           })
@@ -231,6 +236,7 @@ export class ModalForCreateNftComponent implements OnInit {
               response.message,
               response.isSuccess
             );
+            this.signSellorderButton = 'Done';
             this.isCompleted = true;
           });
       } else {

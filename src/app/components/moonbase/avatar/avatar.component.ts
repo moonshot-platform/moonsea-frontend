@@ -13,6 +13,7 @@ export class AvatarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
     this.loggedInWalletAddress = localStorage.getItem('address');
 
     if(this.imagePath==undefined || this.imagePath.length==0)

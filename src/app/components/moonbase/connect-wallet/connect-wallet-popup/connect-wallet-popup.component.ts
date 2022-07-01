@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ContractService } from 'src/app/services/contract.service';
+import { GetDataService } from 'src/app/services/get-data.service';
 
 @Component({
   selector: 'app-connect-wallet-popup',
@@ -13,7 +14,8 @@ export class ConnectWalletPopupComponent implements OnInit {
   addressConnected: string="";
   isConnected : boolean = false;
 
-  constructor(private contractService:ContractService,public dialogRef: MatDialogRef<ConnectWalletPopupComponent>) { }
+  constructor(private contractService:ContractService,public dialogRef: MatDialogRef<ConnectWalletPopupComponent>,
+    private getDataService: GetDataService) { }
 
   ngOnInit() {
     window.scrollTo(0, 0)
@@ -23,6 +25,7 @@ export class ConnectWalletPopupComponent implements OnInit {
   {
     await this.contractService.connectAccountMetamask(1);
     this.getAccount();
+    this.getDataService.profilePic.next(1);
   }
 
   async connectBinanceChain()

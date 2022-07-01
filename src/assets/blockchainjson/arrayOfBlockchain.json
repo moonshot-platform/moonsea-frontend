@@ -1,0 +1,52 @@
+{
+    "blockchain":[
+        {
+          "blockchainId": 1,
+          "networkName": "BSC",
+          "fileUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/1839.png",
+          "currencySymbol": "BNB"
+        },
+        {
+          "blockchainId": 4,
+          "networkName": "MoonRiver",
+          "fileUrl": "https://moonboxes.io/assets/media/images/blockchain/MOVR.svg",
+          "currencySymbol": "MOVR"
+        },
+        {
+          "blockchainId": 3,
+          "networkName": "Polygon",
+          "fileUrl": "https://polygonscan.com/images/svg/brands/poly.png?v=1.3",
+          "currencySymbol": "MATIC"
+        },
+        {
+          "blockchainId": 2,
+          "networkName": "Ethereum",
+          "fileUrl": "https://downloads.coindesk.com/arc-hosted-images/eth.png",
+          "currencySymbol": "ETH"
+        }
+        
+       
+      ],
+      "category":[
+        {
+          "categoryId": 1,
+          "categoryName": "ART",
+          "fileUrl": "http://codetentacles-006-site36.htempurl.com/categoryphoto/3.jpeg"
+        },
+        {
+          "categoryId": 2,
+          "categoryName": "GAME",
+          "fileUrl": "http://codetentacles-006-site36.htempurl.com/categoryphoto/2.jpg"
+        },
+        {
+          "categoryId": 4,
+          "categoryName": "COLLECTIBLE",
+          "fileUrl": "http://codetentacles-006-site36.htempurl.com/categoryphoto/1.jpg"
+        },
+        {
+          "categoryId": 3,
+          "categoryName": "MUSIC",
+          "fileUrl": "http://codetentacles-006-site36.htempurl.com/categoryphoto/1.jpg"
+        }
+      ]
+}

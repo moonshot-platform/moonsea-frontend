@@ -4,7 +4,7 @@ import { NftDetailsPageComponent } from '../../nft-details-page/nft-details-page
 import { DetailsComponent } from '../details.component';
 
 const routes: Routes = [
-  { path: 'details/:nftAddress/:nftTokenID', component: DetailsComponent },
+  { path: ':nftAddress/:nftTokenID', component: DetailsComponent },
   { path: 'nftDetails/id/:nftId', component: NftDetailsPageComponent },
 ];
 

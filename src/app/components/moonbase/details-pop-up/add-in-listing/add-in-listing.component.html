@@ -1,6 +1,6 @@
 <div class="popup">
   <div class="flex justify-space-between">
-    <h5 class="orbitron p24 mb20">Add in listing</h5>
+    <h5 class="orbitron p24 mb20">List item for sale</h5>
     <a href="javascript:void(0)" (click)="close()"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 27 27" height="24px" width="24px">
         <title>Close</title>
@@ -15,10 +15,10 @@
 
   <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)"
     #formData="ngForm">
-    <div class="popup__info">
+    <!-- <div class="popup__info">
       Do you really want to list your item from sale? You can remove it from
       sale anytime
-    </div>
+    </div> -->
 
     <div class="upload__fieldset">
       <div class="flex gap flex-wrap wp100 mb20">
@@ -45,15 +45,23 @@
       <div class="fixedPriceDetails" *ngIf="f.typeOfSale.value === '1'">
         <div class="field">
           <div class="popup__col mb10 p12">Price</div>
-          <div class="field__wrap">
+          <div class="field__wrap flex align-center">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" style="height: 25px;width: 25px;margin-right: 10px;">
+              <g fill="#f3ba2f">
+                <path d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"></path>
+                <path d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"></path>
+              </g>
+            </svg>
+
             <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }"
               formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB"
               required />
           </div>
           <div class="flex justify-space-between mt10 mb10">
-            <span class="upload__text text-dark"> Service fee 2.5% </span>
+            <span class="upload__text text-dark"> Service fee {{serviceFees}}% </span>
             <span class="p12"> You will receive
-              {{ f.fixedPrice?.value - (f.fixedPrice?.value * 2.5) / 100 }}
+              {{ f.fixedPrice?.value - (f.fixedPrice?.value * serviceFees) / 100 }}
             </span>
           </div>
         </div>
@@ -62,32 +70,33 @@
       <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '3'">
         <div class="field">
           <div class="popup__col mb10 p12">Minimum bid</div>
-          <div class="field__wrap">
+          <div class="field__wrap flex align-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" style="height: 25px;width: 25px;margin-right: 10px;">
+              <g fill="#f3ba2f">
+                <path d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"></path>
+                <path d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"></path>
+              </g>
+            </svg>
             <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }"
               formControlName="minimunBid" type="text" name="price" placeholder="e. g. Price 1 BNB" required />
           </div>
-          <div class="upload__text text-dark mt10 mb10">Bids below this amount won’t be allowed.</div>
+          <div class="flex justify-space-between mt10 mb10">
+            <span class="upload__text text-dark"> Service fee {{serviceFees}}% </span>
+            <span class="p12"> You will receive
+              {{ f.minimunBid?.value - (f.minimunBid?.value * serviceFees) / 100 }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="field">
+      <!-- <div class="field">
         <div class="popup__col mb10 p12">Currency</div>
         <div class="field__wrap">
-          <!-- <select nice-select class="select" formControlName="currencyId" [attr.disabled]="true ? true:null" #currencyId>
-                    <option *ngFor="let itemcur of currencyList" [value]="itemcur.id">
-                      {{itemcur.name}}
-                    </option>  
-                  </select> -->
-          <!-- <select nice-select class="select" formControlName="currencyId" #blockchainId >
-            <option *ngFor="let itemcur of currencyList" value="{{itemcur.id}}">
-              {{ itemcur.name }}
-            </option>
-          </select> -->
           <select  class="select" formControlName="currencyId" [attr.disabled]="true ? true:null">
             <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.name}}</option>
           </select>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="popup__btns">
@@ -95,7 +104,7 @@
         {{ btnText }}
         <div class="loader text-white" *ngIf="isApiLoading"></div>
       </button>
-      <button (click)="onNoClick()" class="button wp100">
+      <button (click)="onNoClick()" type="button" class="button wp100">
         Cancel
       </button>
     </div>

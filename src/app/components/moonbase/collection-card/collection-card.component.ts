@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-collection-card',
   templateUrl: './collection-card.component.html',
-  styleUrls: ['./collection-card.component.scss']
+  styleUrls: ['./collection-card.component.scss'],
 })
 export class CollectionCardComponent implements OnInit {
 
@@ -36,7 +36,7 @@ export class CollectionCardComponent implements OnInit {
   }
 
   gotoNftDetails(nftAddress: any, nftTokenID: any) {
-    this.router.navigate(['/detailsCom/details', nftAddress, nftTokenID]);
+    this.router.navigate(['/details', nftAddress, nftTokenID]);
   }
 
   onMediaLoad(event, index) {

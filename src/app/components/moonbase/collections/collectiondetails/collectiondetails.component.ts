@@ -99,7 +99,7 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
   getCollectionDetails() {
 
     this.unSubscibeRequest = this.collectionApi.getCollectionDetails(this.name).subscribe((response: any) => {
-      this.check = response.data.walletAddress
+      this.check = response.data?.walletAddress
       let check2 = (localStorage.getItem("address"));
 
       if (this.check === check2) {
@@ -110,7 +110,7 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
 
       if (response.isSuccess) {
         this.collectionDetails = response.data;
-        this.imageUrl = this.collectionDetails.collectionCoverPhoto ?? "";
+        this.imageUrl = this.collectionDetails?.collectionCoverPhoto ?? "";
       }
     });
   }
@@ -204,7 +204,7 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    this.toastrService.success("Text copied....");
+    this.toastrService.success("Text copied");
   }
 
   shareOnDiscord() {

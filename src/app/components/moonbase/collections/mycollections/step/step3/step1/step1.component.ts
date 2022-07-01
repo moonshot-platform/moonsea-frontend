@@ -9,6 +9,8 @@ import { CreateCollectionComponent } from 'src/app/components/moonbase/create-nf
 import { ImportCollectionComponent } from '../../../import-collection/import-collection.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ConnectWalletPopupComponent } from 'src/app/components/moonbase/connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
+import { GetDataService } from 'src/app/services/get-data.service';
 
 @Component({
   selector: 'app-step1',
@@ -20,6 +22,7 @@ export class Step1Component implements OnInit,OnDestroy {
 myCollection: any =[];
 connectedAddress: any;
 unSubscribeRequest:Subscription;
+signature :any;
 
 constructor(private route:Router,
   private location: Location,
@@ -28,7 +31,8 @@ constructor(private route:Router,
   private homeService: HomeService,
   private cs: ContractService,
   private _activatedRoute: ActivatedRoute,
-  private ngxLoader:NgxUiLoaderService) { }
+  private ngxLoader:NgxUiLoaderService,
+  private getDataService:GetDataService) { }
   ngOnDestroy(): void {
     if(this.unSubscribeRequest){
       this.unSubscribeRequest.unsubscribe();
@@ -39,10 +43,16 @@ constructor(private route:Router,
 ngOnInit(): void {
   
   this.cs.getWalletObs().subscribe((data: any) => {
-    this.connectedAddress = data;
-    this.getmyCollectionList();
+    debugger
+    if(this.connectedAddress != data){
+      this.connectedAddress = data;
+      this.getmyCollectionList();
+    }
   });
 
+ 
+
+  this.signature = sessionStorage.getItem('createCollectionSignature');
 
   this.route.navigate(['.'], { relativeTo: this._activatedRoute, queryParams: {}});
 }
@@ -61,21 +71,27 @@ goBack(): void {
   this.location.back();
 }
 
-openDialogCreateCollection(): void {
-  let isWalletConnected ;
-  isWalletConnected  =  localStorage.getItem('wallet')
-  if( isWalletConnected == 1){
-    const dialogRef = this.dialog.open(CreateCollectionComponent, {
-      width: 'auto',
-      data: {
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    
-    });
-  }else{
-    this.toastr.error("please connect the wallet...");
-  }
+  async openDialogCreateCollection(): Promise<void> {
+  
+    if(!this.cs.checkValidAddress(this.connectedAddress))
+    {
+        this.connectWallet();
+        return ;
+    }
+    var status:any= await this.cs.signMsgForCreateCollection();
+    sessionStorage.setItem('createCollectionSignature',status.signature);
+    if(status.status){
+      const dialogRef = this.dialog.open(CreateCollectionComponent, {
+        width: 'auto',
+        data: {
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+      
+      });
+    }
+
+ 
  
 }
 
@@ -92,7 +108,7 @@ openDialogImportCollection(): void {
     
     });
   }else{
-    this.toastr.error("please connect the wallet...");
+    this.toastr.error("please connect the wallet");
   }
  
 }
@@ -123,16 +139,31 @@ getmyCollectionList() {
   });
 }
 
-edit(item:any){
- 
-  const dialogRef = this.dialog.open(CreateCollectionComponent, {
-    width: 'auto',
-    data:{collectionId:item.collectionId},
-    disableClose:true
-  });
-  dialogRef.afterClosed().subscribe(result => {
-  
-  });
+  async edit(item:any){
+    let dialogRef :any;
+    if(this.signature){
+       dialogRef = this.dialog.open(CreateCollectionComponent, {
+        width: 'auto',
+        data:{collectionId:item.collectionId},
+        disableClose:true
+      });
+    }else{
+      var status:any= await this.cs.signMsgForCreateCollection();
+      sessionStorage.setItem('createCollectionSignature',status.signature);
+      if(status.status ){
+       dialogRef = this.dialog.open(CreateCollectionComponent, {
+        width: 'auto',
+        data:{collectionId:item.collectionId},
+        disableClose:true
+      });
+      
+      }
+    }
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
+
 }
 
 
@@ -142,5 +173,14 @@ importcollection() {
   });
 }
 
+
+
+connectWallet()
+{
+  this.dialog.open(ConnectWalletPopupComponent, {
+    height: 'auto',
+    width: 'auto',
+  });
+}
 }
 

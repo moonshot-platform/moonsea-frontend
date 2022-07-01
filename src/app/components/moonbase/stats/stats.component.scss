@@ -30,6 +30,18 @@ table {
    } 
 }
 
+.small_img {
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  object-fit: cover;
+}
+
+span.orbitron.text-secondary.p16::first-letter {
+  text-transform: capitalize;
+}
+
 @media only screen and (max-width: $md) {
   .box {
   margin: 0.5rem 0;

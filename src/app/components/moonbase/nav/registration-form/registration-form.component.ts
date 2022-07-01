@@ -42,9 +42,9 @@ export class RegistrationFormComponent implements OnInit {
     this.submitted=true;
 
     if(this.registerForm.valid){
-      this.regBtnText="Waiting for signature..."
+      this.regBtnText="Waiting for signature"
       var signature = await this.cs.signMsgForRegister(this.items.walletAddress);
-      this.regBtnText="Submitting data...";
+      this.regBtnText="Submitting data";
       if(signature){
           this.getDataService.registerUser({walletAddress:this.items.walletAddress,
             referralAddress:this.registerForm.controls.referralAddress.value,

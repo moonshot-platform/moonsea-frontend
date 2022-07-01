@@ -44,7 +44,7 @@ export class CollectionApiService {
 
   getTemparory(url){
    const tempUrl = "https://infinixx.io/marketplace/api/" ;
-   return this.httpClient.get(tempUrl+url);
+   return this.httpClient.get(environment.apiUrl+url);
   }
 
   uploadCover(body:any , url){

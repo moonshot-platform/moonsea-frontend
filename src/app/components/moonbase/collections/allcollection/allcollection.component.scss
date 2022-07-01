@@ -21,12 +21,24 @@
   }
 }
 
+.filter-menu.filterMobile {
+  .nice-select.open {
+    width: 100%;
+  }
+  .wrap-filter {
+    max-height: 70vh;
+    display: flex;
+    flex-wrap: unset !important;
+    flex-direction: column;
+  }
+}
+
 .fadeInDown {
-  animation: fadeIn .5s ease-in both;
+  animation: fadeIn 0.5s ease-in both;
 }
 
 .fadeInUp {
-  animation: fadeUp .5s ease-in both;
+  animation: fadeUp 0.5s ease-in both;
 }
 
 .hidediv {
@@ -51,12 +63,12 @@
 
 @keyframes fadeUp {
   from {
-    transform: translate3d(0, 40px, 0)
+    transform: translate3d(0, 40px, 0);
   }
 
   to {
     transform: translate3d(0, 0, 0);
-    opacity: 1
+    opacity: 1;
   }
 }
 
@@ -68,8 +80,8 @@
 
 @media (max-width: $md-header) {
   .wrap-filter {
-    margin: 0;
-
+    margin: 0 !important;
+    padding: 0 !important;
     .mat-form-field {
       max-width: 100%;
       margin: 0;
@@ -101,13 +113,13 @@ mat-slider {
 }
 
 .d-flex1:hover {
-  background-color: #50aac5;
+  background-color: $primary;
   color: white;
 }
 
 .mat-expansion-panel {
   background: none !important;
-  color: #50aac5;
+  color: $primary;
 }
 
 .mat-expansion-panel-header-title {
@@ -118,7 +130,7 @@ mat-slider {
   padding: 0 0 !important;
 }
 
-::ng-deep .specific-class>.mat-expansion-indicator:after {
+::ng-deep .specific-class > .mat-expansion-indicator:after {
   color: rgb(80 170 197);
 }
 
@@ -136,26 +148,33 @@ mat-slider {
   position: relative;
   width: 100%;
   left: 0;
-  border-color: #50aac5;
+  border-color: $primary;
   border: 1px solid;
 }
 
 .lg-height-button {
   height: 54px;
+  align-items: center;
 }
 
 .pb-5 {
   padding-bottom: 3rem !important;
 }
-
 .search-box {
   position: absolute;
   width: 100%;
   left: 0;
-  border-color: #50aac5;
-  top: 50%;
+  border-color: $primary;
+  top: 55%;
   z-index: -1;
-  border: 1px solid;
+  border: none;
+}
+.center-line {
+  border-color: $primary;
+  margin: 0;
+  height: 2px;
+  border: none;
+  border-bottom: 1px solid $primary;
 }
 
 .search-input {
@@ -166,12 +185,12 @@ mat-slider {
 
   .form-control {
     font-size: 16px;
-    border: 1px solid #50aac5;
+    border: 1px solid $primary;
     height: 54px;
     padding: 1rem;
     padding-right: 3rem;
     background: transparent;
-    color: #50aac5;
+    color: $primary;
     width: 100%;
     z-index: 10;
     position: relative;
@@ -195,4 +214,116 @@ mat-slider {
   right: 0px;
   width: 40px;
   margin-right: 10px;
+}
+
+.filter_button {
+  position: fixed;
+  bottom: 60px;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: max-content;
+  align-items: baseline;
+  span {
+    background: $black;
+    border-radius: 50px;
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    line-height: 28px;
+    color: $primary;
+  }
+}
+
+.filterMobile {
+  position: fixed;
+  top: auto;
+  background: $primary;
+  z-index: 9999;
+  bottom: 0;
+  min-height: 85vh;
+  min-width: 100vw;
+}
+
+.main_title {
+  mat-label {
+    padding: 0 1rem;
+  }
+}
+
+
+
+// mobile checkbox
+/* The filter_label */
+.filter_label {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: 'Montserrat';
+  justify-content: space-between;
+}
+
+/* Hide the browser's default checkbox */
+.filter_label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #090d16;
+  border: 1px solid #090d16;
+  border-radius: 50px;
+}
+
+/* On mouse-over, add a grey background color */
+.filter_label:hover input ~ .checkmark {
+  background-color: transparent;
+}
+
+/* When the checkbox is checked, add a blue background */
+.filter_label input:checked ~ .checkmark {
+  border-radius: 50px;
+  background-color: transparent;
+  border: 1px solid $black;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.filter_label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+
+/* Style the checkmark/indicator */
+.filter_label .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  // border: solid white;
+  // border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

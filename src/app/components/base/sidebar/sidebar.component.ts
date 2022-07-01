@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { TokenomicsService } from 'src/app/services/tokenomics.service';
+import { ConnectWalletPopupComponent } from '../../moonbase/connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,25 +17,41 @@ export class SidebarComponent implements OnInit {
   userProfilePic: any;
   userAddress: any;
   userDetails: any;
+  activeWalletAddress: any;
+  userProfileImage: any;
   constructor(
     private tokenomicsService: TokenomicsService,
     public dialog: MatDialog,
     private getDataService: GetDataService,
     private cs: ContractService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.userDetails = JSON.parse(localStorage.getItem('userData'));
+    this.userProfilePic = this.userDetails?.profilePic;
+    this.getDataService.profilePic.subscribe((res: any) => {
+      if (res.isdisconneted) {
+        this.userAddress = null;
+        this.active = false;
+      }
+      this.fetchData();
+    })
+
     this.tokenomicsService.whenToggled().subscribe((state: boolean) => {
       this.toggleTokenomicsView(state);
     });
 
     this.cs.getWalletObs().subscribe((data: any) => {
-      this.userAddress = data;
-      this.fetchData();
+
+      if (this.userAddress != data) {
+        this.userAddress = data;
+        this.fetchData();
+      }
+
     });
 
     this.cs.isAcountChangedSub.subscribe((res: any) => {
-      this.fetchData();
+      // this.fetchData();
     });
   }
 
@@ -53,6 +70,21 @@ export class SidebarComponent implements OnInit {
       this.wallet = false;
     }
   }
+
+  checkWalletConnect() {
+    let isAddressConnected = localStorage.getItem('address');
+
+
+    if (!this.cs.checkValidAddress(isAddressConnected)) {
+      const dialogRef = this.dialog.open(ConnectWalletPopupComponent, {
+        width: 'auto',
+      });
+      return;
+    } else {
+      this.active = true;
+    }
+  }
+
 
   @HostListener('document:click', ['$event'])
   onMouseEnter(event: any) {
@@ -79,13 +111,8 @@ export class SidebarComponent implements OnInit {
       .getUserDetails(this.userAddress, null)
       .subscribe((response: any) => {
         this.userDetails = response.data[0];
-        if (this.userDetails) {
-          this.userProfilePic = this.userDetails.profilePic;
-        }
+
       });
   }
 
-  switchNetwork(){
-    this.cs.switchNetwork('0x13881');
-  }
 }

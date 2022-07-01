@@ -7,16 +7,15 @@
 </button> -->
 
 <button
-  *ngIf="(fromPage == 1 || fromPage == 2) && this.connectedAddress != items.ownerAddress && ((typeOfSale == 3) || (typeOfSale == 2 && data?.timerType ==1 || data?.timerType == 2) ) "
-  class="button wp100"
-  (click)="openDialog('bid')" >
-  Place a bid
-</button>
-
-<button
-  *ngIf="fromPage == 1 && this.connectedAddress != items.ownerAddress"
-  class="button wp100 mt10"
+  *ngIf="fromPage == 1 && this.connectedAddress.toLowerCase() != items.ownerAddress.toLowerCase()"
+  class="button wp100 bg-primary"
   (click)="openDialog('offer')">
   Make Offer
 </button>
 
+<button
+  *ngIf="(fromPage == 1 || fromPage == 2) && this.connectedAddress.toLowerCase() != items.ownerAddress.toLowerCase() && ((typeOfSale == 3) || (typeOfSale == 2 && data?.timerType == 2) ) "
+  class="button wp100 mt10"
+  (click)="openDialog('bid')" >
+  Place a bid
+</button>

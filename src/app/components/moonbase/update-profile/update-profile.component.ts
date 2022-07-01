@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./update-profile.component.scss']
 })
 export class UpdateProfileComponent implements OnInit {
-  imagePath: string = "";
+  imagePath: any = "";
   submitted: boolean = false;
   referralAddress: string = "";
 
@@ -28,59 +28,101 @@ export class UpdateProfileComponent implements OnInit {
   });
   isButtonDisabled: boolean = false;
   isUploadButtonDisabled: boolean = false;
-  imageUrl: string = "";
-  updateBtnText: string = "Update profile";
+  imageUrl: any = "";
+  updateBtnText: string = "Update";
   userDetails: any;
   userAddress: any;
+  imagePath1: any;
+  facebookUrl:any;
+  twitterUrl:any;
+  discordUrl:any;
+
+  unamePattern :any = "[\\w\\s]+";
   constructor(private toastrService: ToastrService,
-     private location: Location,
-      private formBuilder: FormBuilder,
-       private getDataService: GetDataService,
-        private cs: ContractService,
-        private route: Router)
-         { }
+    private location: Location,
+    private formBuilder: FormBuilder,
+    private getDataService: GetDataService,
+    private cs: ContractService,
+    private route: Router,) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0)
     this.updateProfile = this.formBuilder.group({
-      name: ['', Validators.required],
-      customUrl: ['', Validators.required],
-      bio: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      customUrl: ['', [Validators.required]],
+      bio: [''],
       twitterUsername: [''],
       portfolioWebsite: [''],
-      emailId: ['', [Validators.required,Validators.email]],
+      emailId: [''],
       facebook: [''],
-      discord: ['']
+      discord: [''],
     })
 
     this.cs.getWalletObs().subscribe((data: any) => {
-      this.userAddress = data;
+    
       console.log(this.cs.checkValidAddress(this.userAddress))
-      if (!this.cs.checkValidAddress(this.userAddress)) {
-        this.route.navigate(['connect']);
-      }
-      else {
-        this.fetchData();
+      if(this.userAddress != data){
+        this.userAddress = data;
+        if (!this.cs.checkValidAddress(this.userAddress)) {
+          this.route.navigate(['connect']);
+        }
+        else {
+          this.fetchData();
+        }
       }
     });
 
+    
 
+    this.updateProfile.get('facebook').valueChanges.subscribe((res:any)=>{
+       this.facebookUrl =res;
+         
+    });
 
+    this.updateProfile.get('discord').valueChanges.subscribe((res:any)=>{
+     this.discordUrl = res;
+ });
+ this.updateProfile.get('twitterUsername').valueChanges.subscribe((res:any)=>{
+  this.twitterUrl = res;
+});
 
 
   }
+
+  get getCustomUrl(){
+      return this.updateProfile.get('customUrl');
+  }
+
+
+  checkCustomUrl(values:any){
+    let data ={
+      customeUrl :values
+    };
+
+    this.getDataService.postRequest('api/checkCustomeUrlValidation',data).subscribe((res:any)=>{
+      console.log(res);
+      if(res.isSuccess){
+        // this.updateProfile.controls.customUrl.setErrors(null);
+      }
+      else{
+        this.updateProfile.controls.customUrl.setErrors({'incorrectUrl': true});
+      }
+    })
+  }
+
+
 
   back() {
     this.location.back()
   }
 
-  get updateProfileControl(){
+  get updateProfileControl() {
     return this.updateProfile.controls;
   }
 
 
 
- 
+
 
 
   setValidators() {
@@ -105,7 +147,6 @@ export class UpdateProfileComponent implements OnInit {
   fetchData() {
     this.getDataService.getUserDetails(this.userAddress, null).subscribe((response: any) => {
       this.userDetails = response.data[0];
-
       this.setInitialDataForUser();
     })
   }
@@ -122,39 +163,53 @@ export class UpdateProfileComponent implements OnInit {
     this.userAddress;
     this.imagePath = this.userDetails.profilePic;
     this.referralAddress = this.userDetails.referralAddress
+
+console.log(this.userDetails.twitterUsername);
+this.discordUrl = this.userDetails.discord;
+this.twitterUrl = this.userDetails.twitterUsername;
+    this.facebookUrl = this.userDetails.facebook;
   }
 
-
+  file: any;
 
   onLogoFile(event: any) {
     this.isUploadButtonDisabled = true;
-    const file: File = event.target.files[0];
-    if (file) {
+    this.file = event.target.files[0];
+    if (this.file) {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.file);
 
       reader.onload = event => {
-        this.imageUrl = reader.result?.toString() ?? "";
+        this.imagePath = reader.result;
+
       };
       this.isButtonDisabled = true;
-      this.getDataService.uploadProfilePic(file)
-        .subscribe(
-          (response: any) => {
-            this.isUploadButtonDisabled = false;
-            let data = response;
-            if (data.isSuccess) {
-              this.imagePath = data.data.path;
-            }
-            else {
-              this.imagePath = "";
-            }
 
-          },
-          error => {
-            this.isButtonDisabled = false;
-            this.imagePath = "";
-          });
     }
+  }
+
+  uploadProfileImage() {
+    if(this.file){
+      this.getDataService.uploadProfilePic(this.file)
+      .subscribe(
+        (response: any) => {
+          this.isUploadButtonDisabled = false;
+          let data = response;
+          if (data.isSuccess) {
+            this.imagePath = data.data.path;
+            this.toastrService.success("Profile Pic Uploaded");
+          }
+          else {
+            this.imagePath = "";
+          }
+
+        },
+        error => {
+          this.isButtonDisabled = false;
+          this.imagePath = "";
+        });
+    }
+   
   }
 
   get f() {
@@ -180,10 +235,10 @@ export class UpdateProfileComponent implements OnInit {
         profilePic: this.imagePath,
         lodingProPic: "./../../assets/img/WPngtreectoruserssicon3762775.png"
       };
-      this.updateBtnText = "Signing message...";
+      this.updateBtnText = "Signing message";
       var signature = await this.cs.signMsgForUpdateProfile(formData);
       if (signature) {
-        this.updateBtnText = "Saving Data..."
+        this.updateBtnText = "Saving Data"
         var formDataWithSignature = {
           name: this.updateProfile.controls.name.value,
           customUrl: this.updateProfile.controls.customUrl.value,
@@ -200,10 +255,19 @@ export class UpdateProfileComponent implements OnInit {
         this.getDataService.updateProfile(formDataWithSignature)
           .subscribe(
             response => {
-              var data = response;
-              this.toastrService.success("Profile updated successfully...");
-              this.fetchData();
-              this.updateBtnText = "Update Profile";
+              if(response.status == 200){
+                var data = response;
+                this.toastrService.success("Profile updated successfully");
+                this.fetchData();
+                this.route.navigate(['/profile',this.userAddress,'tab','Created'])
+                this.getDataService.profilePic.next(1);
+                this.updateBtnText = "Update Profile";
+              }
+              else{
+                this.toastrService.error(response.message);
+              }
+            },(err:any)=>{
+              this.toastrService.error(err);
             });
       }
       else {

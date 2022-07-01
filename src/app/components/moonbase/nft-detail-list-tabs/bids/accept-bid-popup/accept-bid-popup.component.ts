@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { environment } from 'src/environments/environment';
 import { exchangeToken, SignSellOrder } from 'src/app/model/signBuyerOrder';
+import blockjson from '../../../../../../assets/blockchainjson/blockchain.json';
 
 @Component({
   selector: 'app-accept-bid-popup',
@@ -26,7 +27,8 @@ export class AcceptBidPopupComponent implements OnInit {
   isApiLoading:boolean=false;
 
   exchangeTokenObj:exchangeToken =  new exchangeToken();
-  signSellOrder : SignSellOrder = new SignSellOrder()
+  signSellOrder : SignSellOrder = new SignSellOrder();
+  blockchainInfo:any ={};
 
   constructor(
     private contractService: ContractService,
@@ -40,7 +42,11 @@ export class AcceptBidPopupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("AcceptBidPopupComponentthis==========>",this.items);
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items.nftDetails.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
     
     this.getNftDetails();
     this.checkNetwork();
@@ -63,7 +69,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.balanceInBNB = balance > 0 ? Number((balance / 1e18).toFixed(4)) : 0;
 
     this.nftInteractionService
-    .getNftDetails(this.contractService.userAddress, this.items.nftId)
+    .getNftDetails(this.contractService.userAddress, this.items.nftId,this.items.nftDetails.nftAddress,this.items.nftDetails.blockchainId)
     .subscribe((response: any) => {
       if (response.isSuccess) {
         
@@ -156,7 +162,7 @@ export class AcceptBidPopupComponent implements OnInit {
       await status.hash.wait(5);
       this.txnHash = status.hash.hash;
       this.step = 3;
-      this.toastr.success('Bought successfully...');
+      this.toastr.success('Bought successfully');
     }
   }
 

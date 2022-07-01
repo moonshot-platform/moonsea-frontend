@@ -64,7 +64,7 @@ export class HowItWorkComponent implements OnInit {
 
 getCollectionList() {
   this.ngxService.start();
-  let url = `home/getHotBidList?walletAddress=${this.connectedAddress}`;
+  let url = `home/getHotBidCollectionList`;
   
   this.homeService.getRequest(url).subscribe((response: any) => {
      if(response.status == 200){

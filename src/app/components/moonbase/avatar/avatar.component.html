@@ -1,8 +1,8 @@
 <div class="rounded relative flex">
-  <img *ngIf="imagePath" [lazyLoad]="imagePath" [defaultImage]="'assets/icons/5904642857251113741.gif'"  alt="Avatar" />
-  <!-- <img *ngIf="!imagePath" src="assets/media/images/moonsea/profile.png" alt="Avatar" /> -->
+  <img  [lazyLoad]="imagePath" [defaultImage]="'assets/media/images/moonsea/profile.png'"  alt="Avatar" />
+  
 
-  <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/profileinfo/updateProfile']" class="edit-icon">
+  <a *ngIf="walletAddress == loggedInWalletAddress" href="javascript:void(0)" [routerLink]="['/profile/updateProfile']" class="edit-icon">
     <svg version="1.1" id="editIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;width: 24px;height: 24px;" xml:space="preserve">
       <style type="text/css">
         .st0{fill:#50AAC5;}

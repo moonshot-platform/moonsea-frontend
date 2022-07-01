@@ -327,7 +327,7 @@ export class ContractService {
   mintTokenErc721(nftId: number, royalties: number) {
     var promise = new Promise((resolve, reject) => {
       this.nft721Contract
-        .mint(nftId.toString(), [[this.userAddress, royalties * 100]], 1)
+        .mint(nftId.toString(), [[this.userAddress, royalties * 100]], environment.tockenUri)
         .then(function (hash: any) {
           resolve({ hash: hash.hash, status: true });
         })
@@ -342,12 +342,11 @@ export class ContractService {
   mintTokenErc1155(
     nftId: number,
     royalties: number,
-    noOfCopies: number,
-    imageUrl: string
+    noOfCopies: number
   ) {
     var promise = new Promise((resolve, reject) => {
       this.nft1155Contract
-        .mint(nftId, [[this.userAddress, royalties]], noOfCopies, imageUrl)
+        .mint(nftId, [[this.userAddress, royalties]], noOfCopies, environment.tockenUri)
         .then(function (hash: any) {
           resolve({ hash: hash.hash, status: true });
         })
@@ -422,6 +421,41 @@ export class ContractService {
       return { status: false, signature };
     }
   }
+
+
+  async signMsgForCreateCollection(){
+    let message = "You are creating collection";
+    var signature = '';
+    try {
+      signature = await this.signer.signMessage(message.toString());
+      return { status: true, signature };
+    } catch (e) {
+      return { status: false, signature };
+    }
+  }
+
+  async signMsgForUpdateCollection(){
+    let message = "You are updating collection";
+    var signature = '';
+    try {
+      signature = await this.signer.signMessage(message.toString());
+      return { status: true, signature };
+    } catch (e) {
+      return { status: false, signature };
+    }
+  }
+
+  async createSignature(message:any){
+    var signature = '';
+    try {
+      signature = await this.signer.signMessage(message.toString());
+      return { status: true, signature };
+    } catch (e) {
+      return { status: false, signature };
+    }
+  }
+
+
 
   async signMsgForRemoveFromSale(formData: any) {
     var message = `You are remove from sale to ${formData}`;
@@ -551,7 +585,7 @@ export class ContractService {
   ) {
     debugger
     try {
-      console.log(nftAddress);
+      // console.log(nftAddress);
       const params2 = ethers.utils.parseEther(price.toString());
       var abiCoder = new ethers.utils.AbiCoder();
 

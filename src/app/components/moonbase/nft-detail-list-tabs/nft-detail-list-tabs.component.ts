@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from '../../../services/get-data.service';
-
+import blockjson from '../../../../assets/blockchainjson/blockchain.json';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nft-detail-list-tabs',
@@ -20,6 +21,7 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
   isApiLoading: any = true;
   indexForPlaceBid = -1;
   indexForPurchase = -1;
+  blockchainInfo:any ={};
   constructor(private getDataService: GetDataService, private router:Router) { }
   ngOnChanges(changes: SimpleChanges): void {
    
@@ -27,15 +29,19 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
   }
 
   ngOnInit(): void {
-    
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items?.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
     this.getList(1);
-   
+    
     
   }
 
 
   goToProfile(data:any) {
-  let url ="/profileinfo/profile/"+data + "/tab/like"
+  let url ="/profile/"+data + "/tab/like"
 
 
     this.router.navigate([url]);

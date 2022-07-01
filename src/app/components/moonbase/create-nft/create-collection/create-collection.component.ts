@@ -20,6 +20,8 @@ import { ContractService } from 'src/app/services/contract.service';
 import { ModalForCreateNftComponent } from '../modal-for-create-nft/modal-for-create-nft.component';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import blockjson from '../../../../../assets/blockchainjson/blockchain.json';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -53,7 +55,7 @@ export class CreateCollectionComponent implements OnInit {
     walletAddress: null,
     fileUrl: null,
     collectionCoverPhoto: null,
-    symbol: null,
+    // symbol: null,
     description: null,
     categoryId: null,
     yourSite: null,
@@ -66,7 +68,6 @@ export class CreateCollectionComponent implements OnInit {
     nftDefaultDescription: null,
     putOnSale: null,
     typeOfSale: null,
-    timeAuction: null,
     minimunBid: null,
     startDate: null,
     endDate: null,
@@ -78,7 +79,8 @@ export class CreateCollectionComponent implements OnInit {
     blockchainId:null
   }
   blockchainList :any = [];
-
+  signature:any;
+  blockchainInfo:any = {};
 
   constructor(
     public dialog: MatDialog,
@@ -99,6 +101,7 @@ export class CreateCollectionComponent implements OnInit {
   ngOnInit(): void {
     this.dialogRef.disableClose = true;
     this.Address = localStorage.getItem('address');
+    this.signature = sessionStorage.getItem('createCollectionSignature');
     this.getCategotyList();
     this.collectionId = this.data.collectionId;
     this.getBlockchainList();
@@ -106,7 +109,7 @@ export class CreateCollectionComponent implements OnInit {
     this.step01Form = this.formbuider.group({
       tokenName: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      typeOfNft:['']
+      // typeOfNft:['']
     });
 
     this.step02Form = this.formbuider.group({
@@ -119,27 +122,44 @@ export class CreateCollectionComponent implements OnInit {
     });
 
     this.step03Form = this.formbuider.group({
-      symbol: ['', [Validators.required]],
+      // symbol: ['', [Validators.required]],
       royalties: [
-        '',
+        5,
         [Validators.required,Validators.min(0),Validators.max(10), Validators.pattern('^[0-9]{1,2}?$')],
       ],
       categoryId: ['1', [Validators.required]],
       royaltiesWalletAddress:['',[Validators.required]],
       blockchainId:['1'],
-     
+      isMultiple:[false]
     });
+
+    
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId == this.step03Form.controls.blockchainId.value){
+        this.blockchainInfo = element;
+      }
+    });
+
+    this.step03Form.get('blockchainId')?.valueChanges.subscribe((res:any)=>{
+      blockjson[environment.configFile].forEach(element => {
+        if(element.blockchainId == res){
+          this.blockchainInfo = element;
+        }
+      });
+    })
 
 
     this.step04Form = this.formbuider.group({
-      nftDefaultDescription: ['', [Validators.required]],
+      nftDefaultDescription: ['', ],
       propertysize: this.formbuider.array([this.addpropertysize010()]),
       putOnSale: [false],
       typeOfSale: ['1'],
       minimunBid: [''],
       startDate: [''],
       endDate: [''],
-      numberOfCopies:[1]
+      numberOfCopies:[1],
+      nftDefaultTitle:['',],
+      noOfDaysAuction:[3]
     });
 
 
@@ -214,8 +234,8 @@ export class CreateCollectionComponent implements OnInit {
 
   addpropertysize010() {
     return this.formbuider.group({
-      properties: ['', [Validators.required]],
-      size: ['', [Validators.required]],
+      properties: [''],
+      size: [''],
     });
   }
 
@@ -241,19 +261,19 @@ export class CreateCollectionComponent implements OnInit {
 
   step01PatchValue(data:any){
   
-    if(data.isMultiple){
-      this.typeOfNft = 'multiple';
-      this.step04Form.get('numberOfCopies').setValidators([Validators.required]);
-    }
-    else{
-      this.typeOfNft = 'single'  ; 
-      this.step04Form.get('numberOfCopies').clearValidators();
-      this.step04Form.get('numberOfCopies').updateValueAndValidity();
-    }
+    // if(data.isMultiple){
+    //   this.typeOfNft = 'multiple';
+    //   this.step04Form.get('numberOfCopies').setValidators([Validators.required]);
+    // }
+    // else{
+    //   this.typeOfNft = 'single'  ; 
+    //   this.step04Form.get('numberOfCopies').clearValidators();
+    //   this.step04Form.get('numberOfCopies').updateValueAndValidity();
+    // }
     this.step01Form.patchValue({
       tokenName: data.tokenName,
       description:data.description,
-      typeOfNft : data.isMultiple,
+      // typeOfNft : data.isMultiple,
     })
   }
 
@@ -270,10 +290,11 @@ export class CreateCollectionComponent implements OnInit {
 
   step03PatchValue(data:any){
     this.step03Form.patchValue({
-      symbol:data.symbol,
+      // symbol:data.symbol,
       royalties:data.royalties,
       categoryId:data.categoryId,
       royaltiesWalletAddress: data.walletAddress,
+      isMultiple : data.isMultiple,
     })
   }
 
@@ -283,9 +304,11 @@ export class CreateCollectionComponent implements OnInit {
       putOnSale:  data.putOnSale,
       typeOfSale: data.typeOfSale.toString(),
       minimunBid: data.minimunBid,
-      startDate: data.startDate,
+      startDate: data.stratDate,
       endDate: data.endDate,
-      numberOfCopies:data.numberOfCopies
+      numberOfCopies:data.numberOfCopies,
+      nftDefaultTitle:data.nftDefaultTitle,
+      noOfDaysAuction :data.noOfDaysAuction
     });
 
     
@@ -311,7 +334,7 @@ export class CreateCollectionComponent implements OnInit {
       if(this.imagePath){
         this.addCollectionForm_New.tokenName = this.step01Form.value.tokenName;
         this.addCollectionForm_New.description = this.step01Form.value.description;
-        this.addCollectionForm_New.isMultiple = this.typeOfNft == 'single' ? 'false' : 'true';
+        // this.addCollectionForm_New.isMultiple = this.typeOfNft == 'single' ? 'false' : 'true';
         this.collectionDetailsFunc();
       }else{
         this.imageErrorMsg = true;
@@ -334,11 +357,12 @@ export class CreateCollectionComponent implements OnInit {
   }
   saveStep03(value: any) {
     if (this.step03Form.valid) {
-      this.addCollectionForm_New.symbol = this.step03Form.value.symbol;
+      // this.addCollectionForm_New.symbol = this.step03Form.value.symbol;
       this.addCollectionForm_New.royalties = this.step03Form.value.royalties;
       this.addCollectionForm_New.categoryId = this.step03Form.value.categoryId;
       this.addCollectionForm_New.royaltiesWalletAddress = this.step03Form.value.royaltiesWalletAddress;
       this.addCollectionForm_New.blockchainId = this.step03Form.value.blockchainId;
+      this.addCollectionForm_New.isMultiple = this.step03Form.value.isMultiple;
   
       this.collectionDetailsFunc();
     }
@@ -350,6 +374,8 @@ export class CreateCollectionComponent implements OnInit {
       this.addCollectionForm_New.propertysize = this.step04Form.value.propertysize;
       this.addCollectionForm_New.putOnSale = this.step04Form.value.putOnSale; 
       this.addCollectionForm_New.numberOfCopies = this.step04Form.value.numberOfCopies;
+      this.addCollectionForm_New.nftDefaultTitle = this.step04Form.value.nftDefaultTitle;
+      this.addCollectionForm_New.noOfDaysAuction = this.step04Form.value.noOfDaysAuction;
 
       if(this.step04Form.value.putOnSale){
         this.addCollectionForm_New.minimunBid = this.step04Form.value.minimunBid; 
@@ -363,17 +389,18 @@ export class CreateCollectionComponent implements OnInit {
         this.step04Form.controls.startDate.value,
         'yyyy-MM-ddTHH:mm:ss'
       );
-      this.addCollectionForm_New.endDate = this.datepipe.transform(
-        this.step04Form.controls.endDate.value,
-        'yyyy-MM-ddTHH:mm:ss'
-      );
+      // this.addCollectionForm_New.endDate = this.datepipe.transform(
+      //   this.step04Form.controls.endDate.value,
+      //   'yyyy-MM-ddTHH:mm:ss'
+      // );
     
-      this.addCollectionForm_New.nftAddress = this.typeOfNft == 'single' ? this.cs.getAddressSingle(this.addCollectionForm_New.blockchainId) : this.cs.getAddressMultiple(this.addCollectionForm_New.blockchainId);
-  
+      // this.addCollectionForm_New.nftAddress = this.typeOfNft == 'single' ? this.cs.getAddressSingle(this.addCollectionForm_New.blockchainId) : this.cs.getAddressMultiple(this.addCollectionForm_New.blockchainId);
+      this.addCollectionForm_New.nftAddress = this.step03Form.value.isMultiple ? this.cs.getAddressMultiple(this.addCollectionForm_New.blockchainId) : this.cs.getAddressSingle(this.addCollectionForm_New.blockchainId);
+        
       this.addCollectionForm_New.fileUrl =  this.imagePath;
       this.addCollectionForm_New.nftId =  this.data.ID;
       this.addCollectionForm_New.walletAddress =  this.Address;
-      
+      this.addCollectionForm_New.signature =  this.signature;
       this.saveCollection(this.addCollectionForm_New);
       
       
@@ -386,7 +413,6 @@ export class CreateCollectionComponent implements OnInit {
     this.isApiLoading = true;
     this.isSubmitted = true;
 
-   debugger
       if (!this.collectionId) {
         this.createNFT.addCollection(data).subscribe((result: any) => {
           if (result.isSuccess) {
@@ -448,16 +474,7 @@ export class CreateCollectionComponent implements OnInit {
     this.imagePath = '';
     this.imageErrorMsg = false;
     let file:File = event.target.files[0];
-  //   let str = file.name.split('');
-  //   for(let i=0;i<str.length;i++){
-  //     if(str[i] == '(' || str[i] == ')' ){
-  //         str[i] = '';
-  //     }
-  // }
-  //   let str1 = str.join('');
-  //   console.log(str1);
-    
-   // file.name = str.join('');
+ 
     
     if (file && (file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/jpg'  || file.type == 'image/gif' || file.type == 'image/webp')) {
       const reader = new FileReader();
@@ -602,6 +619,7 @@ export class CreateCollectionComponent implements OnInit {
   getBlockchainList() {
     this.createNFT.getBlockchainList().subscribe((response: any) => {
       this.blockchainList = response.data;
+      
     });
   }
 }

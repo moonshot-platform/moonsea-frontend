@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debug } from 'console';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
@@ -8,7 +7,10 @@ import { ContractService } from 'src/app/services/contract.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { HomeService } from 'src/app/services/home.service';
+import { environment } from 'src/environments/environment';
 import SwiperCore, { SwiperOptions, Navigation } from 'swiper';
+import Blockchainjson from '../../../../assets/blockchainjson/arrayOfBlockchain.json'
+ 
 
 SwiperCore.use([Navigation]);
 @Component({
@@ -62,23 +64,27 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   minPrice: any = 0;
   maxPrice: any = 50000;
   priceSort: string = '';
-  sortingType: any = '1';
+  sortingType: any = '2';
   priceRangeMin: any = 0;
   priceRangeMax: any = 100;
   orderBy: any = 'DESC';
-  size: any = 10000;
+  size: any = environment.paginationSize;
   sortByPrice: any = 1;
-  blockchainList: any = [];
+  blockchainList: any = Blockchainjson.blockchain;
+
+  currencySymbol = this.blockchainList[0].networkName;
   blockchainId: any = 1;
-  categotyList: any = [];
-  currencySymbol: any;
-  categoryName: any;
-  categoryId: any = 0;
+  categotyList: any = Blockchainjson.category;
+  categoryName: any='Select';
+  categoryId: any = 1;
 
   regardingDropdown: any = 'collections';
   createrList: any = [];
   unSubscribeSubscription: Subscription;
   unSubribeDescoverCollectionList: Subscription;
+  collectionListPage:number =1;
+  collectionListSize:number = environment.paginationSize;
+  nftlistPage :number =1; 
 
   constructor(
     private homeService: HomeService,
@@ -120,11 +126,12 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
       if (!res.searchKey) {
         this.searchKey = 'all';
       }
+      this.dicoverCollectionList = [];
       this.getCollection();
     });
 
-    this.getBlockchainList();
-    this.getCategotyList();
+    // this.getBlockchainList();
+    // this.getCategotyList();
   }
 
   outsideClick() {
@@ -164,7 +171,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
 
   getSearchResultNFT() {
     let url: any;
-
+    this.ngxService.start();
     if (this.searchKey.toLowerCase() == 'all') {
       url =
         'home/getNftSearchResult?' +
@@ -174,6 +181,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
         this.minPrice +
         '&priceRangeMax=' +
         this.maxPrice +
+        '&pageNo='+
+        this.nftlistPage +
         '&size=' +
         this.size +
         '&walletAddress=' +
@@ -193,6 +202,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
         this.minPrice +
         '&priceRangeMax=' +
         this.maxPrice +
+        '&pageNo='+
+        this.nftlistPage +
         '&size=' +
         this.size +
         '&walletAddress=' +
@@ -207,14 +218,23 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     this.unSubscribeSubscription = this.dataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
-          this.discoverNFTList = res.data;
+          
+          res.data.forEach((element:any) => {
+            this.discoverNFTList.push(element)
+          });
+          // console.log(this.discoverNFTList);
+          
           this.isApiLoading = false;
+          this.ngxService.stop();
         } else {
           console.log(res);
+          this.ngxService.stop();
+
         }
       },
       (err) => {
         console.log(err);
+        this.ngxService.stop();
       }
     );
   }
@@ -235,7 +255,11 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
         '&categoryId=' +
         this.categoryId +
         '&status=' +
-        this.sortingType;
+        this.sortingType +
+        '&pageNo='+
+        this.collectionListPage +
+        '&PageSize='+
+        this.collectionListSize;
     } else {
       url =
         'home/getCollectionSearchResult?searchText=' +
@@ -249,7 +273,11 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
         '&categoryId=' +
         this.categoryId +
         '&status=' +
-        this.sortingType;
+        this.sortingType +
+        '&pageNo='+
+        this.collectionListPage +
+        '&PageSize='+
+        this.collectionListSize;
     }
 
     this.unSubribeDescoverCollectionList = this.dataService.getRequest(url).subscribe(
@@ -265,7 +293,9 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
                 response.data[i].nftDetailsList[0].nftAddress;
             }
           }
-          this.dicoverCollectionList = response.data;
+          response.data.forEach((element:any) => {
+            this.dicoverCollectionList.push(element)
+          });
           this.getDataservice.searchCollectionflag.next(1);
           this.ngxService.stop();
         } else {
@@ -280,25 +310,34 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     );
   }
 
+  loadmoreNftList(){
+    this.nftlistPage = this.nftlistPage +1;
+    this.getSearchResultNFT(); 
+  }
+
+  loadmoreCollectionList(){
+    this.collectionListPage = this.collectionListPage + 1;
+    this.getCollection();
+  }
 
 
-  gotoNftDetails(nftAddress: any, id: any) {
-    this.router.navigate(['/detailsCom/details', nftAddress, id]);
+  gotoNftDetails(nftAddress: any, id: any,blockchainId) {
+    this.router.navigate(['/details', nftAddress, id],{queryParams: { blockchainId: blockchainId }});
   }
 
   getBlockchainList() {
     this.createNFT.getBlockchainList().subscribe((response: any) => {
       this.blockchainList = response.data;
       this.currencySymbol = this.blockchainList[0].networkName;
-      this.blockchainId = 0;
+      this.blockchainId = 1;
     });
   }
   getCategotyList() {
     this.createNFT.getCategotyList().subscribe((response: any) => {
       if (response.isSuccess) {
         this.categotyList = response.data;
-        this.categoryId = 0;
-        this.categoryName = this.categotyList[0].categoryName;
+        this.categoryId = 1;
+        // this.categoryName = this.categotyList[0].categoryName;
       }
     });
   }
@@ -319,6 +358,10 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     }
 
     if (this.regardingDropdown == 'collections') {
+      // this.dicoverCollectionList =[];
+      this.router.navigate(['/searchcollection'], {
+        queryParams: { searchKey: searchText },
+      });
       this.getCollection();
     }
 
@@ -330,8 +373,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   getListofCollection01(blockchainId: any, currencySymbol: any, col: any) {
     this.blockchainId = blockchainId;
     this.currencySymbol = currencySymbol;
-    // this.getCollection();
-    // this.getSearchResultNFT();
+    this.dicoverCollectionList = [];
+    this.discoverNFTList = [];
     if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
@@ -344,8 +387,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   getNftlistbyCategory(categoryId: any, categoryName: any, col: any) {
     this.categoryId = categoryId;
     this.categoryName = categoryName;
-    // this.getCollection();
-    // this.getSearchResultNFT();
+    this.dicoverCollectionList = [];
+    this.discoverNFTList = [];
     if (this.regardingDropdown == 'collections') {
       this.getCollection();
     }
@@ -366,10 +409,12 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   }
   sortingType01(value: any) {
     this.sortingType = value;
+    this.discoverNFTList = [];
     this.getSearchResultNFT();
   }
   sortingType0101(value: any) {
     this.sortingType = value;
+    this.dicoverCollectionList = [];
     this.getCollection();
   }
   getRegarding(value: any) {
@@ -420,12 +465,15 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     this.searchKey = 'all';
     document.getElementById('textSearch').innerHTML = 'all';
     if (this.regardingDropdown == 'creators') {
+      this.router.navigate(['/searchcollection'], { relativeTo: this.activatedRoute, queryParams: { }});
       this.getCreaterList();
     }
     if (this.regardingDropdown == 'items') {
+      this.router.navigate(['/searchcollection'], { relativeTo: this.activatedRoute, queryParams: { }});
       this.getSearchResultNFT();
     }
     if (this.regardingDropdown == 'collections') {
+      this.router.navigate(['/searchcollection'], { relativeTo: this.activatedRoute, queryParams: { }});
       this.getCollection();
     }
   }

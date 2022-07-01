@@ -21,7 +21,8 @@
                 <ng-template *ngFor="let item of newCollection; let i = index" swiperSlide>
 
                   <a href="javascript:void(0)" class="collections__gallery mr30">
-                    <a class="collections__preview" [routerLink]="['/detailsCom/details',item.nftAddress, item.nftTokenID01]"
+                    <a class="collections__preview" [routerLink]="['/details',item.nftAddress, item.nftTokenID01]"
+                    [queryParams]="{ blockchainId: item.blockchainId }"
                       routerLinkActive="router-link-active">
                       <div class="content-overlay"></div>
 
@@ -34,8 +35,8 @@
                         [lazyLoad]="item.nftFileUrl01" (load)="onMediaLoad($event,i * 4)"
                         [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}">
 
-                      <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}" 
-                       onloadedmetadata="this.muted = true" [muted]="true"
+                      <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[i * 4]}"
+                        onloadedmetadata="this.muted = true" [muted]="true"
                         *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1"
                         (loadeddata)="onMediaLoad($event,i * 4)">
                         <source src="{{ item.nftFileUrl01 }}" type="video/mp4">
@@ -50,7 +51,8 @@
                         <ng-container *ngIf="j <= 2">
                           <div class="content-overlay"></div>
 
-                          <a [routerLink]="['/detailsCom/details',iner.nftAddress, iner.nftTokenID01]"
+                          <a [routerLink]="['/details',iner.nftAddress, iner.nftTokenID01]"
+                          [queryParams]="{ blockchainId: item.blockchainId }"
                             routerLinkActive="router-link-active">
                             <img alt="" [lazyLoad]="iner.nftFileUrl" (load)="onMediaLoad($event,(i*4)+j+1)"
                               *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
@@ -77,23 +79,23 @@
                   <div class="flex-col h-100 wp100">
                     <div class="flex1 flex-col justify-center mt20">
                       <div class="orbitron text-secondary p24">
-                        <a [routerLink]="['/mycollection/collection', item.collectionName]" class="text-secondary">
+                        <a [routerLink]="['/collection', item.collectionName]" class="text-secondary multiline-ellipsis">
                           {{ item?.collectionName }} </a><br />
-                        <p class="montserrat text-primary p18 flex space-between-md-column">
+                        <div class="montserrat text-primary p18 flex space-between-md-column">
                           <a [routerLink]="[
                             '/profile',
-                            item.ownerWalletAddress
-                          ]" class="text-primary owner_name">
+                            item.customeUrl
+                          ]" class="multiline-ellipsis text-primary owner_name">
                             <strong class="w600"> by </strong>
-                            <span>
-                              {{ item?.name ?? item?.customeUrl }}
-                            </span></a>
+                            <a [routerLink]="['/profile',item.customeUrl]">
+                              {{ item?.name  | customUrlTransform}}
+                            </a></a>
                           <span> {{ item?.totalNftCount }} items </span>
-                        </p>
+                        </div>
                       </div>
                       <br />
                       <a class="button text-inherit large-button" href="javascript:void(0)"
-                        [routerLink]="['/mycollection/collection', item?.collectionName]">View Collection</a>
+                        [routerLink]="['/collection', item?.collectionName]">View Collection</a>
                     </div>
                   </div>
                 </ng-template>

@@ -47,7 +47,7 @@ export class BurnTokenComponent implements OnInit {
 
     if(status.status){
       await status.hash.wait(3);
-      this.toastrService.success("Burned succesfully...");
+      this.toastrService.success("Burned succesfully");
     
     
     }
