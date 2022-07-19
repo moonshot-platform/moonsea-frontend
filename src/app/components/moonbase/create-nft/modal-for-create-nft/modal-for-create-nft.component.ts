@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { SignSellOrder01 } from 'src/app/model/signBuyerOrder';
 import { ContractService } from 'src/app/services/contract.service';
 import { CreateNftService } from 'src/app/services/create-nft.service';
 import { GetDataService } from 'src/app/services/get-data.service';
@@ -25,9 +26,10 @@ export class ModalForCreateNftComponent implements OnInit {
   netWorkId = 0;
   isdisabledDoneBtn: boolean = false;
   isApiLoading: boolean = false;
-  startSaleButton:any = "Submit";
-  signSellorderButton:any = 'Sign';
+  startSaleButton: any = "Approve";
+  signSellorderButton: any = 'Sign';
 
+  mintingSteps:any = 1;
 
   constructor(
     public dialogRef: MatDialogRef<ModalForCreateNftComponent>,
@@ -56,17 +58,17 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async checkNetwork() {
-
     let checkNetwork: boolean = await this.data.globalService.createContract(
       this.data.details.blockchainId
     );
+    debugger
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.mintStatusText = 'Try Again';
       let chainIdd = this.data.globalService.chainId;
-      chainIdd = parseInt(chainIdd);
-      chainIdd = chainIdd.toString(16);
-      let switchNetwork = this.contractService.switchNetwork("0x" + chainIdd);
+      // chainIdd = parseInt(chainIdd);
+      // chainIdd = chainIdd.toString(16);
+      let switchNetwork = this.contractService.switchNetwork(chainIdd);
       switchNetwork.then(
         (res: any) => {
           if (res == 'doneeeeee') {
@@ -86,21 +88,22 @@ export class ModalForCreateNftComponent implements OnInit {
     }
   }
   async initiateTransaction() {
-
+    debugger
     try {
       var status: any;
       this.mintStatusText = 'Waiting for submission';
 
       if (this.data.details.isMultiple == false) {
+        debugger
         status = await this.data.globalService.mintTokenErc721(
           this.data.details.nftTokenID,
-          this.data.details.royalties
+          this.data.details.nftAddress
         );
       } else {
         status = await this.data.globalService.mintTokenErc1155(
           this.data.details.nftTokenID,
-          this.data.details.royalties,
-          this.data.details.numberOfCopies
+          this.data.details.numberOfCopies,
+          this.data.details.nftAddress
         );
       }
       debugger
@@ -111,12 +114,13 @@ export class ModalForCreateNftComponent implements OnInit {
         let url = 'api/UpdateNftToken';
         this.getDataService.postRequest(url, this.data.details).subscribe(
           async (res: any) => {
-            
+
             if (res.status == 200) {
 
               this.royaltiesDetails = res.data;
               this.isApiLoading = true;
               await this.delay(60000);
+              this.mintingSteps = 2;
               this.isApiLoading = false;
               this.mintStatusText = 'Done';
               this.getDataService.showToastr(res.message, res.isSuccess);
@@ -145,7 +149,7 @@ export class ModalForCreateNftComponent implements OnInit {
       }
     } catch (e) {
       this.rejectedMetamask = true;
-      this.getDataService.showToastr('Something went wrong, please try again.', false);
+      this.getDataService.showToastr(e.data.message, false);
     }
   }
 
@@ -168,10 +172,13 @@ export class ModalForCreateNftComponent implements OnInit {
       }
 
     }
-
+debugger
     if (status.status) {
       this.startSaleButton = 'Done';
       this.signatureStatus = 2;
+      this.mintingSteps = 3;
+      this.getDataService.showToastr('Start sell done.', true);
+
     } else {
       this.rejectedMetamask = true;
     }
@@ -189,19 +196,25 @@ export class ModalForCreateNftComponent implements OnInit {
           this.contractService.isRegisterd.next("not register");
           return;
         }
+        
+        let sellOrder:SignSellOrder01 ={
+          nftId:  this.data.details.nftTokenID,
+          price:  this.data.details.minimunBid,
+          supply: this.data.details.numberOfCopies,
+          nftAddress: this.data.details.isMultiple == false
+          ? this.data.globalService.nft721Address
+          : this.data.globalService.nft1155Address,
+          isMultiple:  this.data.details.isMultiple,
+          salt: salt,
+          referralAddress: userDate?.referralAddress,
+          royalties: this.royaltiesDetails.royalties,
+          royaltiesOwner: this.royaltiesDetails.royaltiesOwner?? '0x0000000000000000000000000000000000000000',
+          tokenAddress:  '0x0000000000000000000000000000000000000000',
+          blockchainId: this.data.details.blockchainId
+        }
 
         status = await this.data.globalService.signSellOrder(
-          this.data.details.nftTokenID,
-          this.data.details.minimunBid,
-          this.data.details.numberOfCopies,
-          this.data.details.isMultiple == false
-            ? this.data.globalService.nft721Address
-            : this.data.globalService.nft1155Address,
-          this.data.details.isMultiple,
-          salt,
-          userDate?.referralAddress,
-          this.royaltiesDetails.royalties,
-          this.royaltiesDetails.royaltiesOwner
+          sellOrder
         );
       } else {
         status = await this.data.globalService.signBidOrder(
@@ -215,7 +228,7 @@ export class ModalForCreateNftComponent implements OnInit {
       debugger
       if (status.status) {
         this.signatureStatus = 3;
-
+        this.isApiLoading = true;
         this.createNFTService
           .listingUpdateSignature({
             nftId: this.data.details.nftTokenID,
@@ -230,23 +243,33 @@ export class ModalForCreateNftComponent implements OnInit {
               this.data.details.isMultiple == false
                 ? this.data.globalService.nft721Address
                 : this.data.globalService.nft1155Address,
+            asset: this.data.details.asset,
           })
           .subscribe((response: any) => {
             this.getDataService.showToastr(
               response.message,
               response.isSuccess
             );
+            this.isApiLoading = false;
             this.signSellorderButton = 'Done';
             this.isCompleted = true;
           });
       } else {
-        this.rejectedMetamask = true;
+        // this.rejectedMetamask = true;
+        this.isApiLoading = false;
+        this.getDataService.showToastr('Something went wrong, please try again.', false);
       }
     } catch (e) {
-      this.rejectedMetamask = true;
+      // this.rejectedMetamask = true;
+      this.isApiLoading = false;
+      this.getDataService.showToastr('Something went wrong, please try again.', false);
     }
   }
 
+
+  closeTheModal(){
+    this.dialogRef.close();
+  }
   closePopupSignature() {
     if (
       (!this.data.details.isForSale && this.signatureStatus == 1) ||

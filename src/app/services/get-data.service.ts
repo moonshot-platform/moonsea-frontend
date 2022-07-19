@@ -46,12 +46,12 @@ export class GetDataService {
     return this.httpClient.post(environment.apiUrl + 'user/transferTokenSave/', data);
   }
 
-  reportSave(data: any,nftAddress:any,blockchainId:any): Observable<any> {
+  reportSave(data: any): Observable<any> {
     return this.httpClient.post(environment.apiUrl + 'Social/reportSave/', data);
   }
 
   updatePriceSave(data: any): Observable<any> {
-    return this.httpClient.post(environment.apiUrl + 'api/updateListingPrice?blockchainId='+data.blockchainId, data);
+    return this.httpClient.post(environment.apiUrl + 'api/updateListingPrice', data);
   }
 
   burnTokenSave(data: any): Observable<any> {
@@ -84,13 +84,13 @@ export class GetDataService {
     return this.httpClient.get(environment.apiUrl + 'api/getDetails?nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+"&nftAddress="+nftAddress+"&blockchainId="+blockchainId);
   }
 
-  getListBidHistory(nftTokenId: any,nftAddress:any,blockchainId:any): Observable<any> {
+  getListBidHistory(asset:any): Observable<any> {
     // return this.httpClient.get(environment.apiUrl + 'user/getActivityList?nftId=' + nftTokenId+"&nftAddress="+nftAddress);
-    return this.httpClient.get(`${environment.apiUrl}user/getActivityList?nftId=${nftTokenId}&nftAddress=${nftAddress}&blockchainId=${blockchainId}`);
+    return this.httpClient.get(`${environment.apiUrl}user/getActivityList?asset=${asset}`);
   }
 
-  getListOwners(nftTokenId: any, walletAddress: any,nftAddress:any,blockchainId:any): Observable<any> {
-    return this.httpClient.get(environment.apiUrl + 'api/getListOwners?nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+'&nftAddress='+nftAddress+'&blockchainId='+blockchainId);
+  getListOwners(nftTokenId: any, walletAddress: any,nftAddress:any,blockchainId:any,asset:any): Observable<any> {
+    return this.httpClient.get(environment.apiUrl + 'api/getListOwners?asset='+asset+'&nftTokenId=' + nftTokenId + '&walletAddress=' + walletAddress+'&nftAddress='+nftAddress+'&blockchainId='+blockchainId);
   }
 
 
@@ -167,8 +167,8 @@ export class GetDataService {
 
     return this.httpClient.get(environment.apiUrl + `api/getUserDetails?walletAddress=${username}&loginAddress=${connectedAddress}`);
   }
-  getItemsForUser(username: string, type: number): Observable<any> {
-    return this.httpClient.get(environment.apiUrl + `api/getUserNftDetailsList?walletAddress=${username}&type=${type}`);
+  getItemsForUser(username: string, type: number,pageNo:any,PageSize:any): Observable<any> {
+    return this.httpClient.get(environment.apiUrl + `api/getUserNftDetailsList?walletAddress=${username}&type=${type}&pageNo=${pageNo}&PageSize=${PageSize}`);
   }
 
   getItemsForFollowing(username: string, loginAddress: string): Observable<any> {

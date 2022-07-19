@@ -34,7 +34,7 @@ export class Step2Component implements OnInit {
   collectionName: any = "";
   collectionId: any;
   imageUploadignStatus: boolean = false;
-  uploadBatchCnt = 0;
+  uploadBatchCnt = 1;
   collectionDetails: any = {};
   imDoneUploadingButton: boolean;
   isImgLoaded: boolean = false;
@@ -92,11 +92,10 @@ export class Step2Component implements OnInit {
 
   forloopend: boolean;
 
-  uploadFiles(): void {
+  async uploadFiles(): Promise<void> {
     this.imDoneUploadingButton = true;
     this.forloopend = false;
     this.message = [];
-    debugger
     if (this.selectedFiles) {
       
       for (let i = 0; i < this.selectedFiles.length; i++) {
@@ -108,7 +107,7 @@ export class Step2Component implements OnInit {
 
 
           this.upload(i, this.selectedFiles[i]);
-
+            await this.delay(500);
         } else {
           if(this.selectedFiles[i].type == 'video/mp4'){
           //50mb  
@@ -142,7 +141,6 @@ export class Step2Component implements OnInit {
             this.progressInfos[idx].value = Math.round(
               (100 * event.loaded) / event.total
             );
-            // console.log("idx=>"+idx+"==>  "+this.progressInfos[idx].value);
 
 
             if (this.progressInfos[idx].value === 100) {
@@ -152,8 +150,7 @@ export class Step2Component implements OnInit {
             this.progressValue = (this.cnt / this.selectedFiles.length) * 100;
 
           } else if (event instanceof HttpResponse) {
-            //  console.log(event);
-            //  console.log(event.body.status);
+          
               if(event.body.status == 200){
                 if (idx == this.selectedFiles.length - 1) {
                   this.isApiLoading = true;
@@ -175,12 +172,11 @@ export class Step2Component implements OnInit {
                 const msg = 'Uploaded the file successfully: ' + file.name;
                 this.message.push(msg);
               }else{
-                this.toastr.success('Something went wrong');
+                this.toastr.error('Something went wrong');
                 this.imDoneUploadingButton = false;
               }
            
           }
-          // console.log(event);
 
         },
         (err: any) => {

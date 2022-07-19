@@ -5,7 +5,7 @@
             "name": "binance",
             "symbol": "BNB",
             "wsymbol":"WBNB",
-            "exploreUrl": "https://testnet.bscscan.com/address/",
+            "exploreUrl": "https://testnet.bscscan.com/",
             "chainId": 56
         },
         {
@@ -13,7 +13,7 @@
             "name": "Ethereum",
             "symbol": "ETH",
             "wsymbol":"WETH",
-            "exploreUrl": "https://ropsten.etherscan.io/address/",
+            "exploreUrl": "https://rinkeby.etherscan.io/",
             "chainId": 1
         },
         {

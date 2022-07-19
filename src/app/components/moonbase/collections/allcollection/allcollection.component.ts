@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-allcollection',
@@ -32,6 +34,7 @@ export class AllcollectionComponent implements OnInit {
   propetiesArray: any = [];
   panelOpenState: boolean = false;
   foo: any = [];
+  toppings = new FormControl('');
   expanded = false;
   expandedMobile = false;
   status: any = "-1";
@@ -50,7 +53,8 @@ export class AllcollectionComponent implements OnInit {
     private contractService: ContractService,
     private route: ActivatedRoute,
     private getDataService: GetDataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toaster:ToastrService
   ) {
     // route.params.subscribe(
     //   (params) =>{
@@ -69,14 +73,14 @@ export class AllcollectionComponent implements OnInit {
     this.getDataService.getCategoryNames(1).subscribe((list) => {
       this.nftListNames = list.data;
     });
-    this.getproperty();
+    // this.getproperty();
+    this.test()
     this.filter();
   }
 
  
   getNftList01() {
     this.ngxService.start();
-// console.log(JSON.stringify(this.filterArray),"sasas")
     this.isApiLoading = true;
     this.collectionApi
       .getNFTListAll(
@@ -143,13 +147,16 @@ export class AllcollectionComponent implements OnInit {
   frequency: any = [];
   uniqueNamesData: any = [];
   proeprties: any = [];
+  proeprtiesCopy: any = [];
   getproperty() {
     const url = 'api/getProperties?collectionId=' + this.collectionId;
+    // const url = 'api/getProperties?collectionId=' + 8;
+  let promise = new Promise((resolve,reject)=>{
     this.collectionApi.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.propetiesArray = res.data;
-
+          
           for (let i = 0; i < this.propetiesArray.length; i++) {
             if (
               this.uniqueNamesData.indexOf(this.propetiesArray[i].keys) === -1
@@ -158,9 +165,9 @@ export class AllcollectionComponent implements OnInit {
               //this.foo.push("")
             }
           }
-
-          // console.log("unique key=>",uniqueNames);
+          this.foo = new Array(this.uniqueNamesData.length);
           this.uniqueNamesData.forEach((element: any, index: any) => {
+        
             this.proeprties[index] = [];
             let count = 0;
             let arr = this.propetiesArray.filter(function (el: any) {
@@ -173,25 +180,42 @@ export class AllcollectionComponent implements OnInit {
             this.proeprties[index] = arr;
 
             this.proeprties[index].count = count;
+
+            resolve(this.proeprties);
+            
           });
-          // console.log( JSON.stringify(this.proeprties));
         } else {
-          alert(res.message);
+          // alert(res.message);
+          this.toaster.error(res.message)
         }
       },
       (err) => {
-        console.log(err);
       }
     );
+   
+  })
+
+  return promise;
+    
+    
   }
+
+  async test(){
+  this.proeprtiesCopy =  await this.getproperty();
+  //  console.log(this.proeprtiesCopy);
+  }
+
+  
 
    filterArray :any =[];
   
-  propertiesSelection(key: any) {
+  propertiesSelection(key: any,indexing:any) {
   
+    this.foo[indexing] = this.toppings.value;
+    debugger
     let value: any = [];
     let keys: any = [];
-   
+    
     this.foo.filter(function (el: any) {
       if (el.length > 0) {
         for (let i = 0; i < el.length; i++) {
@@ -246,12 +270,78 @@ export class AllcollectionComponent implements OnInit {
 
       
   
-    // console.log(JSON.stringify(this.filterArray));
     
     this.oldpropertiesValue = value.join(',');
     this.oldpropertiesKey = keys.join(',');
     this.getNftList01();
    
+  }
+
+  toppings02 = new FormControl('');
+
+  propertiesSelection02(key: any,indexing:any){
+    this.foo[indexing] = this.toppings02.value;
+    
+    let value: any = [];
+    let keys: any = [];
+    this.foo.filter(function (el: any) {
+      if (el.length > 0) {
+        for (let i = 0; i < el.length; i++) {
+          value.push(el[i].value);
+          keys.push(el[i].key);
+        }
+      }
+    });
+
+    
+  
+    this.foo.forEach((el:any,index:any)=>{
+      let temp = [];
+      for(let i=0;i<el.length;i++){
+        if(el[i].key == key){
+          temp.push(el[i].value)
+         if(this.filterArray.length == 0){
+          this.filterArray.push({keys:key,value:temp});
+         }else{
+          for(let j=0;j<this.filterArray.length;j++){
+            if(this.filterArray[j].keys == key){
+              this.filterArray[j].value = temp ; 
+            }
+             let result = this.filterArray.find((x: any[])=>x.keys == key);
+              if(!result){
+                this.filterArray.push({keys:key,value:temp});
+              }
+            
+          }
+        
+         }
+        
+        }
+       
+      }
+      let elKeys :any;
+      this.foo.filter(function (elem: any) {
+          for (let i = 0; i < elem.length; i++) {
+            if(elem[i].key == key){
+              elKeys = elem[i].key;
+            }
+          }
+      });
+        if(this.foo[index].length == 0 && !elKeys){
+          var resultIndex=this.filterArray.findIndex(x=>x.keys == key); 
+         if(resultIndex >=0){
+          this.filterArray.splice(resultIndex,1);
+         }
+        }
+       
+    })
+
+      
+  
+    
+    this.oldpropertiesValue = value.join(',');
+    this.oldpropertiesKey = keys.join(',');
+    this.getNftList01();
   }
 
   toggle() {

@@ -56,8 +56,10 @@ export class ReportComponent implements OnInit {
 
     data.nftId = this.data.ID;
     data.walletAddress = this.Address;
-
-    this.getDataService.reportSave(data,this.data.nftAddress,this.data.blockchainId).subscribe((result: any) => {
+    data.nftAddress = this.data.data.nftAddress;
+    data.blockchainId = this.data.data.blockchainId;
+    data.asset = this.data.data.asset;
+    this.getDataService.reportSave(data).subscribe((result: any) => {
       if (!result.isSuccess) {
         this.isSuccess = result.isSuccess;
         this.errorMsg = result.message;

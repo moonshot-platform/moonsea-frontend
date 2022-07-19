@@ -21,6 +21,8 @@ export class TransferTokenComponent implements OnInit {
   currentSupply: any;
   isApiLoading: boolean=false;
   nftAddress: any;
+  wrongNetwork: boolean=true;
+  istransferTocken:number = 0;
   constructor(public dialogRef: MatDialogRef<TransferTokenComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private getDataService : GetDataService,
     private toastrService:ToastrService,
@@ -37,9 +39,35 @@ export class TransferTokenComponent implements OnInit {
       this.nftAddress = params['nftAddress'];
       }
       );
+      this.checkNetwork();
   }
+
+  async checkNetwork() {
+    let checkNetwork: boolean = await this.contractService.createContract(
+      this.data.blockchainId
+    );
+    if (!checkNetwork) {
+      this.wrongNetwork = true;
+      let chainIdd = this.contractService.chainId;
+      let switchNetwork = this.contractService.switchNetwork(chainIdd);
+      switchNetwork.then(
+        (res: any) => {
+          if (res == 'doneeeeee') {
+            this.wrongNetwork = false;
+          }
+        },
+        (err: any) => {
+          this.wrongNetwork = true;
+        }
+      );
+    } else {
+      this.wrongNetwork = false;
+    }
+  }
+  
   close(): void {
     this.dialogRef.close();
+    window.location.reload();
   }
   
   get formControls() { return this.transferform.controls; }
@@ -70,7 +98,10 @@ export class TransferTokenComponent implements OnInit {
     }
     
     if(status.status){
+    
       await status.hash.wait(3);
+      this.istransferTocken = 1;
+      this.isApiLoading = false;
       this.toastrService.success("Transferred succesfully");
   }
   }

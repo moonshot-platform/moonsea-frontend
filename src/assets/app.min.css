@@ -1616,7 +1616,7 @@ body.dark .section-bg {
 }
 
 [class^="button"].disabled {
-  opacity: 0.5;
+  /* opacity: 0.5; */
   pointer-events: none;
 }
 [class^="button"].done {

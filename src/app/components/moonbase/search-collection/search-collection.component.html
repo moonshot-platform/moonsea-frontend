@@ -200,6 +200,8 @@ s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H
 
   <div *ngIf="createrList.length > 0 && regardingDropdown == 'creators'">
     <app-creator [listItemsFollowing]="createrList"></app-creator>
+    <button class="button text-inherit wp100" type="button" (click)="loadmoreCreatorsList()">Load More</button>
+
   </div>
 
 

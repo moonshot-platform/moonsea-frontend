@@ -114,7 +114,6 @@ export class StatsComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
         reject(err);
       }
     );
@@ -186,7 +185,7 @@ export class StatsComponent implements OnInit {
 
   searchClient(searchKey:any){
     this.searchKey = searchKey;
-    this.collectionlist = [];
+    this.StatsList = [];
     // this.getListofCollection()
     this.StatList();
   }
@@ -194,6 +193,7 @@ export class StatsComponent implements OnInit {
   clearSearch(){
     this.searchKey = 'all collections';
     document.getElementById("textSearch").innerHTML = "all collections";
+    this.StatsList = [];
     this.StatList();
   }
 
@@ -221,7 +221,6 @@ export class StatsComponent implements OnInit {
           response.data.forEach(element => {
               this.collectionlist.push(element)
           });
-          // console.log("!!!!!!=>",this.collectionlist);
           
           this.ngxService.stop();
           this.isShowLoader = false;
@@ -230,7 +229,6 @@ export class StatsComponent implements OnInit {
         }
       },
       (err: any) => {
-        console.log(err);
         this.ngxService.stop();
       }
     );

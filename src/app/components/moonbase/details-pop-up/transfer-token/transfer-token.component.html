@@ -27,11 +27,16 @@
         </g></svg
     ></a>
   </div>
-
+  <div class="popup__info" *ngIf="wrongNetwork">
+    <div class="steps__info">An error occured while interacting with your wallet. Please try again.</div>
+  
+<button class="button steps__button done" (click)="checkNetwork()">Try again</button>
+</div>
   <form
     #transferPost="ngForm"
     [formGroup]="transferform"
     (ngSubmit)="transferSave(transferPost.value)"
+    *ngIf="!wrongNetwork && istransferTocken == 0"
   >
     <div class="popup__info">
       You can transfer tokens from your address to another
@@ -89,7 +94,13 @@
         Continue
         <div class="loader text-white" *ngIf="isApiLoading"></div>
       </button>
-      <button (click)="close()" class="button wp100">Cancel</button>
+      
     </div>
   </form>
+  <div class="popup__info" *ngIf="istransferTocken == 1">
+    The token is transferred successfully.
+  </div>
+  <div>
+    <button type="button" (click)="close()" [ngClass]="istransferTocken == 1 ? 'dark-button' : '' " class="button wp100">{{istransferTocken == 0 ? 'Cancel' : 'Done'}}</button>
+  </div>
 </div>

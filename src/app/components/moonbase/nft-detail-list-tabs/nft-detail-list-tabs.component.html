@@ -35,7 +35,7 @@
                 <h4 class="item_position pb10 mr50">
                   <span>Contract Address</span>
                 </h4>
-                <a href="{{blockchainInfo?.exploreUrl}}{{items?.nftAddress}}" *ngIf="items.nftAddress" target="_blank"
+                <a href="{{blockchainInfo?.exploreUrl}}address/{{items?.nftAddress}}" *ngIf="items.nftAddress" target="_blank"
                   class="text-primary">
                   {{items?.nftAddress.slice(0,4)}}...{{items?.nftAddress.slice(-4)}}
                 </a>

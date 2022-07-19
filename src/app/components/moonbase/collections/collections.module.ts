@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AddEditNftComponent } from './mycollections/step/add-edit-nft/add-edit-nft.component';
+import { ModelForCreateCollectionComponent } from './model-for-create-collection/model-for-create-collection.component';
 
 @NgModule({
   imports: [
@@ -15,21 +16,23 @@ import { AddEditNftComponent } from './mycollections/step/add-edit-nft/add-edit-
     CollectionsRoutingModule,
     SharedModule,
     MatSelectModule,
-    FormsModule,
+    FormsModule,  
     MatTabsModule
   ],
   declarations: [
-  
-    AddEditNftComponent
+
+    AddEditNftComponent,
+    ModelForCreateCollectionComponent
   ],
+
+  exports:[  ],
   bootstrap: [],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
 export class CollectionModule {
-    constructor(){
-        console.log("CollectionModule is loaded");
-        
-    }
+  constructor() {
+
+  }
 }

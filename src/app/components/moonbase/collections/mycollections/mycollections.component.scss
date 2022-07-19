@@ -11,10 +11,16 @@
   justify-content: center;
 }
 
-.relative.mt100 .back-btn{
+.relative.mt100 .back-btn {
   position: relative;
     right: 50px;
 }
 .line-height {
   line-height: 27px;
+}
+
+@media (max-width: $md-header) {
+  .pt100 {
+    padding-top: 0;
+  }
 }

@@ -70,7 +70,6 @@ export class CreateNftComponent implements OnInit {
   ngOnInit(): void {
     this.cs.getWalletObs().subscribe((data: any) => {
       this.userAddress = data;
-      // console.log(this.cs.checkValidAddress(this.userAddress))
       if (!this.cs.checkValidAddress(this.userAddress)) {
         this.route.navigate(['connect']);
       }
@@ -256,7 +255,6 @@ export class CreateNftComponent implements OnInit {
     this.isShowMatspinner = 'show';
     this.isUploadButtonDisabled = true;
     const file: File = event.target.files[0];
-    console.log(file.size /1024);
     if((file.size / 1024) < 5000){
       if (
         file.type == 'image/jpeg' ||
@@ -271,7 +269,6 @@ export class CreateNftComponent implements OnInit {
   
           reader.onload = (event) => {
             this.imageUrl = reader.result?.toString() ?? '';
-            // console.log("this.imageUrl===>",this.imageUrl);
             
           };
           this.createNFTService.uploadFile(file).subscribe(
@@ -308,7 +305,6 @@ export class CreateNftComponent implements OnInit {
   async createNftSubmit(formData: any) {
     this.submitted = true;
     
-    console.log(this.imagePath.length);
     
     if (this.createNftForm.valid && this.imagePath.length > 0 ) 
     {

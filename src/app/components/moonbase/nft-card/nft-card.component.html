@@ -1,9 +1,6 @@
 <div class="card__preview pointer">
   <a
-    [routerLink]="['/details', items.nftAddress, items.nftTokenID]"
-    [queryParams]="{ blockchainId: items.blockchainId }"
-    routerLinkActive="router-link-active"
-  >
+    [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]" routerLinkActive="router-link-active">
     <div *ngIf="items.fileUrl == null" class="skeleton-loader"></div>
 
     <div class="content-overlay"></div>
@@ -17,10 +14,7 @@
       </p>
       <a
         href="javascript:void(0)"
-        [routerLink]="['/details', items.nftTokenID]"
-        [queryParams]="{ blockchainId: items.blockchainId }"
-        class="button text-inherit dark-button mt-auto"
-      >
+        [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]"  class="button text-inherit dark-button mt-auto" >
         <span
           class="text-primary"
           *ngIf="items?.typeOfSale == 1"
@@ -42,9 +36,7 @@
       [lazyLoad]="items.fileUrl"
       (load)="onMediaLoad($event, index)"
       *ngIf="items.fileUrl != null && items.fileUrl.search('.mp4') == -1"
-      [routerLink]="['/details', items.nftTokenID]"
-      [queryParams]="{ blockchainId: items?.blockchainId }"
-    />
+      [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]"    />
 
     <video
       *ngIf="items.fileUrl && !isImageLoaded[index]"
@@ -141,9 +133,7 @@
       <div
         class="orbitron card__title text-secondary"
         *ngIf="items.title != null"
-        [routerLink]="['/details', items.nftTokenID]"
-        [queryParams]="{ blockchainId: items?.blockchainId }"
-      >
+        [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]" >
         {{ items.title }}
       </div>
       <div
@@ -188,7 +178,7 @@
           class="text-primary card__counter w-normal ml-5 overflow-ellipsis">{{ items.name ? items.name : 'Anonymous'}}</a>
       </div>
       <div class="desktop-only p12 text-primary card__counter w-normal">
-       last {{ items?.last_price > 0 ? items?.last_price : '-'}} {{ blockchainInfo?.symbol }}
+       last {{ items?.last_price > 0 ? items?.last_price : '-'}} {{ items?.last_price > 0 ? blockchainInfo?.symbol : '' }}
       </div>
     </div>
 

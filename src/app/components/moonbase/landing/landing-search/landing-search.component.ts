@@ -64,8 +64,7 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
                 }
             });
           });
-          console.log(this.uniquedata);
-          console.log(this.properties);
+       
           
         }else{
           this.flag = false;
@@ -89,11 +88,12 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
   
 }
 
-onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any) {
+onselectClient(enterText: any, serachType: any, nftToken: any,nftAddress:any,blockchainId:any) {
   
-   
+  console.log(blockchainId);
+  
   if (serachType == 1) {
-    this.router.navigate(['/details',nftAddress, nftToken]);
+    this.router.navigate(['/details',nftAddress, nftToken,blockchainId]);
   } else if (serachType == 2) {
     this.router.navigate(['/profile', enterText]);
   } else if (serachType == 4) {

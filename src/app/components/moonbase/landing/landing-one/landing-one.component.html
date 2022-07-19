@@ -21,14 +21,13 @@
                 <ng-template *ngFor="let item of newCollection; let i = index" swiperSlide>
 
                   <a href="javascript:void(0)" class="collections__gallery mr30">
-                    <a class="collections__preview" [routerLink]="['/details',item.nftAddress, item.nftTokenID01]"
-                    [queryParams]="{ blockchainId: item.blockchainId }"
+                    <a class="collections__preview" [routerLink]="['/details',item.nftAddress, item.nftTokenID01,item.blockchainId]"
                       routerLinkActive="router-link-active">
                       <div class="content-overlay"></div>
 
                       <video *ngIf="item.nftFileUrl01 && !elementsHasLoaded[i * 4]" autoplay controls [muted]="true"
                         [loop]="true" [controls]="false" class="loading-logo">
-                        <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+                        <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/webm">
                       </video>
 
                       <img alt="" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
@@ -51,8 +50,7 @@
                         <ng-container *ngIf="j <= 2">
                           <div class="content-overlay"></div>
 
-                          <a [routerLink]="['/details',iner.nftAddress, iner.nftTokenID01]"
-                          [queryParams]="{ blockchainId: item.blockchainId }"
+                          <a [routerLink]="['/details',iner.nftAddress, iner.nftTokenID,item.blockchainId]"
                             routerLinkActive="router-link-active">
                             <img alt="" [lazyLoad]="iner.nftFileUrl" (load)="onMediaLoad($event,(i*4)+j+1)"
                               *ngIf="iner.nftFileUrl && iner.nftFileUrl.search('.mp4') == -1"
@@ -61,7 +59,7 @@
 
                           <video *ngIf="item.nftFileUrl01 && !elementsHasLoaded[(i*4)+j]" autoplay controls
                             [muted]="true" [loop]="true" [controls]="false" class="loading-logo">
-                            <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+                            <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/webm">
                           </video>
 
                           <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[(i*4)+j]}" loop autoplay

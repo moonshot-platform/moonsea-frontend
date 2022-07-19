@@ -18,7 +18,6 @@ export class BidsComponent implements OnInit {
   totalCount :any = 0;
   loggedInUseAddress:any;
   isShowAcceptButtonForAll:boolean= false;
-
   constructor(private nftInteractionService:NftInteractionService,
     public dialog: MatDialog,
     private contractService : ContractService) { }
@@ -27,13 +26,13 @@ export class BidsComponent implements OnInit {
     this.loggedInUseAddress = localStorage.getItem('address');
     
     this.getInfo();
-    // console.log("BidsComponent ==========>",this.items);
     
   }
 
   async getInfo()
   {
     this.nftInteractionService.getBidHistoryForNft(
+      this.items.asset,
       this.ID,
       this.contractService.userAddress,
       this.nftAddress,this.items?.blockchainId
@@ -45,7 +44,7 @@ export class BidsComponent implements OnInit {
   }
 
   openDialog(index:any){
-    
+    debugger
     const dialogRef = this.dialog.open(AcceptBidPopupComponent, {
    //   width: '250px',
       data:{

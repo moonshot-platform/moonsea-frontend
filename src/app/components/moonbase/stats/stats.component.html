@@ -89,14 +89,16 @@
             <span class="p12 mb10">Global Market Cap</span>
             <h3 class="mb10">{{ globalstatDetails?.globalMarketCap | number}}</h3>
             <div class="flex justify-center">
-              <span class="badge badge-success"> {{globalstatDetails?.globalMarketCapPercentage | number:'2.1-2'}}% </span>
+              <span class="badge badge-success" *ngIf="globalstatDetails?.globalMarketCapPercentage > 0"> {{globalstatDetails?.globalMarketCapPercentage | number:'2.1-2'}}% </span>
+              <span class="badge badge-success" *ngIf="globalstatDetails?.globalMarketCapPercentage == 'NaN'"> -% </span>
             </div>
           </div>
           <div class="box flex-col">
             <span class="p12 mb10">7 Days Volume</span>
             <h3 class="mb10">{{ globalstatDetails?.days7Volume | number}}</h3>
             <div class="flex justify-center">
-              <span class="badge badge-danger"> {{globalstatDetails?.days7VolumePercentage | number:'2.1-2'}}% </span>
+              <span class="badge badge-danger" *ngIf="globalstatDetails?.days7VolumePercentage > 0"> {{globalstatDetails?.days7VolumePercentage | number:'2.1-2'}}% </span>
+              <span class="badge badge-danger" *ngIf="globalstatDetails?.days7VolumePercentage == 'NaN'">-% </span>
             </div>
           </div>
           <div class="box flex-col">

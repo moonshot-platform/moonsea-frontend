@@ -7,7 +7,7 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { environment } from 'src/environments/environment';
 import { exchangeToken, SignSellOrder } from 'src/app/model/signBuyerOrder';
 import blockjson from '../../../../../../assets/blockchainjson/blockchain.json';
-
+import config from '../../../../../../assets/configFiles/tokenAddress.json';
 @Component({
   selector: 'app-accept-bid-popup',
   templateUrl: './accept-bid-popup.component.html',
@@ -29,14 +29,15 @@ export class AcceptBidPopupComponent implements OnInit {
   exchangeTokenObj:exchangeToken =  new exchangeToken();
   signSellOrder : SignSellOrder = new SignSellOrder();
   blockchainInfo:any ={};
-
+  contractAddress:any='';
+  chainId:any;
   constructor(
     private contractService: ContractService,
     @Inject(MAT_DIALOG_DATA) public items: any,
     private toastr: ToastrService,
     private nftInteractionService: NftInteractionService,
     private dialogRef: MatDialogRef<AcceptBidPopupComponent>,
-    private pricingDetails: PricingApiService
+    public pricingDetails: PricingApiService
   ) {
     this.serviceFees = pricingDetails.serviceFees;
   }
@@ -50,6 +51,12 @@ export class AcceptBidPopupComponent implements OnInit {
     
     this.getNftDetails();
     this.checkNetwork();
+    this.pricingDetails.getServiceFee();
+   
+    this.contractAddress  = this.contractService.getAddressWeth(
+      this.items.nftDetails.blockchainId
+    );
+    
   }
 
   async checkNetwork() {
@@ -69,7 +76,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.balanceInBNB = balance > 0 ? Number((balance / 1e18).toFixed(4)) : 0;
 
     this.nftInteractionService
-    .getNftDetails(this.contractService.userAddress, this.items.nftId,this.items.nftDetails.nftAddress,this.items.nftDetails.blockchainId)
+    .getNftDetails(this.contractService.userAddress, this.items?.nftDetails?.asset)
     .subscribe((response: any) => {
       if (response.isSuccess) {
         
@@ -117,12 +124,13 @@ export class AcceptBidPopupComponent implements OnInit {
     this.signSellOrder.salt = salt
     this.signSellOrder.royalties =  this.items.nftDetails.royalties,
     this.signSellOrder.royaltiesOwner = this.items.nftDetails.royaltiesOwner,
-    this.signSellOrder.contractAddress =  this.items.nftDetails.contractAddress,
+    // this.signSellOrder.contractAddress =  this.items.nftDetails.contractAddress,
+    this.signSellOrder.contractAddress =  this.contractAddress,
     this.signSellOrder.referralAddress =  this.items.data.referralAddress
+    this.signSellOrder.blockchainId = this.items.nftDetails.blockchainId
 
 
-
-
+debugger
     let sign = await this.contractService.signSellOrder01(
       this.signSellOrder
     );
@@ -136,7 +144,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.exchangeTokenObj.total = this.total;
     this.exchangeTokenObj.signaturePrice = this.signaturePrice;
     this.exchangeTokenObj.quantity = this.items.data.quantity,
-    this.exchangeTokenObj.tokenAddress = this.items.nftDetails.contractAddress
+    this.exchangeTokenObj.tokenAddress =  this.contractAddress,
     this.exchangeTokenObj.royalties = this.items.nftDetails.royalties;
     this.exchangeTokenObj.royaltiesOwner =this.items.nftDetails.royaltiesOwner;
     this.exchangeTokenObj.buyerSignature = this.items.data.signature;
@@ -144,7 +152,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.exchangeTokenObj.referalAddress =   this.items.data.referralAddress;
     this.exchangeTokenObj.buyer = this.items.data.walletAddress;
     this.exchangeTokenObj.isMakeOffer = this.items.data.isMakeOffer;
-
+debugger
     var a:any =await this.contractService.isApprovedForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId);
     if(a.status==true && a.hash==false){
       let tx:any = await this.contractService.setApprovalForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId);
@@ -155,8 +163,7 @@ export class AcceptBidPopupComponent implements OnInit {
     var status: any = await this.contractService.exchangeToken01(
       this.exchangeTokenObj,
       this.items.nftDetails.blockchainId);
-    // console.log(status);
-
+debugger
     if (status.status) {
       this.step = 2;
       await status.hash.wait(5);
@@ -168,6 +175,7 @@ export class AcceptBidPopupComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+    location.reload();
   }
   
   closePopup(){
@@ -176,7 +184,9 @@ export class AcceptBidPopupComponent implements OnInit {
   }
 
   gotoTestNetBscScan(txnHash :any){
-    let url =environment.bscTestnetScan+txnHash;
+    //purchase now modal component madhe ahe 
+    let url =`${this.blockchainInfo.exploreUrl}tx/${txnHash}`;
+    // let url =environment.bscTestnetScan+txnHash;
     window.open(url, "_blank");
   }
   

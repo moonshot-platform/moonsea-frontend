@@ -4,7 +4,7 @@
   </div>
   <div class="landing-flex pt-0 z-index-high">
     <div class="flex justify-space-between flex100 gap15 gap">
-      
+
       <a class="mobile-only button text-inherit bg-primary button mt-auto filter_button" (click)="toggleMobile()">
         Filter NFT's
         <span>2</span>
@@ -65,13 +65,15 @@
     <div class="landing-flex pt-0">
       <div class="field">
         <div class="wrap-filter">
-          <mat-form-field appearance="fill" *ngFor="let keys of uniqueNamesData; let i = index">
-            <!-- <mat-label>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-label> -->
-            <mat-select (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
-              <mat-option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
-                item.value }}({{ item.totalCount }})</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <ng-container *ngFor="let keys of uniqueNamesData; let i = index">
+            <mat-form-field appearance="fill">
+              <mat-label>{{keys}}</mat-label>
+              <mat-select (selectionChange)="propertiesSelection(keys,i)" [formControl]="toppings" multiple>
+                <mat-option *ngFor="let item of proeprtiesCopy[i]" [value]="{ value: item.value, key: item.keys }">{{
+                  item.value }}({{ item.totalCount }})</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -97,11 +99,11 @@
                   <mat-panel-title> {{ keys }} ({{ this.proeprties[i]?.count }}) </mat-panel-title>
                 </mat-expansion-panel-header>
 
-               <!-- <select nice-select (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
+                <!-- <select nice-select (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
               <option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">{{
                 item.value }}({{ item.totalCount }})</option>
             </select> -->
-                
+
 
               </mat-expansion-panel>
               <mat-expansion-panel>
@@ -109,15 +111,25 @@
                   <mat-panel-title>{{ keys }} ({{ this.proeprties[i]?.count }})</mat-panel-title>
                 </mat-expansion-panel-header>
 
-                
-                
-                <div class="main_title" (selectionChange)="propertiesSelection(keys)" [(ngModel)]="foo[i]" multiple>
-                  <label class="filter_label" *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">
+
+
+                <!-- <div class="main_title" (change)="propertiesSelection02(keys,i)"  multiple>
+                  <label class="filter_label" *ngFor="let item of proeprties[i]"  [value]="{ value: item.value, key: item.keys }">
                     {{item.value }} <span> {{ item.totalCount }}</span>
-                    <input type="checkbox" checked="checked">
+                    <input type="checkbox"  checked="checked">
                     <span class="checkmark"></span>
                   </label>
-              </div>
+              </div> -->
+                <div class="select_123">
+
+                  <mat-form-field appearance="fill">
+                    <mat-select [formControl]="toppings02" (selectionChange)="propertiesSelection02(keys,i)" multiple>
+                      <mat-option *ngFor="let item of proeprties[i]" [value]="{ value: item.value, key: item.keys }">
+                        {{item.value }} <span> {{ item.totalCount }}</span></mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                
               </mat-expansion-panel>
             </mat-accordion>
 
@@ -141,7 +153,7 @@
               <div class="card" *ngFor="let item of nftList">
                 <app-nft-card [items]="item"></app-nft-card>
               </div>
-           
+
             </div>
 
 

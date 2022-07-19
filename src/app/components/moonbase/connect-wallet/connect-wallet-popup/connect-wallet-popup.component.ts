@@ -30,7 +30,6 @@ export class ConnectWalletPopupComponent implements OnInit {
 
   async connectBinanceChain()
   {
-    console.log("wall")
     await this.contractService.connectAccountWalletConnect(1);
     this.getAccount();
   }

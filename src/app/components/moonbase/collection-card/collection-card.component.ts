@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './collection-card.component.html',
   styleUrls: ['./collection-card.component.scss'],
 })
-export class CollectionCardComponent implements OnInit {
+export class CollectionCardComponent implements OnInit , DoCheck {
 
   @Input() item: any;
   correntRoute: any;
@@ -26,8 +26,12 @@ export class CollectionCardComponent implements OnInit {
       this.elementsHasLoaded[index] = false;
     }
   }
+  ngDoCheck(): void {
+  }
 
   ngOnInit(): void {
+  
+    
     this.correntRoute = this.router.url;
     this.activatedRoute.queryParams.subscribe((res: any) => {
     this.searchKey = res.searchKey;
@@ -35,17 +39,15 @@ export class CollectionCardComponent implements OnInit {
 
   }
 
-  gotoNftDetails(nftAddress: any, nftTokenID: any) {
-    this.router.navigate(['/details', nftAddress, nftTokenID]);
+  gotoNftDetails(nftAddress: any, nftTokenID: any,blockchainId:any) {
+    this.router.navigate(['/details', nftAddress, nftTokenID,blockchainId]);
   }
 
   onMediaLoad(event, index) {
     if (event && event.target) {
-      // console.log("IMAGE HAS LOADED!");
       this.elementsHasLoaded[index] = true;
     } else {
       this.elementsHasLoaded[index] = false;
-      // console.log("IMAGE HAS NOT LOADED!");
     }
 
     if (event.readyState == 4) {

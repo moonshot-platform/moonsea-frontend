@@ -22,7 +22,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./place-bid-modal.component.scss'],
 })
 export class PlaceBidModalComponent implements OnInit {
-  balanceInBNB: string = '';
+  balanceInBNB: any = '';
   price: any;
   invalidValue = true;
   btnText = 'Place bid';
@@ -38,6 +38,8 @@ export class PlaceBidModalComponent implements OnInit {
   balanceDetailsToken!: { balance: any; status: boolean; decimals: any };
   tokenAddress: any;
   blockchainInfo:any ={};
+  
+
 
   constructor(
     private contractService: ContractService,
@@ -53,8 +55,8 @@ export class PlaceBidModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.pricingDetails.getServiceFee();
-    // console.log("WWWWWWWWWW=>",this.items);
-    
+    this.price = this.items.listing.price;
+    this.serviceFees =  this.price * this.pricingDetails.serviceFees/100;
     blockjson[environment.configFile].forEach(element => {
       if(element.blockchainId ==  this.items.listing.blockchainId){
         this.blockchainInfo = element;
@@ -63,7 +65,7 @@ export class PlaceBidModalComponent implements OnInit {
     this.getAccount();
     this.checkNetwork();
 
-
+   
   }
 
   async checkNetwork() {
@@ -71,15 +73,15 @@ export class PlaceBidModalComponent implements OnInit {
     let checkNetwork: boolean = await this.contractService.createContract(
       this.items.listing.blockchainId
     );
-    // console.log(checkNetwork);
 
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.step = 0;
       let chainIdd = this.contractService.chainId;
-      chainIdd = parseInt(chainIdd);
-      chainIdd = chainIdd.toString(16);
-      let switchNetwork = this.contractService.switchNetwork('0x' + chainIdd);
+      // chainIdd = parseInt(chainIdd);
+      // chainIdd = chainIdd.toString(16);
+      debugger
+      let switchNetwork = this.contractService.switchNetwork(chainIdd);
       switchNetwork.then(
         (res: any) => {
           if (res == 'doneeeeee') {
@@ -93,7 +95,10 @@ export class PlaceBidModalComponent implements OnInit {
           this.wrongNetwork = true;
           this.step = 0;
         }
-      );
+      ).catch((e:any)=>{
+        console.log(e);
+        
+      })
     } else {
       this.wrongNetwork = false;
       this.step = 1;
@@ -101,6 +106,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async getAccount() {
+    debugger
     this.tokenAddress = this.contractService.getAddressWeth(
       this.items.listing.blockchainId
     );
@@ -114,11 +120,8 @@ export class PlaceBidModalComponent implements OnInit {
             10 ** this.balanceDetailsToken.decimals
           ).toFixed(4)
         : '0';
-    ;
     this.price = this.items.listing.price / this.items.listing.supply;
     this.invalidValue = false;
-
-    console.log(this.balanceInBNB);
   }
 
   closeDialog() {
@@ -138,7 +141,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   checkBalance(amount: any) {
-    console.log('check');
+    debugger
     if (
       this.balanceDetailsToken.balance >=
       amount * 10 ** this.balanceDetailsToken.decimals
@@ -188,6 +191,7 @@ export class PlaceBidModalComponent implements OnInit {
     this.btnText = 'Waiting for signature';
     this.SignBuyerOrderModel.salt = salt;
     this.SignBuyerOrderModel.amount = amount;
+    this.SignBuyerOrderModel.blockchainId = this.items.listing.blockchainId;
     this.SignBuyerOrderModel.nftTokenID = this.items.listing.nftTokenID;
     this.SignBuyerOrderModel.supply = 1;
     this.SignBuyerOrderModel.nftAddress = this.items.listing.nftAddress;
@@ -239,6 +243,7 @@ export class PlaceBidModalComponent implements OnInit {
             blockchainId:this.items.listing.blockchainId,
             tokenAddress: this.tokenAddress,
             isMultiple: this.items.listing.isMultiple,
+            asset:this.items.listing.asset
           })
           .subscribe((response: any) => {
             ;
@@ -254,7 +259,7 @@ export class PlaceBidModalComponent implements OnInit {
             );
           });
       } else {
-        let url = 'api/placeBidAll?nftAddress='+this.items.listing.nftAddress+"&blockchainId="+this.items.listing.blockchainId;
+        let url = 'api/placeBidAll';
         let body = {
           nftId: this.items.listing.nftTokenID,
           price: amount,
@@ -268,6 +273,8 @@ export class PlaceBidModalComponent implements OnInit {
           nftAddress: this.items.listing.nftAddress,
           tokenAddress: this.tokenAddress,
           isMultiple: this.items.listing.isMultiple,
+          blockchainId:this.items.listing.blockchainId,
+          asset:this.items.listing.asset,
         };
         this.collectionApiService.postRequest(body, url).subscribe(
           (res: any) => {

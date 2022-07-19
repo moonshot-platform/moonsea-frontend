@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -7,8 +7,11 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
+import { SignSellOrder01 } from 'src/app/model/signBuyerOrder';
+import { DatePickerComponent } from '@syncfusion/ej2-angular-calendars';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-in-listing',
@@ -16,6 +19,7 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
   styleUrls: ['./add-in-listing.component.scss'],
 })
 export class AddInListingComponent implements OnInit {
+  @ViewChild('ejDatePicker') ejDatePicker: DatePickerComponent | undefined;
   isApiLoading: boolean = false;
   Address: string | null = '';
   data1: any;
@@ -28,7 +32,8 @@ export class AddInListingComponent implements OnInit {
   isContractApproved: any;
   wrongNetwork: boolean = false;
   btnText: string = 'Complete Listing';
-  serviceFees:any;
+  serviceFees: any;
+  dateValue: Date = new Date();
   constructor(
     public dialogRef: MatDialogRef<AddInListingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,10 +41,12 @@ export class AddInListingComponent implements OnInit {
     private contractService: ContractService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
-    private pricingApi :PricingApiService
+    private pricingApi: PricingApiService,
+    public datepipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
+
     this.isApiLoading = false;
     this.Address = localStorage.getItem('address');
     this.createNftForm = this.formBuilder.group({
@@ -50,6 +57,7 @@ export class AddInListingComponent implements OnInit {
       isMultiple: [''],
       typeOfSale: ['1'],
       currencyId: ['1'],
+      noOfDaysAuction:[3]
     });
     this.checkNetwork();
 
@@ -59,14 +67,31 @@ export class AddInListingComponent implements OnInit {
 
     this.pricingApi.getServiceFee();
     this.serviceFees = this.pricingApi.serviceFees;
+
+    this.createNftForm.get('typeOfSale').valueChanges.subscribe((res:any)=>{
+      this.setValidation(res);
+    });
   }
 
   async checkNetwork() {
+    // debugger
     let checkNetwork: boolean = await this.contractService.createContract(
       this.data.blockchainId
     );
     if (!checkNetwork) {
       this.wrongNetwork = true;
+      let chainIdd = this.contractService.chainId;
+      let switchNetwork = this.contractService.switchNetwork(chainIdd);
+      switchNetwork.then(
+        (res: any) => {
+          if (res == 'doneeeeee') {
+            this.wrongNetwork = false;
+          }
+        },
+        (err: any) => {
+          this.wrongNetwork = true;
+        }
+      );
     } else {
       this.wrongNetwork = false;
       this.getCurrencyList();
@@ -78,7 +103,7 @@ export class AddInListingComponent implements OnInit {
   }
 
   onNoClick(): void {
-    debugger
+    // debugger
     this.dialogRef.close();
   }
 
@@ -103,11 +128,11 @@ export class AddInListingComponent implements OnInit {
 
   async addListingSave(formData: any) {
 
-    debugger
+    // debugger
     if (!this.isContractApproved) {
       await this.startSale();
     }
-    this.btnText = 'Sign signatre';
+    this.btnText = 'Sign signature';
     if (this.createNftForm.valid) {
       this.isApiLoading = true;
       var price = formData.fixedPrice;
@@ -126,18 +151,21 @@ export class AddInListingComponent implements OnInit {
           this.contractService.isRegisterd.next("not register");
           return;
         }
-
-        status = await this.contractService.signSellOrder(
-          this.data.ID,
-          price,
-          this.data.supply,
-          this.data.nftAddress,
-          this.data.isMultiple,
-          salt,
-          userDate?.referralAddress,
-          this.data.royalties,
-          this.data.royaltiesOwner
-        );
+        let sig: SignSellOrder01;
+        sig = {
+          nftId: this.data.ID,
+          price: price,
+          supply: this.data.supply,
+          nftAddress: this.data.nftAddress,
+          isMultiple: this.data.isMultiple,
+          salt: salt,
+          referralAddress: userDate?.referralAddress,
+          royalties: this.data.royalties,
+          royaltiesOwner: this.data.royaltiesOwner ?? '0x0000000000000000000000000000000000000000',
+          tokenAddress: '0x0000000000000000000000000000000000000000',
+          blockchainId: this.data.blockchainId
+        }
+        status = await this.contractService.signSellOrder(sig);
       } else {
         debugger
         status = await this.contractService.signBidOrder(
@@ -163,9 +191,11 @@ export class AddInListingComponent implements OnInit {
           nftAddress: this.data.nftAddress,
           isMultiple: this.data.isMultiple,
           salt: salt,
+          asset: this.data.asset,
+          startDate:this.datepipe.transform(this.createNftForm.value.startingDate,'yyyy-MM-ddTHH:mm:ss'),
+          noOfDaysAuction:this.createNftForm.value.noOfDaysAuction,
         };
 
-        console.log(this.data1);
 
         this.getDataService
           .addInListingForSaleSave(this.data1)
@@ -177,6 +207,7 @@ export class AddInListingComponent implements OnInit {
 
               this.isApiLoading = false;
               this.dialogRef.close();
+              window.location.reload();
             } else {
               this.errorMsg = result.message;
               this.toastrService.error(this.errorMsg);
@@ -211,4 +242,13 @@ export class AddInListingComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  setValidation(typeOfSale:any){
+    if(typeOfSale == 2){
+      this.createNftForm.get('startingDate')?.setValidators([Validators.required]);
+      this.createNftForm.get('startingDate')?.updateValueAndValidity();
+    }else{
+      this.createNftForm.get('startingDate')?.clearValidators();
+      this.createNftForm.get('startingDate')?.updateValueAndValidity();
+    }
+  }
 }

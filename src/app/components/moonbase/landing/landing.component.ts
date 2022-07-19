@@ -173,6 +173,8 @@ export class LandingComponent implements OnInit, OnDestroy {
             response.data[i].nftDetailsList[0].nftTokenID;
           response.data[i].nftAddress =
             response.data[i].nftDetailsList[0].nftAddress;
+            response.data[i].asset =
+            response.data[i].nftDetailsList[0].asset;
         }
       }
 
@@ -190,7 +192,6 @@ export class LandingComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
