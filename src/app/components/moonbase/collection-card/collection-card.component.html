@@ -1,12 +1,11 @@
 <a href="javascript:void(0)" class="collections__gallery">
-  <a class="collections__preview" [routerLink]="['/details',item.nftAddress,item.nftTokenID01]"
-  [queryParams]="{ blockchainId: item.blockchainId }"
+  <a class="collections__preview" [routerLink]="['/details',item.nftAddress,item.nftTokenID01,item.blockchainId]"
     routerLinkActive="router-link-active">
     <div class="content-overlay"></div>
 
     <video *ngIf="item.nftFileUrl01 && !elementsHasLoaded[0]" autoplay controls [muted]="true" [loop]="true"
       [controls]="false" class="loading-logo">
-      <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+      <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/webm">
     </video>
 
     <img [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
@@ -16,29 +15,30 @@
        (loadeddata)="onMediaLoad($event,0)" onloadedmetadata="this.muted = true" [muted]="true"
       *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
       <source src="{{ item.nftFileUrl01 }}" type="video/mp4" />
+      <source src="{{ item.nftFileUrl01 }}" type="video/webm" />
     </video>
 
     <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
   </a>
 
   <div class="flex flex-wrap flex100 gap15 justify-start thumb-grid">
-    <div class="thumb__preview gap15" *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index">
-      <ng-container *ngIf="j <= 2">
+    <div class="thumb__preview gap15" *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index"
+    [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID,item.blockchainId ]">
+      <ng-container *ngIf="j <= 2" >
         <div class="content-overlay"></div>
 
         <video *ngIf="item.nftFileUrl01 && !elementsHasLoaded[j+1]" autoplay controls [muted]="true" [loop]="true"
           [controls]="false" class="loading-logo">
-          <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/mp4">
+          <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/webm">
         </video>
 
-        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID]"
-        [queryParams]="{ blockchainId: item.blockchainId }"
+        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID,item.blockchainId]"
           routerLinkActive="router-link-active">
           <img [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" [lazyLoad]="inneritem.nftFileUrl" *ngIf="
           inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1" (load)="onMediaLoad($event, j+1)" />
         </a>
 
-        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID]"  [queryParams]="{ blockchainId: item.blockchainId }">
+        <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID,item.blockchainId]"  >
           
           <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" playsinline
              onloadedmetadata="this.muted = true"
@@ -51,7 +51,7 @@
     <div class="thumb__preview gap15" *ngIf="item.nftDetailsList.length == 0 || item.nftDetailsList.length == 1">
       <div class="content-overlay"></div>
       <img [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01" alt=""
-        (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01)" />
+        (click)="gotoNftDetails(item.nftAddress, item.nftTokenID01,item.blockchainId)" />
 
       <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
     </div>

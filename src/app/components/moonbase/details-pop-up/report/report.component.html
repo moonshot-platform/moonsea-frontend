@@ -33,7 +33,7 @@
   <form
     #reportPost="ngForm"
     [formGroup]="reportform"
-    (ngSubmit)="reportSave(reportPost.value)"
+    (ngSubmit)="reportPost.valid && reportSave(reportPost.value)"
   >
     <div class="field">
       <div class="mb10">Message</div>

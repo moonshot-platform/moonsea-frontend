@@ -1,8 +1,9 @@
 <div class="popup">
   <div class="flex justify-space-between">
     <h5 class="orbitron p24 mb20">List item for sale</h5>
-    <a href="javascript:void(0)" (click)="close()"><svg xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 27 27" height="24px" width="24px">
+    <a href="javascript:void(0)" (click)="close()">
+      <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1"
+        viewBox="0 0 27 27" height="24px" width="24px">
         <title>Close</title>
         <desc>Created with Sketch.</desc>
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -12,9 +13,13 @@
         </g>
       </svg></a>
   </div>
+  <div class="popup__info" *ngIf="wrongNetwork">
+    <div class="steps__info">An error occured while interacting with your wallet. Please try again.</div>
 
+    <button class="button steps__button done" (click)="checkNetwork()">Try again</button>
+  </div>
   <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)"
-    #formData="ngForm">
+    #formData="ngForm" *ngIf="!wrongNetwork">
     <!-- <div class="popup__info">
       Do you really want to list your item from sale? You can remove it from
       sale anytime
@@ -32,6 +37,16 @@
             </span>
           </label>
         </div>
+        <!-- <div>
+          <label class="checkbox-wrapper">
+            <input type="radio" value="2" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input"
+              checked />
+            <span class="checkbox-tile">
+              <span class="checkbox-icon"> </span>
+              <span class="upload__category p14 ml10">Timed Auction</span>
+            </span>
+          </label>
+        </div> -->
         <div>
           <label class="flex align-center wp100">
             <input type="radio" value="3" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" />
@@ -46,13 +61,47 @@
         <div class="field">
           <div class="popup__col mb10 p12">Price</div>
           <div class="field__wrap flex align-center">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" style="height: 25px;width: 25px;margin-right: 10px;">
-              <g fill="#f3ba2f">
-                <path d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"></path>
-                <path d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"></path>
-              </g>
-            </svg>
+            <ng-container *ngIf="this.data.blockchainId == 1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
+                style="height: 25px;width: 25px;margin-right: 10px;">
+                <g fill="#f3ba2f">
+                  <path
+                    d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z">
+                  </path>
+                  <path
+                    d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11">
+                  </path>
+                </g>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="this.data.blockchainId == 2">
+              <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" xml:space="preserve"
+                style="enable-background: new 0 0 35 40;width: 30px;margin-left: -5px;">
+                <style type="text/css">
+                  .svg-grey {
+                    fill: #8c8c8c !important;
+                  }
+
+                  .svg-grey-light {
+                    fill: #404040 !important;
+                  }
+
+                  .svg-grey-dark {
+                    fill: #333333 !important;
+                  }
+                </style>
+                <g>
+                  <polygon points="20,8 12.6,20.2 20,16.8 	" class="svg-grey"></polygon>
+                  <polygon points="20,16.8 12.6,20.2 20,24.6 	" class="svg-grey-light"></polygon>
+                  <polygon points="27.4,20.2 20,8 20,16.8 	" class="svg-grey-dark"></polygon>
+                  <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+                  <polygon points="12.6,21.6 20,32 20,26 	" class="svg-grey-light"></polygon>
+                  <polygon points="20,32 27.4,21.6 20,26 	" class="svg-grey-dark"></polygon>
+                </g>
+              </svg>
+            </ng-container>
+
 
             <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }"
               formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB"
@@ -71,12 +120,46 @@
         <div class="field">
           <div class="popup__col mb10 p12">Minimum bid</div>
           <div class="field__wrap flex align-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" style="height: 25px;width: 25px;margin-right: 10px;">
-              <g fill="#f3ba2f">
-                <path d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z"></path>
-                <path d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11"></path>
-              </g>
-            </svg>
+            <ng-container *ngIf="this.data.blockchainId == 1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
+                style="height: 25px;width: 25px;margin-right: 10px;">
+                <g fill="#f3ba2f">
+                  <path
+                    d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z">
+                  </path>
+                  <path
+                    d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11">
+                  </path>
+                </g>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="this.data.blockchainId == 2">
+              <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" xml:space="preserve"
+                style="enable-background: new 0 0 35 40;width: 30px;margin-left: -5px;">
+                <style type="text/css">
+                  .svg-grey {
+                    fill: #8c8c8c !important;
+                  }
+
+                  .svg-grey-light {
+                    fill: #404040 !important;
+                  }
+
+                  .svg-grey-dark {
+                    fill: #333333 !important;
+                  }
+                </style>
+                <g>
+                  <polygon points="20,8 12.6,20.2 20,16.8 	" class="svg-grey"></polygon>
+                  <polygon points="20,16.8 12.6,20.2 20,24.6 	" class="svg-grey-light"></polygon>
+                  <polygon points="27.4,20.2 20,8 20,16.8 	" class="svg-grey-dark"></polygon>
+                  <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+                  <polygon points="12.6,21.6 20,32 20,26 	" class="svg-grey-light"></polygon>
+                  <polygon points="20,32 27.4,21.6 20,26 	" class="svg-grey-dark"></polygon>
+                </g>
+              </svg>
+            </ng-container>
             <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }"
               formControlName="minimunBid" type="text" name="price" placeholder="e. g. Price 1 BNB" required />
           </div>
@@ -88,6 +171,32 @@
           </div>
         </div>
       </div>
+
+      <!-- <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '2'">
+        <div class="field">
+          <div class="popup__col mb10 p12">Timed Auction</div>
+          <div class="field__wrap flex align-center">
+            <ejs-datetimepicker [ngClass]="{ 'is-invalid': submitted && f.startingDate.errors }" name="startingDate"
+              placeholder="Select a date" formControlName="startingDate" [value]="dateValue"></ejs-datetimepicker>
+          </div>
+          <div class="error_validation" *ngIf="f.startingDate.invalid && (f.startingDate.touched || formData.submitted)">
+            Timed Auction date required.
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="popup__col mb10 p12">No of Days Auction</div>
+          <div class="field__wrap flex align-center">
+
+            <select nice-select class="select" formControlName="noOfDaysAuction">
+              <option [ngValue]="3">3 Days</option>
+              <option [ngValue]="7">7 Days</option>
+              <option [ngValue]="14">14 Days</option>
+            </select>
+
+          </div>
+        </div>
+      </div> -->
 
       <!-- <div class="field">
         <div class="popup__col mb10 p12">Currency</div>

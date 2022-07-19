@@ -28,18 +28,21 @@
     ></a>
   </div>
 
-  <div class="popup__info">
+  <div class="popup__info" *ngIf="isRemovedSteps == 1">
     Do you really want to remove your item from sale? You can put it on sale
     anytime
   </div>
+  <div class="popup__info" *ngIf="isRemovedSteps == 2">
+    Removed from sale successfuly.
+  </div>
   <div class="popup__btns">
-    <button
+    <button *ngIf="isRemovedSteps == 1"
       class="button text-inherit dark-button mb10 wp100"
       (click)="removeSave()"
     >
       Remove now
       <div class="loader text-white" *ngIf="isApiLoading"></div>
     </button>
-    <button (click)="close()" class="button wp100">Cancel</button>
+    <button (click)="close()" [disabled]="isDisableCancelbutton" [ngClass]="isRemovedSteps == 2 ? 'dark-button': ''" class="button wp100">{{isRemovedSteps == 1 ? 'Cancel' : 'Done'}}</button>
   </div>
 </div>

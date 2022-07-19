@@ -10,8 +10,10 @@ import { PricingApiService } from './pricing-api.service';
 import { ToastrService } from 'ngx-toastr';
 import {
   exchangeToken,
+  removefromsale,
   SignBuyerOrder,
   SignSellOrder,
+  SignSellOrder01,
 } from '../model/signBuyerOrder';
 
 const nft721Abi = require('./../../assets/abis/nft721.json');
@@ -78,7 +80,6 @@ export class ContractService {
 
   async connectwalletMew() {
     // const connectedWallets = await this.onboard.connectWallet()
-    // console.log(connectedWallets)
   }
 
   getWalletObs(): Observable<any> {
@@ -109,7 +110,6 @@ export class ContractService {
       // edge case if MM and CBW are both installed
       if (this.windowRef.nativeWindow.ethereum.providers?.length) {
         this.windowRef.nativeWindow.ethereum.providers.forEach(async (p) => {
-          console.log(p);
 
           if (p.isMetaMask) provider01 = p;
         });
@@ -210,7 +210,6 @@ export class ContractService {
     try {
       network = await this.provider.getNetwork();
     } catch (error) {
-      // console.log(error);
     }
     return network.chainId;
   }
@@ -222,9 +221,8 @@ export class ContractService {
     } catch {
       return false;
     }
-    console.log(network);
     this.chainId = config[environment.configFile][chainIdVal].chainId;
-    ;
+    
     if (
       network &&
       network.chainId == config[environment.configFile][chainIdVal].chainId
@@ -244,9 +242,23 @@ export class ContractService {
         exchangeV1Abi,
         this.signer
       );
+      debugger
       this.initializeAddress(chainIdVal);
       return true;
-    } else {
+    }
+    // else if( network &&
+    //   network.chainId != config[environment.configFile][chainIdVal].chainId){
+    //     try{
+    //     this.switchNetwork(config[environment.configFile][chainIdVal].chainId);
+    //     }
+    //     catch(e)
+    //     {
+    //       return false;
+    //     }
+    //     return true;
+    // }
+     else {
+       
       return false;
     }
   }
@@ -324,16 +336,26 @@ export class ContractService {
     }
   }
 
-  mintTokenErc721(nftId: number, royalties: number) {
+  
+  
+
+  mintTokenErc721(nftId: number,nftAddress:any) {
     var promise = new Promise((resolve, reject) => {
+
+      this.nft721Contract = new ethers.Contract(
+        nftAddress,
+        nft721Abi,
+        this.signer
+      );
+
+
       this.nft721Contract
-        .mint(nftId.toString(), [[this.userAddress, royalties * 100]], environment.tockenUri)
+        .mint(nftId.toString(), environment.tockenUri+nftId.toString())
         .then(function (hash: any) {
           resolve({ hash: hash.hash, status: true });
         })
         .catch(function (e: any) {
-          console.log(e);
-          reject({ hash: '', status: false });
+          reject(e);
         });
     });
     return promise;
@@ -341,12 +363,17 @@ export class ContractService {
 
   mintTokenErc1155(
     nftId: number,
-    royalties: number,
-    noOfCopies: number
+    noOfCopies: number,
+    nftAddress:any
   ) {
     var promise = new Promise((resolve, reject) => {
+      this.nft1155Contract = new ethers.Contract(
+        nftAddress,
+        nft1155Abi,
+        this.signer
+      );
       this.nft1155Contract
-        .mint(nftId, [[this.userAddress, royalties]], noOfCopies, environment.tockenUri)
+        .mint(nftId,  noOfCopies, environment.tockenUri)
         .then(function (hash: any) {
           resolve({ hash: hash.hash, status: true });
         })
@@ -534,7 +561,6 @@ export class ContractService {
 
     debugger
     try {
-      console.log(nftAddress);
       const params2 = ethers.utils.parseEther(price.toString());
       var abiCoder = new ethers.utils.AbiCoder();
       var a2 = abiCoder.encode(
@@ -571,27 +597,26 @@ export class ContractService {
     }
   }
 
-  async signSellOrder(
-    nftId: number,
-    price: number,
-    supply: number,
-    nftAddress: string,
-    isMultiple: boolean,
-    salt: any,
-    referralAddress: any,
-    royalties: any = 0,
-    royaltiesOwner: any = '0x0000000000000000000000000000000000000000',
-    tokenAddress: any = '0x0000000000000000000000000000000000000000'
-  ) {
+  // nftId: number,
+  // price: number,
+  // supply: number,
+  // nftAddress: string,
+  // isMultiple: boolean,
+  // salt: any,
+  // referralAddress: any,
+  // royalties: any = 0,
+  // royaltiesOwner: any = '0x0000000000000000000000000000000000000000',
+  // tokenAddress: any = '0x0000000000000000000000000000000000000000',
+  // blockchainId:any
+  async signSellOrder(data:SignSellOrder01 ) {
     debugger
     try {
-      // console.log(nftAddress);
-      const params2 = ethers.utils.parseEther(price.toString());
+      const params2 = ethers.utils.parseEther(data.price.toString());
       var abiCoder = new ethers.utils.AbiCoder();
 
       var a2 = abiCoder.encode(
         [
-          'tuple(address,uint256,tuple(address,uint256,uint256),tuple(address,uint256,uint256),tuple(address,uint256),address)',
+          'tuple(address,uint256,tuple(address,uint256,uint256),tuple(address,uint256,uint256),tuple(address,uint256),address,uint256)',
           'uint256',
           'uint256',
           'uint256',
@@ -599,19 +624,20 @@ export class ContractService {
         [
           [
             this.userAddress,
-            salt,
-            [nftAddress, nftId.toString(), isMultiple ? 2 : 3],
+            data.salt,
+            [data.nftAddress, data.nftId.toString(), data.isMultiple ? 2 : 3],
             [
-              tokenAddress,
+              data.tokenAddress,
               '0',
-              tokenAddress == '0x0000000000000000000000000000000000000000'
+              data.tokenAddress == '0x0000000000000000000000000000000000000000'
                 ? 0
                 : 1,
             ],
-            [royaltiesOwner, royalties * 100],
-            referralAddress,
+            [data.royaltiesOwner, data.royalties * 100],
+            data.referralAddress,
+            data.blockchainId
           ],
-          supply,
+          data.supply,
           params2,
           this.pricingDetails.serviceFees * 100,
         ]
@@ -655,7 +681,7 @@ export class ContractService {
 
       var a2 = abiCoder.encode(
         [
-          'tuple(address,uint256,tuple(address,uint256,uint256),tuple(address,uint256,uint256),tuple(address,uint256),address)',
+          'tuple(address,uint256,tuple(address,uint256,uint256),tuple(address,uint256,uint256),tuple(address,uint256),address,uint256)',
           'uint256',
           'uint256',
           'uint256',
@@ -679,6 +705,7 @@ export class ContractService {
             ],
             [signSellOrder.royaltiesOwner, signSellOrder.royalties * 100],
             signSellOrder.referralAddress,
+            signSellOrder.blockchainId
           ],
           signSellOrder.quantity,
           params2,
@@ -843,6 +870,7 @@ export class ContractService {
         ],
         [exchangeToken.royaltiesOwner, exchangeToken.royalties * 100],
         exchangeToken.referalAddress,
+        blockchainId
       ],
       exchangeToken.supply, //selling
       params2, //buying
@@ -870,6 +898,7 @@ export class ContractService {
         exchangeToken.isMakeOffer
           ? '0x0000000000000000000000000000000000000000'
           : exchangeToken.referalAddress,
+          blockchainId
       ],
       1,//exchangeToken.supply, //selling
       params2, //buying
@@ -906,7 +935,7 @@ export class ContractService {
       var abiCoder = new ethers.utils.AbiCoder();
       var a2 = abiCoder.encode(
         [
-          'tuple(tuple(address,uint256,tuple(address,uint256,uint256),tuple(address,uint256,uint256),tuple(address,uint256),address),uint256,uint256,uint256)',
+          'tuple(tuple(address,uint256,tuple(address,uint256,uint256),tuple(address,uint256,uint256),tuple(address,uint256),address,uint256),uint256,uint256,uint256)',
           'uint256',
           'uint256',
         ],
@@ -932,6 +961,7 @@ export class ContractService {
               ethers.utils.isAddress(model.referalAddress)
                 ? model.referalAddress
                 : '0x0000000000000000000000000000000000000000',
+                model.blockchainId
             ],
             model.supply,
             params2,
@@ -943,11 +973,9 @@ export class ContractService {
       );
       ;
       debugger
-      console.log(ethers.utils.isAddress(model.referalAddress));
       var a = ethers.utils.keccak256(a2).substring(2);
-
+        
       var signature = await this.signer.signMessage(a);
-
       return { status: true, signature, address: this.nft721Address };
     } catch (e) {
       ;
@@ -956,32 +984,37 @@ export class ContractService {
   }
 
   async cancelOrder(signature: any) {
+    debugger
     return await this.exchangeAbiContract.cancel(signature);
   }
 
+
+  // nftId: number,
+  // price: number,
+  // supply: number,
+  // nftAddress: string,
+  // isMultiple: boolean,
+  // tokenAddress: any,
+  // royaltiesOwner: string,
+  // royalties: any,
+  // referralAddress:any,
+  // blockchainId:any
   async getOrderData(
-    nftId: number,
-    price: number,
-    supply: number,
-    nftAddress: string,
-    isMultiple: boolean,
-    tokenAddress: any,
-    royaltiesOwner: string,
-    royalties: any,
-    referralAddress
+    data:removefromsale
   ) {
     try {
       var a2 = [
         this.userAddress,
-        supply,
-        [nftAddress, nftId.toString(), isMultiple ? 2 : 3],
+        data.supply,
+        [data.nftAddress, data.nftId.toString(), data.isMultiple ? 2 : 3],
         [
-          tokenAddress,
+          data.tokenAddress,
           '0',
-          tokenAddress == '0x0000000000000000000000000000000000000000' ? 0 : 1,
+          data.tokenAddress == '0x0000000000000000000000000000000000000000' ? 0 : 1,
         ],
-        [royaltiesOwner, royalties * 100],
-        referralAddress,
+        [data.royaltiesOwner, data.royalties * 100],
+        data.referralAddress,
+        data.blockchainId
       ];
       return { status: true, orderkey: a2, address: this.nft721Address };
     } catch (e) {

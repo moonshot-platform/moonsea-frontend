@@ -194,6 +194,9 @@
         <a  class="item__description owner_name text-primary inline-flex " [routerLink]="['/profile', data?.customeUrl]">
           {{ data?.name }}
         </a>
+        <a href="javascript:void(0);" *ngIf="!data?.name" class="item__description owner_name text-primary inline-flex ">
+          Anonymouse  
+        </a>
         <p>Owned by <a [routerLink]="['/profile',ownersData[0]?.ownerAddress]" routerLinkActive="router-link-active" >{{data?.ownerName ? data?.ownerName: 'Anonymouse'}}</a></p>
         <p class="text-primary p18">{{ data?.created }}</p>
         <div *ngIf="!(indexForPlaceBid == -1 && indexForPurchase == -1)" class="item__cost p16 pt20 mt20 border-top justify-space-between">
@@ -598,7 +601,7 @@
               </div>
 
               <p class="p12 w-normal mt20 align-self-start" *ngIf="data?.price>0">
-                <span class="w600">S-Fee </span> — {{pricingApi.serviceFees}}% /{{data?.price*pricingApi.serviceFees/100}} / ${{(data?.price*pricingApi.serviceFees/100) * pricingApi.bnbPriceInUsd | number}}
+                <span class="w600">S-Fee </span> — {{pricingApi.serviceFees}}% /{{data?.price*pricingApi.serviceFees/100 | dicimalTransform}} / ${{(data?.price*pricingApi.serviceFees/100) * pricingApi.bnbPriceInUsd | number}}
                
               </p>
             </ng-container>

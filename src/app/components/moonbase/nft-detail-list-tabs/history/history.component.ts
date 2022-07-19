@@ -25,7 +25,7 @@ export class HistoryComponent implements OnInit {
   {
     
     this.getDataService.getListBidHistory(
-      this.ID,this.nftAddress,this.items?.blockchainId
+      this.items?.asset
     ).subscribe((response:any)=>
     {
       

@@ -41,6 +41,8 @@ export class UserProfileComponent implements OnInit {
   unSubscribeRequest: Subscription;
   myCollection: any = [];
   isLoaded:boolean[]=[];
+  pageNo:any=1;
+  PageSize:any = 100;
 
 
   constructor(public cs: ContractService, private toastrService: ToastrService, private _activatedRoute: ActivatedRoute, private getDataService: GetDataService,
@@ -77,6 +79,8 @@ export class UserProfileComponent implements OnInit {
       this.loaded = true;
       if(this.currentWalletAddress != data){
         this.currentWalletAddress = data;
+          this.fetchData();
+        }else{
           this.fetchData();
         }
    
@@ -138,7 +142,7 @@ export class UserProfileComponent implements OnInit {
       this.getmyCollectionList();
     }
     if (this.tabName == this.tabHeadingsUrl[1]) {
-      this.getDataService.getItemsForUser(this.userDetails?.walletAddress, 3).subscribe((response: any) => {
+      this.getDataService.getItemsForUser(this.userDetails?.walletAddress, 3,this.pageNo,this.PageSize).subscribe((response: any) => {
         this.listItemsOnSale = response.data;
         this.setApiLoadingFlag(false);
       },(err:any)=>{
@@ -146,7 +150,7 @@ export class UserProfileComponent implements OnInit {
       })
     }
     if (this.tabName == this.tabHeadingsUrl[2]) {
-      this.getDataService.getItemsForUser(this.userDetails?.walletAddress, 2).subscribe((response: any) => {
+      this.getDataService.getItemsForUser(this.userDetails?.walletAddress, 2,this.pageNo,this.PageSize).subscribe((response: any) => {
         this.listItemsOwned = response.data;
         this.setApiLoadingFlag(false);
       },(err:any)=>{
@@ -173,7 +177,7 @@ export class UserProfileComponent implements OnInit {
       })
     }
     if (this.tabName == this.tabHeadingsUrl[5]) {
-      this.getDataService.getItemsForUser(this.currentWalletAddress, 4).subscribe((response: any) => {
+      this.getDataService.getItemsForUser(this.currentWalletAddress, 4,this.pageNo,this.PageSize).subscribe((response: any) => {
         this.listItemsLikes = response.data;
         this.setApiLoadingFlag(false);
       },(err:any)=>{
@@ -304,7 +308,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   async unfollow(address: string, index: number, listType: number) {
-    debugger
     if (!this.contractService.checkValidAddress(this.currentWalletAddress)) {
       this.connectWallet();
       return false;
@@ -375,11 +378,9 @@ export class UserProfileComponent implements OnInit {
 
   onMediaLoad(event, index) {
     if (event && event.target) {
-      // console.log("IMAGE HAS LOADED!");
       this.isLoaded[index] = true;
     } else {
       this.isLoaded[index] = false;
-      // console.log("IMAGE HAS NOT LOADED!");
     }
 
     if (event.readyState == 4) {

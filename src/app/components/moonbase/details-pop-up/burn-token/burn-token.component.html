@@ -27,12 +27,22 @@
         </g></svg
     ></a>
   </div>
-
-  <div class="popup__info">
+  <div class="popup__info" *ngIf="wrongNetwork">
+    <div class="steps__info">An error occured while interacting with your wallet. Please try again.</div>
+  
+<button class="button steps__button done" (click)="checkNetwork()">Try again</button>
+</div>
+  <div class="popup__info" *ngIf="!wrongNetwork && isBurnSuccessful == 0">
     Are you sure to burn this token? This action cannot be undone. Token will be
     transfered to zero address
   </div>
-  <div>
+  <div class="popup__info" *ngIf="isBurnSuccessful == 1">
+    This token is burn successfuly. Token is no longer available now.
+  </div>
+  <div class="popup__info" *ngIf="isBurnSuccessful == 2">
+    This token is already burn successfuly. Token is no longer available now.
+  </div>
+  <div *ngIf="!wrongNetwork && isBurnSuccessful == 0">
     <input
       type="text"
       class="popup__input"
@@ -40,9 +50,9 @@
       value="1"
       [readonly]="!data.isMultiple"
     />
-  </div>
-  <div class="popup__btns">
-    <button
+  
+  <div class="popup__btns" >
+    <button type="button"
       class="button text-inherit dark-button mb10 wp100"
       (click)="burnSave(supply.value)"
     >
@@ -50,6 +60,10 @@
       <div class="loader text-white" *ngIf="isApiLoading"></div>
     </button>
     <!-- <button class="button-stroke popup__button js-popup-close">Cancel</button> -->
-    <button class="button wp100" (click)="close()">close</button>
   </div>
+</div>
+<div>
+  <button class="button wp100" type="button"[ngClass]="isBurnSuccessful == 1 ? 'dark-button' : ''" (click)="close()">{{isBurnSuccessful == 0 ? 'close' : 'Done'}}</button>
+
+</div>
 </div>

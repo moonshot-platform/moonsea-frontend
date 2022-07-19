@@ -23,7 +23,6 @@ export class PlaceBidComponent implements OnInit {
   constructor(public dialog: MatDialog,private contractService:ContractService) { }
 
   ngOnInit(): void {
-    // console.log("PlaceBidComponent ============>",this.typeOfSale);
     
     
     this.items.nftName = this.nftName;

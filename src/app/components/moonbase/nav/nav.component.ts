@@ -314,7 +314,7 @@ export class NavComponent implements OnInit {
 
     debugger
     if (serachType == 1) {
-      this.route.navigate(['/details', nftAddress, nftToken],{queryParams: { blockchainId: blockchainId }});
+      this.route.navigate(['/details', nftAddress, nftToken,blockchainId]);
     } else if (serachType == 2) {
       this.route.navigate(['/profile', enterText]);
     } else if (serachType == 4) {
@@ -393,9 +393,7 @@ export class NavComponent implements OnInit {
                 }
               });
             });
-            // console.log(this.uniquedata);
-            // console.log("=========>",this.properties);
-
+     
             if (event.key == 'Enter') {
               this.flag = false;
             }

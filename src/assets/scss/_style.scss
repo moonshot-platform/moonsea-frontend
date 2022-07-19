@@ -3402,3 +3402,18 @@ app-landing .card__line .card__title {
   max-height: 115px;
   overflow: auto;
 }
+
+.object-cover {
+    object-fit: cover;
+} 
+
+.mat-expansion-indicator::after {
+    content: "";
+    vertical-align: middle;
+    background-image: url('./../../assets/media/icon/Pulldown_arrow_down_dark.svg');
+    width: 30px;
+    height: 30px;
+    border: none !important;
+    padding: 0 !important;
+    transform: unset !important;
+}

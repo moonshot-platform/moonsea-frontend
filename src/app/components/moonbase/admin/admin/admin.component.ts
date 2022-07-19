@@ -57,7 +57,6 @@ export class AdminComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -72,7 +71,6 @@ export class AdminComponent implements OnInit {
         this.toastr.success('Successfully uploaded');
         this.path = res.data.path;
         this.bannerSave.controls['fileUrl'].setValue(this.path);
-        // console.log(this.bannerSave.value);
       }
     });
   }
@@ -99,7 +97,6 @@ export class AdminComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -131,7 +128,6 @@ export class AdminComponent implements OnInit {
     const url = 'admin/addCurrency';
     this.dataServices.postRequest(data, url).subscribe(
       (res: any) => {
-        console.log(res);
         if (res.status == 200) {
           // -----remove Validation error after submit form ----//
           this.currency.reset();
@@ -149,7 +145,6 @@ export class AdminComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }

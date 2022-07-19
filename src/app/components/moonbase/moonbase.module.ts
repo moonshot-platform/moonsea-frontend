@@ -90,6 +90,7 @@ import { LangdingUpcomingCollectionsComponent } from './landing/langding-upcomin
 import { LandingFooterComponent } from './landing/landing-footer/landing-footer.component';
 import { LandingSearchComponent } from './landing/landing-search/landing-search.component';
 import { SharedModule } from './commanShared/shared/shared.module';
+import { DicimalTransformPipe } from './details/dicimal-transform.pipe';
 
 
 
@@ -161,6 +162,7 @@ import { SharedModule } from './commanShared/shared/shared.module';
     LangdingUpcomingCollectionsComponent,
     LandingFooterComponent,
     LandingSearchComponent,
+    DicimalTransformPipe,
     
   ],
   imports: [
@@ -197,7 +199,8 @@ import { SharedModule } from './commanShared/shared/shared.module';
     LandingIntroComponent,
     RatesComponent,
     WalletConnectComponent,
-    SharedModule
+    SharedModule,
+    
   ],
   providers: [DatePipe],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ,NO_ERRORS_SCHEMA]

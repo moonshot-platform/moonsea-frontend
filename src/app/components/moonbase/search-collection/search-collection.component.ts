@@ -84,6 +84,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   unSubribeDescoverCollectionList: Subscription;
   collectionListPage:number =1;
   collectionListSize:number = environment.paginationSize;
+  creatorsListPage:number =1;
+  creatorsListSize:number = environment.paginationSize;
   nftlistPage :number =1; 
 
   constructor(
@@ -222,18 +224,15 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
           res.data.forEach((element:any) => {
             this.discoverNFTList.push(element)
           });
-          // console.log(this.discoverNFTList);
           
           this.isApiLoading = false;
           this.ngxService.stop();
         } else {
-          console.log(res);
           this.ngxService.stop();
 
         }
       },
       (err) => {
-        console.log(err);
         this.ngxService.stop();
       }
     );
@@ -291,6 +290,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
                 response.data[i].nftDetailsList[0].nftTokenID;
               response.data[i].nftAddress =
                 response.data[i].nftDetailsList[0].nftAddress;
+                response.data[i].asset =
+                response.data[i].nftDetailsList[0].asset;
             }
           }
           response.data.forEach((element:any) => {
@@ -299,12 +300,10 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
           this.getDataservice.searchCollectionflag.next(1);
           this.ngxService.stop();
         } else {
-          console.log(response.message);
           this.ngxService.stop();
         }
       },
       (err) => {
-        console.log(err);
         this.ngxService.stop();
       }
     );
@@ -320,9 +319,14 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     this.getCollection();
   }
 
+  loadmoreCreatorsList(){
+    this.creatorsListPage = this.creatorsListPage + 1;
+    this.getCreaterList();
+  }
+
 
   gotoNftDetails(nftAddress: any, id: any,blockchainId) {
-    this.router.navigate(['/details', nftAddress, id],{queryParams: { blockchainId: blockchainId }});
+    this.router.navigate(['/details', nftAddress, id ,blockchainId]);
   }
 
   getBlockchainList() {
@@ -435,20 +439,28 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     let url: any;
     if (this.searchKey.toLowerCase() == 'all') {
       url =
-        'home/getCreatorsList?searchText=' + '' + '&status=' + this.sortingType;
+        'home/getCreatorsList?searchText=' + '' + '&status=' + this.sortingType+'&pageNo='+
+        this.creatorsListPage +
+        '&PageSize='+
+        this.creatorsListSize;;
     } else {
       url =
         'home/getCreatorsList?searchText=' +
         this.searchKey +
         '&status=' +
-        this.sortingType;
+        this.sortingType+'&pageNo='+
+        this.creatorsListPage +
+        '&PageSize='+
+        this.creatorsListSize;
     }
 
     this.dataService.getRequest(url).subscribe(
       (res: any) => {
-        console.log(res);
         if (res.status == 200) {
-          this.createrList = res.data;
+          res.data.forEach((element:any) => {
+            this.createrList.push(element)
+          });
+          
         } else {
         }
       },
@@ -503,6 +515,5 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
       this.searchKey = '';
   }
   // document.getElementById("editor").addEventListener("input", inputEvt => {
-  //   console.log("input event fired");
   // }, false);
 }

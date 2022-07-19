@@ -1,6 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { removefromsale } from 'src/app/model/signBuyerOrder';
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
 
@@ -14,6 +15,8 @@ export class RemoveFromSaleComponent implements OnInit {
   data1: any;
   errorMsg: any;
   isApiLoading: any;
+  isDisableCancelbutton:boolean=false;
+  isRemovedSteps:number=1;
   constructor(public dialogRef: MatDialogRef<RemoveFromSaleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private getDataService : GetDataService,
@@ -27,25 +30,32 @@ export class RemoveFromSaleComponent implements OnInit {
   
   close(): void {
     this.dialogRef.close();
+    window.location.reload();
   }
 
 
   async removeSave()
   {
+    let removesaleObj :removefromsale={
+      nftId:  this.data.nftTokenID,
+      price:  this.data.price,
+      supply:  this.data.currentSupply,
+      nftAddress:  this.data.nftAddress,
+      isMultiple: this.data.isMultiple,
+      tokenAddress:  this.data.contractAddress,
+      royaltiesOwner:   this.data.royaltiesOwner,
+      royalties:   this.data.royalties,
+      referralAddress: this.data.referalAddress,
+      blockchainId:this.data.blockchainId
+    }
+    debugger
     this.isApiLoading = true;
     var status:any= await this.contractService.getOrderData(
-      this.data.nftTokenID,
-      this.data.price,
-      this.data.currentSupply,
-      this.data.nftAddress,
-      this.data.isMultiple,
-      this.data.contractAddress,
-      this.data.royaltiesOwner,
-      this.data.royalties,
-      this.data.referalAddress
+      removesaleObj
     );
-   
+
     if(status.status){
+      
     this.data1= {nftId:this.data.ID,walletAddress:this.Address,signature : status.signature};
     let checkNetwork : boolean = await this.contractService.createContract(1);
     if(checkNetwork)
@@ -54,13 +64,18 @@ export class RemoveFromSaleComponent implements OnInit {
     var txn:any = await this.contractService.cancelOrder(
       status.orderkey
     );
-
+    debugger
+    this.isDisableCancelbutton = true;
     await txn.wait(2);
-
-        this.toastrService.success("Done successfully");
+    this.isRemovedSteps = 2;
+        this.toastrService.success("Removed successfully.");
+        this.isDisableCancelbutton = false;
         this.isApiLoading = false;
 
     }
+  }else{
+    this.isDisableCancelbutton = false;
+    this.isApiLoading = false;
   }
   
   }

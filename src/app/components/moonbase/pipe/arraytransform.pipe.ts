@@ -52,7 +52,6 @@ export class ArraytransformPipe implements PipeTransform {
      
     }
 
-    console.log('uniqueObj', uniqueObj);
 
     return null;
   }

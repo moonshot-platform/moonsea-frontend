@@ -33,6 +33,7 @@
     #updatePricePost="ngForm"
     [formGroup]="updatePriceform"
     (ngSubmit)="updatePriceSave(updatePricePost.value)"
+    *ngIf="!isChangePriceMessage"
   >
     <div class="popup__row">
       <div class="popup__col">
@@ -60,11 +61,17 @@
     </div>
 
     <div class="popup__btns">
-      <button class="button text-inherit dark-button mb10 wp100">
+      <button type="submit" class="button text-inherit dark-button mb10 wp100">
         Change price
         <div class="loader text-white" *ngIf="isApiLoading"></div>
       </button>
-      <button (click)="close()" class="button wp100">Cancel</button>
+      <button type="button" (click)="close()" class="button wp100">Cancel</button>
     </div>
   </form>
+  <div *ngIf="isChangePriceMessage">
+    <div class="mb10">
+      Price changed successfuly.
+    </div>
+    <button type="button" (click)="close()" class="button dark-button wp100">Done</button>
+  </div>
 </div>

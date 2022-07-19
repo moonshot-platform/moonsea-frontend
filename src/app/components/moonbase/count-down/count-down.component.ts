@@ -20,7 +20,6 @@ export class CountDownComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("CountDownComponent=====>",this.startingDate);
     
 
 
@@ -63,7 +62,6 @@ export class CountDownComponent implements OnInit {
     }
     catch(e)
     {
-        // console.log("date : "+this.startingDate)
     }
   }
 

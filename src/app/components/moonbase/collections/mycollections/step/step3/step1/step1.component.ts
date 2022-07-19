@@ -43,7 +43,6 @@ constructor(private route:Router,
 ngOnInit(): void {
   
   this.cs.getWalletObs().subscribe((data: any) => {
-    debugger
     if(this.connectedAddress != data){
       this.connectedAddress = data;
       this.getmyCollectionList();
@@ -125,6 +124,8 @@ getmyCollectionList() {
             response.data[i].nftDetailsList[0].nftTokenID;
           response.data[i].nftAddress =
             response.data[i].nftDetailsList[0].nftAddress;
+            response.data[i].asset =
+            response.data[i].nftDetailsList[0].asset;
         }
       }
 

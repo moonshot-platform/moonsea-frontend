@@ -62,7 +62,6 @@ export class ListOfCollectionsComponent implements OnInit {
     this.blockchainId = 0;
     this.categoryId = 0;
 
-    // console.log(this.router.url,"Current URL");
     
 
 
@@ -115,7 +114,6 @@ export class ListOfCollectionsComponent implements OnInit {
           response.data.forEach(element => {
               this.collectionlist.push(element)
           });
-          // console.log("!!!!!!=>",this.collectionlist);
           
           this.ngxService.stop();
           this.isShowLoader = false;
@@ -124,7 +122,6 @@ export class ListOfCollectionsComponent implements OnInit {
         }
       },
       (err: any) => {
-        console.log(err);
         this.ngxService.stop();
       }
     );
@@ -157,7 +154,6 @@ export class ListOfCollectionsComponent implements OnInit {
       // this.collectionlist.filter((el :any)=>{
       //   if(el.symbol.toLowerCase().indexOf(this.searchKey.toLowerCase()) > -1 ){
       //     arr.push(el);
-      //     console.log(arr);
 
       //   }
       // });

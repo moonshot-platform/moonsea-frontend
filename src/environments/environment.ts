@@ -4,13 +4,14 @@
 
 export const environment = {
   production: false,
-  // apiUrl : "http://codetentacles-006-site36.htempurl.com/api/",
   apiUrl : "http://209.126.10.42/moonsea/api/",
+  // apiUrl:'http://codetentacles-006-site36.htempurl.com/api/',
+  // apiUrl:'http://207.244.245.15/moonsea/api/',
   defaultProfilePic : "img/profile.png",
   configFile : 'testnet',
   bscTestnetScan:"https://testnet.bscscan.com/tx/",
   paginationSize :12,
-  tockenUri:'http://209.126.10.42/moonsea/api/api/Metadata/'
+  tockenUri:'http://207.244.245.15/moonsea/api/api/Metadata/'
   };
 
 /*

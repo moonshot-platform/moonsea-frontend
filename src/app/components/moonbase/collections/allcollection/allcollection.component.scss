@@ -26,7 +26,7 @@
     width: 100%;
   }
   .wrap-filter {
-    max-height: 70vh;
+    max-height: 85vh;
     display: flex;
     flex-wrap: unset !important;
     flex-direction: column;
@@ -181,7 +181,7 @@ mat-slider {
   margin: auto;
   position: relative;
   z-index: 10;
-  background: #090d16;
+  background: $black;
 
   .form-control {
     font-size: 16px;
@@ -244,6 +244,8 @@ mat-slider {
   bottom: 0;
   min-height: 85vh;
   min-width: 100vw;
+  border-bottom: 0 solid;
+  padding-bottom: 0rem;
 }
 
 .main_title {
@@ -251,8 +253,6 @@ mat-slider {
     padding: 0 1rem;
   }
 }
-
-
 
 // mobile checkbox
 /* The filter_label */
@@ -265,7 +265,7 @@ mat-slider {
   font-size: 16px;
   -webkit-user-select: none;
   user-select: none;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   justify-content: space-between;
 }
 
@@ -283,16 +283,15 @@ mat-slider {
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #090d16;
-  border: 1px solid #090d16;
+  height: 20px;
+  width: 20px;
+  background-color: $black;
   border-radius: 50px;
 }
 
 /* On mouse-over, add a grey background color */
 .filter_label:hover input ~ .checkmark {
-  background-color: transparent;
+  background-color: $black;
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -314,7 +313,6 @@ mat-slider {
   display: block;
 }
 
-
 /* Style the checkmark/indicator */
 .filter_label .checkmark:after {
   left: 9px;
@@ -326,4 +324,19 @@ mat-slider {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.mat-expansion-panel-spacing {
+  margin: 0;
+}
+
+.filterMobile {
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #000000;
+  }
 }

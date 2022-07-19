@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-avatar',
@@ -10,7 +11,7 @@ export class AvatarComponent implements OnInit {
   @Input() imagePath:any;
   @Input() walletAddress:any;
   loggedInWalletAddress:any;
-  constructor() { }
+  constructor(public router:Router) { }
 
   ngOnInit(): void {
     
@@ -20,6 +21,7 @@ export class AvatarComponent implements OnInit {
     {
       this.imagePath = "assets/media/images/moonsea/profile.png";
     }
+    
   }
 
 

@@ -37,7 +37,7 @@ export class HammerConfig extends HammerGestureConfig {
     GtagModule.forRoot({ trackingId: 'G-5Q9LF9T9Q6', trackPageviews: true }),
     MoonbaseModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({timeOut: 15000,progressBar:true}),
     NavModule,
     SidebarModule,
     NgxUiLoaderModule,

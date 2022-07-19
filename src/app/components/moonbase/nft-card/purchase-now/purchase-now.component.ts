@@ -23,7 +23,6 @@ export class PurchaseNowComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // console.log("===============>",this.items);
     
   
     this.items.nftName = this.nftName;

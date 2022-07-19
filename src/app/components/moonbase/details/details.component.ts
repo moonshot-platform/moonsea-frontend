@@ -9,7 +9,7 @@ import { GetDataService } from 'src/app/services/get-data.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
-import {  Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Title, Meta } from '@angular/platform-browser';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
@@ -23,7 +23,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit ,OnDestroy {
+export class DetailsComponent implements OnInit, OnDestroy {
   @Input() ID: any;
   data: any;
   nftTokenID: any;
@@ -50,14 +50,14 @@ export class DetailsComponent implements OnInit ,OnDestroy {
   ];
   nftAddress: any;
 
-  unSubscribeRequest :Subscription;
+  unSubscribeRequest: Subscription;
   unSubscribeRequest01: Subscription;
   elementsHasLoaded: boolean[] = [];
-  isImgLoaded :boolean = false;
-  blockchainInfo :any = {};
-  correntRoute:any;
-  queryBlockchainId:any;
-
+  isImgLoaded: boolean = false;
+  blockchainInfo: any = {};
+  correntRoute: any;
+  queryBlockchainId: any;
+  asset: any;
   constructor(
     public dialog: MatDialog,
     private getDataService: GetDataService,
@@ -71,20 +71,21 @@ export class DetailsComponent implements OnInit ,OnDestroy {
     private ngxService: NgxUiLoaderService,
     private meta: Meta,
     private titleService: Title,
-    private http:HttpClient
+    private http: HttpClient,
+    private route:Router
   ) {
     for (let index = 0; index < 100; index++) {
       this.elementsHasLoaded[index] = false;
     }
   }
   ngOnDestroy(): void {
-    if(this.unSubscribeRequest){
-    this.unSubscribeRequest.unsubscribe();
+    if (this.unSubscribeRequest) {
+      this.unSubscribeRequest.unsubscribe();
     }
-    if(this.unSubscribeRequest01){
+    if (this.unSubscribeRequest01) {
       this.unSubscribeRequest01.unsubscribe();
     }
-   
+
   }
 
   ngOnInit(): void {
@@ -94,21 +95,20 @@ export class DetailsComponent implements OnInit ,OnDestroy {
     this.correntRoute = window.location.href;
     window.scrollTo(0, 0);
     this._activatedRoute.params.subscribe((params) => {
-     
-      
       this.nftTokenID = params['nftTokenID'];
       this.nftAddress = params['nftAddress'];
-     
+      this.queryBlockchainId = params['blockchainId'];
     });
-
-    this._activatedRoute.queryParams.subscribe((res:any)=>{
-      this.queryBlockchainId = res['blockchainId'];
-    })
+    this.route.routeReuseStrategy.shouldReuseRoute = function(){return false;};
+    // this._activatedRoute.queryParams.subscribe((res: any) => {
+    //   this.queryBlockchainId = res['blockchainId'];
+    //   this.asset = res['asset'];
+    // })
 
     this.ID = this.nftTokenID;
 
     this.contractService.getWalletObs().subscribe((data: any) => {
-      if ( this.Address != data) {
+      if (this.Address != data) {
         this.Address = data;
         this.isConnected = true;
       } else {
@@ -118,12 +118,12 @@ export class DetailsComponent implements OnInit ,OnDestroy {
 
     });
 
-    this.getList();
+    // this.getList();
     this.pricingApi.getPriceofBNB();
     this.pricingApi.getServiceFee();
   }
 
-  
+
   @HostListener('document:click', ['$event'])
   onMouseEnter(event: any) {
     if (!document.getElementById('dropdownButton').contains(event.target)) {
@@ -157,10 +157,11 @@ export class DetailsComponent implements OnInit ,OnDestroy {
         royaltiesOwner: this.data.royaltiesOwner,
         tokenAddress: this.data.contractAddress,
         ownerCurrentSupply: this.data.ownerCurrentSupply,
+        asset: this.asset
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   openDialogForShear(): void {
@@ -169,21 +170,23 @@ export class DetailsComponent implements OnInit ,OnDestroy {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   async nftDetails(nftTokenId: any, walletAddress: any) {
     this.ngxService.start();
     this.unSubscribeRequest = this.getDataService
-      .nftDetails(nftTokenId, walletAddress, this.nftAddress,this.queryBlockchainId)
+      .nftDetails(nftTokenId, walletAddress, this.nftAddress, this.queryBlockchainId)
       .subscribe(
         (response: any) => {
           this.ngxService.stop();
           this.data = response.data;
 
+          this.asset = this.data.asset;
+          this.getList();
 
           blockjson[environment.configFile].forEach(element => {
-            if(element.blockchainId ==  this.data.blockchainId){
+            if (element.blockchainId == this.data?.blockchainId) {
               this.blockchainInfo = element;
             }
           });
@@ -219,6 +222,9 @@ export class DetailsComponent implements OnInit ,OnDestroy {
           nftId: nftId,
           walletAddress: this.Address,
           signature: status.signature,
+          nftAddress: this.data.nftAddress,
+          blockchainId: this.data.blockchainId,
+          asset: this.asset
         })
         .subscribe((result: any) => {
           if (result.isSuccess) {
@@ -246,6 +252,7 @@ export class DetailsComponent implements OnInit ,OnDestroy {
           id: nftId,
           walletAddress: this.Address,
           signature: status.signature,
+          asset: this.asset
         })
         .subscribe((result: any) => {
           if (result.isSuccess) {
@@ -260,11 +267,9 @@ export class DetailsComponent implements OnInit ,OnDestroy {
 
   onMediaLoad(event, index) {
     if (event && event.target) {
-      // console.log("IMAGE HAS LOADED!");
       this.elementsHasLoaded[index] = true;
     } else {
       this.elementsHasLoaded[index] = false;
-      // console.log("IMAGE HAS NOT LOADED!");
     }
 
     if (event.readyState == 4) {
@@ -283,14 +288,14 @@ export class DetailsComponent implements OnInit ,OnDestroy {
   }
 
   async getList() {
- this.unSubscribeRequest01 = this.getDataService
-      .getListOwners(this.ID, this.Address, this.nftAddress,this.queryBlockchainId)
+    this.unSubscribeRequest01 = this.getDataService
+      .getListOwners(this.ID, this.Address, this.nftAddress, this.queryBlockchainId, this.asset)
       .subscribe((response: any) => {
         if (response.isSuccess) {
 
           this.ownersData = response.data;
-          
-          
+
+
           let i = 0;
           this.ownersData.forEach((value: any, index: any) => {
             if (value.typeOfSale == 1 && this.indexForPurchase == -1) {
@@ -318,19 +323,18 @@ export class DetailsComponent implements OnInit ,OnDestroy {
       'api/refreshData?nftAddress=' +
       this.data.nftAddress +
       '&nftTokenId=' +
-      this.data.nftTokenID;
+      this.data.nftTokenID + '&asset=' + this.asset;
     this.collectionApi.getRequest(url).subscribe((response: any) => {
       this.toastrService.success(
         "We've queued this item for an update! Check back in a minute...."
       );
     });
   }
-  base64Image:any;
+  base64Image: any;
 
-   downloadImages(imageUrl:any){
-     debugger;
+  downloadImages(imageUrl: any) {
+    debugger;
     this.getBase64ImageFromURL(imageUrl).subscribe(base64data => {
-      console.log(base64data);
       this.base64Image = "data:image/jpg;base64," + base64data;
       // save image to disk
       var link = document.createElement("a");

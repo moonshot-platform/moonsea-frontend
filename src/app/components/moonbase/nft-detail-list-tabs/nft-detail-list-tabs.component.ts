@@ -29,6 +29,7 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
   }
 
   ngOnInit(): void {
+    
     blockjson[environment.configFile].forEach(element => {
       if(element.blockchainId ==  this.items?.blockchainId){
         this.blockchainInfo = element;
@@ -41,7 +42,8 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
 
 
   goToProfile(data:any) {
-  let url ="/profile/"+data + "/tab/like"
+    
+  let url ="/profile/"+data;
 
 
     this.router.navigate([url]);
@@ -54,7 +56,6 @@ export class NftDetailListTabsComponent implements OnInit ,OnChanges{
 
     
         this.data = this.response;
-        // console.log("nft details list tabs ==>",this.data);
         let i = 0;
       if(this.data.length > 0){
         this.data.forEach((value: any, index: any) => {

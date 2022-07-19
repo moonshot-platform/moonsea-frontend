@@ -76,12 +76,15 @@ export class NftCardComponent implements OnInit {
     }
     var status:any= await this.contractService.signMsgForLiked(nftId);
     if(status.status ){
-
+    debugger
     this.getDataService.likedNft(
     {
      nftId : nftId,
      walletAddress : localStorage.getItem('address'),
-     signature : status.signature
+     signature : status.signature,
+     nftAddress:this.items.nftAddress,
+     blockchainId:this.items.blockchainId,
+     asset:this.items.asset
     }
     ).subscribe
     ((result:any)=>{
@@ -123,8 +126,8 @@ return false;
     {
      id : nftId,
      walletAddress : localStorage.getItem('address'),
-     signature : status.signature
-
+     signature : status.signature,
+    asset:this.items.asset
     }
     ).subscribe
     ((result:any)=>{
@@ -132,7 +135,6 @@ return false;
       
       if(result.isSuccess){
         this.items.isLikeByYou = 0;
-        console.log( this.items);
       this.toastrService.success(result.message)
 
       this.items.isLikeByYou = 0;
@@ -159,18 +161,16 @@ connectWallet()
 }
 
 gotoDetails(id:any){
-  this.router.navigate(['/details',this.items.nftAddress,id],{ queryParams: { blockchainId: this.items.blockchainId } })
+  this.router.navigate(['/details',this.items.nftAddress,id,this.items.blockchainId ]);
 }
 
 onMediaLoad(event:any,indexx:any){
   
   
   if (event && event.target) {
-    // console.log("IMAGE HAS LOADED!");
     this.isImageLoaded[indexx] = true;
   } else {
     this.isImageLoaded[indexx] = false;
-    // console.log("IMAGE HAS NOT LOADED!");
   }
 }
 }

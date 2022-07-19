@@ -43,6 +43,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dialogRef.close();
+    
   }
 
   ngOnInit(): void {
@@ -72,6 +73,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
       imageUrl: [''],
       numberOfCopies: ['1',[Validators.required,noOfCopies]],
       collectionId: [''],
+      asset:['']
     });
 
     this.addEditNft.get('putOnSale')?.valueChanges.subscribe((value) => {
@@ -103,6 +105,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
         imageUrl: this.data.fileUrl,
         numberOfCopies: this.data.numberOfCopies,
         collectionId: this.data.collectionId,
+        asset:this.data.asset
       });
 
       (this.addEditNft.controls.propertysize as FormArray).clear();
@@ -118,6 +121,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
 
 
     blockjson[environment.configFile].forEach(element => {
+      debugger
       if(element.blockchainId == this.data.blockchainId){
         this.blockchainInfo = element;
       }
@@ -164,11 +168,11 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
     //   this.addEditNft.controls.endDate.value,
     //   'yyyy-MM-ddTHH:mm:ss'
     // );
+    debugger
     if (this.data.isMinted) {
       let url = 'api/UpdateNftToken';
       this._getDataService.postRequest(url, this.addEditNft.value).subscribe(
         (res: any) => {
-          console.log(res);
           if (res.status == 200) {
             this._getDataService.showToastr(res.message, res.isSuccess);
             this.close();

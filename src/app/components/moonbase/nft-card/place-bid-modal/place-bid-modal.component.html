@@ -42,7 +42,7 @@
   </div>
 </div>
 
-<div class="popup popup_bid" *ngIf="!wrongNetwork">
+<div class="popup popup_bid" *ngIf="!wrongNetwork && step == 1">
   <div class="flex justify-space-between">
     <h5 class="orbitron p24 mb20">{{items?.listing?.btnType == 'offer' ? 'Make a Bid' : 'Place Bid'}}</h5>
     <a href="javascript:void(0)" (click)="closeDialog()">
@@ -84,7 +84,7 @@
           <input
             #amount
             class="popup__rate"
-            value="price"
+            [value]="price"
             type="number"
             (keyup)="validatePrice($event)"
             name="bid"
@@ -99,7 +99,7 @@
       price should be greater than inimum bid
     </p>
  
-    <!-- <p class="p12 w-normal mt10 mb10">Minimum Bid {{ price ? price :'Not a number' }}</p> -->
+    <p class="p12 w-normal mt10 mb10" *ngIf="items?.listing?.btnType != 'offer'">Minimum Bid {{ price ? price :'Not a number' }}</p>
 
     <div class="popup__row">
       <div class="popup__col">Your balance</div>

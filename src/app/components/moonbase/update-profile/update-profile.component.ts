@@ -5,6 +5,7 @@ import { Location } from '@angular/common'
 import { GetDataService } from 'src/app/services/get-data.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { Router } from '@angular/router';
+import {ValidateUrl} from './url.validator'
 
 
 @Component({
@@ -52,7 +53,7 @@ export class UpdateProfileComponent implements OnInit {
       customUrl: ['', [Validators.required]],
       bio: [''],
       twitterUsername: [''],
-      portfolioWebsite: [''],
+      portfolioWebsite: ['',[ValidateUrl]],
       emailId: [''],
       facebook: [''],
       discord: [''],
@@ -60,7 +61,6 @@ export class UpdateProfileComponent implements OnInit {
 
     this.cs.getWalletObs().subscribe((data: any) => {
     
-      console.log(this.cs.checkValidAddress(this.userAddress))
       if(this.userAddress != data){
         this.userAddress = data;
         if (!this.cs.checkValidAddress(this.userAddress)) {
@@ -100,7 +100,6 @@ export class UpdateProfileComponent implements OnInit {
     };
 
     this.getDataService.postRequest('api/checkCustomeUrlValidation',data).subscribe((res:any)=>{
-      console.log(res);
       if(res.isSuccess){
         // this.updateProfile.controls.customUrl.setErrors(null);
       }
@@ -164,7 +163,6 @@ export class UpdateProfileComponent implements OnInit {
     this.imagePath = this.userDetails.profilePic;
     this.referralAddress = this.userDetails.referralAddress
 
-console.log(this.userDetails.twitterUsername);
 this.discordUrl = this.userDetails.discord;
 this.twitterUrl = this.userDetails.twitterUsername;
     this.facebookUrl = this.userDetails.facebook;
@@ -184,7 +182,7 @@ this.twitterUrl = this.userDetails.twitterUsername;
 
       };
       this.isButtonDisabled = true;
-
+      this.uploadProfileImage();
     }
   }
 
@@ -210,6 +208,25 @@ this.twitterUrl = this.userDetails.twitterUsername;
         });
     }
    
+  }
+
+  async uploadProfileImageSignature(){
+    let status = await this.cs.createSignature('updating profile picture on moonsea');
+    if(status.status){
+      let obj = {
+        "userWalletAddress" :this.userAddress,
+        "fileUrl" :this.imagePath,
+        "signature" :status.signature
+      };
+      this.getDataService.postRequest('api/updateProfilePhoto',obj).subscribe((res:any)=>{
+        if(res.isSuccess){
+          this.toastrService.success(res.message);
+        }else{
+          this.toastrService.error(res.message);
+        }
+      })
+    }
+  
   }
 
   get f() {

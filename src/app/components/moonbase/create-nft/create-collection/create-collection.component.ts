@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import blockjson from '../../../../../assets/blockchainjson/blockchain.json';
 import { environment } from 'src/environments/environment';
+import { ModelForCreateCollectionComponent } from '../../collections/model-for-create-collection/model-for-create-collection.component';
 
 
 @Component({
@@ -122,7 +123,6 @@ export class CreateCollectionComponent implements OnInit {
     });
 
     this.step03Form = this.formbuider.group({
-      // symbol: ['', [Validators.required]],
       royalties: [
         5,
         [Validators.required,Validators.min(0),Validators.max(10), Validators.pattern('^[0-9]{1,2}?$')],
@@ -133,6 +133,8 @@ export class CreateCollectionComponent implements OnInit {
       isMultiple:[false]
     });
 
+
+    
     
     blockjson[environment.configFile].forEach(element => {
       if(element.blockchainId == this.step03Form.controls.blockchainId.value){
@@ -202,6 +204,14 @@ export class CreateCollectionComponent implements OnInit {
         this.isApiLoading = false;
       });
     }
+  }
+
+
+  openthecreatecollectionModal(){
+    const dialogRef =  this.dialog.open(ModelForCreateCollectionComponent,{ width: 'auto',data:{}});
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 
@@ -295,6 +305,7 @@ export class CreateCollectionComponent implements OnInit {
       categoryId:data.categoryId,
       royaltiesWalletAddress: data.walletAddress,
       isMultiple : data.isMultiple,
+      blockchainId:data.blockchainId
     })
   }
 
@@ -566,11 +577,21 @@ export class CreateCollectionComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  setTypeOfSale() {
-    // console.log(this.step04Form.get('putOnSale')?.value);
-
-    // console.log(this.step04Form.get('typeOfSale')?.value);
+  checkValidaation(value:any){
+    if(parseInt(value)>0){
+      this.step03Form.controls.royaltiesWalletAddress.setValidators([Validators.required]);
+      this.step03Form.controls.royaltiesWalletAddress.updateValueAndValidity();
+      
+    }
+    else{
+      this.step03Form.get('royaltiesWalletAddress').clearValidators();
+      this.step03Form.get('royaltiesWalletAddress').updateValueAndValidity();
+    }
     
+  }
+
+  setTypeOfSale() {
+   
 
     if (this.step04Form.get('putOnSale')?.value) {
       if (this.step04Form.get('typeOfSale')?.value == 1) {

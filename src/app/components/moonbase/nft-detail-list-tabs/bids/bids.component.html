@@ -48,7 +48,7 @@
       <div class="item__name" *ngIf="item.name">
         <a [routerLink]="['/profile',item?.customeUrl]" routerLinkActive="router-link-active" >{{ item.name }}</a>
       </div>
-      <div class="item__name" [routerLink]="['/profile',item?.customeUrl]" *ngIf="!item.name">unknown</div>
+      <div class="item__name" [routerLink]="['/profile',item?.customeUrl]" *ngIf="!item.name">Anonymous</div>
     <!-- <button *ngIf="items.isListed && item.isAccepted == 0 && (item.isShowAcceptButton || item.typeOfSale==3)" class="button-stroke item__button" (click)="openDialog(i)"  data-effect="mfp-zoom-in">Accept</button> -->
     
     <button

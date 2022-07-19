@@ -185,7 +185,8 @@ export class PurchaseNowModalComponent implements OnInit {
    
   }
   gotoTestNetBscScan(txnHash: any) {
-    let url = environment.bscTestnetScan + txnHash;
+    let url =`${this.blockchainInfo.exploreUrl}tx/${txnHash}`;
+    // let url = environment.bscTestnetScan+txnHash;
     window.open(url, "_blank");
   }
 }
