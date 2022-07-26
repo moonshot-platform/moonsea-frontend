@@ -88,7 +88,7 @@
             </button>
           </ng-template>
           <ng-template matTabContent>
-            <app-step1></app-step1>
+            <app-step1 ></app-step1>
           </ng-template>
         </mat-tab>
         <mat-tab [disabled]="isSelected(1)">
@@ -109,7 +109,7 @@
             </button>
           </ng-template>
           <ng-template matTabContent>
-            <app-step2 ></app-step2>
+            <app-step2 [collectionName]="collectionName" [collectionId]="collectionId"></app-step2>
           </ng-template>
         </mat-tab>
 
@@ -121,7 +121,7 @@
             </button>
           </ng-template>
           <ng-template matTabContent>
-              <app-step3 ></app-step3>
+              <app-step3 [collectionId]="collectionId"></app-step3>
           </ng-template>
         </mat-tab>
 

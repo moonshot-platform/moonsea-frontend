@@ -166,7 +166,7 @@
           <div class="flex justify-space-between mt10 mb10">
             <span class="upload__text text-dark"> Service fee {{serviceFees}}% </span>
             <span class="p12"> You will receive
-              {{ f.minimunBid?.value - (f.minimunBid?.value * serviceFees) / 100 }}
+              {{ f.minimunBid?.value - (f.minimunBid?.value * serviceFees) / 100 | dicimalTransform}}
             </span>
           </div>
         </div>

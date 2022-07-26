@@ -81,7 +81,9 @@ export class PlaceBidModalComponent implements OnInit {
       // chainIdd = parseInt(chainIdd);
       // chainIdd = chainIdd.toString(16);
       debugger
+    try {
       let switchNetwork = this.contractService.switchNetwork(chainIdd);
+
       switchNetwork.then(
         (res: any) => {
           if (res == 'doneeeeee') {
@@ -94,11 +96,18 @@ export class PlaceBidModalComponent implements OnInit {
         (err: any) => {
           this.wrongNetwork = true;
           this.step = 0;
+          console.log(err);
+          
         }
       ).catch((e:any)=>{
         console.log(e);
         
       })
+    } catch (error) {
+      console.log(error);
+      
+    }
+      
     } else {
       this.wrongNetwork = false;
       this.step = 1;

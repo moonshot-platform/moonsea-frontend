@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,7 @@ import { GetDataService } from 'src/app/services/get-data.service';
 })
 export class Step1Component implements OnInit,OnDestroy {
 
+// @Input() myCollection: any =[];
 myCollection: any =[];
 connectedAddress: any;
 unSubscribeRequest:Subscription;
@@ -112,7 +113,8 @@ openDialogImportCollection(): void {
  
 }
 
-getmyCollectionList() {
+  async getmyCollectionList() {
+    this.myCollection = [];
   this.ngxLoader.start();
   this.unSubscribeRequest = this.homeService.myCollectionList(this.connectedAddress).subscribe((response: any) => {
     if(response.status == 200){
@@ -138,7 +140,12 @@ getmyCollectionList() {
   },(err:any)=>{
     this.ngxLoader.stop();
   });
+
 }
+
+
+
+
 
   async edit(item:any){
     let dialogRef :any;

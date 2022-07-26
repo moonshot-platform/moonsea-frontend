@@ -7,7 +7,7 @@
 
       <a class="mobile-only button text-inherit bg-primary button mt-auto filter_button" (click)="toggleMobile()">
         Filter NFT's
-        <span>2</span>
+        <span>{{selectedPropertiesCoutn}}</span>
       </a>
 
       <a class="desktop-only button lg-height-button text-inherit bg-primary button mt-auto" (click)="toggle()">
@@ -82,6 +82,7 @@
 
 <ng-container>
   <div class="filter-menu" [ngClass]=" expandedMobile ? 'fadeInDown filterMobile' : 'hidediv'">
+    <div class="closebutton_ew"><button type="button" (click)="toggleMobile()">close</button></div>
     <!-- properties -->
     <div class="landing-flex p-0">
       <div class="field">

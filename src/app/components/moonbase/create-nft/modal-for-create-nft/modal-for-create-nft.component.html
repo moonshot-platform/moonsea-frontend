@@ -106,7 +106,7 @@
   <div class="popup popup_wallet" id="popup-signature">
     <div class="heading_12">
       <div class="">
-        <h5 class="orbitron p24 mb20" *ngIf="!wrongNetwork">Follow steps {{mintingSteps}}/{{this.data.details.putOnSale ? '3' : '1'}}</h5>
+        <h5 class="orbitron p24 mb20" *ngIf="!wrongNetwork"> Step {{mintingSteps}}/{{this.data.details.putOnSale ? '3' : '1'}}</h5>
       </div>
       <div class="">
         <a href="javascript:void(0)"  (click)="closeDialog()">
@@ -157,7 +157,7 @@
           </div>
           <div class="steps__details">
             <div class="steps__info">Upload files & Mint token</div>
-            <div class="steps__text">Call contract method</div>
+            <div class="steps__text">Calling contract method</div>
           </div>
         </div>
         <button class="button dark-button wp100" [disabled]="isdisabledDoneBtn" (click)="checkNetwork()">
@@ -178,7 +178,7 @@
           </div>
           <div class="steps__details">
             <div class="steps__info">Start Sale</div>
-            <div class="steps__text">Start sell by approving this transaction</div>
+            <div class="steps__text">Start the sell by approving this transaction</div>
           </div>
         </div>
         <button [disabled]="signatureStatus!=1 || rejectedMetamask" [ngClass]="{'disabled': signatureStatus!=1}" class="button dark-button wp100" (click)="startSale()">{{startSaleButton}}</button>
@@ -197,7 +197,7 @@
            </div>
           <div class="steps__details">
             <div class="steps__info">Sign sell order</div>
-            <div class="steps__text">Sign sell order using your wallet</div>
+            <div class="steps__text">Sign your sell order using your wallet</div>
           </div>
         </div>
         <button [disabled]=" rejectedMetamask" *ngIf="signSellorderButton != 'Done'" [ngClass]="{'disabled': signatureStatus!=2}" class="button dark-button wp100" (click)="signSellOrder()">

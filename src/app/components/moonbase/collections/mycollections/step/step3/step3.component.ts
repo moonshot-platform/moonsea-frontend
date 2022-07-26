@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -29,12 +29,14 @@ export class Step3Component implements OnInit, OnDestroy {
   imageUrl: string =
     'https://moonboxes.io/assets/media/images/astro_painter.svg';
   typeOfNft: any;
-  collectionId: any;
+  @Input() collectionId: any;
   nftList: any = [];
   collectionDetails: any = {};
   dialogRef: any;
   unSubscribeRequest01: Subscription;
-
+  currentPage:any = 1;
+  itemsPerPage :any = 20;
+  total :any ;
   constructor(
     private route: Router,
     private _activatedRoute: ActivatedRoute,
@@ -60,9 +62,10 @@ export class Step3Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this._activatedRoute.queryParams.subscribe((res: any) => {
-      this.collectionId = res.collectionId;
-    });
+    // this._activatedRoute.queryParams.subscribe((res: any) => {
+    //   this.collectionId = res.collectionId;
+    // });
+    
 
     this.getNftList();
     this.getCollectionDetails();
@@ -71,11 +74,12 @@ export class Step3Component implements OnInit, OnDestroy {
   getNftList() {
     this.ngxLoader.start();
     let url =
-      'api/getCollectionIdWiseNftList?collectionId=' + this.collectionId;
+      'api/getCollectionIdWiseNftList?collectionId=' + this.collectionId+'&pageNo='+this.currentPage+'&PageSize='+this.itemsPerPage;
     this.unSubscribeRequest = this._getDataService.getRequest(url).subscribe(
       (res: any) => {
         if (res.status == 200) {
           this.nftList = res.data;
+          this.total = res.totalCount;
           this.ngxLoader.stop();
         } else {
           this.ngxLoader.stop();
@@ -85,6 +89,11 @@ export class Step3Component implements OnInit, OnDestroy {
         this.ngxLoader.stop();
       }
     );
+  }
+
+  pageChanged(page:any){
+    this.currentPage = page;
+    this.getNftList();
   }
   getCollectionDetails() {
     let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;

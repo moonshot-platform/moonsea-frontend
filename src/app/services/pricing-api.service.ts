@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PricingApiService {
-  bnbPriceInUsd =400;
-  serviceFees = 2.5;
+  bnbPriceInUsd = 0;
+  serviceFees = 0;
   constructor(private httpClient: HttpClient) {
 
    }

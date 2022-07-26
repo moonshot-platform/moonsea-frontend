@@ -59,7 +59,7 @@
       </div>
       <div class="flex2 upload__wrapper">
         <div class="grid grid-2 row-gap">
-          <div *ngFor="let item of nftList" class="border-bottom flex justify-space-between">
+          <div *ngFor="let item of nftList| paginate: { id: 'fool',itemsPerPage: itemsPerPage, currentPage: currentPage , totalItems: total }" class="border-bottom flex justify-space-between">
             <div class="pt30 pb30 text-left wp100">
               <div class="flex text-primary">
                 <a [routerLink]="['/details',item.nftAddress,item.nftTokenID,item.blockchainId]" routerLinkActive="router-link-active">
@@ -110,6 +110,10 @@
               </div>
             </div>
           </div>
+         
+        </div>
+        <div class="mrt-10">
+          <pagination-controls  id="fool" (pageChange)="pageChanged($event)"></pagination-controls>
         </div>
       </div>
     </div>

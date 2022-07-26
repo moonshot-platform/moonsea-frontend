@@ -90,7 +90,7 @@ export class NavComponent implements OnInit {
     private ngZone: NgZone,
     private dialog: MatDialog,
     private tokenomicsService: TokenomicsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -326,7 +326,7 @@ export class NavComponent implements OnInit {
 
   Disconnect() {
     localStorage.clear();
-    // this.cs.setWalletObs(new Object());
+    this.cs.setWalletObs(null);
     this.route.navigate(['']);
     this.getUser = '';
     this.notifyCount = '';

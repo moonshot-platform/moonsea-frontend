@@ -278,10 +278,17 @@ export class AllcollectionComponent implements OnInit {
   }
 
   toppings02 = new FormControl('');
+  selectedPropertiesCoutn = 0;
 
   propertiesSelection02(key: any,indexing:any){
+    this.selectedPropertiesCoutn = 0;
     this.foo[indexing] = this.toppings02.value;
-    
+ 
+    this.foo.forEach((element:any) => {
+        if(element.length>0){
+          this.selectedPropertiesCoutn = this.selectedPropertiesCoutn + element.length;
+        }
+    });
     let value: any = [];
     let keys: any = [];
     this.foo.filter(function (el: any) {

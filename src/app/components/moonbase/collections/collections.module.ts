@@ -17,7 +17,7 @@ import { ModelForCreateCollectionComponent } from './model-for-create-collection
     SharedModule,
     MatSelectModule,
     FormsModule,  
-    MatTabsModule
+    MatTabsModule,
   ],
   declarations: [
 
