@@ -9,8 +9,7 @@ import { Step3Component } from '../mycollections/step/step3/step3.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SharedModule } from '../../commanShared/shared/shared.module';
 import {MatTabsModule} from '@angular/material/tabs';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -27,7 +26,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     LazyLoadImageModule,
     SharedModule,
     MatTabsModule,
-    // AppRoutingModule
+    NgxPaginationModule
   ]
 })
 export class CollectionModule { 

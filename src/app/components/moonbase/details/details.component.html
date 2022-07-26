@@ -192,12 +192,12 @@
         </a>
        Created by
         <a  class="item__description owner_name text-primary inline-flex " [routerLink]="['/profile', data?.customeUrl]">
-          {{ data?.name }}
+          {{ data?.createdByName ? data?.createdByName: 'Anonymous' }}
         </a>
-        <a href="javascript:void(0);" *ngIf="!data?.name" class="item__description owner_name text-primary inline-flex ">
-          Anonymouse  
-        </a>
-        <p>Owned by <a [routerLink]="['/profile',ownersData[0]?.ownerAddress]" routerLinkActive="router-link-active" >{{data?.ownerName ? data?.ownerName: 'Anonymouse'}}</a></p>
+        <!-- <a href="javascript:void(0);" *ngIf="!data?.createdByName" class="item__description owner_name text-primary inline-flex ">
+          Anonymous
+        </a> -->
+        <p>Owned by <a [routerLink]="['/profile',ownersData[0]?.ownerAddress]" routerLinkActive="router-link-active" >{{data?.ownerName ? data?.ownerName: 'Anonymous'}}</a></p>
         <p class="text-primary p18">{{ data?.created }}</p>
         <div *ngIf="!(indexForPlaceBid == -1 && indexForPurchase == -1)" class="item__cost p16 pt20 mt20 border-top justify-space-between">
           <p class="text-primary">

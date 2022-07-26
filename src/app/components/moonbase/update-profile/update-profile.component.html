@@ -102,7 +102,7 @@
                       <!-- <span role="img" aria-label="hooray">🙌</span> -->
                     </div>
                     <div class="details__file">
-                      <button type="button" (click)="uploadProfileImageSignature()" class="button bg-primary w-normal">
+                      <button type="button" [disabled]="!imagePath" (click)="uploadProfileImageSignature()" class="button bg-primary w-normal">
                         Upload
                       </button>
                       <!-- <button

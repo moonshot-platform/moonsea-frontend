@@ -39,18 +39,11 @@ export class ContractService {
   exchangeAbiContract: any;
   private walletDetails$: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  nft721Address = '0x5490ba86C008E225a3C743DAe2f457D85f6Fa36d';
-  nft1155Address = '0xCf63B0eEC837225741f7aa92746Fd28b29Aeec6D';
-  exchangeV1Address = '0xF5cfd3d3Fa685b2b76C65cf62ccc0c34285a228e';
-  transaferProxy = '0x7362143D37b0626B74F07c42fE58D02Fa1aE23ae';
-  erc20TransferProxy = '0x690F7Fc4FE8a182D1C96a26Ef1151716a89ec5cA';
-
-  // mew wallet
-  //   mew = mewModule();
-  //   onboard = Onboard({
-  //   wallets: [this.mew],
-  //   chains: []
-  // });
+  nft721Address :any;
+  nft1155Address :any;
+  exchangeV1Address :any;
+  transaferProxy :any;
+  erc20TransferProxy :any;
 
   chainId: any;
 
@@ -189,7 +182,7 @@ export class ContractService {
           resolve('doneeeeee');
         })
         .catch((err: any) => {
-          reject('errrrrrrrrr');
+          reject(err);
         });
     });
 
@@ -1119,6 +1112,7 @@ export class ContractService {
   }
 
   async getTokenBalance(tokenAddress: any) {
+  try {
     let tokenContract = new ethers.Contract(
       tokenAddress,
       erc20Abi,
@@ -1132,6 +1126,10 @@ export class ContractService {
       console.log(e);
       return { balance: 0, status: false, decimals: 0 };
     }
+  } catch (error) {
+    console.log(error);
+    return { balance: 0, status: false, decimals: 0 };
+  }
   }
 
   //token payment

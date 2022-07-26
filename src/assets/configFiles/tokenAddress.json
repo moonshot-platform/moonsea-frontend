@@ -29,13 +29,13 @@
     {
         "chainId":"0x13881",
         "ETH":"",
-        "WETH":"",
-        "nfterc721":"0xf0307DB80662622e468109dB3BdfE6689044C669",
-        "nfterc1155":"0x5DaDB19096dDe9CEAd5156575bf5fe2C3E7ae8AB",
-        "exchangeAddress":"0xFBaEAf1bA0ddF40DA6b828deDDD4c7E0D071c332",
-        "transferProxy":"0xbbF21272ED061c1A8e3CFE1ebE9B4A761743ea58",
-        "erc20TransferProxy" : "0xd2A17543E1cC34Bdf9C2cCF08F445eedD13a518c",
-        "transferProxyD":"0x2781e305aa0A786dE5e9a8d1329F5Ea6a4060F6B"
+        "WETH":"0x3cEA7596050334e69e68234Becc3055D60B84611",
+        "nfterc721":"0x21F28de20e89a617520fdCD6E73D96199E32fF6d",
+        "nfterc1155":"0x3f3D504CeA77764CffBd94126C046c07dD303b5F",
+        "exchangeAddress":"0xcA66A4a9Bea9EA96f3F281d784ae6Bd5C39940d9",
+        "transferProxy":"0x2df1a0777e6884F41df9d7DF83bd89b3943e916e",
+        "erc20TransferProxy" : "0xAD4723F864374c6d96f30b66D8Fd33384a461AF4",
+        "transferProxyD":"0x859D6f872DC43290542f6606EBcfE7331ce5E2cd"
     },
     {
         "chainId":"0x507",

@@ -91,7 +91,7 @@ export class ModalForCreateNftComponent implements OnInit {
     debugger
     try {
       var status: any;
-      this.mintStatusText = 'Waiting for submission';
+      this.mintStatusText = 'Waiting for confirmation';
 
       if (this.data.details.isMultiple == false) {
         debugger

@@ -8,13 +8,8 @@ import { IntroComponent } from './intro/intro.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularCountdownDateTimeModule } from 'angular-countdown-date-time';
-import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { InfoComponent } from './info/info.component';
-import { CollectionsComponent } from './collections/collections.component';
-import { MatSliderModule } from '@angular/material/slider';
-import {MatTooltipModule} from '@angular/material/tooltip';
 import { ConnectWalletComponent } from './connect-wallet/connect-wallet.component';
 import { CreateCollectionComponent } from './create-nft/create-collection/create-collection.component';
 import { ModalForCreateNftComponent } from './create-nft/modal-for-create-nft/modal-for-create-nft.component';
@@ -41,7 +36,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { WalletConnectComponent } from './wallet-connect/wallet-connect.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import { AcceptBidPopupComponent } from './nft-detail-list-tabs/bids/accept-bid-popup/accept-bid-popup.component';
@@ -92,7 +86,7 @@ import { LandingSearchComponent } from './landing/landing-search/landing-search.
 import { SharedModule } from './commanShared/shared/shared.module';
 import { DicimalTransformPipe } from './details/dicimal-transform.pipe';
 
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -103,7 +97,6 @@ import { DicimalTransformPipe } from './details/dicimal-transform.pipe';
     FooterComponent,
     InfoComponent,
     AvatarComponent,
-    CollectionsComponent,
     NftCardComponent,
     CountDownComponent,
     ChooseNfttypeComponent,
@@ -172,12 +165,8 @@ import { DicimalTransformPipe } from './details/dicimal-transform.pipe';
     MoonbaseRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    AngularCountdownDateTimeModule,
-    ShareButtonsModule,
     ShareIconsModule,
     SwiperModule,
-    MatSliderModule,
-    MatTooltipModule,
     DateTimePickerModule,
     NavModule,
     NiceSelectModule ,
@@ -186,14 +175,14 @@ import { DicimalTransformPipe } from './details/dicimal-transform.pipe';
     MatExpansionModule,
     MatCheckboxModule,
     MatDialogModule,
-    NgApexchartsModule,
     MatSelectModule,
     MatButtonModule,
     ShareModule,
     MatStepperModule,
     MatTabsModule,
     LazyLoadImageModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule
   ],
   exports : [
     LandingIntroComponent,

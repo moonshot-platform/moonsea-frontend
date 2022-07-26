@@ -1,5 +1,5 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -31,10 +31,10 @@ export class Step2Component implements OnInit {
   progressInfos: any[] = [];
   message: string[] = [];
   fileInfos?: Observable<any>;
-  collectionName: any = "";
-  collectionId: any;
+  @Input() collectionName: any = "";
+  @Input()collectionId: any;
   imageUploadignStatus: boolean = false;
-  uploadBatchCnt = 1;
+  uploadBatchCnt = 0;
   collectionDetails: any = {};
   imDoneUploadingButton: boolean;
   isImgLoaded: boolean = false;
@@ -52,12 +52,15 @@ export class Step2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._activatedRoute.queryParams.subscribe(
-      (res: any) => {
-        this.collectionName = res.collectionName;
-        this.collectionId = res.collectionId;
-      }
-    );
+    // this._activatedRoute.queryParams.subscribe(
+    //   (res: any) => {
+    //     this.collectionName = res.collectionName;
+    //     this.collectionId = res.collectionId;
+    //     if(Object.keys(res).length > 0){
+    //       this.getCollectionDetails();
+    //     }
+    //   }
+    // );
     this.signature = sessionStorage.getItem('createCollectionSignature');
     this.getCollectionDetails();
   }
@@ -86,6 +89,10 @@ export class Step2Component implements OnInit {
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
 
+    if(this.selectedFiles.length > 100){
+      this.toastr.error(`Maximum 100 files are allowed to upload at a time.`);
+      return;
+    }
 
     this.uploadFiles();
   }
