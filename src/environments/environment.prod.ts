@@ -5,7 +5,7 @@ export const environment = {
   // apiUrl:'https://207.244.245.15/moonsea/api/',
   apiUrl:'https://moonsea.io/moonsea/api/',
   defaultProfilePic : "img/profile.png",
-  configFile : 'testnet',
+  configFile : 'mainnet',
   bscTestnetScan:"https://testnet.bscscan.com/tx/",
   paginationSize :12,
   tockenUri:'https://moonsea.io/moonsea/api/api/Metadata/'
