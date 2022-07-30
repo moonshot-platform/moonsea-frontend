@@ -1,80 +1,221 @@
+<div class="popup">
+  <div class="flex justify-space-between">
+    <h5 class="orbitron p24 mb20">List item for sale</h5>
+    <a href="javascript:void(0)" (click)="close()">
+      <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1"
+        viewBox="0 0 27 27" height="24px" width="24px">
+        <title>Close</title>
+        <desc>Created with Sketch.</desc>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <path
+            d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+            id="Combined-Shape" fill="#000000"></path>
+        </g>
+      </svg></a>
+  </div>
+  <div class="popup__info" *ngIf="wrongNetwork">
+    <div class="steps__info">An error occured while interacting with your wallet. Please try again.</div>
 
-<div mat-dialog-content>
-  <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)" #formData="ngForm">
+    <button class="button steps__button done" (click)="checkNetwork()">Try again</button>
+  </div>
+  <form class="needs-validation" [formGroup]="createNftForm" (ngSubmit)="addListingSave(formData.value)"
+    #formData="ngForm" *ngIf="!wrongNetwork">
+    <!-- <div class="popup__info">
+      Do you really want to list your item from sale? You can remove it from
+      sale anytime
+    </div> -->
 
-    <div class="orbitron p24 mb20">Add in listing</div>
-          <div class="popup__note">Do you really want to list your item from sale? You can remove it from sale anytime</div>
-          
-          
-          <div class="upload__fieldset">
-            <div class="field">
-              <div class="checkbox">
-                <label class="checkbox-wrapper">
-                  <input type="radio" value="1" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" checked/>
-                  <span class="checkbox-tile">
-                    <span class="checkbox-icon">
-                    
-                    </span>
-                    <span class="checkbox-label">Fixed Price</span>
-                  </span>
-                </label>
-              </div>
-              <div class="checkbox">
-                <label class="checkbox-wrapper">
-                  <input type="radio" value="3" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" />
-                  <span class="checkbox-tile">
-                    <span class="checkbox-icon">
-                    </span>
-                    <span class="checkbox-label">Open for bids</span>
-                  </span>
-                </label>
-              </div>
-             
-              </div>
-              <div class="fixedPriceDetails" *ngIf="f.typeOfSale.value === '1'">
-                <div class="field">
-                    <div class="field__label">Price</div>
-                    <div class="field__wrap">
-                      <input class="field__input"  [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }" formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB" required>
-                    </div>
-                    <div class="label">Service fee 2.5% <br>
-                        You will receive {{f.fixedPrice?.value-(f.fixedPrice?.value*2.5/100)}}  </div>
-                  </div>
-              </div>
+    <div class="upload__fieldset">
+      <div class="flex gap flex-wrap wp100 mb20">
+        <div>
+          <label class="checkbox-wrapper">
+            <input type="radio" value="1" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input"
+              checked />
+            <span class="checkbox-tile">
+              <span class="checkbox-icon"> </span>
+              <span class="upload__category p14 ml10">Fixed Price</span>
+            </span>
+          </label>
+        </div>
+        <!-- <div>
+          <label class="checkbox-wrapper">
+            <input type="radio" value="2" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input"
+              checked />
+            <span class="checkbox-tile">
+              <span class="checkbox-icon"> </span>
+              <span class="upload__category p14 ml10">Timed Auction</span>
+            </span>
+          </label>
+        </div> -->
+        <div>
+          <label class="flex align-center wp100">
+            <input type="radio" value="3" name="typeOfSale" formControlName="typeOfSale" class="checkbox-input" />
+            <span class="checkbox-tile">
+              <span class="checkbox-icon"> </span>
+              <span class="upload__category p14 ml10">Open for bids</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="fixedPriceDetails" *ngIf="f.typeOfSale.value === '1'">
+        <div class="field">
+          <div class="popup__col mb10 p12">Price</div>
+          <div class="field__wrap flex align-center">
+            <ng-container *ngIf="this.data.blockchainId == 1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
+                style="height: 25px;width: 25px;margin-right: 10px;">
+                <g fill="#f3ba2f">
+                  <path
+                    d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z">
+                  </path>
+                  <path
+                    d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11">
+                  </path>
+                </g>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="this.data.blockchainId == 2">
+              <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" xml:space="preserve"
+                style="enable-background: new 0 0 35 40;width: 30px;margin-left: -5px;">
+                <style type="text/css">
+                  .svg-grey {
+                    fill: #8c8c8c !important;
+                  }
+
+                  .svg-grey-light {
+                    fill: #404040 !important;
+                  }
+
+                  .svg-grey-dark {
+                    fill: #333333 !important;
+                  }
+                </style>
+                <g>
+                  <polygon points="20,8 12.6,20.2 20,16.8 	" class="svg-grey"></polygon>
+                  <polygon points="20,16.8 12.6,20.2 20,24.6 	" class="svg-grey-light"></polygon>
+                  <polygon points="27.4,20.2 20,8 20,16.8 	" class="svg-grey-dark"></polygon>
+                  <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+                  <polygon points="12.6,21.6 20,32 20,26 	" class="svg-grey-light"></polygon>
+                  <polygon points="20,32 27.4,21.6 20,26 	" class="svg-grey-dark"></polygon>
+                </g>
+              </svg>
+            </ng-container>
 
 
-              <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '3'">
-                <div class="field">
-                    <div class="field__label">Minimum bid</div>
-                    <div class="field__wrap">
-                      <input class="field__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }" formControlName="minimunBid"  type="text" name="price" placeholder="e. g. Price 1 BNB" required>
-                    </div>
-                    <div class="label">Bids below this amount won’t be allowed. </div>
-                  </div>
-              </div>
+            <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.fixedPrice.errors }"
+              formControlName="fixedPrice" #fixedprice type="text" name="price" placeholder="e. g. Price 1 BNB"
+              required />
+          </div>
+          <div class="flex justify-space-between mt10 mb10">
+            <span class="upload__text text-dark"> Service fee {{serviceFees}}% </span>
+            <span class="p12"> You will receive
+              {{ f.fixedPrice?.value - (f.fixedPrice?.value * serviceFees) / 100 }}
+            </span>
+          </div>
+        </div>
+      </div>
 
-              <div class="field">
-                <div class="field__label">Currency</div>
-                <div class="field__wrap">
-                  <select nice-select class="select" formControlName="currencyId" #currencyId>
-                              
-                    <option *ngFor="let itemcur of currencyList;" [value]="itemcur.id">
-                      
-                      {{itemcur.name}}
-                    </option>  
-                  </select>
-                </div>
-              </div>
-             
+      <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '3'">
+        <div class="field">
+          <div class="popup__col mb10 p12">Minimum bid</div>
+          <div class="field__wrap flex align-center">
+            <ng-container *ngIf="this.data.blockchainId == 1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
+                style="height: 25px;width: 25px;margin-right: 10px;">
+                <g fill="#f3ba2f">
+                  <path
+                    d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z">
+                  </path>
+                  <path
+                    d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11">
+                  </path>
+                </g>
+              </svg>
+            </ng-container>
+            <ng-container *ngIf="this.data.blockchainId == 2">
+              <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40" xml:space="preserve"
+                style="enable-background: new 0 0 35 40;width: 30px;margin-left: -5px;">
+                <style type="text/css">
+                  .svg-grey {
+                    fill: #8c8c8c !important;
+                  }
+
+                  .svg-grey-light {
+                    fill: #404040 !important;
+                  }
+
+                  .svg-grey-dark {
+                    fill: #333333 !important;
+                  }
+                </style>
+                <g>
+                  <polygon points="20,8 12.6,20.2 20,16.8 	" class="svg-grey"></polygon>
+                  <polygon points="20,16.8 12.6,20.2 20,24.6 	" class="svg-grey-light"></polygon>
+                  <polygon points="27.4,20.2 20,8 20,16.8 	" class="svg-grey-dark"></polygon>
+                  <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+                  <polygon points="12.6,21.6 20,32 20,26 	" class="svg-grey-light"></polygon>
+                  <polygon points="20,32 27.4,21.6 20,26 	" class="svg-grey-dark"></polygon>
+                </g>
+              </svg>
+            </ng-container>
+            <input class="popup__input" [ngClass]="{ 'is-invalid': submitted && f.minimunBid.errors }"
+              formControlName="minimunBid" type="text" name="price" placeholder="e. g. Price 1 BNB" required />
+          </div>
+          <div class="flex justify-space-between mt10 mb10">
+            <span class="upload__text text-dark"> Service fee {{serviceFees}}% </span>
+            <span class="p12"> You will receive
+              {{ f.minimunBid?.value - (f.minimunBid?.value * serviceFees) / 100 | dicimalTransform}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="TimeAuctionDetails" *ngIf="f.typeOfSale.value === '2'">
+        <div class="field">
+          <div class="popup__col mb10 p12">Timed Auction</div>
+          <div class="field__wrap flex align-center">
+            <ejs-datetimepicker [ngClass]="{ 'is-invalid': submitted && f.startingDate.errors }" name="startingDate"
+              placeholder="Select a date" formControlName="startingDate" [value]="dateValue"></ejs-datetimepicker>
+          </div>
+          <div class="error_validation" *ngIf="f.startingDate.invalid && (f.startingDate.touched || formData.submitted)">
+            Timed Auction date required.
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="popup__col mb10 p12">No of Days Auction</div>
+          <div class="field__wrap flex align-center">
+
+            <select nice-select class="select" formControlName="noOfDaysAuction">
+              <option [ngValue]="3">3 Days</option>
+              <option [ngValue]="7">7 Days</option>
+              <option [ngValue]="14">14 Days</option>
+            </select>
 
           </div>
+        </div>
+      </div> -->
 
-          <div class="popup__btns">
-            <button class="button popup__button js-popup-close" type="submit">Add now
-              <div class="loader text-white" *ngIf="isApiLoading"></div>
-            </button>
-            <button class="button" (click)="onNoClick()" class="button-stroke popup__button js-popup-close">Cancel</button>
-          </div>
-        </form>
+      <!-- <div class="field">
+        <div class="popup__col mb10 p12">Currency</div>
+        <div class="field__wrap">
+          <select  class="select" formControlName="currencyId" [attr.disabled]="true ? true:null">
+            <option *ngFor="let item of currencyList" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="popup__btns">
+      <button class="button text-inherit dark-button mb10 wp100" type="submit">
+        {{ btnText }}
+        <div class="loader text-white" *ngIf="isApiLoading"></div>
+      </button>
+      <button (click)="onNoClick()" type="button" class="button wp100">
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>
-

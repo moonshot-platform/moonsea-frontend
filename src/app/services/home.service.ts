@@ -23,9 +23,9 @@ export class HomeService {
     return this.httpClient.post(environment.apiUrl + 'api/collectionSave/', data);
   }
 
-  getStats(blockchainId:any): Observable<any> {
+  getStats(blockchainId:any,serachText:any,pageNo:any,PageSize:any): Observable<any> {
 
-    return this.httpClient.get(environment.apiUrl +'api/getStats?blockchainId='+blockchainId);
+    return this.httpClient.get(environment.apiUrl +'api/getStats?serachText='+serachText+'&blockchainId='+blockchainId+'&pageNo='+pageNo+'&PageSize='+PageSize);
 }
 
 
@@ -63,9 +63,9 @@ getDiscoverNFTList(walletAddress: any,type: any,orderBy :any,priceRange:any,size
     return this.httpClient.get(environment.apiUrl +'api/getMyCollectionByAddress?walletAddress='+walletAddress);
   }
 
-  getOtherCollections(contractaddress:any): Observable<any> {
+  getOtherCollections(contractaddress:any,blockchainId:any): Observable<any> {
 
-    return this.httpClient.get(environment.apiUrl +'api/importAnExixtingSmartContract?contractAddress='+contractaddress);
+    return this.httpClient.get(environment.apiUrl +'Script/importOtherContract?contractAddress='+contractaddress+'&blockchainId='+blockchainId);
 
   }
  
@@ -85,5 +85,9 @@ getDiscoverNFTList(walletAddress: any,type: any,orderBy :any,priceRange:any,size
 
   getTopCollectionlist(){
     return this.httpClient.get(environment.apiUrl+'home/topCollectionList');
+  }
+
+  getRequest(url:any){
+    return this.httpClient.get(environment.apiUrl+url);
   }
 }

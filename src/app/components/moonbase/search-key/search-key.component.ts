@@ -121,11 +121,9 @@ export class SearchKeyComponent implements OnInit {
           this.discoverNFTList = res.data;
           this.isApiLoading = false;
         } else {
-          console.log(res);
         }
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -138,10 +136,8 @@ export class SearchKeyComponent implements OnInit {
           this.dicoverCollectionList = res.data;
           
         }else{
-          console.log(res.message);
         }
       },(err)=>{
-        console.log(err);
       }
     )
   }
@@ -162,7 +158,6 @@ export class SearchKeyComponent implements OnInit {
   }
 
   clearSearch(){
-    debugger;
     this.router.navigate(['/searchcollection'],{queryParams:{searchKey:""}});  
   }
 
@@ -192,7 +187,6 @@ export class SearchKeyComponent implements OnInit {
           if(response.isSuccess)
           {
             this.categotyList = response.data;
-            console.log("@@@@@@@@=>",this.categotyList);
           }
         }
       );

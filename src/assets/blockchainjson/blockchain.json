@@ -1,0 +1,70 @@
+{
+    "testnet": [
+        {
+            "blockchainId": 1,
+            "name": "binance",
+            "symbol": "BNB",
+            "wsymbol":"WBNB",
+            "exploreUrl": "https://testnet.bscscan.com/",
+            "chainId": 56
+        },
+        {
+            "blockchainId": 2,
+            "name": "Ethereum",
+            "symbol": "ETH",
+            "wsymbol":"WETH",
+            "exploreUrl": "https://rinkeby.etherscan.io/",
+            "chainId": 1
+        },
+        {
+            "blockchainId": 3,
+            "name": "Polygon",
+            "symbol": "MATIC",
+            "wsymbol":"WMATIC",
+            "exploreUrl": "https://mumbai.polygonscan.com/",
+            "chainId": 137
+        },
+        {
+            "blockchainId": 4,
+            "name": "Moonriver",
+            "symbol": "MOVR",
+            "wsymbol":"WMOVR",
+            "exploreUrl": "https://blockscout.moonriver.moonbeam.network/",
+            "chainId": 1285
+        }
+    ],
+    "mainnet":[
+        {
+            "blockchainId": 1,
+            "name": "binance",
+            "symbol": "BNB",
+            "wsymbol":"WBNB",
+            "exploreUrl": "https://bscscan.com/address/",
+            "chainId": 56
+        },
+        {
+            "blockchainId": 2,
+            "name": "Ethereum",
+            "symbol": "ETH",
+            "wsymbol":"WETH",
+            "exploreUrl": "https://etherscan.io/address/",
+            "chainId": 1
+        },
+        {
+            "blockchainId": 3,
+            "name": "Polygon",
+            "symbol": "MATIC",
+            "wsymbol":"WMATIC",
+            "exploreUrl": "https://mumbai.polygonscan.com/address/",
+            "chainId": 137
+        },
+        {
+            "blockchainId": 4,
+            "name": "Moonriver",
+            "symbol": "MOVR",
+            "wsymbol":"WMOVR",
+            "exploreUrl": "https://blockscout.moonriver.moonbeam.network/",
+            "chainId": 1285
+        }
+    ]
+}

@@ -1,0 +1,111 @@
+<div class="grid grid-3">
+  <div class="pb50"
+    *ngFor="let item of listItemsFollowing; let i = index"
+  >
+    <div class="followers__user">
+      <div class="followers__avatar">
+        <a
+          class="orbitron text-secondary p16 overflow-ellipsis"
+          [routerLink]="['/profile', item.walletAddress]"
+        >
+         <app-avatar [imagePath]="item.profilePic"></app-avatar>
+        </a>
+      </div>
+
+      <div class="follower-info flex-col text-primary">
+       
+        <a [routerLink]="['/profile',item.walletAddress]" class="creatorEllipsis p24 text-secondary"> {{ item.name }}</a>
+        <a (click)="copyMessage(item.walletAddress)" href="javascript:void(0)">{{item.walletAddress.substr(0,5)}}...{{item.walletAddress.substr(item.walletAddress.length-5,item.walletAddress.length)}}</a>
+
+        <div class="flex mt20">
+
+          <a href="https://twitter.com/share?text={{item.name}}&url={{correntRoute}}" target="_blank" class="user__direction btn-twitter mt-0 mr10" data-id="tw"><span
+              class="bg-primary icon-small">
+              <svg version="1.1" id="twitter" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 27.1 22"
+                style="enable-background: new 0 0 27.1 22; width: 20px" xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #50aac5;
+                  }
+                </style>
+                <g id="Layer_2_1_">
+                  <g id="Logo">
+                    <g id="Logo-2">
+                      <path id="black_background" class="st0" d="M24.3,5.5c0,0.2,0,0.5,0,0.7c0,7.3-5.6,15.8-15.8,15.8l0,0c-3,0-6-0.9-8.5-2.5
+c0.4,0.1,0.9,0.1,1.3,0.1c2.5,0,4.9-0.8,6.9-2.4c-2.4,0-4.5-1.6-5.2-3.9c0.8,0.2,1.7,0.1,2.5-0.1c-2.6-0.5-4.5-2.8-4.5-5.4V7.7
+c0.8,0.4,1.6,0.7,2.5,0.7C1.2,6.8,0.4,3.6,1.9,1c2.8,3.5,7,5.6,11.4,5.8c-0.7-3,1.2-6,4.2-6.7c1.9-0.4,3.9,0.2,5.3,1.6
+c1.2-0.2,2.4-0.7,3.5-1.4c-0.4,1.3-1.3,2.4-2.4,3.1c1.1-0.1,2.2-0.4,3.2-0.9C26.3,3.7,25.4,4.7,24.3,5.5z" />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </span>
+          </a>
+          <a href="javascript:void(0)" target="_blank" class="user__direction btn-facebook mt-0 mr10" data-id="fb"><span>
+              <svg version="1.1" id="discord" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                style="enable-background: new 0 0 40 40" xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #50aac5;
+                  }
+                </style>
+                <g>
+                  <path class="st0" d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.7,27.1c0,0-0.6-0.7-1.1-1.4
+           c2.2-0.6,3.1-2,3.1-2c-0.7,0.5-1.4,0.8-2,1c-0.9,0.3-1.7,0.6-2.5,0.7c-1.6,0.3-3.1,0.2-4.4,0c-1-0.2-1.8-0.4-2.5-0.7
+           c-0.4-0.1-0.8-0.3-1.3-0.6c0,0-0.1,0-0.1-0.1c0,0,0,0,0,0c-0.3-0.2-0.5-0.3-0.5-0.3s0.8,1.4,3,2c-0.5,0.6-1.2,1.4-1.2,1.4
+           C11.5,27,10,24.6,10,24.6c0-5.5,2.5-9.9,2.5-9.9c2.5-1.8,4.8-1.8,4.8-1.8l0.2,0.2c-3.1,0.9-4.5,2.2-4.5,2.2s0.4-0.2,1-0.5
+           c1.8-0.8,3.3-1,3.9-1.1c0.1,0,0.2,0,0.3,0c1.1-0.1,2.2-0.2,3.4,0c1.6,0.2,3.4,0.7,5.1,1.6c0,0-1.4-1.3-4.3-2.1l0.2-0.3
+           c0,0,2.3,0,4.8,1.8c0,0,2.5,4.4,2.5,9.9C30,24.6,28.5,27,24.7,27.1z" />
+                  <path class="st0"
+                    d="M23,19.2c-1,0-1.7,0.8-1.7,1.9c0,1.1,0.8,1.9,1.7,1.9s1.7-0.8,1.7-1.9C24.8,20,24,19.2,23,19.2z" />
+                  <ellipse class="st0" cx="16.8" cy="21.1" rx="1.7" ry="1.9" />
+                </g>
+              </svg> </span></a>
+          <a (click)="copyMessage(item.walletAddress)" target="_blank" class="user__direction btn-facebook mt-0 mr10" data-id="fb"><span>
+              <svg version="1.1" id="website" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                style="enable-background: new 0 0 40 40" xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path class="st0" d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M24.3,23c-0.3,1-0.8,1.9-1.5,2.7l-2.7,2.7
+         c-0.8,0.8-1.6,1.3-2.7,1.5s-2,0.3-3,0s-1.9-0.8-2.7-1.5c-0.8-0.8-1.3-1.7-1.5-2.7c-0.3-1-0.3-2,0-3c0.3-1,0.8-1.9,1.5-2.7l1.5-1.5
+         c0.2-0.2,0.4-0.2,0.6-0.1s0.4,0.3,0.4,0.5c0,0.7,0.2,1.4,0.4,2.1c0.1,0.2,0,0.4-0.2,0.6L14,22.1c-0.5,0.5-0.8,1.2-0.8,2
+         c0,0.8,0.3,1.4,0.8,2c0.5,0.6,1.2,0.8,2,0.8c0.8,0,1.4-0.3,2-0.8l2.6-2.6c0.5-0.5,0.8-1.2,0.8-2c0-0.8-0.3-1.4-0.8-2
+         c-0.1-0.1-0.3-0.2-0.4-0.4s-0.2-0.3-0.2-0.5c0-0.5,0.1-0.9,0.4-1.2l0.9-0.8c0.1-0.1,0.2-0.2,0.4-0.2s0.3,0,0.4,0.1
+         c0.3,0.2,0.6,0.4,0.8,0.7c0.8,0.8,1.3,1.7,1.5,2.7C24.6,20.9,24.6,22,24.3,23z M29.8,17.5c-0.3,1-0.8,1.9-1.5,2.7l-1.5,1.5
+         c-0.2,0.2-0.4,0.2-0.6,0.1s-0.4-0.3-0.4-0.5c0-0.7-0.2-1.4-0.4-2.1c-0.1-0.2,0-0.4,0.2-0.6l0.5-0.5c0.5-0.5,0.8-1.2,0.8-2
+         c0-0.8-0.3-1.4-0.8-2s-1.2-0.8-2-0.8c-0.8,0-1.4,0.3-2,0.8l-2.6,2.6c-0.5,0.5-0.8,1.2-0.8,2c0,0.8,0.3,1.4,0.8,2
+         c0.1,0.1,0.3,0.2,0.4,0.4s0.2,0.3,0.2,0.5c0,0.5-0.1,0.9-0.4,1.2l-0.9,0.8c-0.1,0.1-0.2,0.2-0.4,0.2s-0.3,0-0.4-0.1
+         c-0.3-0.2-0.6-0.4-0.8-0.7c-0.8-0.8-1.3-1.7-1.5-2.7c-0.3-1-0.3-2,0-3c0.3-1,0.8-1.9,1.5-2.7l2.7-2.7c0.8-0.8,1.6-1.3,2.7-1.5
+         c1-0.3,2-0.3,3,0c1,0.3,1.9,0.8,2.7,1.5c0.8,0.8,1.3,1.7,1.5,2.7C30.1,15.4,30.1,16.4,29.8,17.5z" />
+              </svg> </span></a>
+        </div>
+
+        <!-- <p>{{ item.followCount }} followers</p> -->
+        <!-- <button
+      *ngIf="item.isFollowByYou"
+      class="mt20 button button-stroke bg-primary"
+      (click)="
+        unfollow(item.following, i + 1, 1)
+      "
+    >
+      Unfollow
+    </button> -->
+        <!-- <button
+      *ngIf="!item.isFollowByYou"
+      class="mt20 button button-stroke"
+      (click)="
+        followUser(item.following, i + 1, 1)
+      "
+    >
+      follow
+    </button> -->
+      </div>
+    </div>
+  </div>
+</div>

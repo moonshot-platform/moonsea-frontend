@@ -5,14 +5,15 @@
     >
       <div class="flex flex100 align-center justify-space-between">
         <p class="orbitron p18 w900 white my-3 text-dark">
-          Wallet :
-          {{ (userBalance > 0 ? userBalance / 1e18 : 0) | number: "1.4" }}
-          {{ BlockchainNames[netWorkId] }}
+          Wallet : {{connectedAddress?.slice(0,5)}}...{{connectedAddress?.slice(-5)}}
+          <!-- {{ (userBalance > 0 ? userBalance / 1e18 : 0) | number: "1.4" }}
+          {{ BlockchainNames[netWorkId] }} -->
         </p>
         <a href="javascript:void(0)" (click)="toggleTokenomics()">
           <svg
             width="27px"
             height="27px"
+            id="close"
             viewBox="0 0 27 27"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -39,23 +40,27 @@
     </div>
 
     <ul class="profile" *ngIf="isConnected">
-      <li>
+      <li class="relative">
         <a
           href="javascript:void(0)"
           (click)="toggleTokenomics()"
-          [routerLink]="['profile', connectedAddress, 'tab', 'created']"
+          [routerLink]="['/profile', connectedAddress, 'tab', 'Created']"
           class="text-dark"
         >
           Profile</a
         >
+        <a (click)="toggleTokenomics()" [routerLink]="['/profile/updateProfile']" href="javascript:void(0)" id="edit" class="p-0">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40" xml:space="preserve"><g><g><path d="M20,3c9.4,0,17,7.6,17,17s-7.6,17-17,17S3,29.4,3,20S10.6,3,20,3 M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18
+            S29.9,2,20,2L20,2z"></path></g><g><g><rect x="12.7" y="16.5" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -7.1285 18.0226)" width="11" height="2.2" class="dark"></rect><rect x="16.9" y="20.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -8.8403 22.2226)" width="11" height="2.2" class="dark"></rect></g><g><path d="M29.3,13.6l-2.9-2.9c-0.8-0.8-2.1-0.8-2.9,0L22,12.3l5.7,5.7l1.5-1.5C30.1,15.6,30.1,14.4,29.3,13.6z" class="dark"></path><path d="M18.6,27.1l-6.9,2.7c-0.9,0.4-1.8-0.5-1.5-1.5l2.7-6.9L18.6,27.1z" class="dark"></path></g></g></g></svg>
+        </a>
       </li>
       <li>
         <a
           href="javascript:void(0)"
           (click)="toggleTokenomics()"
-          [routerLink]="['/mycollections']"
+          [routerLink]="['/collection']"
           class="text-dark"
-          >My Collection</a
+          >My Collections</a
         >
       </li>
       <li>
@@ -69,7 +74,6 @@
         <a
           href="javascript:void(0)"
           (click)="connectwallet()"
-          [routerLink]="['connect']"
           class="text-dark"
         >
         <!-- (click)="toggleTokenomics()" -->

@@ -1,8 +1,12 @@
 @import "includes";
 
-.border-bottom {
-  border-bottom: 3px solid;
-}
+  .border-bottom {
+    border-bottom: 1px solid $primary;
+  }
+
+  .border-bottom-thead {
+    border-bottom: 3px solid $primary;
+  }
 
 .box {
   padding: 0.5rem;
@@ -24,6 +28,18 @@ table {
      width: 36px;
      height: 36px;
    } 
+}
+
+.small_img {
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  object-fit: cover;
+}
+
+span.orbitron.text-secondary.p16::first-letter {
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width: $md) {

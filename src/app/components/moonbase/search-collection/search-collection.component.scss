@@ -3,6 +3,7 @@
 .search-input {
   position: relative;
 }
+
 .max-price {
   top: 36px;
   z-index: 100000000;
@@ -12,26 +13,32 @@
   font-size: 1rem;
   border: 1px solid $primary;
   height: 54px;
-  background: #090d16;
-  color: #50aac5;
+  background: $black;
+  color: $primary;
   width: 100%;
   z-index: 10;
   font-family: "Montserrat";
   font-weight: 600;
   padding-left: 5.5rem;
-  margin-top: 10px;
+  margin-top: 9px;
 }
 
 .search-box {
   position: absolute;
   width: 100%;
   left: 0;
-  border-color: #50aac5;
-  top: 50%;
+  border-color: $primary;
+  top: 55%;
   z-index: -1;
-  border: 1px solid;
+  border: none;
 }
-
+.center-line {
+  border-color: $primary;
+  margin: 0;
+  height: 2px;
+  border: none;
+  border-bottom: 1px solid $primary;
+}
 .orbitron {
   font-family: $secondary-font;
   font-weight: $black-bold;
@@ -42,7 +49,7 @@
   border: 1px solid $primary;
   height: 54px;
   background: transparent;
-  color: #50aac5;
+  color: $primary;
   width: 100%;
   z-index: 10;
   font-family: "Montserrat";
@@ -58,10 +65,11 @@
   position: relative;
   top: 90px;
 }
+
 .loadmore {
   width: 100%;
-  color: #50aac5;
-  border: 2px solid #50aac5;
+  color: $primary;
+  border: 2px solid $primary;
   padding: 20px;
   margin: 50px 0 15px 0;
 }
@@ -84,20 +92,25 @@
     flex: 0 0 100%;
     display: contents;
   }
+
   .efgh {
     margin: 0.5rem 0;
     flex: 0 0 100%;
     display: contents;
   }
+
   .search-box {
     display: none;
   }
+
   .visible {
     display: block;
   }
+
   .field__wrap {
     width: 100%;
   }
+
   .drop_pos {
     left: 0px;
   }
@@ -129,13 +142,13 @@
   path {
     fill: $white;
   }
-} 
+}
 
 #down_arrow {
   width: 26px;
   height: 26px;
-  margin-left: 5px;
 }
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -172,17 +185,16 @@
   max-width: 100%;
 }
 
-
 // *********************************************************************//
 // top filter css
 // *********************************************************************//
-
 
 input.search_word {
   background: transparent;
   font-size: 30px;
   max-width: fit-content;
 }
+
 .max-word {
   max-width: 100%;
   overflow: hidden;
@@ -197,6 +209,7 @@ input.search_word {
   cursor: pointer;
   font-family: "Orbitron";
   font-weight: 900;
+  text-transform: capitalize;
 }
 
 .dropdown {
@@ -216,7 +229,9 @@ input.search_word {
   z-index: 1;
   border: solid 1px #fff;
 }
-
+#myDropdown3 a {
+  text-transform: capitalize;
+}
 .dropdown-content a {
   color: $white;
   padding: 18px 0;
@@ -227,6 +242,7 @@ input.search_word {
   font-family: $primary-font;
   font-size: 14px;
   font-weight: $semi-bold;
+
   &:last-child {
     border-bottom: none;
   }
@@ -239,9 +255,11 @@ input.search_word {
 .show {
   display: block;
 }
+
 .dropbtn:hover {
   color: white;
 }
+
 .search_word.orbitron.p3.color-secondary:hover {
   color: white;
 }
@@ -249,6 +267,36 @@ input.search_word {
 input {
   width: 100px;
 }
-.d-flex{
+
+.d-flex {
   display: flex;
+}
+
+.pos-123 {
+  position: absolute !important;
+  right: 0 !important;
+  top: -18px !important;
+  background-color: $black;
+}
+
+.loader-01 {
+  width: 100%;
+  height: 100%;
+}
+
+.loader-01 div {
+  display: flex;
+  justify-content: center;
+}
+
+// [contenteditable=true]:empty:before {
+//   content: attr(placeholder);
+//   pointer-events: none;
+// }
+
+@media (max-width: $md-header) {
+  .catalog__list .grid-4 {
+    flex: 0 0 calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
 }

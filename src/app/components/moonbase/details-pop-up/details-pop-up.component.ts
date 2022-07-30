@@ -20,6 +20,7 @@ export class DetailsPopUpComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,private getDataservice : GetDataService) { }
 
   ngOnInit(): void {
+    
     this.getDataservice.subjectTo.subscribe(
       (res)=>{
         if(res.resell){
@@ -55,7 +56,8 @@ export class DetailsPopUpComponent implements OnInit {
       width: 'auto',
       data: {
         ID:this.data.ID,
-        isMultiple : this.data.isMultiple
+        isMultiple : this.data.isMultiple,
+        blockchainId : this.data.blockchainId
       }
     });
 
@@ -81,9 +83,9 @@ export class DetailsPopUpComponent implements OnInit {
 
   openDialogAddListing(): void
   {  
-  
     const dialogRef = this.dialog.open(AddInListingComponent, {
       width: 'auto',
+      panelClass: 'listingBig',
       data: {
         ID:this.data.ID,
         nftTokenId : this.data.nftTokenID,
@@ -94,7 +96,8 @@ export class DetailsPopUpComponent implements OnInit {
        collectionId : this.data.collectionId,
        blockchainId : this.data.blockchainId,
        royalties:this.data.royalties,
-       royaltiesOwner :this.data.royaltiesOwner
+       royaltiesOwner :this.data.royaltiesOwner,
+       asset:this.data.asset
       }
     });
 
@@ -110,7 +113,8 @@ export class DetailsPopUpComponent implements OnInit {
     const dialogRef = this.dialog.open(ReportComponent, {
       width: 'auto',
       data: {
-        ID:this.data.ID
+        ID:this.data.ID,
+        data:this.data
       }
     });
 
@@ -128,7 +132,9 @@ export class DetailsPopUpComponent implements OnInit {
         ID:this.data.ID,
         currentSupply : this.data.currentSupply,
         isMultiple : this.data.isMultiple,
-        nftAddress : this.data.nftAddress
+        nftAddress : this.data.nftAddress,
+        blockchainId : this.data.blockchainId,
+
       }
     });
 

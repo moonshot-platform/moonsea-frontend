@@ -1,103 +1,172 @@
 <div class="relative mt50 mb50">
-  <div class="search-box"></div>
-  <div class="flex landing-flex p-0">
-    <div class="z-index-high position_01 flex1">
+  <div class="search-box">
+    <hr class="center-line">
+  </div>
+  <div class="flex landing-flex p-0 wrap gap">
+    <div class="z-index-high position_01 flex1 px-3">
       <div class="profile__nav">
-        <a
-          href="javascript:void(0)"
-          class="profile__link js-tabs-link mr20 {{
+        <a href="javascript:void(0)" class="profile__link js-tabs-link mr20 {{
             this.type == '1' ? 'active' : ''
-          }}"
-          (click)="setList(1)"
-        >
+          }}" (click)="setList(1)">
+          Info
+        </a>
+        <a href="javascript:void(0)" class="profile__link js-tabs-link mr20 {{
+            this.type == '2' ? 'active' : ''
+          }}" (click)="setList(2)">
           Owners
         </a>
         <!-- <div class="profile__link js-tabs-link {{this.type == '2'?'active':''}}" (click)="getList(2)">Owners </div> -->
-        <a
-          href="javascript:void(0)"
-          class="profile__link js-tabs-link mr20 {{
+        <a href="javascript:void(0)" class="profile__link js-tabs-link mr20 {{
             this.type == '3' ? 'active' : ''
-          }}"
-          (click)="setList(3)"
-        >
+          }}" (click)="setList(3)">
           History
         </a>
-        <a
-          href="javascript:void(0)"
-          class="profile__link js-tabs-link mr20 {{
+        <a href="javascript:void(0)" class="profile__link js-tabs-link mr20 {{
             this.type == '4' ? 'active' : ''
-          }}"
-          (click)="setList(4)"
-        >
+          }}" (click)="setList(4)">
           Bids
         </a>
       </div>
       <div class="flex item__container">
         <div class="item__box js-tabs-item showtab" *ngIf="this.type == '1'">
           <div class="item__users">
+            <div class="item__user mt20">
+              <div class="flex justify-space-between item__description">
+                <h4 class="item_position pb10 mr50">
+                  <span>Contract Address</span>
+                </h4>
+                <a href="{{blockchainInfo?.exploreUrl}}address/{{items?.nftAddress}}" *ngIf="items.nftAddress" target="_blank"
+                  class="text-primary">
+                  {{items?.nftAddress.slice(0,4)}}...{{items?.nftAddress.slice(-4)}}
+                </a>
+              </div>
+            </div>
+            <div class="item__user mt20">
+              <div class="flex justify-space-between item__description">
+                <h4 class="item_position pb10 mr50">
+                  <span>Token Standard</span>
+                </h4>
+                <span class="text-primary">{{items?.isMultiple ? 'ERC-1155' : 'ERC-721'}}</span>
+              </div>
+            </div>
+
+            <div class="item__user mt20">
+              <div class="flex justify-space-between item__description">
+                <h4 class="item_position pb10 mr50">
+                  <span>Blockchain</span>
+                </h4>
+                <span class="text-primary" *ngIf="items?.blockchainId == 1">BNB</span>
+                <span class="text-primary" *ngIf="items?.blockchainId == 2">Ethereum</span>
+                <span class="text-primary" *ngIf="items?.blockchainId == 3">Matic</span>
+              </div>
+            </div>
+
+            <div class="loader" *ngIf="isApiLoading"></div>
+          </div>
+        </div>
+
+        <div class="item__box js-tabs-item showtab" *ngIf="this.type == '2'">
+          <div class="item__users">
             <div class="item__user mt20" *ngFor="let item of data">
-              <div
-                class="item__avatar"
-                (click)="goToProfile(item.ownerAddress)"
-              >
-                <img
-                  src="{{
-                    item.profilePic != null && item.profilePic.length > 0 
+              <div class="item__avatar" (click)="goToProfile(item.ownerAddress)">
+                <img src="{{
+                    item.profilePic != null && item.profilePic.length > 0
                       ? item.profilePic
                       : 'assets/media/images/moonsea/profile.png'
-                  }}"
-                  alt="Avatar"
-                />
-                
+                  }}" alt="Avatar" />
               </div>
 
               <div class="item__description">
-                <a
-                  href="javascript:void(0)"
-                  *ngIf="item?.name != null && item?.name.length > 0"
-                  (click)="goToProfile(item.ownerAddress)"
-                  class="text-primary"
-                  >{{ item.name }}</a
-                >
-                <a
-                  *ngIf="item?.name == null || item?.name.length == 0"
-                  class="text-primary"
-                  (click)="goToProfile(item.ownerAddress)"
-                  >{{ item.ownerAddress.substring(0, 4) }}....{{
-                    item.ownerAddress.substring(38, 42)
-                  }}</a
-                >
+                <a href="javascript:void(0)" *ngIf="item?.name != null && item?.name.length > 0"
+                  (click)="goToProfile(item.ownerAddress)" class="text-primary">{{ item.name ? item.name :
+                  'Anonymous'}}</a>
+                <a *ngIf="item?.name == null || item?.name.length == 0" class="text-primary"
+                  (click)="goToProfile(item.ownerAddress)">{{ item.ownerAddress.substring(0, 4) }}....{{
+                  item.ownerAddress.substring(38, 42)
+                  }}</a>
                 <h4 class="item_position pb10" *ngIf="item.listingCurrentSupply > 0">
                   {{ item.listingCurrentSupply }} edition
                   <span *ngIf="item.typeOfSale == 1">
-                    on sale for {{ item.price }} BNB</span
-                  >
+                    on sale for
+                    <span *ngIf="blockchainInfo.blockchainId == 1">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
+                        style="height: 20px; width: 20px; margin: 0 5px 0 5px">
+                        <g fill="#f3ba2f">
+                          <path
+                            d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
+                          <path
+                            d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11" />
+                        </g>
+                      </svg>
+                    </span>
+                    <span *ngIf="blockchainInfo.blockchainId == 2">
+                      <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 40"
+                        xml:space="preserve" style="enable-background: new 0 0 35 40;width: 30px;margin-left: -5px;">
+                        <style type="text/css">
+                          .svg-grey {
+                            fill: #8c8c8c !important;
+                          }
+
+                          .svg-grey-light {
+                            fill: #404040 !important;
+                          }
+
+                          .svg-grey-dark {
+                            fill: #333333 !important;
+                          }
+                        </style>
+                        <g>
+                          <polygon points="20,8 12.6,20.2 20,16.8 	" class="svg-grey"></polygon>
+                          <polygon points="20,16.8 12.6,20.2 20,24.6 	" class="svg-grey-light"></polygon>
+                          <polygon points="27.4,20.2 20,8 20,16.8 	" class="svg-grey-dark"></polygon>
+                          <polygon points="20,24.6 27.4,20.2 20,16.8 	"></polygon>
+                          <polygon points="12.6,21.6 20,32 20,26 	" class="svg-grey-light"></polygon>
+                          <polygon points="20,32 27.4,21.6 20,26 	" class="svg-grey-dark"></polygon>
+                        </g>
+                      </svg>
+                    </span>
+                    <span *ngIf="blockchainInfo.blockchainId == 3">
+                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 38.4 33.5" style="
+                      enable-background: new 0 0 38.4 33.5;
+                      height: 20px;
+                      width: 20px;
+                      margin: 0 5px 0 5px;
+                    " xml:space="preserve">
+                        <style type="text/css">
+                          .purple {
+                            fill: #8247e5;
+                          }
+                        </style>
+                        <g>
+                          <path class="purple" d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
+                    c-0.7-0.4-1.2-1.2-1.2-2.1v-5c0-0.8,0.4-1.6,1.2-2.1l4.3-2.5c0.7-0.4,1.6-0.4,2.4,0L16,7.2c0.7,0.4,1.2,1.2,1.2,2.1v3.3l3.8-2.2V7
+                    c0-0.8-0.4-1.6-1.2-2.1l-8-4.7c-0.7-0.4-1.6-0.4-2.4,0L1.2,5C0.4,5.4,0,6.2,0,7v9.4c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+                    c0.7,0.4,1.6,0.4,2.4,0l5.5-3.2l3.8-2.2l5.5-3.2c0.7-0.4,1.6-0.4,2.4,0l4.3,2.5c0.7,0.4,1.2,1.2,1.2,2.1v5c0,0.8-0.4,1.6-1.2,2.1
+                    L29,28.8c-0.7,0.4-1.6,0.4-2.4,0l-4.3-2.5c-0.7-0.4-1.2-1.2-1.2-2.1V21l-3.8,2.2v3.3c0,0.8,0.4,1.6,1.2,2.1l8.1,4.7
+                    c0.7,0.4,1.6,0.4,2.4,0l8.1-4.7c0.7-0.4,1.2-1.2,1.2-2.1V17c0-0.8-0.4-1.6-1.2-2.1L29,10.2z" />
+                        </g>
+                      </svg>
+                    </span>
+
+                    {{ item.price }}</span>
                   <span *ngIf="item.typeOfSale == 2"> on auction</span>
                   <span *ngIf="item.typeOfSale == 3"> open for bids</span>
                   <!-- Original code and put it as it is  -->
                 </h4>
 
-                  <span *ngIf="item?.typeOfSale == 1">
-                    <app-purchase-now
-                      [fromPage]="1"
-                      [items]="item"
-                      [nftName]="items?.title"
-                      [blockchainId]="items?.blockchainId"
-                    ></app-purchase-now>
-                  </span>
+                <span *ngIf="item?.typeOfSale == 1">
+                  <app-purchase-now [fromPage]="1" [items]="item" [nftName]="items?.title"
+                    [blockchainId]="items?.blockchainId"></app-purchase-now>
+                </span>
 
-                  <span *ngIf="item?.typeOfSale == 3">
-                    <app-place-bid
-                      [fromPage]="1"
-                      [items]="item"
-                      [nftName]="items?.title"
-                    ></app-place-bid>
-                  </span>
-                <h4
-                  class="item_position"
-                  *ngIf="item.listingCurrentSupply <= 0"
-                >
-                  {{ item.currentSupply }} edition not for sale
+                <span *ngIf="item?.typeOfSale == 3">
+                  <app-place-bid [fromPage]="2" [items]="item" [nftName]="items?.title"
+                    [typeOfSale]="item?.typeOfSale == 3"></app-place-bid>
+                </span>
+                <h4 class="item_position" *ngIf="item.listingCurrentSupply <= 0">
+                  {{ item.currentSupply }} edition
                 </h4>
               </div>
             </div>
@@ -109,7 +178,7 @@
        <app-owners [ID]="ID"></app-owners>
       </div> -->
         <div *ngIf="this.type == '3'" class="item__box js-tabs-item showtab">
-          <app-history [ID]="ID" [nftAddress]="nftAddress"></app-history>
+          <app-history [ID]="ID" [items]="items" [nftAddress]="nftAddress"></app-history>
         </div>
         <div *ngIf="this.type == '4'" class="item__box js-tabs-item showtab">
           <app-bids [ID]="ID" [items]="items" [nftAddress]="nftAddress"></app-bids>
@@ -134,17 +203,17 @@
       </div>
     </div>
 
-    <div class="flex1 js-tabs">
+    <div class="flex1 js-tabs px-3 mb100">
       <div class="profile__nav justify-space-between">
         <a class="cursor-default text-primary border-0 profile__link js-tabs-link">
-          Attributes
+          Traits
         </a>
         <a class="cursor-default text-primary border-0 profile__link js-tabs-link">
-          {{items?.properties.length }}
+          {{ items?.properties ? items?.properties.length : "" }}
         </a>
       </div>
       <div class="item__container">
-        <div class="flex flex2 wrap">
+        <div class="flex flex2 wrap grid grid-3 gap">
           <div class="box flex-col" *ngFor="let item of items?.properties">
             <div class="flex justify-space-between p12">
               <span>{{ item.size }} </span>

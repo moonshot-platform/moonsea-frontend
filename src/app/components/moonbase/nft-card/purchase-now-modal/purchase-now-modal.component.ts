@@ -8,6 +8,8 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { NftInteractionService } from 'src/app/services/nft-interaction.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { exchangeToken } from 'src/app/model/signBuyerOrder';
+import blockjson from '../../../../../assets/blockchainjson/blockchain.json';
 
 @Component({
   selector: 'app-purchase-now-modal',
@@ -29,6 +31,12 @@ export class PurchaseNowModalComponent implements OnInit {
   serviceFeesPer: number = 2.5;
   wrongNetwork: boolean = false;
   shareUrl = location.origin + '/details/' + this.items.nftTokenID;
+
+
+   exchangeTokenObj:exchangeToken =  new exchangeToken();
+   isBouthSuccessfully:boolean;
+   blockchainInfo :any = {};
+
   constructor(private contractService: ContractService, @Inject(MAT_DIALOG_DATA) public items: any,
     private toastr: ToastrService, private nftInteractionService: NftInteractionService,
     private dialogRef: MatDialogRef<PlaceBidModalComponent>, private pricingDetails: PricingApiService
@@ -37,14 +45,39 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
+    
     this.checkNetwork();
   }
 
   async checkNetwork() {
+    
     let checkNetwork: boolean = await this.contractService.createContract(this.items.blockchainId);
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.step = 0;
+      let chainIdd = this.contractService.chainId;
+      chainIdd = parseInt(chainIdd);
+      chainIdd = chainIdd.toString(16);
+      let switchNetwork = this.contractService.switchNetwork("0x"+chainIdd);
+      switchNetwork.then(
+        (res: any) => {
+          if (res == 'doneeeeee') {
+            this.wrongNetwork = false;
+            this.step = 1;
+            this.dialogRef.close();
+            // this.calculatePrice();
+          }
+        },
+        (err: any) => {
+          this.wrongNetwork = true;
+          this.step = 0;
+        }
+      );
     }
     else {
       this.wrongNetwork = false;
@@ -77,8 +110,9 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   gotoNextStep(temp: number, quantity: any) {
+    
     if (temp == 2) {
-      if (this.items.supply < quantity) {
+      if (this.items.listingCurrentSupply < quantity) {
         return false;
       }
       if (this.balanceInBNB >= this.price) {
@@ -96,7 +130,7 @@ export class PurchaseNowModalComponent implements OnInit {
   }
 
   calculatePriceQuantity(quantity: any) {
-    if (quantity > this.items.supply) {
+    if (quantity > this.items.listingCurrentSupply) {
 
       return false;
     }
@@ -108,45 +142,51 @@ export class PurchaseNowModalComponent implements OnInit {
 
 
   async exchangeToken() {
-    var status: any = await this.contractService.exchangeToken01(
-      this.items.nftTokenID,
-      this.items.supply,
-      this.items.nftAddress,
-      this.items.signature,
-      this.items.ownerAddress,
-      this.items.isMultiple,
-      this.total,
-      this.signaturePrice,
-      this.quantity,
-      "0x0000000000000000000000000000000000000000",
-      this.items.royalties,
-      this.items.royaltiesOwner,
-      "-1",
-      this.items.salt,
-      this.items.referalAddress);
+
+    this.exchangeTokenObj.nftTokenID =  this.items.nftTokenID;
+    this.exchangeTokenObj.supply =  this.items.supply;
+    this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
+    this.exchangeTokenObj.signature =   this.items.signature;
+    this.exchangeTokenObj.ownerAddress = this.items.ownerAddress;
+    this.exchangeTokenObj.isMultiple = this.items.isMultiple;
+    this.exchangeTokenObj.total = this.total;
+    this.exchangeTokenObj.signaturePrice = this.signaturePrice;
+    this.exchangeTokenObj.quantity = this.quantity;
+    this.exchangeTokenObj.tokenAddress = "0x0000000000000000000000000000000000000000"
+    this.exchangeTokenObj.royalties = this.items.royalties;
+    this.exchangeTokenObj.royaltiesOwner = this.items.royaltiesOwner;
+    this.exchangeTokenObj.buyerSignature = '-1' 
+    this.exchangeTokenObj.salt = this.items.salt;
+    this.exchangeTokenObj.referalAddress = this.items.referalAddress;
+    
+    
+    var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {
       this.txnConfirmation = "Waiting for transaction confirmation";
       let data = await status.hash.wait(20);
       this.step = 3;
       this.txnData = status.hash.hash;
-      {
-
-      }
       this.toastr.success("Bought successfully");
+      this.isBouthSuccessfully = true;
+     
     }
     else {
-
+      this.isBouthSuccessfully = false;
       this.step = 1;
     }
   }
 
   closeDialog() {
     this.dialogRef.close();
-    location.reload();
+    if(this.isBouthSuccessfully){
+      location.reload();
+    }
+   
   }
   gotoTestNetBscScan(txnHash: any) {
-    let url = environment.bscTestnetScan + txnHash;
+    let url =`${this.blockchainInfo.exploreUrl}tx/${txnHash}`;
+    // let url = environment.bscTestnetScan+txnHash;
     window.open(url, "_blank");
   }
 }

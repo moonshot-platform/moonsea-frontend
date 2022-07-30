@@ -16,12 +16,14 @@ export class PlaceBidComponent implements OnInit {
   @Input() nftName:any;
   @Input() fromPage=0;
   @Input() blockchainId=1;
+  @Input() typeOfSale:any;
+  @Input() data:any;
   connectedAddress: any;
 
   constructor(public dialog: MatDialog,private contractService:ContractService) { }
 
   ngOnInit(): void {
-   
+    
     
     this.items.nftName = this.nftName;
     this.items.blockchainId = this.blockchainId;
@@ -31,18 +33,21 @@ export class PlaceBidComponent implements OnInit {
     });
   }
 
-  openDialog(){
-  
+  openDialog(value:any){
+    this.items.btnType = value;
     if(!this.contractService.checkValidAddress(this.connectedAddress))
     {
         this.connectWallet();
         return false;
     }
-    
+    //debugger
     this.dialog.open(PlaceBidModalComponent, {
       width: 'auto',
-      data: this.items
-    });
+      data: {
+        listing : this.items,
+        data : this.data
+      }
+        });
     return false;
   }
 

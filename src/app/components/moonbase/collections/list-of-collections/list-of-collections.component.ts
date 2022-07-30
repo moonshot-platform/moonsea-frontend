@@ -41,7 +41,7 @@ export class ListOfCollectionsComponent implements OnInit {
   isShowLoader: boolean = false;
 
   collectionlist: any = [];
-  searchKey: any = '';
+  searchKey: any = 'all collections';
   minPrice: any = 0;
   maxPrice: any = 0;
   categotyList :any = [];
@@ -62,7 +62,6 @@ export class ListOfCollectionsComponent implements OnInit {
     this.blockchainId = 0;
     this.categoryId = 0;
 
-    // console.log(this.router.url,"Current URL");
     
 
 
@@ -88,7 +87,13 @@ export class ListOfCollectionsComponent implements OnInit {
   getListofCollection() {
     this.isShowLoader = true;
     this.ngxService.start();
-    let url ="home/getCollectionListAll?pageNo="+this.pageNo+"&PageSize="+this.PageSize+"&searchText="+this.searchKey+"&blockchainId="+this.blockchainId+"&categoryId="+this.categoryId;
+    let url;
+    if(this.searchKey.toLowerCase() == 'all collections'){
+       url ="home/getCollectionListAll?pageNo="+this.pageNo+"&PageSize="+this.PageSize+"&searchText="+''+"&blockchainId="+this.blockchainId+"&categoryId="+this.categoryId;
+    }else{
+       url ="home/getCollectionListAll?pageNo="+this.pageNo+"&PageSize="+this.PageSize+"&searchText="+this.searchKey+"&blockchainId="+this.blockchainId+"&categoryId="+this.categoryId;
+    }
+   
 
     this.dataservice.getRequest(url).subscribe(
       (response: any) => {
@@ -109,7 +114,6 @@ export class ListOfCollectionsComponent implements OnInit {
           response.data.forEach(element => {
               this.collectionlist.push(element)
           });
-          // console.log("!!!!!!=>",this.collectionlist);
           
           this.ngxService.stop();
           this.isShowLoader = false;
@@ -118,7 +122,6 @@ export class ListOfCollectionsComponent implements OnInit {
         }
       },
       (err: any) => {
-        console.log(err);
         this.ngxService.stop();
       }
     );
@@ -151,7 +154,6 @@ export class ListOfCollectionsComponent implements OnInit {
       // this.collectionlist.filter((el :any)=>{
       //   if(el.symbol.toLowerCase().indexOf(this.searchKey.toLowerCase()) > -1 ){
       //     arr.push(el);
-      //     console.log(arr);
 
       //   }
       // });
@@ -204,8 +206,9 @@ export class ListOfCollectionsComponent implements OnInit {
     this.getListofCollection()
   }
   clearSearch(){
-    this.searchKey = 'searched word';
-    document.getElementById("textSearch").innerHTML = "searched word";
+    this.searchKey = 'all collections';
+    document.getElementById("textSearch").innerHTML = "all collections";
+    this.getListofCollection();
   }
 
   getCategotyList()

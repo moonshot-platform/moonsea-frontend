@@ -30,7 +30,7 @@
             ></a>
           </div>
           
-          <p>Change network and click on try again</p>
+          <p>An error occured while interacting with your wallet. Please try again.</p>
          
           <div class="popup__btns">
             <button class="button popup__button" (click)="checkNetwork()">Try again</button>
@@ -71,19 +71,17 @@
             <div class="popup__row mb20">
               <div class="popup__col">NFT Price</div>
               <div class="popup__col">{{items.price}}</div>
-              <div class="popup__col ml10">{{items.currencySymbol}}</div>
-              <!-- <div class="popup__col">{{priceCalculated | number:'0.4-4'}}</div> -->
+              <div class="popup__col ml10">{{blockchainInfo.symbol}}</div>
             </div>
            
             <div class="popup__field mb20">
               <div class="popup__col mb10">Quantity</div>
               <div class="popup__wrap">
-                <input class="popup__input" type="number" value="1" name="quantity" #quantity (keyup)="calculatePriceQuantity(quantity.value)" placeholder="Enter quantity" required>
+                <input class="popup__input" type="number" value="1" name="quantity" #quantity (keyup)="calculatePriceQuantity(quantity.value)" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter quantity" required>
               </div>
-              <!-- <div *ngIf="isSubmitted && formControls.quantity.errors" class="help-block _error">
-                  <div *ngIf="formControls.quantity.errors.required" class="text-danger">Quantity is required</div>
-              </div> -->
-              <div class="p12 popup_row" *ngIf="quantity.value>items.supply">
+          
+              <div class="p12 popup_row" *ngIf="quantity.value>items.listingCurrentSupply">
                 Supply exceeds
               </div>
             </div>
@@ -91,24 +89,15 @@
             
             <div class="popup__row">
               <div class="popup__col">Your balance</div>
-              <div class="popup__col">{{balanceInBNB}} {{items.currencyDetails?.currencySymbol}}</div>
+              <div class="popup__col" *ngIf="balanceInBNB">{{balanceInBNB}} {{blockchainInfo.symbol}}</div>
+              <div class="popup__col" *ngIf="!balanceInBNB">   <div class="loader text-white" ></div></div>
             </div>
             <div class="popup__row">
               <div class="popup__col">Total</div>
               <div class="popup__col">{{priceCalculated | number:'0.4-4'}}</div>
             </div>
           </div>
-        <!--  <div class="popup__attention">
-            <div class="popup__preview">
-              <svg class="icon icon-info-circle">
-                <use xlink:href="#icon-info-circle"></use>
-              </svg>
-            </div>
-             <div class="popup__details">
-              <div class="popup__category">This creator is not verified</div>
-              <div class="popup__text">Purchase this item at your own risk</div>
-            </div> 
-          </div>-->
+        
           <div class="popup__btns">
             <button class="button text-inherit dark-button mb10 wp100" (click)="gotoNextStep(2,quantity.value)">I understand, continue</button>
             <button (click)="closeDialog()" class="button wp100">Cancel</button>
@@ -150,24 +139,12 @@
                   <div class="loader-circle"></div>
                 </div>
                 <div class="steps__details">
-                  <!-- <div class="steps__info">Purchasing</div> -->
                   <div class="steps__text">{{txnConfirmation}}</div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- <div class="popup__attention">
-            <div class="popup__preview">
-              <svg class="icon icon-info-circle">
-                <use xlink:href="#icon-info-circle"></use>
-              </svg>
-            </div>
-            <div class="popup__details">
-              <div class="popup__category">This creator is not verified</div>
-              <div class="popup__text">Purchase this item at your own risk</div>
-            </div>
-            <div class="popup__avatar"><img src="img/content/avatar-3.jpg" alt="Avatar"></div>
-          </div> -->
+         
         </div>
         <div class="" *ngIf="step==3">
           <div class="success">
@@ -179,13 +156,12 @@
               </div>
               <div class="success__row" style="word-break: break-all;">
                 <div class="success__col" *ngIf="txnData?.length>=64" (click)="gotoTestNetBscScan(txnData)">
-                  <!-- {{txnData.substring(0,4)}}...{{txnData.substring(0,4)}} -->
                   {{txnData}} 
                 </div>
               </div>
             </div>
             <div class="success__stage">Time to show-off</div>
-            <app-share-buttons [data]="shareUrl" ></app-share-buttons>
+            <!-- <app-share-buttons [data]="shareUrl" ></app-share-buttons> -->
             <button class="button wp100" (click)="closeDialog()">Close</button>
 
           </div>

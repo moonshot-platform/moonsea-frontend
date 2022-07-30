@@ -41,7 +41,8 @@
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "src/assets/scss/origin.scss"
+                            "src/assets/scss/origin.scss",
+                            "./node_modules/ngx-ui-switch/ui-switch.component.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -84,7 +85,15 @@
                                     "maximumError": "50mb"
                                 }
                             ]
-                        }
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                          }
                     },
                     "defaultConfiguration": ""
                 },
@@ -118,7 +127,8 @@
                         ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "src/styles.scss"
+                            "src/styles.scss",
+                            "./node_modules/ngx-ui-switch/ui-switch.component.css"
                         ],
                         "scripts": [
                             "../node_modules/jquery/dist/jquery.min.js"

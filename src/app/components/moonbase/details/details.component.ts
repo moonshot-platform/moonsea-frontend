@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsPopUpComponent } from '../details-pop-up/details-pop-up.component';
@@ -9,18 +9,21 @@ import { GetDataService } from 'src/app/services/get-data.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
-import { JsonPipe, Location } from '@angular/common';
-import { PurchaseNowModalComponent } from '../nft-card/purchase-now-modal/purchase-now-modal.component';
+import { Location } from '@angular/common';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Title, Meta } from '@angular/platform-browser';
 import { CollectionApiService } from 'src/app/services/collection-api.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import blockjson from '../../../../assets/blockchainjson/blockchain.json';
+import { Observable, Observer } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   @Input() ID: any;
   data: any;
   nftTokenID: any;
@@ -30,7 +33,7 @@ export class DetailsComponent implements OnInit {
   currentSupply: any;
   propertyS: any;
   isConnected = false;
-  ownersData: any;
+  ownersData: any = [];
   indexForPurchase: number = -1;
   indexForPlaceBid: any = -1;
   apiDataLoaded: boolean = false;
@@ -47,6 +50,14 @@ export class DetailsComponent implements OnInit {
   ];
   nftAddress: any;
 
+  unSubscribeRequest: Subscription;
+  unSubscribeRequest01: Subscription;
+  elementsHasLoaded: boolean[] = [];
+  isImgLoaded: boolean = false;
+  blockchainInfo: any = {};
+  correntRoute: any;
+  queryBlockchainId: any;
+  asset: any;
   constructor(
     public dialog: MatDialog,
     private getDataService: GetDataService,
@@ -59,37 +70,73 @@ export class DetailsComponent implements OnInit {
 
     private ngxService: NgxUiLoaderService,
     private meta: Meta,
-    private titleService: Title
-  ) {}
+    private titleService: Title,
+    private http: HttpClient,
+    private route:Router
+  ) {
+    for (let index = 0; index < 100; index++) {
+      this.elementsHasLoaded[index] = false;
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.unSubscribeRequest) {
+      this.unSubscribeRequest.unsubscribe();
+    }
+    if (this.unSubscribeRequest01) {
+      this.unSubscribeRequest01.unsubscribe();
+    }
+
+  }
 
   ngOnInit(): void {
-    // const charsetTag = this.meta.getTag('name="twitter:site"');
-    // if (charsetTag) this.meta.removeTagElement(charsetTag);
     this.meta.addTags([
       { name: 'Details', content: 'You can sea nft details at this page...' },
     ]);
-
+    this.correntRoute = window.location.href;
     window.scrollTo(0, 0);
     this._activatedRoute.params.subscribe((params) => {
       this.nftTokenID = params['nftTokenID'];
       this.nftAddress = params['nftAddress'];
+      this.queryBlockchainId = params['blockchainId'];
     });
+    this.route.routeReuseStrategy.shouldReuseRoute = function(){return false;};
+    // this._activatedRoute.queryParams.subscribe((res: any) => {
+    //   this.queryBlockchainId = res['blockchainId'];
+    //   this.asset = res['asset'];
+    // })
+
     this.ID = this.nftTokenID;
 
     this.contractService.getWalletObs().subscribe((data: any) => {
-      if (data !== undefined && data != this.data) {
+      if (this.Address != data) {
         this.Address = data;
         this.isConnected = true;
-        this.nftDetails(this.nftTokenID, this.Address);
       } else {
         this.isConnected = false;
       }
+      this.nftDetails(this.nftTokenID, this.Address);
+
     });
 
-    this.nftDetails(this.nftTokenID, this.Address);
-    this.getList();
+    // this.getList();
+    this.pricingApi.getPriceofBNB();
+    this.pricingApi.getServiceFee();
   }
 
+
+  @HostListener('document:click', ['$event'])
+  onMouseEnter(event: any) {
+    if (!document.getElementById('dropdownButton').contains(event.target)) {
+      var dropdowns = document.getElementsByClassName('dropdown-content');
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(DetailsPopUpComponent, {
       width: 'auto',
@@ -110,10 +157,11 @@ export class DetailsComponent implements OnInit {
         royaltiesOwner: this.data.royaltiesOwner,
         tokenAddress: this.data.contractAddress,
         ownerCurrentSupply: this.data.ownerCurrentSupply,
+        asset: this.asset
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   openDialogForShear(): void {
@@ -122,17 +170,27 @@ export class DetailsComponent implements OnInit {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   async nftDetails(nftTokenId: any, walletAddress: any) {
     this.ngxService.start();
-    this.getDataService
-      .nftDetails(nftTokenId, walletAddress, this.nftAddress)
+    this.unSubscribeRequest = this.getDataService
+      .nftDetails(nftTokenId, walletAddress, this.nftAddress, this.queryBlockchainId)
       .subscribe(
         (response: any) => {
           this.ngxService.stop();
           this.data = response.data;
+
+          this.asset = this.data.asset;
+          this.getList();
+
+          blockjson[environment.configFile].forEach(element => {
+            if (element.blockchainId == this.data?.blockchainId) {
+              this.blockchainInfo = element;
+            }
+          });
+
 
           const storetemp = {
             owner: this.data.title,
@@ -152,26 +210,29 @@ export class DetailsComponent implements OnInit {
       );
   }
 
-  async Liked(nftId: any, walletAddress: string) {
+  async Liked(nftId: any) {
     if (!this.contractService.checkValidAddress(this.Address)) {
       this.connectWallet();
       return false;
     }
-    var status: any = await this.contractService.signMsgForLiked(this.Address);
+    var status: any = await this.contractService.signMsgForLiked(nftId);
     if (status.status) {
       this.getDataService
         .likedNft({
           nftId: nftId,
           walletAddress: this.Address,
           signature: status.signature,
+          nftAddress: this.data.nftAddress,
+          blockchainId: this.data.blockchainId,
+          asset: this.asset
         })
         .subscribe((result: any) => {
           if (result.isSuccess) {
             this.toastrService.success(result.message);
 
-            this.isLikeByYou = 1;
+            this.data.isLikeByYou = 1;
           } else {
-            // this.toastrService.error(result.message)
+            this.toastrService.error(result.message)
           }
         });
     }
@@ -191,16 +252,33 @@ export class DetailsComponent implements OnInit {
           id: nftId,
           walletAddress: this.Address,
           signature: status.signature,
+          asset: this.asset
         })
         .subscribe((result: any) => {
           if (result.isSuccess) {
             this.toastrService.success(result.message);
             this.isLikeByYou = 0;
+            this.data.isLikeByYou = 0;
           }
         });
     }
     return false;
   }
+
+  onMediaLoad(event, index) {
+    if (event && event.target) {
+      this.elementsHasLoaded[index] = true;
+    } else {
+      this.elementsHasLoaded[index] = false;
+    }
+
+    if (event.readyState == 4) {
+      this.elementsHasLoaded[index] = true;
+    }
+  }
+
+
+
 
   connectWallet() {
     this.dialog.open(ConnectWalletPopupComponent, {
@@ -210,15 +288,16 @@ export class DetailsComponent implements OnInit {
   }
 
   async getList() {
-    this.getDataService
-      .getListOwners(this.ID, this.Address, this.nftAddress)
+    this.unSubscribeRequest01 = this.getDataService
+      .getListOwners(this.ID, this.Address, this.nftAddress, this.queryBlockchainId, this.asset)
       .subscribe((response: any) => {
         if (response.isSuccess) {
+
           this.ownersData = response.data;
+
 
           let i = 0;
           this.ownersData.forEach((value: any, index: any) => {
-            // console.log(value.typeOfSale)
             if (value.typeOfSale == 1 && this.indexForPurchase == -1) {
               this.indexForPurchase = index;
             } else if (
@@ -228,6 +307,9 @@ export class DetailsComponent implements OnInit {
               this.indexForPlaceBid = index;
             }
           });
+          this.apiDataLoaded = true;
+
+
         }
       });
   }
@@ -241,11 +323,69 @@ export class DetailsComponent implements OnInit {
       'api/refreshData?nftAddress=' +
       this.data.nftAddress +
       '&nftTokenId=' +
-      this.data.nftTokenID;
+      this.data.nftTokenID + '&asset=' + this.asset;
     this.collectionApi.getRequest(url).subscribe((response: any) => {
       this.toastrService.success(
         "We've queued this item for an update! Check back in a minute...."
       );
     });
+  }
+  base64Image: any;
+
+  downloadImages(imageUrl: any) {
+    //debugger;
+    this.getBase64ImageFromURL(imageUrl).subscribe(base64data => {
+      this.base64Image = "data:image/jpg;base64," + base64data;
+      // save image to disk
+      var link = document.createElement("a");
+
+      document.body.appendChild(link); // for Firefox
+
+      link.setAttribute("href", this.base64Image);
+      link.setAttribute("download", "mrHankey.jpg");
+      link.click();
+    });
+  }
+
+  getBase64ImageFromURL(url: string) {
+    //debugger
+    return Observable.create((observer: Observer<string>) => {
+      const img: HTMLImageElement = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = url;
+      if (!img.complete) {
+        img.onload = () => {
+          observer.next(this.getBase64Image(img));
+          observer.complete();
+        };
+        img.onerror = err => {
+          observer.error(err);
+        };
+      } else {
+        observer.next(this.getBase64Image(img));
+        observer.complete();
+      }
+    });
+  }
+
+
+  getBase64Image(img: HTMLImageElement) {
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx: CanvasRenderingContext2D = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    const dataURL: string = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
+
+
+
+
+
+
+  openSharedrop() {
+    document.getElementById("myDropdown").classList.toggle("show");
   }
 }

@@ -1,12 +1,32 @@
 <section class="navigation">
-  <div class="inner flex-space-between align-center">
-    <div class="logo-container flex align-start">
-      <a href="javascript:void(0)" [routerLink]="['/']" class="flex-center p52">
-        <img
+  <div class="inner flex-space-between align-center ml-0 mw-100 overflow-unset">
+    <div
+      class="logo-container flex align-start"
+      [ngClass]="menuItem === true || search === true ? 'd-none' : ''"
+    >
+      <a
+        href="javascript:void(0)"
+        [routerLink]="['/']"
+        class="flex-center logo-font"
+      >
+        <video
+          autoplay
+          controls
+          [muted]="true"
+          [loop]="true"
+          [controls]="false"
+          class="logo"
+        >
+          <source
+            src="assets/media/videos/moonsea-animated-logo.webm"
+            type="video/webm"
+          />
+        </video>
+        <!-- <img
           src="assets/icons/giff2.gif"
           alt="moonshot logo"
           class="logo mr10"
-        />
+        /> -->
         <!-- <img src="assets/icons/giff2.gif" style="
     width: 60px;
     /* margin-right: 10px; */
@@ -15,11 +35,141 @@
       </a>
     </div>
 
-    <div class="mobile-only">
+    <div
+      class="desktop-only wp100 mr50"
+      [ngClass]="search === true ? 'mobile-only m0' : ''"
+    >
+      <div (click)="back()" class="mobile-only align-center">
+        <svg width="26px" height="26px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="mr10"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z" id="Combined-Shape" fill="#50aac5"></path></g></svg>
+      </div>
+      <div
+        class="nav-input w-100"
+        [ngClass]="search === true ? 'mobile-only' : ''"
+      >
+        <input
+          type="text"
+          id="searchBox"
+          #searchText
+          (keyup.enter)="searchClient(searchText.value)"
+          (keyup)="autoComplete(searchText.value, $event)"
+          placeholder="Search for collections, items or accounts"
+          class="form-control"
+          autocomplete="off"
+        />
+        <a href="javascript:void(0)"
+          ><svg
+            version="1.1"
+            id="search"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 40 40"
+            xml:space="preserve"
+          >
+            <g>
+              <circle cx="22" cy="18" r="12.5" class="st0"></circle>
+              <line x1="13.2" y1="26.8" x2="5.5" y2="34.5" class="st0"></line>
+            </g></svg
+        ></a>
+        <ng-container *ngIf="flag">
+          <div class="search_result">
+            <div *ngFor="let item of uniquedata; let i = index">
+              <div class="border-left border-right">
+                <div
+                  *ngIf="item == 1 && properties[i].length > 0"
+                  class="flex align-center p-3 border-bottom p12 text-secondary"
+                >
+                  Items
+                </div>
+                <div
+                  *ngIf="item == 2 && properties[i].length > 0"
+                  class="flex align-center p-3 border-bottom p12 text-secondary"
+                >
+                  Profile
+                </div>
+                <div
+                  *ngIf="item == 3 && properties[i].length > 0"
+                  class="flex align-center p-3 border-bottom p12 text-secondary"
+                >
+                  collection
+                </div>
+                <div
+                  *ngFor="let inner of properties[i]"
+                  class="flex align-center p-3 border-bottom"
+                  (click)="
+                    onselectClient(
+                      inner.searchText,
+                      inner.serachType,
+                      inner.nftTokenId,
+                      inner.nftAddress,
+                      inner.blockchainId
+                    )
+                  "
+                >
+                  <div class="profilepic01">
+                    <img
+                      [src]="inner.profilePic"
+                      *ngIf="inner.profilePic"
+                      class="profilepic"
+                      alt="profile"
+                    />
+                    <img
+                      *ngIf="!inner.profilePic"
+                      src="assets/media/images/moonsea/avatar-big.jpg"
+                      class="profilepic"
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    {{ inner.searchText }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div
+      class="mobile-only"
+      (click)="searchCollection()"
+      [ngClass]="search === true ? 'd-none' : ''"
+    >
+      <svg
+        version="1.1"
+        id="search"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 40 40"
+        xml:space="preserve"
+      >
+        <style type="text/css">
+          .st0 {
+            fill: none;
+            stroke: #50aac5;
+            stroke-miterlimit: 10;
+          }
+        </style>
+        <g>
+          <circle cx="22" cy="18" r="12.5" class="st0"></circle>
+          <line x1="13.2" y1="26.8" x2="5.5" y2="34.5" class="st0"></line>
+        </g>
+      </svg>
+    </div>
+    <div
+      class="mobile-only align-center"
+      [ngClass]="menuItem === true || search === true ? 'd-none' : ''"
+      (click)="menuopen()"
+    >
       <svg
         width="30px"
         height="26px"
         viewBox="0 0 32 25"
+        class="ml10"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -46,8 +196,8 @@
       alt="menu button"
       class="mob-menu"
     /> -->
-    <nav class="flex">
-      <div class="mobile-only">
+    <nav class="flex" [ngClass]="menuItem === true ? 'show' : ''">
+      <div class="mob-menu" (click)="closeMenu()">
         <svg
           width="27px"
           height="27px"
@@ -66,54 +216,302 @@
             <path
               d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
               id="Combined-Shape"
-              fill="#000000"
+              fill="#090d16"
             ></path>
           </g>
         </svg>
       </div>
-      <!-- <img
-        src="assets/media/icons/close-2.svg"
-        alt="menu button"
-        class="mob-menu"
-      /> -->
-      <ul>
+      <ul (click)="closeMenu()">
+        <!-- <li class="bell">
+          <svg
+            class="notification"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 22.46 30"
+          >
+            <defs></defs>
+            <g id="Layer_2" data-name="Layer 2">
+              <g id="Layer_1-2" data-name="Layer 1">
+                <path
+                  class="st1"
+                  d="M11.23,0A3.26,3.26,0,0,0,8,3.26v1.1a9.28,9.28,0,0,0-6.05,8.69v7.39L.09,24.33A.88.88,0,0,0,.5,25.51a1,1,0,0,0,.38.08H6.47a4.77,4.77,0,0,0,9.52,0h5.58a.88.88,0,0,0,.89-.88.85.85,0,0,0-.09-.38l-1.85-3.89V13.05a9.27,9.27,0,0,0-6.06-8.69V3.26A3.25,3.25,0,0,0,11.23,0Zm0,1.76a1.47,1.47,0,0,1,1.47,1.5V3.9a9.06,9.06,0,0,0-2.94,0V3.26A1.46,1.46,0,0,1,11.23,1.76Zm0,3.78a7.48,7.48,0,0,1,7.52,7.51v7.59a.78.78,0,0,0,.09.37l1.34,2.82H2.28L3.62,21a.91.91,0,0,0,.08-.37V13.05A7.49,7.49,0,0,1,11.23,5.54Zm-3,20.05h6a3,3,0,0,1-6,0Z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </li> -->
         <li>
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/collections']" href="javascript:void(0);"
-            >Collections</a
+          <a
+            routerLinkActive="active"
+            [routerLink]="['/searchcollection']"
+            [queryParams]="{ searchKey: 'all' }"
+            href="javascript:void(0);"
+            >Explore</a
           >
         </li>
         <li>
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/stats']" href="javascript:void(0);">Stats</a>
-        </li>
-        <li>
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/how_it_works']" href="javascript:void(0);">How it works</a
-          ><!----><!----><!---->
-        </li>
-        <li>
-          <!---->
-          <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/createNft']" href="javascript:void(0);">Upload</a>
-          <!----><!----><!----><!----><!----><!----><!----><!---->
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['/others/stats']"
+            href="javascript:void(0);"
+            >Stats</a
+          >
         </li>
         <!-- <li>
-          <a routerLink="/admin">
-            Admin
-          </a>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['/others/how_it_works']"
+            href="javascript:void(0);"
+            >How it works</a
+          >
         </li> -->
-        <!---->
-        <li class="mobile-only">
-          <ul class="extras flex-col">
-            <li><p id="nav-bar-tokenomics-text">Collections</p></li>
-            <li>
-              <a
-                href="https://dex.guru/token/0xd27d3f7f329d93d897612e413f207a4dbe8bf799-bsc"
-                >How it works</a
-              >
-            </li>
-            <li><a href="https://moonboxes.io/">How it works</a></li>
-            <li><a href="https://moonboxes.io/">Upload</a></li>
-          </ul>
+        <li>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="['/collection']"
+            href="javascript:void(0);"
+            >Create</a
+          >
         </li>
       </ul>
     </nav>
+
+    <nav class="flex wallet d-none" [ngClass]="sidebarMenu === true ? 'flexShow' : ''">
+      <ul (click)="closeMenu()">
+        <li>
+          <a target="_blank" href="https://project-moonshot-web.web.app/"
+            >Moonshot</a
+          >
+        </li>
+        <li><a target="_blank" href="https://moonboxes.io/">MoonBoxes</a></li>
+      </ul>
+    </nav>
+
+    <nav
+      class="flex wallet d-none"
+      [ngClass]="activeWallet === true ? 'flexShow' : ''"
+    >
+      <ul (click)="closeMenu()">
+        <li>
+          <p class="orbitron p14 w900 white text-dark border-0">
+            Wallet :
+            {{ (userBalance > 0 ? userBalance / 1e18 : 0) | number: "1.4" }}
+            {{ BlockchainNames[netWorkId] }}
+          </p>
+        </li>
+        <li *ngIf="!isConnected">
+          <a
+            href="javascript:void(0)"
+            (click)="connectwallet()"
+            class="text-dark"
+          >
+            <!-- (click)="toggleTokenomics()" -->
+            Connect Wallet</a
+          >
+        </li>
+        <li *ngIf="isConnected">
+          <div class="flex align-center justify-space-between">
+            <a
+              class="profileTitle wp100"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="[
+                '/profile',
+                connectedAddress,
+                'tab',
+                'created'
+              ]"
+              href="javascript:void(0);"
+              >Profile
+            </a>
+            <a
+              class="profileTitle"
+              href="javascript:void(0)"
+              [routerLink]="['/profile/updateProfile']"
+            >
+              <svg
+                version="1.1"
+                width="36"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 40 40"
+                xml:space="preserve"
+              >
+                <g>
+                  <g>
+                    <path
+                      d="M20,3c9.4,0,17,7.6,17,17s-7.6,17-17,17S3,29.4,3,20S10.6,3,20,3 M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18
+              S29.9,2,20,2L20,2z"
+                    ></path>
+                  </g>
+                  <g>
+                    <g>
+                      <rect
+                        x="12.7"
+                        y="16.5"
+                        transform="matrix(0.7071 -0.7071 0.7071 0.7071 -7.1285 18.0226)"
+                        width="11"
+                        height="2.2"
+                        class="st5"
+                      ></rect>
+                      <rect
+                        x="16.9"
+                        y="20.7"
+                        transform="matrix(0.7071 -0.7071 0.7071 0.7071 -8.8403 22.2226)"
+                        width="11"
+                        height="2.2"
+                        class="st5"
+                      ></rect>
+                    </g>
+                    <g>
+                      <path
+                        d="M29.3,13.6l-2.9-2.9c-0.8-0.8-2.1-0.8-2.9,0L22,12.3l5.7,5.7l1.5-1.5C30.1,15.6,30.1,14.4,29.3,13.6z"
+                        class="st5"
+                      ></path>
+                      <path
+                        d="M18.6,27.1l-6.9,2.7c-0.9,0.4-1.8-0.5-1.5-1.5l2.7-6.9L18.6,27.1z"
+                        class="st5"
+                      ></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </a>
+          </div>
+        </li>
+
+        <li *ngIf="isConnected">
+          <a
+            href="javascript:void(0)"
+            [routerLink]="['/collection']"
+            class="text-dark"
+            >My Collection</a
+          >
+        </li>
+
+        <li *ngIf="isConnected">
+          <a (click)="Disconnect()" href="javascript:void(0);"
+            >Disconnect Wallet</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<section class="mobile-only footer_menu tab-only navigation bottom-footer p-0">
+  <div class="res_menu flex1">
+    <ul class="box">
+      <ng-template #doNotShowMenuIcon>
+        <li class="close-menu">
+          <img
+            src="assets/media/icons/close_bottom-menu_mobile.svg"
+            (click)="closeMenu()"
+          />
+        </li>
+      </ng-template>
+
+      <li>
+        <a *ngIf="!sidebarMenu" (click)="sidebar()" href="javascript:void(0)"
+          ><svg
+            width="26px"
+            height="26px"
+            viewBox="0 0 32 25"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            class="ml10 hamburger"
+          >
+            <title>Close</title>
+            <desc>Created with Sketch.</desc>
+            <g
+              id="Page-1"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M0,0 L32,0 L32,3 L0,3 L0,0 Z M0,11 L32,11 L32,14 L0,14 L0,11 Z M0,22 L32,22 L32,25 L0,25 L0,22 Z"
+                id="Combined-Shape"
+                fill="#000"
+              ></path>
+            </g>
+          </svg>
+        </a>
+
+        <a (click)="closeMenu()" *ngIf="sidebarMenu" href="javascript:void(0)">
+        <svg
+        width="26px"
+        height="26px"
+        viewBox="0 0 27 27"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+            id="Combined-Shape"
+            fill="#090d16"
+          ></path>
+        </g>
+      </svg>
+    </a>
+
+      </li>
+
+     
+
+      <li class="userProfilePicBox">
+        <!-- (click)="walletOpen()" -->
+        <a (click)="openDialog()">
+          <div  *ngIf="!userProfilePic"  class="wallet_block flex-center"  >
+            <svg
+              version="1.1"
+              id="Laag_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 64 64"
+              xml:space="preserve"
+              style="enable-background: new 0 0 64 64"
+            >
+              <g>
+                <path
+                  d="M18.7,12.8c-3.3,0-5.9,2.7-5.9,5.9v26.7c0,3.3,2.7,5.9,5.9,5.9h26.7c1.4,0,2.6-1.2,2.6-2.6v-6.8h3.3V31.4h-3.3v-6.8
+              c0-1.4-1.2-2.6-2.6-2.6h-4.1v-6.8c0-1.4-1.2-2.6-2.6-2.6H18.7z M45.4,48.8H18.7c-1.9,0-3.4-1.5-3.4-3.4V23.6l1.1,0.5
+              c0.7,0.3,1.5,0.5,2.4,0.5h26.7v6.8h-6.1c-2.9,0-5.2,2.4-5.2,5.3c0,2.9,2.4,5.2,5.2,5.2h6.1V48.8z M48.8,39.4h-9.4
+              c-1.5,0-2.8-1.2-2.8-2.8s1.2-2.8,2.8-2.8h9.4V39.4z M38.8,22.1H18.7c-1.9,0-3.4-1.5-3.4-3.4c0-1.9,1.5-3.4,3.4-3.4h20.1V22.1z"
+                ></path>
+              </g>
+            </svg>
+          </div>
+
+          <div *ngIf="userProfilePic" class="userProfilePic" [ngClass]="{'d-none': activeWallet}">
+            <img
+              [lazyLoad]="userProfilePic?.profilePic"
+              [defaultImage]="'assets/media/images/moonsea/profile.png'"
+              alt=""
+            />
+          </div>
+          
+        </a>
+        <div *ngIf="userProfilePic" (click)="closeMenu()" [ngClass]="{'d-none': !activeWallet}">
+          <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z" id="Combined-Shape" fill="#090d16"></path></g></svg>
+        </div>
+      </li>
+    </ul>
   </div>
 </section>

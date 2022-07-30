@@ -1,15 +1,15 @@
-<a
+<!-- <a
   *ngIf="fromPage == 0 && this.connectedAddress != items.ownerAddress"
   class="button wp100"
   href="javascript:void(0)"
   (click)="openDialog()"
 >
   <span>Purchase Now</span>
-</a>
+</a> -->
 
 <div
-  *ngIf="fromPage == 1 && this.connectedAddress != items?.ownerAddress"
-  class="button wp100"
+  *ngIf="fromPage == 1 && this.connectedAddress != items?.ownerAddress && items?.typeOfSale == 1"
+  class="button wp100 bg-primary"
   (click)="openDialog()"
 >
   Purchase now

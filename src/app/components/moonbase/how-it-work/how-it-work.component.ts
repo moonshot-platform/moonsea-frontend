@@ -29,7 +29,6 @@ export class HowItWorkComponent implements OnInit {
     this.cs.getWalletObs().subscribe((data: any) => {
       this.connectedAddress = data;
       this.getCollectionList();
-      // this.HomePageList(1, 'DESC', 1, 12);
     });
   }
 
@@ -37,7 +36,7 @@ export class HowItWorkComponent implements OnInit {
   config: SwiperOptions = {
     slidesPerView: 5,
     spaceBetween: 50,
-    pagination: { clickable: true },
+    
     navigation: true,
     scrollbar: { draggable: true },
     breakpoints: {
@@ -65,8 +64,9 @@ export class HowItWorkComponent implements OnInit {
 
 getCollectionList() {
   this.ngxService.start();
+  let url = `home/getHotBidCollectionList`;
   
-  this.homeService.getHotBidCollectionList().subscribe((response: any) => {
+  this.homeService.getRequest(url).subscribe((response: any) => {
      if(response.status == 200){
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
@@ -85,13 +85,12 @@ getCollectionList() {
      }
   
    
+  },(err:any)=>{
+    this.ngxService.stop()
   });
 }
 
 
-gotoNftDetails(nftAddress: any, tockenId: any) {
 
-  this.router.navigate(['/details', nftAddress, tockenId]);
-}
 
 }

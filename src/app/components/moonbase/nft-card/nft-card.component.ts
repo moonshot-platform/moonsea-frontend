@@ -8,6 +8,8 @@ import { HomeService } from 'src/app/services/home.service';
 import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GetDataService } from 'src/app/services/get-data.service';
+import blockjson from '../../../../assets/blockchainjson/blockchain.json';
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
@@ -19,6 +21,7 @@ declare var $: any;
 export class NftCardComponent implements OnInit {
 
   @Input() items:any;
+  @Input() index:any;
   @Output() newItemEvent = new EventEmitter<string>();
   balanceInBNB:  string="";
   price:Number=0;
@@ -27,7 +30,9 @@ export class NftCardComponent implements OnInit {
   getTopSellerCreatorsList:any;
   connectedAddress:any;
   hotBidList: any;
-  loading:boolean= false
+  loading:boolean= false;
+  isImageLoaded:any=[];
+  blockchainInfo:any ={};
   constructor(private contractService:ContractService,
     private http:HttpClient,
     private toastrService:ToastrService,
@@ -36,7 +41,12 @@ export class NftCardComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit(): void {
-
+    
+    blockjson[environment.configFile].forEach(element => {
+      if(element.blockchainId ==  this.items.blockchainId){
+        this.blockchainInfo = element;
+      }
+    });
     this.defaltProfile()
     this.contractService.getWalletObs().subscribe((data:any)=>
     {
@@ -66,12 +76,15 @@ export class NftCardComponent implements OnInit {
     }
     var status:any= await this.contractService.signMsgForLiked(nftId);
     if(status.status ){
-
+    //debugger
     this.getDataService.likedNft(
     {
      nftId : nftId,
      walletAddress : localStorage.getItem('address'),
-     signature : status.signature
+     signature : status.signature,
+     nftAddress:this.items.nftAddress,
+     blockchainId:this.items.blockchainId,
+     asset:this.items.asset
     }
     ).subscribe
     ((result:any)=>{
@@ -113,8 +126,8 @@ return false;
     {
      id : nftId,
      walletAddress : localStorage.getItem('address'),
-     signature : status.signature
-
+     signature : status.signature,
+    asset:this.items.asset
     }
     ).subscribe
     ((result:any)=>{
@@ -122,16 +135,12 @@ return false;
       
       if(result.isSuccess){
         this.items.isLikeByYou = 0;
-        console.log( this.items);
       this.toastrService.success(result.message)
 
       this.items.isLikeByYou = 0;
 
       }
       else{
-
-        // this.toastrService.error(result.message)
-
 
       }
 
@@ -152,7 +161,16 @@ connectWallet()
 }
 
 gotoDetails(id:any){
-  this.router.navigate(['/details',this.items.nftAddress,id])
+  this.router.navigate(['/details',this.items.nftAddress,id,this.items.blockchainId ]);
 }
 
+onMediaLoad(event:any,indexx:any){
+  
+  
+  if (event && event.target) {
+    this.isImageLoaded[indexx] = true;
+  } else {
+    this.isImageLoaded[indexx] = false;
+  }
+}
 }

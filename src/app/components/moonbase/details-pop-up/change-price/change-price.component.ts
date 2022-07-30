@@ -2,6 +2,7 @@ import { Component, OnInit,Inject } from '@angular/core';
 import {FormsModule,ReactiveFormsModule,FormControl,Validators,FormGroup} from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { SignSellOrder01 } from 'src/app/model/signBuyerOrder';
 import { ContractService } from 'src/app/services/contract.service';
 import { GetDataService } from 'src/app/services/get-data.service';
 
@@ -21,6 +22,7 @@ export class ChangePriceComponent implements OnInit {
   currentPrice: any;
   isApiLoading: any;
   wrongNetwork: boolean=true;
+  isChangePriceMessage:boolean= false;
 
   constructor(public dialogRef: MatDialogRef<ChangePriceComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -68,18 +70,31 @@ async checkNetwork()
     let salt = this.contractService.randomNo();
     var userDate= JSON.parse(localStorage.getItem("userData") ?? "{}");
 
-    var status:any= await this.contractService.signSellOrder(
-      this.data.ID,
-      data.newPrice,
-      this.data.currentSupply,
-      this.data.nftAddress,
-      this.data.isMultiple,
-      salt,
-      userDate?.userInfo.referralAddress,
-      this.data.royalties,
-      this.data.royaltiesOwner,
-      );
+
     
+    if(!userDate){
+      this.contractService.isRegisterd.next("not register");
+      return;
+    }
+    let sig :SignSellOrder01;
+    sig={
+      nftId: this.data.ID,
+      price:  data.newPrice,
+      supply: this.data.currentSupply,
+      nftAddress:  this.data.nftAddress,
+      isMultiple: this.data.isMultiple,
+      salt: salt,
+      referralAddress:  userDate?.referralAddress,
+      royalties:  this.data.royalties,
+      royaltiesOwner: this.data.royaltiesOwner??'0x0000000000000000000000000000000000000000',
+      tokenAddress:  '0x0000000000000000000000000000000000000000',
+      blockchainId:this.data.blockchainId
+    }
+
+    var status:any= await this.contractService.signSellOrder(
+      sig
+      );
+    //debugger;
     if(status.status){
     data.nftId = this.data.ID;
     data.walletAddress = this.Address;
@@ -88,6 +103,8 @@ async checkNetwork()
     data.supply = this.data.currentSupply;
      data.salt = salt;
     data.isMultiple = this.data.isMultiple;
+    data.blockchainId = this.data.blockchainId;
+    data.asset = this.data.asset;
     
     this.getDataService.updatePriceSave(
       data
@@ -100,7 +117,7 @@ async checkNetwork()
         this.errorMsg = result.message;
         this.isApiLoading = false;
         this.toastrService.success(result.message);
-
+        this.isChangePriceMessage = false;
         this.dialogRef.close();
       }
       else
@@ -109,10 +126,14 @@ async checkNetwork()
         this.errorMsg = result.message;
         this.isApiLoading = false;
         this.toastrService.success(result.message);
+        this.isChangePriceMessage = true;
         
       }
     
     })
+  }else{
+    this.isChangePriceMessage = false;
+    this.isApiLoading = false;
   }
   }
 

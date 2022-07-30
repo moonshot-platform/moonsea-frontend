@@ -1,8 +1,6 @@
 import { Injectable, NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,9 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NavModule } from './components/moonbase/nav/nav.module';
 import { SidebarModule } from './components/base/sidebar/sidebar.module';
 import { CommonModule } from '@angular/common';
-import { NgApexchartsModule } from 'ng-apexcharts';
-import { NgxUiLoaderModule,  SPINNER } from 'ngx-ui-loader';
-import {MatStepperModule} from '@angular/material/stepper';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 
 
@@ -37,19 +33,14 @@ export class HammerConfig extends HammerGestureConfig {
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    MatIconModule,
     BrowserAnimationsModule,
-    MatDialogModule,
     GtagModule.forRoot({ trackingId: 'G-5Q9LF9T9Q6', trackPageviews: true }),
     MoonbaseModule,
-    MatDialogModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({timeOut: 15000,progressBar:true}),
     NavModule,
     SidebarModule,
-    NgApexchartsModule,
     NgxUiLoaderModule,
-    MatStepperModule
   ],
   providers: [
   {

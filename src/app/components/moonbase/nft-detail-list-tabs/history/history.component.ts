@@ -9,6 +9,7 @@ import { GetDataService } from 'src/app/services/get-data.service';
 export class HistoryComponent implements OnInit {
   @Input() ID:any;
   @Input() nftAddress:any;
+  @Input() items:any;
   data: any;
   type: any;
   isApiLoading : any = true;
@@ -24,7 +25,7 @@ export class HistoryComponent implements OnInit {
   {
     
     this.getDataService.getListBidHistory(
-      this.ID,this.nftAddress
+      this.items?.asset
     ).subscribe((response:any)=>
     {
       

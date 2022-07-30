@@ -1,6 +1,6 @@
 <div class="popup popup_bid" *ngIf="wrongNetwork && step == 0">
   <div class="flex justify-space-between">
-    <h5 class="orbitron p24 mb20">Place a bid</h5>
+    <h5 class="orbitron p24 mb20">{{items?.listing?.btnType == 'offer' ? 'Make a Bid' : 'Place Bid'}}</h5>
     <a href="javascript:void(0)" (click)="closeDialog()">
     <svg
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -28,22 +28,23 @@
     </svg>
     </a>
   </div>
-  <div class="popup__info">Wrong Network</div>
+  <div class="popup__info">
+    An error occured while interacting with your wallet. Please try again.
+  </div>
   <div class="popup__btns">
     <button
-      [disabled]="invalidValue"
       (click)="checkNetwork()"
       class="button popup__button"
       data-effect="mfp-zoom-in"
     >
-      Try again
+      Try Again
     </button>
   </div>
 </div>
 
-<div class="popup popup_bid" *ngIf="!wrongNetwork">
+<div class="popup popup_bid" *ngIf="!wrongNetwork && step == 1">
   <div class="flex justify-space-between">
-    <h5 class="orbitron p24 mb20">Place a bid</h5>
+    <h5 class="orbitron p24 mb20">{{items?.listing?.btnType == 'offer' ? 'Make a Bid' : 'Place Bid'}}</h5>
     <a href="javascript:void(0)" (click)="closeDialog()">
     <svg
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -71,40 +72,50 @@
     </svg>
   </a>
   </div>
+  <!--  -->
   <div class="popup__info">
-    You are about to purchase {{ items?.nftName }} from {{ items?.name }}
+    You are bidding on {{ items?.listing?.name }} #{{ items?.listing?.nftTokenID }} from "{{ items?.data?.tokenName }}"
   </div>
   <div class="popup__table">
     <div class="popup__row">
-      <div class="p12">Enter bid :</div>
-      <div class="popup__col">
+      <div class="p12 min_widhth">Amount :</div>
+      <div class="popup__col pl-0">
         <div class="popup__bid">
           <input
             #amount
             class="popup__rate"
-            value="price"
+            [value]="price"
             type="number"
             (keyup)="validatePrice($event)"
             name="bid"
           />
-          <div class="popup__currency">BNB</div>
+          <div class="popup__currency">{{blockchainInfo.wsymbol}}</div>
         </div>
+        
       </div>
+     
     </div>
-
-    <p class="p12 w-normal mt10 mb10">Minimum Bid {{ price }}</p>
+    <p *ngIf="isShowMinimumBidValidation" class="error">
+      price should be greater than inimum bid
+    </p>
+ 
+    <p class="p12 w-normal mt10 mb10" *ngIf="items?.listing?.btnType != 'offer'">Minimum Bid {{ price ? price :'Not a number' }}</p>
 
     <div class="popup__row">
       <div class="popup__col">Your balance</div>
-      <div class="popup__col">{{ balanceInBNB }} BNB</div>
+     
+      <div class="popup__col">
+        <div class="loader text-white loader01" *ngIf="!balanceInBNB"></div> 
+        <span *ngIf="balanceInBNB">{{ balanceInBNB }} {{blockchainInfo.wsymbol}}</span>
+      </div>
     </div>
     <div class="popup__row">
       <div class="popup__col">Service fee</div>
       <div class="popup__col">{{ serviceFees }}</div>
     </div>
     <div class="popup__row">
-      <div class="popup__col">Total bid amount</div>
-      <div class="popup__col">{{ total }} BNB</div>
+      <div class="popup__col">Total</div>
+      <div class="popup__col">{{ bidAmont }} {{blockchainInfo.wsymbol}}</div>
     </div>
   </div>
   <div class="popup__btns">
@@ -114,7 +125,7 @@
       class="button text-inherit dark-button mb10 wp100"
       data-effect="mfp-zoom-in"
     >
-      {{ btnText }}
+      Place bid
     </button>
     <button (click)="closeDialog()" class="button wp100">Cancel</button>
   </div>

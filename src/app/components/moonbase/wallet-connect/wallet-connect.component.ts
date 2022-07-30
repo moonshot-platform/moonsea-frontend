@@ -3,6 +3,8 @@ import { TokenomicsService } from 'src/app/services/tokenomics.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
+import { Router } from '@angular/router';
+import { GetDataService } from 'src/app/services/get-data.service';
 
 @Component({
   selector: 'app-wallet-connect',
@@ -21,7 +23,7 @@ export class WalletConnectComponent implements OnInit {
     1 : "ETH",
   }
   constructor( private tokenomicsService: TokenomicsService,private contractService:ContractService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,private router:Router,private getDataService: GetDataService) { }
 
   ngOnInit(): void {
     this.contractService.getWalletObs().subscribe((data:any)=>
@@ -48,8 +50,11 @@ export class WalletConnectComponent implements OnInit {
 
   Disconnect() {
     localStorage.clear();
-    this.contractService.setWalletObs(new Object());
-    location.reload();
+    // this.contractService.setWalletObs(new Object());
+    this.router.navigate(['/home']);
+    this.getDataService.profilePic.next({isdisconneted:true});
+    this.contractService.setWalletObs(null);
+    // location.reload();
 
   }
 

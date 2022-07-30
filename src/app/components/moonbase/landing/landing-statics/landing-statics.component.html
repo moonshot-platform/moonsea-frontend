@@ -1,0 +1,107 @@
+<section class="top-collection">
+    <div class="inner">
+      <div class="flex align-center justify-space-between mb20">
+        <p class="orbitron p18">
+          <span class="color-white">Moon</span><span>Sea </span>
+          <span>Statistics </span>
+        </p>
+        <div class="flex align-center desktop-only">
+          <p class="p16">Collection statistics</p>
+          <a [routerLink]="['/others/stats']" routerLinkActive="router-link-active"  class="ml20">
+            <svg version="1.1" id="stats_arrow" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+              width="50" height="50"
+              xml:space="preserve">
+              <g>
+                <circle class="stroke" cx="20" cy="20" r="18"></circle>
+                <g>
+                  <line class="stroke" x1="12.9" y1="20" x2="26.7" y2="20"></line>
+                  <polyline class="stroke" points="20.3,13.2 27.1,20.1 20.4,26.8"></polyline>
+                </g>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex2 wrap gap stats">
+          <div class="stats_box flex-col">
+            <h3 class="orbitron p24 mb10">{{ statics.DailySales | number }}</h3>
+            <span>Daily Sales</span>
+          </div>
+          <div class="stats_box flex-col">
+            <h3 class="orbitron p24 mb10">{{ statics.TotalSales | number }}</h3>
+            <span>Total Sales</span>
+          </div>
+          <div class="stats_box flex-col">
+            <h3 class="orbitron p24 mb10">
+              {{ statics.DailyMSHVolume  | number }}
+            </h3>
+            <span>Daily MSHOT Volume</span>
+          </div>
+          <div class="stats_box flex-col">
+            <h3 class="orbitron p24 mb10">
+              {{ statics.TotalMSHVolume  | number }}
+            </h3>
+            <span>Total MSHOT Volume</span>
+          </div>
+        </div>
+        <div class="mobile-only flex align-center">
+          <a href="javascript:void(0)" class="mt20" (click)="stats()">
+            <svg
+              version="1.1"
+              id="stats_arrow"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 40 40"
+              width="36"
+              heigh="36"
+              xml:space="preserve"
+
+            >
+
+              <g>
+
+                <circle class="stroke" cx="20" cy="20" r="18"></circle>
+
+                <g>
+
+                  <line
+
+                    class="stroke"
+
+                    x1="12.9"
+
+                    y1="20"
+
+                    x2="26.7"
+
+                    y2="20"
+
+                  ></line>
+
+                  <polyline
+
+                    class="stroke"
+
+                    points="20.3,13.2 27.1,20.1 20.4,26.8"
+
+                  ></polyline>
+
+                </g>
+
+              </g>
+
+            </svg>
+
+          </a>
+
+          <p class="ml10 mt20 p16">Collection statistics</p>
+
+        </div>
+
+      </div>
+    </div>
+  </section>

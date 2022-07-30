@@ -1,47 +1,152 @@
-<div class="popup popup_bid" *ngIf="wrongNetwork && step==0">
+<div class="popup popup_bid" *ngIf="wrongNetwork && step == 0">
   <div class="orbitron p24 mb20">Place a bid</div>
   <div class="popup__info">Wrong Network</div>
 
   <div class="popup__btns">
-    <button (click)="checkNetwork()" class="button popup__button" data-effect="mfp-zoom-in">Try again</button>
+    <button
+      (click)="checkNetwork()"
+      class="button popup__button"
+      data-effect="mfp-zoom-in"
+    >
+      Try again
+    </button>
   </div>
 </div>
 
 <div class="popup popup_bid" id="popup-buy-now" *ngIf="!wrongNetwork">
-  <div class="" *ngIf="step==4">
-    <div class="orbitron p24 mb20">Checkout</div>
-    <div class="popup__info">By accepting offer you are agreeing to sell this NFT at {{total}} WBNB price and end the
-      auction. Do you want to sell now? at price</div>
+  <div class="" *ngIf="step == 4">
+    <div class="flex justify-space-between">
+      <h5 class="orbitron p24 mb20">Checkout</h5>
+      <a href="javascript:void(0)" (click)="close()"
+        ><svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          viewBox="0 0 27 27"
+          height="24px"
+          width="24px"
+        >
+          <title>Close</title>
+          <desc>Created with Sketch.</desc>
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+              id="Combined-Shape"
+              fill="#000000"
+            ></path>
+          </g></svg
+      ></a>
+    </div>
+
+    <div class="popup__info">
+      By accepting offer you are agreeing to sell this NFT at {{ total }} {{blockchainInfo.symbol}}
+      price and end the auction. Do you want to sell now? at price
+    </div>
     <div class="popup__btns">
-      <button class="button popup__button" (click)="nextStep()">I understand, continue</button>
-      <button (click)="closeDialog()" class="button-stroke popup__button js-popup-close">Cancel</button>
+      <button
+        class="button text-inherit dark-button mb10 wp100"
+        (click)="nextStep()"
+      >
+        I understand, continue
+      </button>
+      <button (click)="close()" class="button wp100">Cancel</button>
     </div>
   </div>
-  <div class="" *ngIf="step==1">
-    <div class="orbitron p24 mb20">Checkout</div>
-    <div class="popup__info">You are about to purchase <strong>{{nftDetails?.title}}</strong> from <strong>UI8</strong>
+  <div class="" *ngIf="step == 1">
+    <div class="flex justify-space-between">
+      <h5 class="orbitron p24 mb20">Checkout</h5>
+      <a href="javascript:void(0)" (click)="close()"
+        ><svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          viewBox="0 0 27 27"
+          height="24px"
+          width="24px"
+        >
+          <title>Close</title>
+          <desc>Created with Sketch.</desc>
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+              id="Combined-Shape"
+              fill="#000000"
+            ></path>
+          </g></svg
+      ></a>
+    </div>
+    <div class="popup__info">
+      You are about to purchase 
+      <strong *ngIf="nftDetails?.title">{{ items.nftDetails?.title }}</strong>
+      <strong *ngIf="!nftDetails?.title">Anonymous</strong>
+       from
+      <strong>{{ items.nftDetails?.ownerName }}</strong>
     </div>
     <div class="popup__table">
       <div class="popup__row">
-        <div class="popup__col">{{price}}</div>
-        <div class="popup__col">BNB</div>
+        <div class="popup__col">{{ price }}</div>
+        <div class="popup__col">{{blockchainInfo.symbol}}</div>
       </div>
       <div class="popup__row">
         <div class="popup__col">Service fee</div>
-        <div class="popup__col">{{serviceFees}} BNB</div>
+        <div class="popup__col">{{ serviceFees }} {{blockchainInfo.symbol}}</div>
       </div>
       <div class="popup__row">
         <div class="popup__col">You will get</div>
-        <div class="popup__col">{{total}} BNB</div>
+        <div class="popup__col">{{ price - (price*pricingDetails.serviceFees/100)  }} {{blockchainInfo.symbol}}</div>
       </div>
     </div>
     <div class="popup__btns">
-      <button class="button popup__button" (click)="gotoNextStep(2)">I understand, continue</button>
-      <button (click)="closeDialog()" class="button-stroke popup__button js-popup-close">Cancel</button>
+      <button
+        class="button text-inherit dark-button mb10 wp100"
+        (click)="gotoNextStep(2)"
+      >
+        I understand, continue
+      </button>
+      <button (click)="close()" class="button wp100">Cancel</button>
     </div>
   </div>
-  <div class="" *ngIf="step==2">
-    <div class="orbitron p24 mb20">Folow steps</div>
+  <div class="" *ngIf="step == 2">
+    <div class="flex justify-space-between">
+      <h5 class="orbitron p24 mb20">Follow Steps</h5>
+      <a href="javascript:void(0)" (click)="close()"
+        ><svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          viewBox="0 0 27 27"
+          height="24px"
+          width="24px"
+        >
+          <title>Close</title>
+          <desc>Created with Sketch.</desc>
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+              id="Combined-Shape"
+              fill="#000000"
+            ></path>
+          </g></svg
+      ></a>
+    </div>
     <div class="steps">
       <div class="steps__item">
         <div class="steps__head">
@@ -55,35 +160,59 @@
         </div>
       </div>
     </div>
-    <div class="popup__attention">
-      <div class="popup__preview">
-        <svg class="icon icon-info-circle">
-          <use xlink:href="#icon-info-circle"></use>
-        </svg>
-      </div>
-      <div class="popup__details">
-        <div class="popup__category">This creator is not verified</div>
-        <div class="popup__text">Purchase this item at your own risk</div>
-      </div>
-      <div class="popup__avatar"><img src="img/content/avatar-3.jpg" alt="Avatar"></div>
-    </div>
   </div>
-  <div class="" *ngIf="step==3">
+  <div class="" *ngIf="step == 3">
     <div class="success">
-      <div class="success__title h2">Yay! <span role="img" aria-label="firework">🎉</span></div>
-      <div class="success__info">You successfully sold your NFT</div>
-      <div class="success__table">
-        <div class="success__row">
-          <div class="success__col">Status</div>
-          <div class="success__col">Transaction ID</div>
+      <div class="flex justify-end mb20">
+        <a href="javascript:void(0)" (click)="close()"
+          ><svg
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            viewBox="0 0 27 27"
+            height="24px"
+            width="24px"
+          >
+            <title>Close</title>
+            <desc>Created with Sketch.</desc>
+            <g
+              id="Page-1"
+              stroke="none"
+              stroke-width="1"
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <path
+                d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                id="Combined-Shape"
+                fill="#000000"
+              ></path>
+            </g></svg
+        ></a>
+      </div>
+
+      <div class="success__title h2">
+        Yay! <span role="img" aria-label="firework">🎉</span>
+      </div>
+      <div class="popup__info text-center">You have successfully sold your NFT</div>
+      <div>
+        <div class="popup__row p-0 border-0"></div>
+        <div class="popup__row">
+          <div class="popup__col">Status</div>
+          <div class="popup__col text-danger">Processing</div>
         </div>
-        <div class="success__row">
-          <div class="success__col">Processing</div>
-          <div class="success__col" (click)="gotoTestNetBscScan(txnHash)">{{txnHash}}</div>
+        <div class="popup__row">
+          <div class="popup__col">Transaction ID</div>
+          <a href="javascript:void(0)" class="text-primary popup__col" (click)="gotoTestNetBscScan(txnHash)">
+            {{ txnHash.slice(0,5) }}...{{ txnHash.slice(-5)}}
+          </a>
+        </div>
+        <div class="popup__row">
+          <div class="p12 w-normal popup__col text-danger">Note : it will take 1 minute to reflect.</div>
         </div>
       </div>
-      <div class="success__stage">Time to show-off</div>
-      <app-socialbuttons [data]="shareUrl"  ></app-socialbuttons>
+      <div class="mt30 mb20 text-center">Time to show-off</div>
+      <app-socialbuttons [data]="shareUrl"></app-socialbuttons>
     </div>
   </div>
 </div>

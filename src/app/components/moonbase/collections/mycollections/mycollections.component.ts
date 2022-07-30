@@ -1,143 +1,78 @@
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ApplicationRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HomeService } from 'src/app/services/home.service';
+import { CreateNftService } from 'src/app/services/create-nft.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from 'src/app/services/contract.service';
-import { CreateCollectionComponent } from '../../create-nft/create-collection/create-collection.component';
-import { ImportCollectionComponent } from './import-collection/import-collection.component';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { GetDataService } from 'src/app/services/get-data.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { HomeService } from 'src/app/services/home.service';
 
 @Component({
   selector: 'app-mycollections',
   templateUrl: './mycollections.component.html',
-  styleUrls: ['./mycollections.component.scss']
+  styleUrls: ['./mycollections.component.scss'],
 })
-export class MycollectionsComponent implements OnInit {
-
-  id: string="";
-  connectedAddress: any;
-  myCollection: any =[];
-  isLoading: any = false;
-  isShow: any = false;
-  selectedCategory:any;
-  constructor(private homeService: HomeService,
-     private cs: ContractService, public dialog: MatDialog, private router: Router,private _activatedRoute: ActivatedRoute,
-    private location: Location) {
-    _activatedRoute.params.subscribe(
-      (params:any) =>{this.id = params['id'];});
-
-      this.homeService.getBrowseSelectedBycategoryCollectionList(this.id).subscribe((res)=>{
-        this.selectedCategory =res.data
-      })
-
-
-   }
+export class MycollectionsComponent implements OnInit, OnDestroy {
+  tabIndex: any = 1;
+  walletAddress:any="";
+unSubscribeRequest:Subscription;
+connectedAddress:any;
+myCollection:any = [];
+collectionName:any;
+collectionId:any;
+  constructor(
+    private location: Location,
+    private createNftService: CreateNftService,
+    private route: Router,
+    private _activatedroute: ActivatedRoute,
+    private contract_service: ContractService,
+    private appRef: ApplicationRef,
+    private ngxLoader:NgxUiLoaderService,
+    private getDataService:GetDataService,
+    private homeService: HomeService,
+  ) {
+    // route.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return true;
+    // };
+  }
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
-    window.scrollTo(0, 0)
-    this.cs.getWalletObs().subscribe((data: any) => {
-      this.connectedAddress = data;
-      this.getmyCollectionList();
+    this.walletAddress = localStorage.getItem('address');
 
-    });
-  }
-
-
-  get formControls() { return this.importForm.controls; }
-
-  importForm = new FormGroup(
-    {
-      contractaddress: new FormControl('', Validators.required)
-    }
-  )
-
-
-
-  getmyCollectionList() {
-
-    this.homeService.myCollectionList(this.connectedAddress).subscribe((response: any) => {
-      if(response.status == 200){
-        for (let i = 0; i < response.data.length; i++) {
-          for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
-            response.data[i].nftFileUrl01 =
-              response.data[i].nftDetailsList[0].nftFileUrl;
-            response.data[i].nftTokenID01 =
-              response.data[i].nftDetailsList[0].nftTokenID;
-            response.data[i].nftAddress =
-              response.data[i].nftDetailsList[0].nftAddress;
-          }
-        }
-  
-        this.myCollection = response.data;
-        console.log("%%%%%=>",this.myCollection);
-          
-      }
+    this.createNftService.subject.subscribe((res: any) => {
+      this.tabIndex = res.tabIndex;
+      this.collectionName = res.collectionName;
+      this.collectionId = res.collectionId;
      
     });
 
-
-  }
-
-  show() {
-    this.isShow = true;
-  }
-
-
-  saveOtherCollectionsList(contractaddress: any) {
-    console.warn(contractaddress.contractaddress);
-
-    this.homeService.getOtherCollections(contractaddress.contractaddress).subscribe((response: any) => {
-      this.myCollection = response.data;
-    });
-
-    this.isLoading = true;
-    this.homeService.getCollectionId().subscribe((response: any) => {
-      console.warn("9999999999999999999999999999999999999");
-      console.warn(response.data.collectionName);
-
-      this.router.navigate(['/collection', response.data.collectionName]);
-
-      // login successful so redirect to return url
-      //this.router.navigateByUrl('collection/'+response.data);
-    });
-    this.isLoading = false;
-
-  }
-  edit(item:any){
-   
-    const dialogRef = this.dialog.open(CreateCollectionComponent, {
-      width: 'auto',
-      data:item
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    
-    });
-  }
-
-  openDialogCreateCollection(): void {
-    const dialogRef = this.dialog.open(CreateCollectionComponent, {
-      width: 'auto',
-      data: {
+    this.contract_service.getWalletObs().subscribe((data: any) => {
+      if(this.connectedAddress != data){
+        this.connectedAddress = data;
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-    
-    });
+   
   }
 
-  gotoNftDetails(nftAddress:any,tockenId:any){
-    this.router.navigate(['/details', nftAddress, tockenId]);
+
+
+
+  isSelected(index: number) {
+    if (this.tabIndex == index) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
-  goBack(): void {
-    this.location.back();
+  gotoback() {
+    this.tabIndex = 0;
+    this.route.navigate(['/collection'], { relativeTo: this._activatedroute, queryParams: {}});
+  }
+  onTabChanged(index: any) {
   }
 
-  importcollection() {
-    const dialogRef = this.dialog.open(ImportCollectionComponent, {
-      width: 'auto',
-    });
-  }
-
+  
 }

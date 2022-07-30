@@ -20,10 +20,10 @@ export class CollectionApiService {
   }
 
 
-  getNFTListAll(collectionId:any,walletAddress:any,sortingType:any,priceRangeMin:any,priceRangeMax:any,size:any,propertiesKey:any,propertiesValue:any,searchText:any,categoryId:any,status:any): Observable<any> {
+  getNFTListAll(collectionId:any,walletAddress:any,sortingType:any,priceRangeMin:any,priceRangeMax:any,size:any,propertiesKey:any,propertiesValue:any,searchText:any,categoryId:any,status:any,json:any): Observable<any> {
     // return this.httpClient.get(environment.apiUrl + 'api/getNftDetailsByCollectionId?collectionId=' + collectionId + "&walletAddress=" + walletAddress + "&sortingType=" + sortingType + "&priceRangeMin=" + priceRangeMin + "&priceRangeMax=" + priceRangeMax + "&orderBy=" + orderBy + "&size=" + size + "&propertiesValue=" + propertiesValue +"&searchText="+searchText+"&categoryId="+categoryId+"&sortByPrice="+sortByPrice+"&propertiesKey=" + propertiesKey);
  
-    return this.httpClient.get(environment.apiUrl +"api/getNftDetailsByCollectionId?collectionId="+collectionId+"&walletAddress="+walletAddress+"&sortingType="+sortingType+"&priceRangeMin="+priceRangeMin+"&priceRangeMax="+priceRangeMax+"&size="+size+"&propertiesKey="+propertiesKey+"&propertiesValue="+propertiesValue+"&searchText="+searchText+"&categoryId="+categoryId+"&status="+status);
+    return this.httpClient.get(environment.apiUrl +"api/getNftDetailsByCollectionId?collectionId="+collectionId+"&walletAddress="+walletAddress+"&sortingType="+sortingType+"&priceRangeMin="+priceRangeMin+"&priceRangeMax="+priceRangeMax+"&size="+size+"&propertiesKey="+propertiesKey+"&propertiesValue="+propertiesValue+"&searchText="+searchText+"&categoryId="+categoryId+"&status="+status+"&json="+json);
   }
 
   uploadCoverPic(file: File, walletAddress: string) {
@@ -44,7 +44,7 @@ export class CollectionApiService {
 
   getTemparory(url){
    const tempUrl = "https://infinixx.io/marketplace/api/" ;
-   return this.httpClient.get(tempUrl+url);
+   return this.httpClient.get(environment.apiUrl+url);
   }
 
   uploadCover(body:any , url){

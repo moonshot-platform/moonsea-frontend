@@ -3,6 +3,29 @@
 @import "~swiper/css/grid";
 @import "~swiper/css/pagination";
 
-.d-flex{
-    display: flex;
+.d-flex {
+  display: flex;
+}
+
+.loading-logo {
+  margin: auto;
+  display: flex;
+  height: 100%;
+  object-fit: none;
+  opacity: 0.7;
+  width: 86px;
+  height: 86px;
+}
+
+.not-visible {
+  width: 0px !important;
+  height: 0px !important;
+  min-width: 0px !important;
+  max-width: 0px !important;
+  min-height: 0px !important;
+  max-height: 0px !important;
+}
+
+.d-block {
+  display: block;
 }

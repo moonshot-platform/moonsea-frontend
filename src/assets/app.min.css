@@ -300,9 +300,9 @@ html {
 .nice-select:hover {
   border-color: #50aac5;
 }
+
 .nice-select:active,
-.nice-select.open,
-.nice-select:focus {
+.nice-select.open {
   border-color: #ffffff;
 }
 .nice-select.open .current {
@@ -1209,7 +1209,7 @@ body.dark .some-icon-dark {
   display: inline-block;
 }
 .dark .swiper-slide,
-.dark .card__preview > img {
+.dark .card__preview img {
   background: transparent;
 }
 .dark .whitebg__card {
@@ -1293,6 +1293,8 @@ body.dark .slick-arrow:hover path {
   transition: transform 0.2s;
   transition: transform 0.2s, -webkit-transform 0.2s;
 }
+
+
 body.dark .select,
 body.dark .nice-select {
   color: white;
@@ -1315,7 +1317,7 @@ body.dark .nice-select.open {
 .select.open:before {
   -webkit-transform: translateY(-50%) rotate(180deg);
   transform: translateY(-50%) rotate(180deg);
-  box-shadow: inset 0 0 0 2px #ffffff;
+  /* box-shadow: inset 0 0 0 2px #ffffff; */
 }
 .select .current {
   display: block;
@@ -1344,7 +1346,7 @@ body.dark .nice-select .list {
   padding: 15px 0;
   font-weight: 500;
   line-height: 1.4;
-  color: white;
+  color: #50aac5;
   margin: 0 15px;
   border-bottom: 1px solid white;
 }
@@ -1356,7 +1358,7 @@ body.dark .nice-select .list {
 .select .option.selected.focus {
   /* background: rgb(35, 38, 47); */
     background: transparent;
-    color: #50aac5;
+    color: #ffffff;
 }
 body.dark .select .option:hover,
 body.dark .select .option.focus,
@@ -1614,7 +1616,7 @@ body.dark .section-bg {
 }
 
 [class^="button"].disabled {
-  opacity: 0.5;
+  /* opacity: 0.5; */
   pointer-events: none;
 }
 [class^="button"].done {
@@ -3576,7 +3578,6 @@ body.dark .popular__price span {
   font-size: 12px;
   line-height: 1;
   font-weight: 700;
-  text-transform: uppercase;
   color: #b1b5c3;
 }
 
@@ -3673,7 +3674,8 @@ body.dark .field__textarea:focus {
   border-radius: 0px;
   overflow: hidden;
 }
-.card__preview > img {
+.card__preview img,
+.card__preview video {
   transition: -webkit-transform 1s;
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
@@ -3781,6 +3783,7 @@ body.dark .card__link {
 }
 .card__line {
   display: flex;
+  min-width: 100%;
   align-items: flex-start;
 }
 .card__line:first-child {
@@ -3798,11 +3801,12 @@ body.dark .card__link {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: auto;
 }
 .card__price {
   flex-shrink: 0;
   margin-left: 8px;
-  padding: 0 8px;
+  padding: 0 0px;
   border-radius: 4px;
   font-size: 12px;
   line-height: 26px;
@@ -4006,6 +4010,7 @@ body.dark .card__status span {
   margin-bottom: 8px;
   margin-top: 16px;
   font-size: 24px;
+  display: flex;
   line-height: 1.33333;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -5099,7 +5104,6 @@ body.dark .variants__item {
   font-size: 12px;
   line-height: 1;
   font-weight: 500;
-  text-transform: uppercase;
   color: #50aac5;
 }
 
@@ -5159,7 +5163,7 @@ body.dark .field__textarea:focus {
 }
 
 .field__input {
-  height: 48px;
+  height: 36px;
   padding: 0 14px;
 }
 
@@ -5187,7 +5191,7 @@ textarea.field__input {
   background: transparent;
   box-shadow: 0px 64px 64px rgb(31 47 70 / 12%);
   border-radius: 0px;
-  border: 2px solid #50aac5;
+  border: 1px solid #50aac5;
 }
 @media only screen and (max-width: 1179px) {
   .preview__inner {
@@ -5197,7 +5201,7 @@ textarea.field__input {
 @media only screen and (max-width: 1023px) {
   .preview__inner {
     position: relative;
-    width: 352px;
+    width: 100%;
     margin: auto;
   }
 }
@@ -5294,11 +5298,6 @@ body.dark .preview__close .icon {
   }
 }
 
-.upload__wrapper {
-  flex: 0 0 calc(100% - 400px);
-  width: calc(100% - 400px);
-  padding-right: 128px;
-}
 @media only screen and (max-width: 1339px) {
   .upload__wrapper {
     padding-right: 64px;
@@ -5422,14 +5421,14 @@ body.dark .upload__list {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  height: 182px;
+  height: 275px;
   margin-top: 8px;
   border-radius: 0px;
   color: white;
   overflow: hidden;
-  border: 1px solid #50aac5;
+  border: 1px solid #090d16;
 }
 body.dark .upload__file {
   background: #23262f;
@@ -5456,13 +5455,13 @@ body.dark .upload__file {
 .upload__format {
   font-size: 12px;
   line-height: 1.66667;
-  color: #50aac5;
+  color: #090d16;
 }
 
 .upload__category {
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .upload__fieldset {
@@ -5514,10 +5513,10 @@ body.dark .upload__file {
 
 .upload__option {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 .upload__option:not(:last-child) {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .upload__box {
@@ -5530,10 +5529,11 @@ body.dark .upload__file {
 }
 
 .upload__text {
-  margin-top: 4px;
+  margin-top: 0px;
   font-size: 12px;
-  line-height: 1.66667;
+  line-height: 16px;
   color: #50aac5;
+  font-weight: normal;
 }
 
 @media only screen and (max-width: 767px) {
@@ -5678,7 +5678,7 @@ body.dark .upload__card {
   display: block;
   width: 48px;
   height: 24px;
-  background: #e6e8ec;
+  border: 1px solid #50aac5;
   border-radius: 12px;
   transition: all 0.2s;
 }
@@ -5702,6 +5702,7 @@ body.dark .switch__box {
 .loader {
   width: 1em;
   height: 1em;
+  margin: auto;
   border-radius: 50%;
   position: relative;
   font-size: 4px;
@@ -7772,7 +7773,6 @@ body.dark .profile__btns .profile__button:hover {
   }
   .profile .user {
     width: 100%;
-    margin: -32px 0 48px !important;
   }
 }
 
@@ -8156,6 +8156,9 @@ body.dark .user__direction span:hover {
 body.dark .user__direction span:hover .icon {
   fill: #fcfcfd;
 }
+.user__direction:first-child {
+  margin-top: 0;  
+}
 .user__direction:not(:last-child) {
   display: flex !important;
   margin-top: 10px;
@@ -8286,7 +8289,7 @@ body.dark .followers__item {
   flex-shrink: 0;
   width: 88px;
   height: 88px;
-  margin-right: 20px;
+  margin-right: 24px;
 }
 @media only screen and (max-width: 767px) {
   .followers__avatar {
@@ -8354,7 +8357,7 @@ body.dark .followers__item {
 }
 
 .followers .loader {
-  margin: 48px auto 10px;
+  margin: 0px auto;
 }
 
 .details__center {
@@ -8804,13 +8807,16 @@ body.dark .item__user {
   height: 48px;
   margin-right: 16px;
 }
+.item__avatar > div.relative {
+  width: 100%;
+  height: 100%;
+}
 .item__avatar > img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   -o-object-fit: cover;
   object-fit: cover;
-  background: #50aac5;
   border: 1px solid #50aac5;
 }
 .item__reward {
@@ -9050,20 +9056,15 @@ body.dark .options__box {
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #e6e8ec;
   cursor: pointer;
-  transition: all 0.2s;
 }
 .options__direction span .icon {
   width: 20px;
   height: 20px;
   transition: fill 0.2s;
-}
-.options__direction span:hover {
-  background: #50aac5;
 }
 .options__direction span:hover .icon {
   fill: #fcfcfd;
@@ -9367,12 +9368,16 @@ body.dark .popup__row:first-child {
   font-family: "Montserrat";
   line-height: 1.5;
   color: #090d16;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0;
-  font-size: 16px;
+  font-size: 12px;
   padding: 1rem;
   width: 100%;
 }
+
+/* .nft_details .popup__input {
+  font-size: 12px;
+} */
 body.dark .popup__input {
   border-color: #353945;
   color: #fcfcfd;
@@ -9871,7 +9876,6 @@ input.e-input,
 
 #datetimepicker {
   border: none;
-  border-bottom: 1px solid #ae3600 !important;
   padding: 5px 0;
 }
 

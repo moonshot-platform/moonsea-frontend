@@ -1,0 +1,16 @@
+<section class="upcoming-collection">
+    <div class="inner hover-effect">
+      <div>
+        <div class="relative">
+          <p class="title-name orbitron p18">
+            <span class="color-white">Upcoming </span><span>collections </span>
+          </p>
+        </div>
+        <swiper [config]="config" class="mySwiper hover-effect">
+          <ng-template *ngFor="let item of upCommingCollection; let i = index" swiperSlide>
+            <app-collection-card [item]="item"></app-collection-card>
+          </ng-template>
+        </swiper>
+      </div>
+    </div>
+  </section>

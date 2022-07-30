@@ -1,0 +1,121 @@
+<section class="hot-collection pb100">
+  <div class="inner">
+    <div class="flex align-center justify-space-between mb20">
+      <p class="orbitron p18">
+        <span class="color-white">Use the pencil icon </span><span>to change and confirm your Items </span>
+      </p>
+    </div>
+    <div class="flex gap wrap">
+      <div class="flex1 pr100">
+        <div class="preview js-preview mb40">
+          <div class="preview__inner">
+            <div class="card">
+              <div class="flex justify-center" *ngIf="imageUrl.indexOf('.mp4') == -1">
+                <img  class="border collectionImg" alt="NFT preview"
+                [lazyLoad]="collectionDetails.fileUrl" [defaultImage]="'assets/media/images/moonsea/profile.png'"   />
+
+
+              </div>
+              <ng-container *ngIf="imageUrl.indexOf('.mp4') != -1">
+                <video class="video" loop autoplay playsinline oncanplay="this.play()"
+                  onloadedmetadata="this.muted = true" [muted]="true">
+                  <source src="{{ collectionDetails.fileUrl }}" type="video/mp4" />
+                </video>
+              </ng-container>
+              <div class="card__link">
+                <div class="card__body">
+                  <div class="card__line justify-space-between align-center">
+                    <div class="text-secondary orbitron text-primary">
+
+                    </div>
+                  </div>
+                  <div class="flex-col card__line w-normal text-center">
+
+                    <p class="wp100 orbitron text-primary">{{collectionDetails.tokenName | titlecase}}</p>
+                    <p class="wp100 text-primary mb20">by
+
+                      <a (click)="gotoProfile(collectionDetails?.walletAddress)">
+                        {{collectionDetails?.walletAddress?.slice(0,5)}}...{{collectionDetails?.walletAddress?.slice(collectionDetails?.walletAddress?.length-5,collectionDetails?.walletAddress?.length)}}
+
+                      </a>
+                    </p>
+                    <p class="text-primary normal_text text-center mb20 wp100 desc-max">
+                      {{collectionDetails.description}}
+                      <br />
+                      {{collectionDetails.noOfnft}} items
+                    </p>
+                    <div class="flex wp100 justify-center">
+
+                      
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="button bg-primary wp100" (click)="gotoStep01()">Confirm details</button>
+      </div>
+      <div class="flex2 upload__wrapper">
+        <div class="grid grid-2 row-gap">
+          <div *ngFor="let item of nftList| paginate: { id: 'fool',itemsPerPage: itemsPerPage, currentPage: currentPage , totalItems: total }" class="border-bottom flex justify-space-between">
+            <div class="pt30 pb30 text-left wp100">
+              <div class="flex text-primary">
+                <a [routerLink]="['/details',item.nftAddress,item.nftTokenID,item.blockchainId]" routerLinkActive="router-link-active">
+                  <img alt="NFT preview"  class="nftPreview" *ngIf="item.fileUrl.indexOf('.mp4') == -1"
+                  [lazyLoad]="item.fileUrl" [defaultImage]="'assets/media/images/moonsea/profile.png'" />
+                  <video width="50" height="50" *ngIf="item.fileUrl.indexOf('.mp4') > -1" muted>
+                    <source src="{{item.fileUrl}}" type="video/mp4">
+                  </video>
+                </a>
+                <div class="flex-col flex1">
+                  <a [routerLink]="['/details',item.nftAddress,item.nftTokenID,item.blockchainId]" target="_blank" routerLinkActive="router-link-active">
+                    <span class="orbitron text-secondary p16 mb10">
+                      {{item.title ? item.title : 'no title'}}
+                    </span>
+                  </a>
+                  <div class="flex align-center">
+                    <span class="badge badge-success flex1 text-center" *ngIf="item.isMinted">Confirmed</span>
+                    <span class="badge badge-danger flex1 text-center" *ngIf="!item.isMinted">Pending</span>
+                  
+                    <a href="javascript:void(0)" (click)="edit(item)">
+                      <svg version="1.1" id="editIcon" xmlns="http://www.w3.org/2000/svg"
+                      width="30" height="36"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                        xml:space="preserve" style="
+                      enable-background: new 0 0 40 40;">
+                        <g>
+                          <path d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z" class="st1"></path>
+                          <g>
+                            <g>
+                              <rect x="12.7" y="16.5" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -7.1232 18.0404)"
+                                width="11" height="2.2" id="black_background"></rect>
+                              <rect x="16.9" y="20.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -8.8489 22.2067)"
+                                width="11" height="2.2" id="black_background"></rect>
+                            </g>
+                            <g>
+                              <path
+                                d="M29.3,13.6l-2.9-2.9c-0.8-0.8-2.1-0.8-2.9,0L22,12.3l5.7,5.7l1.5-1.5C30.1,15.6,30.1,14.4,29.3,13.6z"
+                                id="black_background"></path>
+                              <path d="M18.6,27.1l-6.9,2.7c-0.9,0.4-1.8-0.5-1.5-1.5l2.7-6.9L18.6,27.1z"
+                                id="black_background"></path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="mrt-10">
+          <pagination-controls  id="fool" (pageChange)="pageChanged($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

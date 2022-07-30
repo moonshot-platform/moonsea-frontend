@@ -82,48 +82,10 @@
                 <span class="color-white">Hot </span><span>collections </span>
               </p>
             </div>
-            <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper hover-effect"
+            <swiper [config]="config" class="mySwiper hover-effect"
               [navigation]="true">
               <ng-template *ngFor="let item of hotCollectionList; let i = index" swiperSlide>
-                <!-- <a class="collections__item">
-                  <div class="collections__gallery">
-                    <div class="collections__preview" (click)="gotoNftDetails(item.nftAddress,item.nftTokenID01)">
-                      <div class="content-overlay"></div>
-                      <img src="{{ item.nftFileUrl01 }}" alt="Collections" />
-                    </div>
-                    <div class="flex flex-wrap flex100 gap15 justify-start">
-                      <div class="thumb__preview gap15" *ngFor="
-                          let inneritem of item.nftDetailsList.slice(1, 4);
-                          let j = index
-                        ">
-                        <ng-container *ngIf="j <= 2">
-                          <div class="content-overlay"></div>
-                          <img src="{{ inneritem.nftFileUrl }}" alt="Collections" (click)="gotoNftDetails(inneritem.nftAddress,inneritem.nftTokenID)"/>
-                        </ng-container>
-                      </div>
-                    </div>
-                  
-                    <div class="flex100">
-                      <div class="color-secondary collections__subtitle orbitron" [routerLink]="['/collection', item.collectionName]">
-                        {{
-                        item.collectionName === null
-                        ? "Test"
-                        : item.collectionName
-                        }}
-                      </div>
-                      <div class="collections__line">
-                        <div class="collections__user">
-                          <div class="text-primary collections__author">
-                            By <span [routerLink]="['/profile',item.ownerWalletAddress]"  >{{ item?.name ?? item?.customeUrl }}</span>
-                          </div>
-                        </div>
-                        <div class="collections__counter">
-                          <span class="text-primary">{{ item?.totalNftCount }} items</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </a> -->
+              
                 <app-collection-card [item]="item"></app-collection-card>
               </ng-template>
             </swiper>

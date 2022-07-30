@@ -23,6 +23,7 @@ export class PurchaseNowComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    
   
     this.items.nftName = this.nftName;
     this.items.blockchainId = this.blockchainId;
@@ -42,6 +43,8 @@ export class PurchaseNowComponent implements OnInit {
         this.connectWallet();
         return false;
     }
+  
+    
     this.dialog.open(PurchaseNowModalComponent, {
   
       data:this.items
