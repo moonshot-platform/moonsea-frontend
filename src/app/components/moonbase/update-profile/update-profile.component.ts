@@ -199,7 +199,7 @@ export class UpdateProfileComponent implements OnInit {
           let data = response;
           if (data.isSuccess) {
             this.imagePath = data.data.path;
-            this.toastrService.success('Profile Pic Uploaded');
+            // this.toastrService.success('Profile Pic Uploaded');
           } else {
             this.imagePath = '';
           }

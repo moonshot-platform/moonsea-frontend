@@ -1,0 +1,59 @@
+name: build
+on:
+  push:
+   branches :
+    - 'mian'
+    - 'testNet'
+   
+jobs:
+  job1:
+    if: github.ref_name == 'testNet'
+    runs-on: ubuntu-latest
+    environment: development
+    strategy:
+        matrix:
+          node-version: [16.x] 
+    steps:
+          - uses: actions/checkout@v3
+          - name: Use Node.js ${{ matrix.node-version }}
+            uses: actions/setup-node@v3
+            with:
+              node-version: ${{ matrix.node-version }}
+              cache: 'npm'
+          - run: npm install -g @angular/cli
+          - run : npm install --force
+          - run: npm run build --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer --output-hashing=all
+          - name: 📂 Sync files
+            uses: Penguibird/FTP-Deploy-Action@4.2.0
+            with:
+                server: ${{ secrets.testNetHOST }}
+                username: ${{ secrets.testNetUSERNAME }}
+                password: ${{ secrets.testNetSSHKEY }}
+                port: ${{secrets.testNetPORT}}
+                local-dir: ./dist/moonshot-web/
+    
+  job2:
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    environment: production
+    strategy:
+        matrix:
+          node-version: [16.x]
+    steps:
+          - uses: actions/checkout@v3
+          - name: Use Node.js ${{ matrix.node-version }}
+            uses: actions/setup-node@v3
+            with:
+              node-version: ${{ matrix.node-version }}
+              cache: 'npm'
+          - run: npm install -g @angular/cli
+          - run : npm install --force
+          - run: ng build --configuration production --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer --output-hashing=all
+          - name: 📂 Sync files
+            uses: Penguibird/FTP-Deploy-Action@4.2.0
+            with:
+                server: ${{ secrets.HOST }}
+                username: ${{ secrets.USERNAME }}
+                password: ${{ secrets.SSHKEY }}
+                port: ${{secrets.PORT}}
+                local-dir: ./dist/moonshot-web/

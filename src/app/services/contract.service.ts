@@ -353,9 +353,10 @@ export class ContractService {
 
   async signMsgForUpdateProfile(formData: any) {
     // var message = `I would like to update preferences. Username is ${formData.name}, picture is ${formData.imagePath}, short url is ${formData.customUrl}, cover is null, bio is '${formData.customUrl}', website is ${formData.portfolioWebsite}, email id is ${formData.emailId}`;
-    var message = "I would like to update preferences. Username is "+ formData.name + ", picture is " + formData.imagePath + ", short url is " + formData.customUrl + ", cover is null, bio is " + formData.bio + ", website is " + formData.portfolioWebsite + ", email id is " + formData.emailId + ", twitter is "+formData.twitter + ", facebook is "+formData.facebook + ", discord is "+formData.discord+ ", instagram is "+formData.instagram+ ";"
+    var message = `I would like to update preferences. Username is ${ formData.name !=null ? formData.name : ""}, picture is  ${formData.profilePic ? formData.profilePic : ""}, short url is ${formData.customUrl ? formData.customUrl : ""}, bio is ${formData.bio ?  formData.bio : ""}, website is ${formData.portfolioWebsite ? formData.portfolioWebsite : ""}, email id is ${formData.emailId ? formData.emailId : ""}, twitter is ${formData.twitter ? formData.twitter : ""}, facebook is ${formData.facebook ? formData.facebook : ""}, discord is ${formData.discord ? formData.discord : ""}, instagram is ${formData.instagram ? formData.instagram : ""};`
     var signature = '';
     try {
+      debugger
       signature = await this.signer.signMessage(message);
       return signature;
     } catch (e) {
