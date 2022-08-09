@@ -10,6 +10,7 @@ import { TopCollectionListComponent } from '../stats-m/top-collection-list/top-c
 import blockjson from '../../../../assets/blockchainjson/blockchain.json';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { environment } from 'src/environments/environment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-stats',
@@ -38,13 +39,14 @@ export class StatsComponent implements OnInit {
           private router:Router,private createNFT: CreateNftService,
           private ngxService: NgxUiLoaderService,
           private dataservice: CollectionApiService,
-          private pricingApi :PricingApiService) {}
+          private pricingApi :PricingApiService,private _titleService : Title) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.StatList();
     this.getBlockchainList(); 
-
+    this._titleService.setTitle('Statistics');
+    
     blockjson[environment.configFile].forEach(element => {
       if(element.blockchainId ==  this.blockchainId){
         this.blockchainInfo = element;

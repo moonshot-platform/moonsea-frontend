@@ -12,7 +12,7 @@ import { PricingApiService } from 'src/app/services/pricing-api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material/dialog';
 import { BetaversionModalComponent } from './betaversion-modal/betaversion-modal.component';
-import { Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 
 SwiperCore.use([Grid, Navigation]);
 
@@ -105,38 +105,13 @@ export class LandingComponent implements OnInit, OnDestroy {
     public pricingApi: PricingApiService,
     private ngxService: NgxUiLoaderService,
     public dialog: MatDialog,
-    private meta: Meta
+    private meta: Meta,
+    private _titleService : Title
   ) {
-    this.meta.addTags([
-      {
-        name: 'og:description',
-        content:
-          'A Multi Chain NFT Marketplace',
-      },
-      { name: 'og:title', content: 'Moonsea' },
-      {
-        name: 'og:image',
-        itemprop: 'image',
-        content:
-          'https://ui8-crypter-nft-html.herokuapp.com/img/content/photo-2.1.jpg',
-      },
-    ]);
+    
   }
   ngOnDestroy(): void {
-    // throw new Error('Method not implemented.');
-    const viewport = this.meta.getTag('name="og:description"');
-    const viewport1 = this.meta.getTag('name="og:title"');
-    const viewport2 = this.meta.getTag('name="og:image"');
-
-    if (viewport) {
-      this.meta.removeTagElement(viewport);
-    }
-    if (viewport1) {
-      this.meta.removeTagElement(viewport1);
-    }
-    if (viewport2) {
-      this.meta.removeTagElement(viewport2);
-    }
+  
   }
   discoverNFTList = [];
   oldtype: any;
@@ -149,6 +124,8 @@ export class LandingComponent implements OnInit, OnDestroy {
   getTopcollection: any = [];
 
   ngOnInit() {
+    this._titleService.setTitle('Home');
+
     if ((localStorage.getItem('item') ?? '0') != '1') {
       this.openDialog();
     }

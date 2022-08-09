@@ -61,9 +61,8 @@ export class PurchaseNowModalComponent implements OnInit {
       this.wrongNetwork = true;
       this.step = 0;
       let chainIdd = this.contractService.chainId;
-      chainIdd = parseInt(chainIdd);
-      chainIdd = chainIdd.toString(16);
-      let switchNetwork = this.contractService.switchNetwork("0x"+chainIdd);
+     
+      let switchNetwork = this.contractService.switchNetwork(chainIdd);
       switchNetwork.then(
         (res: any) => {
           if (res == 'doneeeeee') {

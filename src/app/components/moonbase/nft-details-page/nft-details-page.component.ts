@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
@@ -8,10 +9,12 @@ declare var $: any;
 })
 export class NftDetailsPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _titleService : Title) { }
 
   ngOnInit(): void {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    this._titleService.setTitle('Nft Details');
+
   }
 
   ngAfterViewInit(): void {

@@ -115,7 +115,8 @@ export class AddInListingComponent implements OnInit {
 
     let isContractApproved = await this.contractService.isApprovedForAll(
       this.data.typeOfNft,
-      this.data.blockchainId
+      this.data.blockchainId,
+      this.data.nftAddress
     );
     this.isContractApproved = isContractApproved.hash;
   }
@@ -227,7 +228,8 @@ export class AddInListingComponent implements OnInit {
 
     status = await this.contractService.setApprovalForAll(
       this.data.isMultiple == 'multiple',
-      this.data.blockchainId
+      this.data.blockchainId,
+      this.data.nftAddress
     );
     if (status.status) {
       this.isSaleApproved = true;

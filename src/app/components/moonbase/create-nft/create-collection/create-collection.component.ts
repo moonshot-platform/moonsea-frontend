@@ -82,6 +82,7 @@ export class CreateCollectionComponent implements OnInit {
   blockchainInfo: any = {};
 
   isApiLoadingForSkip:boolean;
+  isImported:boolean=false;
 
   constructor(
     public dialog: MatDialog,
@@ -191,6 +192,7 @@ export class CreateCollectionComponent implements OnInit {
       this.getDataService.getRequest(url).subscribe((res: any) => {
         if (res.status == 200) {
           this.imagePath = res.data.fileUrl;
+          this.isImported = res.data.isImported;
           this.step01PatchValue(res.data);
           this.step02PatchValue(res.data);
           this.step03PatchValue(res.data);
@@ -300,7 +302,7 @@ export class CreateCollectionComponent implements OnInit {
     this.step04Form.patchValue({
       nftDefaultDescription: data.nftDefaultDescription,
       putOnSale: data.putOnSale,
-      typeOfSale: data.typeOfSale.toString(),
+      typeOfSale: data.typeOfSale ? data.typeOfSale?.toString() : 1,
       minimunBid: data.minimunBid,
       startDate: data.stratDate,
       endDate: data.endDate,
@@ -439,7 +441,11 @@ export class CreateCollectionComponent implements OnInit {
 
 
           setTimeout(() => {
-            this.createNFT.subject.next({ tabIndex: 2 ,collectionName:this.step01Form.value.tokenName,collectionId:this.collectionId});
+            if(this.isImported){
+              this._router.navigate(['/collection',this.step01Form.value.tokenName])
+            }else{
+              this.createNFT.subject.next({ tabIndex: 2 ,collectionName:this.step01Form.value.tokenName,collectionId:this.collectionId});
+            }
             // this._router.navigate(['/collection'], {
             //   queryParams: {
             //     collectionName: this.addCollectionForm_New.tokenName,
@@ -469,15 +475,12 @@ export class CreateCollectionComponent implements OnInit {
 
     this.isApiLoadingForSkip = true;
     setTimeout(() => {
-      //debugger
+      if(this.isImported){
+        this._router.navigate(['/collection',this.step01Form.value.tokenName])
+      }else{
       this.createNFT.subject.next({ tabIndex: 2 ,collectionName:this.step01Form.value.tokenName,collectionId:this.collectionId});
-      // this._router.navigate(['/collection'], {
-      //   queryParams: {
-      //     collectionName: this.step01Form.value.tokenName,
-      //     collectionId: this.collectionId,
-      //   },
-      //   queryParamsHandling: 'merge',
-      // });
+      }
+     
       this.dialogRef.close();
       this.isApiLoadingForSkip = false;
 

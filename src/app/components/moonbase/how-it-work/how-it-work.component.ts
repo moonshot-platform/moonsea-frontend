@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ContractService } from 'src/app/services/contract.service';
@@ -23,9 +24,10 @@ export class HowItWorkComponent implements OnInit {
   firstApi:boolean=false;
 
   constructor(private ngxService: NgxUiLoaderService, private cs:ContractService, private homeService:HomeService,
-    private router : Router) { }
+    private router : Router,private _titleService : Title) { }
 
   ngOnInit(): void {
+    this._titleService.setTitle('How it Works');
     this.cs.getWalletObs().subscribe((data: any) => {
       this.connectedAddress = data;
       this.getCollectionList();

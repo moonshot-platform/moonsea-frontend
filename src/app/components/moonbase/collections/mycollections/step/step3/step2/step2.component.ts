@@ -52,15 +52,6 @@ export class Step2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this._activatedRoute.queryParams.subscribe(
-    //   (res: any) => {
-    //     this.collectionName = res.collectionName;
-    //     this.collectionId = res.collectionId;
-    //     if(Object.keys(res).length > 0){
-    //       this.getCollectionDetails();
-    //     }
-    //   }
-    // );
     this.signature = sessionStorage.getItem('createCollectionSignature');
     this.getCollectionDetails();
   }

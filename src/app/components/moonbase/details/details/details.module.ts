@@ -24,6 +24,7 @@ import { ChangePriceComponent } from '../../details-pop-up/change-price/change-p
 import { RemoveFromSaleComponent } from '../../details-pop-up/remove-from-sale/remove-from-sale.component';
 import { OwnersComponent } from '../../nft-detail-list-tabs/owners/owners.component';
 import { PurchaseNowModalComponent } from '../../nft-card/purchase-now-modal/purchase-now-modal.component';
+import { NiceSelectModule } from 'ng-nice-select';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { PurchaseNowModalComponent } from '../../nft-card/purchase-now-modal/pur
     ShareIconsModule,
     ReactiveFormsModule,
     ShareModule,
-    SharedModule
+    SharedModule,
+    NiceSelectModule
   ]
 })
 export class DetailsModule { }

@@ -58,6 +58,7 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async checkNetwork() {
+  
     let checkNetwork: boolean = await this.data.globalService.createContract(
       this.data.details.blockchainId
     );
@@ -66,8 +67,7 @@ export class ModalForCreateNftComponent implements OnInit {
       this.wrongNetwork = true;
       this.mintStatusText = 'Try Again';
       let chainIdd = this.data.globalService.chainId;
-      // chainIdd = parseInt(chainIdd);
-      // chainIdd = chainIdd.toString(16);
+     
       let switchNetwork = this.contractService.switchNetwork(chainIdd);
       switchNetwork.then(
         (res: any) => {
@@ -80,7 +80,10 @@ export class ModalForCreateNftComponent implements OnInit {
         (err: any) => {
           this.wrongNetwork = true;
         }
-      );
+      ).catch((err:any)=>{
+        console.log(err);
+        
+      })
 
     } else {
       this.wrongNetwork = false;
@@ -108,7 +111,9 @@ export class ModalForCreateNftComponent implements OnInit {
       }
       //debugger
       if (status?.status) {
-        this.data.details.transactionHash = status.hash;
+        this.isApiLoading = true;
+        await status.hash.wait(2);
+        this.data.details.transactionHash = status.hash.hash;
         this.isdisabledDoneBtn = true;
 
         let url = 'api/UpdateNftToken';
@@ -148,6 +153,7 @@ export class ModalForCreateNftComponent implements OnInit {
       } else {
         this.rejectedMetamask = true;
         this.mintStatusText = 'Try Again';
+        this.isdisabledDoneBtn = false;
         this.getDataService.showToastr('Something went wrong, please try again.', false);
       }
     } catch (e) {
@@ -155,8 +161,8 @@ export class ModalForCreateNftComponent implements OnInit {
       //debugger
       this.rejectedMetamask = true;
       this.mintStatusText = 'Try Again';
-      this.isdisabledDoneBtn = false;
-      this.getDataService.showToastr(e?.message, false);
+      this.isApiLoading = false;
+      this.getDataService.showToastr('cannot estimate gas; transaction may fail or may require manual gas limit or may token already minted.', false);
     }
   }
 
@@ -166,13 +172,15 @@ export class ModalForCreateNftComponent implements OnInit {
 
     status = await this.data.globalService.isApprovedForAll(
       this.data.details.isMultiple,
-      this.data.details.blockchainId
+      this.data.details.blockchainId,
+      this.data.details.nftAddress
     );
 
     if (status.status == false) {
       status = await this.data.globalService.setApprovalForAll(
         this.data.details.isMultiple,
-        this.data.details.blockchainId
+        this.data.details.blockchainId,
+        this.data.details.nftAddress
       );
       if (status) {
         this.approvalTransactionHash = status.hash.hash;
@@ -181,6 +189,7 @@ export class ModalForCreateNftComponent implements OnInit {
     }
 //debugger
     if (status.status) {
+   
       this.startSaleButton = 'Done';
       this.signatureStatus = 2;
       this.mintingSteps = 3;

@@ -153,9 +153,9 @@ export class AcceptBidPopupComponent implements OnInit {
     this.exchangeTokenObj.buyer = this.items.data.walletAddress;
     this.exchangeTokenObj.isMakeOffer = this.items.data.isMakeOffer;
 //debugger
-    var a:any =await this.contractService.isApprovedForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId);
+    var a:any =await this.contractService.isApprovedForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId,this.items.nftDetails.nftAddress);
     if(a.status==true && a.hash==false){
-      let tx:any = await this.contractService.setApprovalForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId);
+      let tx:any = await this.contractService.setApprovalForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId,this.items.nftDetails.nftAddress);
       await tx.hash.wait(1);
     }
     

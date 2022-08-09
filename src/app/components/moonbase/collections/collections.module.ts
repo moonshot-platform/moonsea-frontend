@@ -24,8 +24,7 @@ import { SharedModule } from '../commanShared/shared/shared.module';
     MatTabsModule,
   ],
   declarations: [
-    CollectiondetailsComponent,
-    AllcollectionComponent,
+    // CollectiondetailsComponent,
     AddEditNftComponent,
     ModelForCreateCollectionComponent
   ]
