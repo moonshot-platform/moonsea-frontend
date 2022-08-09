@@ -56,7 +56,7 @@
     {
         "chainId":"0x38",
         "ETH":"",
-        "WETH":"",
+        "WETH":"0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
         "nfterc721":"0x19a63d33B424af5e7AA9A3Cb329356F015286413",
         "nfterc1155":"0xcF5819007f964868177c6a82b716EDc62c5c956D",
         "exchangeAddress":"0x704A78Aef833Bb5DAd84d5Ae5e2De1E62888E231",
@@ -67,7 +67,7 @@
     {
         "chainId":"0x1",
         "ETH":"",
-        "WETH":"",
+        "WETH":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
         "nfterc721":"0x5D230398c6f6C0d09e6Cee7C2763Cf69b4b2AdED",
         "nfterc1155":"0x2483615F649A4664404224DF71f1cf7d9949500d",
         "exchangeAddress":"0x20d2BB600798A5ED91FD08C3fBB1a4f42f600209",
@@ -78,7 +78,7 @@
     {
         "chainId":"0x89",
         "ETH":"",
-        "WETH":"",
+        "WETH":"0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
         "nfterc721":"0xCF4419B506D3902050d809426436eEADc41F7543",
         "nfterc1155":"0x988215bC9c4f29162FC612184AF1F98D68413333",
         "exchangeAddress":"0x938fe2Df09b1A6b8A336183983B866E061134D6f",
@@ -89,7 +89,7 @@
     {
         "chainId":"0x505",
         "ETH":"",
-        "WETH":"",
+        "WETH":"0x98878B06940aE243284CA214f92Bb71a2b032B8A",
         "nfterc721":"0x8A2AB35DE3884249010C4270A7022dDe363780B3",
         "nfterc1155":"0x6e522988A43776474fdf0Cab06b3617ae8A0f253",
         "exchangeAddress":"0x2252756947E585cc9aDE31f4c221B3C0204C03a6",
@@ -100,4 +100,6 @@
 ]
 
 }
+
+
 

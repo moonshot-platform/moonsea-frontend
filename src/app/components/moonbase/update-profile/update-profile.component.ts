@@ -11,6 +11,7 @@ import { GetDataService } from 'src/app/services/get-data.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { Router } from '@angular/router';
 import { ValidateUrl } from './url.validator';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-update-profile',
@@ -48,11 +49,14 @@ export class UpdateProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private getDataService: GetDataService,
     private cs: ContractService,
-    private route: Router
+    private route: Router,
+    private _titleService : Title
   ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    this._titleService.setTitle('Update Profile');
+
     this.updateProfile = this.formBuilder.group({
       name: ['', [Validators.required]],
       customUrl: ['', [Validators.required]],

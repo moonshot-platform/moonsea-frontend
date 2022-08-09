@@ -245,7 +245,7 @@ export class NavComponent implements OnInit {
                 this.getDataService
                   .registerUser({
                     walletAddress: this.walletAddress,
-                    referralAddress: '',
+                    referralAddress: '0x0000000000000000000000000000000000000000',
                     signature: signature,
                   })
                   .subscribe((response) => {
@@ -352,7 +352,7 @@ export class NavComponent implements OnInit {
     this.getDataService
       .notificationCount(address)
       .subscribe((response: any) => {
-        this.notifyCount = response.data[0]?.notifyCount;
+        this.notifyCount = response.data?.notifyCount;
       });
   }
 

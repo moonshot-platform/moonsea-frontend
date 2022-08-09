@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -96,7 +97,9 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     private router: Router,
     private createNFT: CreateNftService,
     private ngxService: NgxUiLoaderService,
-    private getDataservice :GetDataService
+    private getDataservice :GetDataService,
+    private _titleService : Title,
+    private _meta:Meta
   ) { }
   ngOnDestroy(): void {
     if (this.unSubscribeSubscription) {
@@ -110,6 +113,8 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     let that = this;
+    this._titleService.setTitle('Search Collection');
+    this._meta.updateTag({name:'description' ,content:'search Collection page'});
     window.onclick = function (event) {
       if (
         !event.target.matches('.dropdown *') ||
@@ -414,11 +419,13 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
   sortingType01(value: any) {
     this.sortingType = value;
     this.discoverNFTList = [];
+    this.nftlistPage = 1;
     this.getSearchResultNFT();
   }
   sortingType0101(value: any) {
     this.sortingType = value;
     this.dicoverCollectionList = [];
+    this.collectionListPage = 1;
     this.getCollection();
   }
   getRegarding(value: any) {
@@ -470,6 +477,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
 
   creator01(value: any) {
     this.sortingType = value;
+    this.creatorsListPage = 1;
     this.getCreaterList();
   }
 

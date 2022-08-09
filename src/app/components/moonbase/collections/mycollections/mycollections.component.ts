@@ -7,6 +7,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { HomeService } from 'src/app/services/home.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mycollections',
@@ -31,6 +32,7 @@ collectionId:any;
     private ngxLoader:NgxUiLoaderService,
     private getDataService:GetDataService,
     private homeService: HomeService,
+    private _titleService : Title
   ) {
     // route.routeReuseStrategy.shouldReuseRoute = function () {
     //   return true;
@@ -39,6 +41,7 @@ collectionId:any;
   ngOnDestroy(): void {}
 
   ngOnInit(): void {
+    this._titleService.setTitle('My Collections');
     this.walletAddress = localStorage.getItem('address');
 
     this.createNftService.subject.subscribe((res: any) => {

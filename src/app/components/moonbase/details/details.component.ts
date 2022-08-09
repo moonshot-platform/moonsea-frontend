@@ -72,7 +72,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private meta: Meta,
     private titleService: Title,
     private http: HttpClient,
-    private route:Router
+    private route:Router,
   ) {
     for (let index = 0; index < 100; index++) {
       this.elementsHasLoaded[index] = false;
@@ -89,6 +89,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Details');
     this.meta.addTags([
       { name: 'Details', content: 'You can sea nft details at this page...' },
     ]);

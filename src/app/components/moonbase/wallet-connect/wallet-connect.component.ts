@@ -50,7 +50,6 @@ export class WalletConnectComponent implements OnInit {
 
   Disconnect() {
     localStorage.clear();
-    // this.contractService.setWalletObs(new Object());
     this.router.navigate(['/home']);
     this.getDataService.profilePic.next({isdisconneted:true});
     this.contractService.setWalletObs(null);

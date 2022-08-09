@@ -123,14 +123,17 @@ export class AllcollectionComponent implements OnInit {
 
 
   filter() {
+    this.size = 12;
     this.getNftList01();
   }
   filter01(mySelectprice:any){
     this.sortingType = mySelectprice;
+    this.size = 12;
     this.getNftList01();
   }
   filter02(status01:any){
     this.status =status01;
+    this.size = 12;
     this.getNftList01();
   }
 
@@ -211,7 +214,7 @@ export class AllcollectionComponent implements OnInit {
    filterArray :any =[];
   
   propertiesSelection(key: any,indexing:any) {
-  
+    this.size = 12;
     this.foo[indexing] = this.toppings.value;
     //debugger
     let value: any = [];

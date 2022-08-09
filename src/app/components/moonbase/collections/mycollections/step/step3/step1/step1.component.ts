@@ -24,6 +24,8 @@ myCollection: any =[];
 connectedAddress: any;
 unSubscribeRequest:Subscription;
 signature :any;
+pageNo = 1;
+PageSize = 12;
 
 constructor(private route:Router,
   private location: Location,
@@ -131,7 +133,7 @@ openDialogImportCollection(): void {
         }
       }
 
-      this.myCollection = response.data;
+      this.myCollection.push(...response.data);
       this.ngxLoader.stop();
     }else{
       this.ngxLoader.stop();

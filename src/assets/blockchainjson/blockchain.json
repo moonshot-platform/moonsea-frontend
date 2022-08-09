@@ -39,7 +39,7 @@
             "name": "binance",
             "symbol": "BNB",
             "wsymbol":"WBNB",
-            "exploreUrl": "https://bscscan.com/address/",
+            "exploreUrl": "https://bscscan.com/",
             "chainId": 56
         },
         {
@@ -47,7 +47,7 @@
             "name": "Ethereum",
             "symbol": "ETH",
             "wsymbol":"WETH",
-            "exploreUrl": "https://etherscan.io/address/",
+            "exploreUrl": "https://etherscan.io/",
             "chainId": 1
         },
         {
@@ -55,7 +55,7 @@
             "name": "Polygon",
             "symbol": "MATIC",
             "wsymbol":"WMATIC",
-            "exploreUrl": "https://mumbai.polygonscan.com/address/",
+            "exploreUrl": "https://explorer.matic.network/",
             "chainId": 137
         },
         {
