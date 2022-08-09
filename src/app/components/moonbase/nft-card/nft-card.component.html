@@ -1,0 +1,224 @@
+<div class="card__preview pointer">
+  <a
+    [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]" routerLinkActive="router-link-active">
+    <div *ngIf="items.fileUrl == null" class="skeleton-loader"></div>
+
+    <div class="content-overlay"></div>
+    <div class="purchasing">
+      <p
+        class="title orbitron text-dark p24"
+        *ngIf="
+          (items?.typeOfSale == 2 || items?.typeOfSale == 3)"
+      >
+        Purchasing !
+      </p>
+      <a
+        href="javascript:void(0)"
+        [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]"  class="button text-inherit dark-button mt-auto" >
+        <span
+          class="text-primary"
+          *ngIf="items?.typeOfSale == 1"
+          >Purchase Now</span
+        >
+        <span
+          class="text-primary"
+          *ngIf="
+            (items?.typeOfSale == 2 || items?.typeOfSale == 3) "
+          >Place your bid</span
+        >
+        <span class="text-primary" *ngIf="items?.typeOfSale == 0"
+          >Not For Sale</span
+        >
+      </a>
+    </div>
+
+    <img
+      [lazyLoad]="items.fileUrl"
+      (load)="onMediaLoad($event, index)"
+      *ngIf="items.fileUrl != null && items.fileUrl.search('.mp4') == -1"
+      [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]"    />
+
+    <video
+      *ngIf="items.fileUrl && !isImageLoaded[index]"
+      autoplay
+      controls
+      [muted]="true"
+      [loop]="true"
+      [controls]="false"
+      class="loading-logo-nft"
+    >
+      <source
+        src="assets/media/videos/moonsea-animated-logo.webm"
+        type="video/mp4"
+      />
+    </video>
+
+    <video
+      class="video"
+      playsinline
+      onloadedmetadata="this.muted = true"
+      *ngIf="items.fileUrl && items.fileUrl.search('.mp4') != -1"
+      (loadeddata)="onMediaLoad($event, index)"
+    >
+      <source src="{{ items.fileUrl }}" type="video/mp4" />
+    </video>
+  </a>
+  <div class="">
+    <button
+      *ngIf="items?.isLikeByYou == 0"
+      class="card__favorite"
+      (click)="Liked(items.nftTokenID)"
+    >
+      <a href="javascript:void(0);">
+        <svg
+          version="1.1"
+          id="favourite"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 40 40"
+          style="enable-background: new 0 0 40 40"
+          xml:space="preserve"
+        >
+          <path
+            class="stroke"
+            d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z M20,30c0,0-10.1-6.6-10.1-12.9
+        c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9c0,0,0,0,0,0c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z"
+          ></path>
+        </svg>
+      </a>
+    </button>
+    <button
+      *ngIf="items?.isLikeByYou == 1"
+      class="red-fill card__favorite"
+      (click)="UnLiked(items.nftTokenID)"
+    >
+      <svg
+        version="1.1"
+        id="Laag_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 40 40"
+        style="enable-background: new 0 0 40 40"
+        xml:space="preserve"
+      >
+        <style type="text/css">
+          .secondary {
+            fill: #c5e3ec;
+          }
+          .liked {
+            fill: #ff5e5a;
+          }
+        </style>
+        <path
+          class="secondary"
+          d="M20,2C10.1,2,2,10.1,2,20s8.1,18,18,18s18-8.1,18-18S29.9,2,20,2z"
+        />
+        <path
+          class="liked"
+          d="M20,30c0,0-10.1-6.6-10.1-12.9c0-2.4,1.6-4.4,4-5c2.7-0.6,5.5,1.1,6.1,3.8c0.5-2.3,2.6-3.9,5-3.9l0,0
+   c2.8,0,5.1,2.3,5.1,5.1C30.1,23.4,20,30,20,30z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div class="card__link">
+  <div class="card__body">
+    <div class="card__line">
+      <div
+        class="orbitron card__title text-secondary"
+        *ngIf="items.title != null"
+        [routerLink]="['/details', items.nftAddress, items.nftTokenID,items?.blockchainId]" >
+        {{ items.title }}
+      </div>
+      <div
+        *ngIf="items.title == null"
+        class="skeleton-loader"
+        style="height: 20px; width: 130px"
+      ></div>
+      <div class="desktop-only p16 card__price w-normal" *ngIf="items.price != null">
+        <span *ngIf="items.typeOfSale == 0">Not For Sale</span>
+        <span *ngIf="items.typeOfSale > 0">{{ items.price}} {{ blockchainInfo?.symbol}}</span>
+      </div>
+      <div *ngIf="!items.price && items.typeOfSale != 0" class="desktop-only skeleton-loader" style="color: #50aac5;">
+        -
+      </div>
+      <div *ngIf="items.price == null" class="desktop-only skeleton-loader"></div>
+      <!-- style="height: 20px; width: 50px; margin-left: 10%" -->
+    </div>
+
+    <!--*ngIf="items.currentSupply != null"  -->
+
+    <!-- <div class="card__line" *ngIf="items.currentSupply != null">
+      <div class="text-primary card__users w-normal mw-75">
+        by
+        <a
+          [routerLink]="[
+            '/profile',
+            items.customeUrl,
+            'tab',
+            'Created'
+          ]"
+          href="javascript:void(0)"
+          class="text-primary card__counter w-normal ml-5 overflow-ellipsis"
+          >{{ items.name ? items.name : "unknown" }}</a
+        >
+      </div>
+      <div class="desktop-only p-12 text-primary card__counter w-normal">
+        last {{ items?.last_price }} {{ items.currencySymbol }} -->
+
+    <div class="card__line">
+      <div class="text-primary card__users w-normal mw-75">
+        Owned by <a [routerLink]="['/profile', items.customeUrl,'tab','Created']" href="javascript:void(0)"
+          class="text-primary card__counter w-normal ml-5 overflow-ellipsis">{{ items.name ? items.name : 'Anonymous'}}</a>
+      </div>
+      <div class="desktop-only p12 text-primary card__counter w-normal">
+       last {{ items?.last_price > 0 ? items?.last_price : '-'}} {{ items?.last_price > 0 ? blockchainInfo?.symbol : '' }}
+      </div>
+    </div>
+
+    <div class="mobile-only card__line justify-space-between border-top mt10 pt10 align-center">
+
+      <!-- <div class="p16 card__price w-normal" *ngIf="items.price != null">
+        <span *ngIf="items.typeOfSale == 0">N.f.s</span>
+        <span *ngIf="items.typeOfSale > 0">{{ items.price}} {{ blockchainInfo?.symbol}}</span>
+      </div>
+      <div *ngIf="!items.price" class="skeleton-loader" style="color: #50aac5;">
+        -
+      </div> -->
+
+      <div class="p16 card__price w-normal ml-0" *ngIf="items.price != null">
+        <div
+          class="p12 text-primary card__counter w-normal"
+          *ngIf="items.typeOfSale == 0"
+        >
+          N.f.s
+        </div>
+        <div
+          class="p12 text-primary card__counter w-normal"
+          *ngIf="items.typeOfSale > 0"
+        >
+        {{ items.price}} {{ blockchainInfo?.symbol}}
+        </div>
+        <div *ngIf="!items.price" class="skeleton-loader" style="color: #50aac5;">
+          -
+        </div>
+      </div>
+
+      <div class="p12 text-primary card__counter w-normal">
+        last {{ items?.last_price }} {{ items.currencySymbol }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="items.currentSupply == null"
+      class="skeleton-loader"
+      style="height: 20px; width: 100%"
+    ></div>
+  </div>
+</div>

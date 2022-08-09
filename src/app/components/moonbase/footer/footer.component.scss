@@ -1,0 +1,60 @@
+@import "includes";
+.landing.flex {
+    width: calc(100vw - 5rem);
+    z-index: -99;
+    position: relative;
+    background: $primary;
+    height: $full;
+}
+
+.footer {
+    margin: 0 3rem 3rem;
+    //background: #0f0f0f;
+    width: 100%;
+    overflow: visible;
+}
+
+.shape {
+    background-color: $primary;
+    position: relative;
+    width: 100%;
+    height: -webkit-fill-available;
+    -webkit-clip-path: polygon(8% -5px, 92% -5px, 100% 100%, 0px 100%, 0 100%);
+    clip-path: polygon(8% -5px, 92% -5px, 100% 100%, 0px 100%, 0 100%);
+    align-items: center;
+}
+
+.shape::before {
+    content: '';
+    height: 70px;
+    -webkit-clip-path: polygon(8% -5px, 92% -5px, 100% 100%, 0px 100%, 0 100%);
+    clip-path: polygon(8% -5px, 92% -5px, 100% 88%, 90% 90%, -8px 100%);
+    background: black;
+    display: block;
+    position: absolute;
+    top: 1px;
+    z-index: -1;
+    left: 1px;
+    right: 1px;
+    //bottom: 5px;
+}
+
+.box {
+    margin-top: 2px;
+    position: absolute;
+    bottom: 0px;
+    width: calc(100vw - 16rem);
+    //left: 3rem;
+}
+
+.down_box {
+    border-bottom: 61px solid #d5a642;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    height: 0;
+    color: black
+}
+
+.mt-15 {
+    margin-top: 15px;
+}

@@ -1,0 +1,320 @@
+@media only screen and (min-width: $md) {
+  .space-between-md-column {
+    flex-direction: column;
+  }
+  .removeShadow.cdk-overlay-pane {
+    min-width: 630px !important;
+    max-width: 630px !important;
+  }
+  .listingBig mat-dialog-container,
+  app-add-in-listing .popup {
+    overflow: unset;
+  }
+  // .new_collection {
+  //   flex-grow: 1;
+  // }
+}
+
+@media only screen and (max-width: $md) {
+  .inner.align-center {
+    align-items: center !important;
+  }
+  .p52 {
+    font-size: toRem(41px);
+  }
+  .new_collection {
+    flex-grow: 1;
+    margin-right: 0;
+    .mr30,
+    .mr50 {
+      margin-right: 0;
+    }
+  }
+  .logo-container {
+    max-width: toRem(280px) !important;
+  }
+  section.team {
+    padding-top: 0px;
+  }
+  .landing-flex {
+    padding-bottom: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+  section.team > .inner > div {
+    flex-direction: column;
+  }
+  .info-container-title-section {
+    margin-right: 0;
+    max-width: initial;
+  }
+  .info-container .futuristic-container {
+    border-top: 1;
+    padding-right: 0;
+  }
+  .round-mini-button {
+    display: none;
+  }
+  .border-top-full-width {
+    border-top: 0px solid $primary;
+    border-bottom: 1px solid $primary;
+  }
+  .info-container-title-section div > p {
+    padding-bottom: 0;
+  }
+  .info-container-title-section div > p:first-child {
+    padding-bottom: 20px;
+  }
+  .futuristic-info-container {
+    border-bottom: none;
+    margin-right: 0;
+  }
+  .collections__gallery {
+    &.mr30 {
+      margin-right: 0;
+    }
+  }
+
+  .order-xs-1 {
+    order: 1;
+  }
+  .order-xs-2 {
+    order: 2;
+  }
+
+  app-landing {
+    .discover_collection {
+      .swiper-slide {
+        flex-direction: column;
+        .flex1.flex-col.justify-center {
+          justify-content: flex-start;
+        }
+      }
+      .thumb__preview img {
+        max-height: 82px;
+        min-height: 82px;
+      }
+    }
+    .owner_name {
+      max-width: 70%;
+    }
+    .discover_collection .swiper .swiper-button-next {
+      right: 0;
+      bottom: 5px;
+    }
+    .discover_collection .swiper .swiper-button-prev {
+      right: auto;
+      bottom: 5px;
+    }
+    .discover_collection .swiper {
+      padding-bottom: 4rem;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .mrr-1 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      width: 100%;
+      margin: 0;
+      padding-bottom: 5rem;
+    }
+
+    .artist {
+      .outer-box {
+        margin-top: 0;
+      }
+      .px-5 {
+        padding: 0 !important;
+      }
+      .swiper {
+        padding-top: 60px !important;
+        .swiper-button-prev {
+          top: 25px;
+          left: 0;
+          right: auto;
+        }
+        .swiper-button-next {
+          top: 25px;
+        }
+      }
+    }
+
+    .search_container {
+      margin-top: 0;
+    }
+  }
+
+  app-landing-one .swiper {
+    padding-top: 0 !important;
+  }
+
+  app-user-profile {
+    .profile {
+      .border-right {
+        border-right: 0;
+      }
+      .share-btn {
+        display: flex !important;
+        align-items: center;
+      }
+    }
+    .filter {
+      margin-top: 1.5rem;
+    }
+    #profileTabs {
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  app-search-collection .mw-30 {
+    max-width: 100%;
+  }
+
+  app-step3 .pr100 {
+    padding-right: 0;
+  }
+
+  app-nft-card .card__favorite {
+    opacity: 1 !important;
+  }
+
+  .footer_menu {
+    bottom: 0;
+    height: 40px;
+    background-color: $primary !important;
+    top: auto !important;
+  }
+  .wallet_block {
+    background: $secondary-dark;
+    width: 3rem;
+    height: 40px;
+    margin: -1rem;
+  }
+
+  .search-input {
+    width: calc(100% - 30px);
+  }
+  .full-width {
+    width: 100%;
+  }
+
+  .removeShadow.cdk-overlay-pane {
+    width: 100% !important;
+    min-width: 90vw;
+    .modal-backgrond {
+      padding: toRem(25px);
+    }
+    .button {
+      width: 100%;
+      margin-bottom: 1rem;
+      &.bg-primary {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .popup {
+    max-width: 100%;
+    min-width: 75vw;
+  }
+  .flex.gap {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .slice:nth-child(2),
+  .slice:nth-child(3) {
+    display: none;
+  }
+
+  #upload_nft {
+    .mat-tab-labels {
+      flex-direction: column;
+    }
+    .mat-tab-label {
+      margin: 1rem 0;
+      justify-content: flex-start;
+      padding: 0;
+    }
+  }
+  .item__cost {
+    margin-bottom: 20px;
+  }
+  .px-3 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .profile__nav:before,
+  .profile__nav:after {
+    content: none;
+  }
+  .profile__nav {
+    border-bottom: 1px solid $primary;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .catalog__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -32px 0px 0;
+    margin-right: 0;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+  .discover .card {
+    flex: 0 0 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    margin-left: 0;
+    margin-right: 16px;
+  }
+
+  .discover .card:nth-child(even) {
+    margin-right: 0;
+  }
+  .uploadProfilePic {
+    margin: auto;
+  }
+  .wrap-xs {
+    flex-wrap: wrap;
+    display: flex;
+    gap: 30px;
+  }
+  .flex.row-wrap {
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+  .import {
+    height: auto;
+    line-height: 25px;
+  }
+  .card__preview img,
+  .card__preview video {
+    max-height: 240px;
+    min-height: 240px;
+  }
+  .collections__preview:first-child {
+    border: 1px solid $secondary;
+  }
+  .artist .collections__preview {
+    border: 1px solid $black;
+  }
+  .collections__preview .content-overlay {
+    opacity: 1;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev,
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    width: 36px;
+    height: 36px;
+  }
+  .title-name {
+    top: 10px;
+  }
+}

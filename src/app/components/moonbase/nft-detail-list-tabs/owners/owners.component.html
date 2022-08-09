@@ -1,0 +1,17 @@
+<div class="item__users">
+     <div class="item__user" *ngFor="let item of data">
+      <div class="item__avatar" > 
+        <img src="{{item.profilePic}}" alt="Avatar">
+      </div>
+      <div class="item__description">
+        <div class="item__position">{{item.name}}</div>
+        <div class="item__name">{{item.ownerAddress}}</div>
+        <div class="item_position" >
+          {{item.currentSupply}} edition  
+          <span *ngIf="item.typeOfSale==0"> on sale for {{item.price}} BNB</span>
+          <span *ngIf="item.typeOfSale==1"> on auction</span>
+          <span *ngIf="item.typeOfSale==2"> open for bids</span>
+        </div>
+      </div>
+    </div> 
+</div>

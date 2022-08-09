@@ -1,0 +1,159 @@
+<section class="navigation">
+  <div class="inner flex-space-between">
+    <div class="logo-container flex align-start">
+      <p class="flex-center">
+        <img
+          src="assets/media/images/logo.png"
+          alt="moonshot logo"
+          class="logo"
+        />
+        MOON <span>SHOT</span>
+      </p>
+    </div>
+    <img
+      src="assets/media/icons/menu-button.svg"
+      alt="menu button"
+      class="mob-menu"
+    />
+    <nav class="flex">
+      <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z" id="Combined-Shape" fill="#000000"></path></g></svg>
+
+      <img
+        src="assets/media/icons/close-2.svg"
+        alt="menu button"
+        class="mob-menu"
+      />
+      <ul>
+        <li>
+          <p>How to buy</p>
+        </li>
+        <li>
+          <a target="_blank" href="/assets/files/moonpaper.pdf">MoonPaper</a
+          >
+        </li>
+        <li>
+          <p>Community</p>
+        </li>
+        <li>
+          <p>About us</p>
+        </li>
+        <li class="mobile-only">
+          <ul class="extras flex-col">
+            <li><p id="nav-bar-tokenomics-text">Tokenomics</p></li>
+            <li>
+              <a
+                href="https://dex.guru/token/0xd27d3f7f329d93d897612e413f207a4dbe8bf799-bsc"
+                >Live chart</a
+              >
+            </li>
+            <li><a href="https://moonboxes.io/">Moonbase</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<!-- 
+<section class="navigation" [class.withBG]="atTop == false">
+  <div class="inner flex-space-between">
+    <div
+      class="logo-container flex align-start"
+      (click)="scrollToElement('', 'landing-page')"
+    >
+      <p class="flex-center">
+        <img
+          class="logo"
+          src="assets/media/images/logo.png"
+          alt="moonshot logo"
+        />
+        MOON
+        <span>SHOT</span>
+      </p>
+    </div>
+
+    <img
+      src="assets/media/icons/menu-button.svg"
+      alt="menu button"
+      class="mob-menu"
+      [class.open]="open"
+      (click)="open = !open"
+    />
+
+    <nav [class.show]="open" class="flex">
+      <img
+        src="assets/media/icons/close-2.svg"
+        alt="menu button"
+        class="mob-menu"
+        [class.open]="open"
+        (click)="open = !open"
+      />
+      <ul>
+        <li
+          (mouseleave)="item.onHover = false"
+          *ngFor="let item of navItems"
+          [class.active]="isSamePath(item.path)"
+        >
+          <ng-container
+            *ngIf="item.externalPath != undefined; then external; else internal"
+          ></ng-container>
+
+          <ng-template #external>
+            <a href="{{ item.externalPath }}" target="_blank">{{
+              item.name
+            }}</a>
+          </ng-template>
+
+          <ng-template #internal>
+            <p
+              *ngIf="item.fragment != undefined"
+              (click)="scrollToElement(item.path, item.fragment)"
+            >
+              {{ item.name }}
+            </p>
+
+            <p
+              (mouseenter)="item.onHover = true"
+              *ngIf="item.fragment == undefined"
+              (click)="scrollToElement(item.path, null)"
+            >
+              {{ item.name }}
+            </p>
+
+            <ng-container
+              *ngIf="open; then mobile; else desktop"
+            ></ng-container>
+            <ng-template #mobile>
+              <ul *ngIf="item.frags != undefined" class="fragments flex-col">
+                <li
+                  *ngFor="let fragment of item.frags"
+                  (click)="scrollToElement(item.path, fragment.path)"
+                >
+                  <p>{{ fragment.name }}</p>
+                </li>
+              </ul>
+            </ng-template>
+
+            <ng-template #desktop>
+              <ul
+                (mouseleave)="item.onHover = false"
+                *ngIf="item.frags != undefined && item.onHover"
+                class="fragments flex-col"
+              >
+                <li
+                  *ngFor="let fragment of item.frags"
+                  (click)="scrollToElement(item.path, fragment.path)"
+                >
+                  <p>{{ fragment.name }}</p>
+                </li>
+              </ul>
+            </ng-template>
+          </ng-template>
+        </li>
+        <li class="mobile-only" (click)="toggleTokenomics()">
+          <p>Tokenomics</p>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section> -->

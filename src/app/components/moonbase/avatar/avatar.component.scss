@@ -1,0 +1,10 @@
+@import "includes";
+
+.edit-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  &:hover .st0 {
+      fill: $secondary;
+  }
+}

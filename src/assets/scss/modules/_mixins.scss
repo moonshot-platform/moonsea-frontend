@@ -1,0 +1,84 @@
+@mixin margin($val) {
+  margin: toRem($val);
+}
+
+@mixin margins($py, $px) {
+  margin: toRem($py) toRem($px);
+}
+
+@mixin padding($val) {
+  padding: toRem($val);
+}
+
+@mixin paddings($py, $px) {
+  padding: toRem($py) toRem($px);
+}
+
+@mixin paddingInside($val) {
+  padding: toRem($val);
+  box-sizing: border-box;
+}
+
+@mixin paddingsInside($py, $px) {
+  padding: toRem($py) toRem($px);
+  box-sizing: border-box;
+}
+
+@mixin paddingsFromSides($pt, $pr, $pb, $pl) {
+  padding: toRem($pt) toRem($pr) toRem($pb) toRem($pl);
+  box-sizing: border-box;
+}
+
+@mixin maxWidthTill($maxWidth, $borderRadius: null) {
+  width: $full;
+  max-width: toRem($maxWidth);
+
+  @if $borderRadius != null {
+    border-radius: $borderRadius;
+  }
+}
+
+@mixin maxSizeTill($maxWidth, $maxHeight, $borderRadius: null) {
+  width: $full;
+  height: $full;
+  max-width: toRem($maxWidth);
+  max-height: toRem($maxHeight);
+
+  @if $borderRadius != null {
+    border-radius: $borderRadius;
+  }
+}
+
+// Desktop Mixins
+@mixin xs-up {
+  @media (min-width: #{$xs}) {
+    @content;
+  }
+} // Tiny devices
+@mixin sm-up {
+  @media (min-width: #{$sm}) {
+    @content;
+  }
+} // Small devices
+@mixin md-up {
+  @media (min-width: #{$md}) {
+    @content;
+  }
+} // Medium devices
+
+// Mobile Mixins
+@mixin xs-down {
+  @media (max-width: #{$xs}) {
+    @content;
+  }
+} // Tiny devices
+@mixin sm-down {
+  @media (max-width: #{$sm}) {
+    @content;
+  }
+} // Small devices
+@mixin md-down {
+  @media (max-width: #{$md}) {
+    @content;
+  }
+} // Medium devices

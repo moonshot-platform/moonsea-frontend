@@ -1,0 +1,20 @@
+{
+    "testnet": {
+        "rpc": {
+            "3": "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+            "97": "https://data-seed-prebsc-1-s1.binance.org:8545/",
+            "80001": "https://rpc-mumbai.maticvigil.com",
+            "1285": "https://moonbase-alpha.public.blastapi.io/"
+        },
+        "chainId": 97
+    },
+    "mainnet": {
+        "rpc": {
+            "1": "https://eth-rpc.gateway.pokt.network/",
+            "56": "https://bsc-dataseed.binance.org/",
+            "97": "https://rpc-mainnet.matic.network/",
+            "1285": "https://rpc.api.moonriver.moonbeam.network/"
+        },
+        "chainId": 56
+    }
+}

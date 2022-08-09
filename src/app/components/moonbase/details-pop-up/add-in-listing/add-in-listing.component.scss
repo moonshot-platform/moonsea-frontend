@@ -1,0 +1,16 @@
+.mat-dialog-content{
+    background-color: black;
+    margin: 0px;
+}
+.mat-dialog-content::-webkit-scrollbar,
+.mat-dialog-content::-webkit-scrollbar-track,
+.mat-dialog-content::-webkit-scrollbar-thumb {
+    display: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+.error_validation{
+    color: red;
+}

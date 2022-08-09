@@ -1,0 +1,100 @@
+@import "includes"; 
+
+.card__preview {
+    overflow: unset;
+    &:hover {
+        background: $primary;
+    }
+    &:hover img,
+    &:hover video {
+        opacity: 0;
+    }
+    &:hover {
+        .content-overlay,
+        .card__favorite,
+        .purchasing {
+            opacity: 1;
+        }
+    }
+    .skeleton-loader {
+        height: 250px; 
+        width: 250px;
+    }
+}
+.card__favorite {
+    opacity: 0;
+}
+.purchasing {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: 1s;
+    z-index: 1;
+    padding: 10px;
+    color: white;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .title {
+        height: calc(100% - 120px);
+        align-items: center;
+        display: flex;
+    }
+}
+// .card__preview:hover .content-overlay {
+//     opacity: 1;
+// }
+
+.card__preview img,
+.card__preview video {
+    background: none !important;
+    // max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    border: 1px solid $primary;
+}
+
+#favourite path {
+    fill: $secondary;
+    stroke: $secondary;
+    stroke-miterlimit: 0;
+}
+
+.red-fill path.st0 {
+    fill: $secondary;
+}
+
+.card__favorite:hover #favourite path {
+    fill: $black;
+    stroke: $black;
+}
+.video101{
+    width: 100%;
+    height: 408px;
+}
+
+.loading-logo-nft {
+    position: absolute;
+    left: 37%;
+    top: 40%;
+    min-width: 86px !important;
+    max-height: 86px !important;
+    max-width: 86px !important;
+    min-height: 86px !important;
+    border: none !important;
+}
+.ml-5 {
+    margin-left: 5px;
+}
+.mw-75 {
+    max-width: 75%;
+}
+
+@media (max-width: $md-header) {
+    .mw-75 {
+        font-size: 12px;
+        max-width: 100%;
+    }
+}

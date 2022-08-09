@@ -1,0 +1,56 @@
+<section id="raise-stakes" class="raise-stakes">
+    <div class="all-boxes">
+        <div class="box-container" *ngFor="let box of boxes">
+            <div class="box-card">
+                <img class="rounded-image" src={{box.img}} alt="moonboxes">
+                <div class="desc">
+                    <p>{{box.name}}</p>
+                    <!-- <p class="quantity">{{box.quantity}}</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="all-boxes-mobile">
+        <div class="round-mini-button" (click)="prevBox()">
+            <mat-icon fontSet="material-icons" class="color-primary">arrow_back</mat-icon>
+        </div>
+        <div class="box-container">
+            <div class="box-card">
+                <img class="rounded-image" src={{boxForMobile.img}} alt="moonboxes">
+                <div class="desc">
+                    <p>{{boxForMobile.name}}</p>
+                    <!-- <p class="quantity">{{boxForMobile.quantity}}</p> -->
+                </div>
+            </div>
+        </div>
+        <div class="round-mini-button" (click)="nextBox()">
+            <mat-icon fontSet="material-icons" class="color-primary">arrow_forward</mat-icon>
+        </div>
+    </div>
+
+    <div class="detail-container">
+        <div class="heading-container top futuristic-container bottom-only">
+            <p class="p-white-span-primary p34 orbitron">Hold enough MOONSHOT<br><span>to open all<br>MoonBoxes.</span></p>
+        </div>
+        <div class="description-container">
+            <div class="bottom flex pv20">
+                <div class="bottom-only no-padding ">
+                    <p class="mb20  info-text">There are 4 types of MoonBoxes.<br><br> To open them, you need to hold the following amount of MOONSHOT:<br><br> Wood - no requirement<br> Silver - 75,000,000,000<br> Gold - 150,000,000,000<br> Diamond - 250,000,000,000<br><br>Note:
+                        when holding a specific tier, you are also eligible to open boxes below your tier.</p>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <div class="buy-moonshot-button">
+                    <a href="https://exchange.pancakeswap.finance/#/swap?inputCurrency=0xd27D3F7f329D93d897612E413F207A4dbe8bF799" target="_blank" class="button">Buy Moonshot</a>
+                </div>
+                <div class="arrow-down">
+                    <div class="round-mini-button" (click)="scrollToElement('', 'limited')">
+                        <mat-icon fontSet="material-icons" class="color-primary">arrow_downward</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

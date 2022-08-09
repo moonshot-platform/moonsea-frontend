@@ -1,0 +1,57 @@
+@import "includes";
+
+.sidebar-padding {
+  padding: 14px 30px;
+  padding-right: 14px;
+}
+
+.tokenomics {
+  padding: 14px 30px 14px 14px;
+  box-sizing: border-box;
+  background: #50aac5;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  max-width: 498px;
+  z-index: 12000;
+  margin-right: 64px;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  overflow: auto;
+  border-right: 1px solid black;
+  /* overflow-y: scroll; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  box-shadow: -1px 0 2px #000;
+}
+
+.profile {
+  color: $black;
+  padding: 2rem;
+  font-size: 18px;
+  font-weight: 600;
+  max-width: 75%;
+  li {
+    a {
+      padding: 1rem 0;
+      display: block;
+    }
+    border-bottom: 1px solid $black;
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+#edit {
+  width: 36px;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  &:hover path,
+  &:hover rect {
+    fill: $white;
+  }
+}

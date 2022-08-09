@@ -1,0 +1,171 @@
+
+      <div class="popup popup_bid" id="popup-buy-now">
+        <div class="" *ngIf="step==0">
+          <div class="flex justify-space-between">
+            <h5 class="orbitron p24 mb20">Wrong Network</h5>
+            <a href="javascript:void(0)" (click)="closeDialog()"
+              ><svg
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 27 27"
+                height="24px"
+                width="24px"
+              >
+                <title>Close</title>
+                <desc>Created with Sketch.</desc>
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                    id="Combined-Shape"
+                    fill="#000000"
+                  ></path>
+                </g></svg
+            ></a>
+          </div>
+          
+          <p>An error occured while interacting with your wallet. Please try again.</p>
+         
+          <div class="popup__btns">
+            <button class="button popup__button" (click)="checkNetwork()">Try again</button>
+          </div> 
+        </div>
+        <div class="" *ngIf="step==1">
+          <div class="flex justify-space-between">
+            <h5 class="orbitron p24 mb20">Checkout</h5>
+            <a href="javascript:void(0)" (click)="closeDialog()"
+              ><svg
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 27 27"
+                height="24px"
+                width="24px"
+              >
+                <title>Close</title>
+                <desc>Created with Sketch.</desc>
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                    id="Combined-Shape"
+                    fill="#000000"
+                  ></path>
+                </g></svg
+            ></a>
+          </div>
+
+          <div class="popup__info">You are about to purchase <strong>{{items?.nftName}}</strong> from <strong>{{items?.name ?? ""}}</strong></div>
+          <div class="popup__table">
+            <div class="popup__row mb20">
+              <div class="popup__col">NFT Price</div>
+              <div class="popup__col">{{items.price}}</div>
+              <div class="popup__col ml10">{{blockchainInfo.symbol}}</div>
+            </div>
+           
+            <div class="popup__field mb20">
+              <div class="popup__col mb10">Quantity</div>
+              <div class="popup__wrap">
+                <input class="popup__input" type="number" value="1" name="quantity" #quantity (keyup)="calculatePriceQuantity(quantity.value)" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter quantity" required>
+              </div>
+          
+              <div class="p12 popup_row" *ngIf="quantity.value>items.listingCurrentSupply">
+                Supply exceeds
+              </div>
+            </div>
+            
+            
+            <div class="popup__row">
+              <div class="popup__col">Your balance</div>
+              <div class="popup__col" *ngIf="balanceInBNB">{{balanceInBNB}} {{blockchainInfo.symbol}}</div>
+              <div class="popup__col" *ngIf="!balanceInBNB">   <div class="loader text-white" ></div></div>
+            </div>
+            <div class="popup__row">
+              <div class="popup__col">Total</div>
+              <div class="popup__col">{{priceCalculated | number:'0.4-4'}}</div>
+            </div>
+          </div>
+        
+          <div class="popup__btns">
+            <button class="button text-inherit dark-button mb10 wp100" (click)="gotoNextStep(2,quantity.value)">I understand, continue</button>
+            <button (click)="closeDialog()" class="button wp100">Cancel</button>
+          </div>
+        </div>
+        <div class="" *ngIf="step==2">
+          <div class="flex justify-space-between">
+            <h5 class="orbitron p24 mb20">Checkout</h5>
+            <a href="javascript:void(0)" (click)="closeDialog()"
+              ><svg
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 27 27"
+                height="24px"
+                width="24px"
+              >
+                <title>Close</title>
+                <desc>Created with Sketch.</desc>
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                    id="Combined-Shape"
+                    fill="#000000"
+                  ></path>
+                </g></svg
+            ></a>
+          </div>
+          <div class="steps">
+            <div class="steps__item">
+              <div class="steps__head">
+                <div class="steps__icon">
+                  <div class="loader-circle"></div>
+                </div>
+                <div class="steps__details">
+                  <div class="steps__text">{{txnConfirmation}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="" *ngIf="step==3">
+          <div class="success">
+            <div class="success__title h2">Yay! <span role="img" aria-label="firework">🎉</span></div>
+            <div class="success__info">You successfully purchased <span>{{items?.nftName}}</span> from {{items?.name ?? ""}}</div>
+            <div class="success__table">
+              <div class="success__row">
+                <div class="success__col">Transaction ID</div>
+              </div>
+              <div class="success__row" style="word-break: break-all;">
+                <div class="success__col" *ngIf="txnData?.length>=64" (click)="gotoTestNetBscScan(txnData)">
+                  {{txnData}} 
+                </div>
+              </div>
+            </div>
+            <div class="success__stage">Time to show-off</div>
+            <!-- <app-share-buttons [data]="shareUrl" ></app-share-buttons> -->
+            <button class="button wp100" (click)="closeDialog()">Close</button>
+
+          </div>
+        </div>
+
+        
+        </div>

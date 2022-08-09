@@ -1,0 +1,276 @@
+<div class="inner">
+  <div class="landing-flex pb100">
+    <div class="outer__inner">
+      <div class="flex wrap gap">
+        <div class="flex1">
+          <button class="mobile-only" (click)="goBack()">
+            <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px" y="0px" viewBox="0 0 84 32" xml:space="preserve" style="width: 100px; height: 36px">
+
+              <g>
+                <path d="M54.7,17.9c0,1.9-1.4,3-4.2,3h-5.2V9.7h4.8c2.5,0,3.9,1.1,3.9,2.9c0,1.3-0.7,2.1-1.7,2.5
+          C53.9,15.4,54.7,16.4,54.7,17.9z M46.5,10.7v4.1h3.6c1.8,0,2.8-0.7,2.8-2s-1-2-2.8-2H46.5z M53.5,17.8c0-1.5-1.1-2.1-3-2.1h-4v4.2
+          h4C52.5,19.9,53.5,19.3,53.5,17.8z" class="st1"></path>
+                <path d="M63.5,15.7v5.2h-1.1v-1.3c-0.5,0.9-1.5,1.4-2.9,1.4c-1.9,0-3.1-1-3.1-2.4c0-1.3,0.8-2.4,3.2-2.4h2.7v-0.5
+          c0-1.4-0.8-2.2-2.4-2.2c-1.1,0-2.1,0.4-2.8,1l-0.5-0.8c0.8-0.7,2.1-1.1,3.4-1.1C62.3,12.4,63.5,13.5,63.5,15.7z M62.4,18.4V17h-2.6
+          c-1.6,0-2.2,0.6-2.2,1.5c0,1,0.8,1.6,2.1,1.6C61,20.1,61.9,19.5,62.4,18.4z" class="st1"></path>
+                <path
+                  d="M65.8,16.7c0-2.5,1.8-4.3,4.3-4.3c1.4,0,2.6,0.6,3.3,1.7l-0.8,0.6c-0.6-0.8-1.5-1.2-2.4-1.2
+          c-1.8,0-3.2,1.3-3.2,3.3c0,2,1.3,3.3,3.2,3.3c1,0,1.9-0.4,2.4-1.2l0.8,0.6c-0.7,1.1-1.9,1.7-3.3,1.7C67.6,21,65.8,19.2,65.8,16.7z"
+                  class="st1"></path>
+                <path d="M78.7,16.7l-2,1.8v2.4h-1.1V9h1.1v8.1l5-4.6h1.4l-3.6,3.4l3.9,5H82L78.7,16.7z" class="st1">
+                </path>
+              </g>
+              <g>
+                <circle cx="16" cy="16" r="15" class="stroke"></circle>
+                <g>
+                  <line x1="21.9" y1="16" x2="10.4" y2="16" class="stroke"></line>
+                  <polyline points="15.8,21.7 10.1,16 15.7,10.3 		" class="stroke"></polyline>
+                </g>
+              </g>
+            </svg>
+          </button>
+
+          <button class="desktop-only" (click)="goBack()">
+            <svg version="1.1" id="back_btn" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 136 56" xml:space="preserve"
+              style="
+                enable-background: new 0 0 136 56;
+                width: 130px;
+                height: 54px;
+              ">
+              <polygon points="135,55 28.6,55 1.1,28 28.6,1 135,1 " class="st0"></polygon>
+              <g>
+                <path d="M82.2,29.9c0,1.9-1.4,3-4.2,3h-5.2V21.7h4.8c2.5,0,3.9,1.1,3.9,2.9c0,1.3-0.7,2.1-1.7,2.5
+              C81.4,27.4,82.2,28.4,82.2,29.9z M74.1,22.7v4.1h3.6c1.8,0,2.8-0.7,2.8-2s-1-2-2.8-2H74.1z M81.1,29.8c0-1.5-1.1-2.1-3-2.1h-4v4.2
+              h4C80,31.9,81.1,31.3,81.1,29.8z" class="st1"></path>
+                <path d="M91.1,27.7v5.2H90v-1.3c-0.5,0.9-1.5,1.4-2.9,1.4c-1.9,0-3.1-1-3.1-2.4c0-1.3,0.8-2.4,3.2-2.4h2.7v-0.5
+              c0-1.4-0.8-2.2-2.4-2.2c-1.1,0-2.1,0.4-2.8,1l-0.5-0.8c0.8-0.7,2.1-1.1,3.4-1.1C89.8,24.4,91.1,25.5,91.1,27.7z M89.9,30.4V29h-2.6
+              c-1.6,0-2.2,0.6-2.2,1.5c0,1,0.8,1.6,2.1,1.6C88.5,32.1,89.5,31.5,89.9,30.4z" class="st1"></path>
+                <path
+                  d="M93.3,28.7c0-2.5,1.8-4.3,4.3-4.3c1.4,0,2.6,0.6,3.3,1.7l-0.8,0.6c-0.6-0.8-1.5-1.2-2.4-1.2
+              c-1.8,0-3.2,1.3-3.2,3.3c0,2,1.3,3.3,3.2,3.3c1,0,1.9-0.4,2.4-1.2l0.8,0.6c-0.7,1.1-1.9,1.7-3.3,1.7C95.2,33,93.3,31.2,93.3,28.7z"
+                  class="st1"></path>
+                <path d="M106.2,28.7l-2,1.8v2.4h-1.1V21h1.1v8.1l5-4.6h1.4l-3.6,3.4l3.9,5h-1.4L106.2,28.7z" class="st1">
+                </path>
+              </g>
+              <g>
+                <circle cx="43.5" cy="28" r="15" class="st0"></circle>
+                <g>
+                  <line x1="49.5" y1="28" x2="38" y2="28" class="st0"></line>
+                  <polyline points="43.3,33.6 37.6,27.9 43.2,22.3 		" class="st0"></polyline>
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex3">
+          <form class="needs-validation" [formGroup]="updateProfile" (ngSubmit)="ff.valid && updateProfileSubmit()"
+            #ff="ngForm">
+            <div class="flex justify-center pb100">
+              <div class="details__col">
+                <div class="flex align-center wrap-xs">
+                  <div class="uploadProfilePic details__avatar">
+                    <img [src]="imagePath" *ngIf="imagePath" alt="Avatar" />
+                    <svg version="1.1" id="st4" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
+                      xml:space="preserve" style="
+                        enable-background: new 0 0 40 40;
+                        width: 40px;
+                        height: 40px;
+                        position: absolute;
+                      ">
+                      <g>
+                        <g>
+                          <circle cx="20" cy="20" r="15" class="st4"></circle>
+                          <g>
+                            <line x1="20" y1="23.9" x2="20" y2="12.4" class="st4"></line>
+                            <polyline points="14.3,17.8 20,12.1 25.7,17.7 			" class="st4"></polyline>
+                          </g>
+                        </g>
+                        <line x1="14.3" y1="28" x2="25.7" y2="28" class="st4"></line>
+                      </g>
+                    </svg>
+                    <input ng-disabled="isUploadButtonDisabled" type="file" (change)="onLogoFile($event)" />
+                  </div>
+                  <div class="details__wrap">
+                    <div class="orbitron p24 mb20">My Avatar</div>
+                    <div class="details__text w-normal">
+                      We recommend an image of at least
+                      400 x 400 px. Gifs work too.
+                      <!-- <span role="img" aria-label="hooray">🙌</span> -->
+                    </div>
+                    <div class="details__file">
+                      <button type="button" [disabled]="!imagePath" (click)="uploadProfileImageSignature()" class="button bg-primary w-normal">
+                        Upload
+                      </button>
+                      <!-- <button
+                        *ngIf="isUploadButtonDisabled"
+                        class="button bg-primary w-normal"
+                      >
+                        Uploading...
+                      </button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex gap">
+              <div class="flex1">
+                <div class="details__category">Profile details</div>
+                <div class="details__fieldset">
+                  <div class="field">
+                    <div class="field__label">Display Name</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="name" type="text" name="name"
+                        placeholder="Enter your display name" />
+
+                    </div>
+                    <div class="p12 error"
+                      *ngIf="updateProfileControl.name.invalid && (updateProfileControl.name.touched || ff.submitted)">
+                      Name required
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">My Profile on MoonSea</div>
+                    <div class="field__wrap">
+                      <input class="field__input" [ngClass]="{
+                          'is-invalid': submitted && f.customUrl.errors
+                        }" formControlName="customUrl" type="text" name="url" placeholder="Your custom URL"
+                        [pattern]="unamePattern" #customurlRef (change)="this.checkCustomUrl(customurlRef.value)" />
+                    </div>
+                    <div class="p12 error"
+                      *ngIf="updateProfileControl.customUrl.invalid && (updateProfileControl.customUrl.touched || ff.submitted)">
+                     <div *ngIf="updateProfileControl.customUrl.errors?.required">  Profile required</div>
+                     <div *ngIf="getCustomUrl.errors?.pattern"> invalid profile name</div>
+                     <div *ngIf="updateProfileControl.customUrl.errors?.incorrectUrl"> Profile already exist</div>
+                    </div>
+                  </div>
+                  <div class="field field_textarea">
+                    <div class="field__label">Bio</div>
+                    <div class="field__wrap">
+                      <textarea class="field__textarea" formControlName="bio" name="bio"
+                        placeholder="About yourself in a few words"></textarea>
+
+                    </div>
+                    <div class="p12 error"
+                      *ngIf="updateProfileControl.bio.invalid && (updateProfileControl.bio.touched || ff.submitted)">
+                      bio required
+                    </div>
+                  </div>
+
+            
+                </div>
+              </div>
+              <div class="flex1">
+                <div class="details__category">Social</div>
+                <div class="details__fieldset">
+                  <div class="field">
+                    <div class="field__label">Portfolio or website</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="portfolioWebsite" type="text" name="portfolio"
+                        placeholder="Enter URL" />
+                    </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.portfolioWebsite.invalid && (updateProfileControl.portfolioWebsite.touched || ff.submitted)">
+                      <div *ngIf="updateProfileControl.portfolioWebsite.errors?.invalidUrl">must contain https://</div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Email</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="emailId" type="email" name="url"
+                        placeholder="nft@email.com" />
+                    </div>
+                    <div class="p12 error"
+                      *ngIf="updateProfileControl.emailId.invalid && (updateProfileControl.emailId.touched || ff.submitted)">
+                      emailId required
+                    </div>
+
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Facebook</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="facebook" type="text" name="url"
+                        placeholder="Your Facebook URL width http://" />
+                    </div>
+                    <div class="p12 error" *ngIf="facebookUrl && facebookUrl.length > 0 && !facebookUrl.match('https://')">
+                      facebook url must contain https path
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Instagram</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="instagram" type="text" name="url"
+                        placeholder="Your instagram URL width http://" />
+                    </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.instagram.invalid && (updateProfileControl.instagram.touched || ff.submitted)">
+                      <div *ngIf="updateProfileControl.instagram.errors?.invalidUrl">must contain https://</div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Discord</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="discord" type="text" name="url"
+                        placeholder="Your Discord URL width http://" />
+                    </div>
+                    <div class="p12 error" *ngIf="discordUrl && discordUrl.length > 0 && !discordUrl.match('https://')">
+                      Discord url must contain https path
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="field__label">Twitter</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="twitterUsername" type="text" name="url"
+                        placeholder="Your Twitter URL width http://" />
+                    </div>
+                    <div class="p12 error" *ngIf="twitterUrl &&  twitterUrl.length >0 && !twitterUrl.match('https://')">
+                      Twitter url must contain https path
+                    </div>
+                  </div>
+                  <!-- commeted for some time dont delete -->
+                  <!-- <div class="details__box">
+                      <div class="field">
+                        <div class="field__label">twitter</div>
+                        <div class="field__wrap">
+                          <input
+                            class="field__input"
+                            formControlName="twitterUsername"
+                            type="text"
+                            name="twitter"
+                            placeholder="@twitter username"
+                            required
+                          />
+                          <button class="button">Verify account</button>
+                        </div>
+                      </div>
+                    </div> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="details__note">
+                  To update your settings you should sign message through your
+                  wallet. Click 'Update profile' then sign the message
+                </div> -->
+            <div class="p12 error" *ngIf="submitted && !updateProfile.valid">
+              Form validation error. Fix all mistakes and submit again
+            </div>
+
+            <div class="flex gap pt50 row-wrap">
+              <div class="flex1 flex justify-end">
+                <!-- <button class="button w-normal" type="button">Clear all</button> -->
+              </div>
+              <div class="flex1 flex justify-start">
+                <button class="button bg-primary w-normal" type="submit">
+                  {{ updateBtnText }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

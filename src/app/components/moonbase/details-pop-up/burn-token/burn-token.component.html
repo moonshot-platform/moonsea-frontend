@@ -1,0 +1,69 @@
+<div class="popup">
+  <div class="flex justify-space-between">
+    <h5 class="orbitron p24 mb20">Burn token</h5>
+    <a href="javascript:void(0)" (click)="close()"
+      ><svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        viewBox="0 0 27 27"
+        height="24px"
+        width="24px"
+      >
+        <title>Close</title>
+        <desc>Created with Sketch.</desc>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+            id="Combined-Shape"
+            fill="#000000"
+          ></path>
+        </g></svg
+    ></a>
+  </div>
+  <div class="popup__info" *ngIf="wrongNetwork">
+    <div class="steps__info">An error occured while interacting with your wallet. Please try again.</div>
+  
+<button class="button steps__button done" (click)="checkNetwork()">Try again</button>
+</div>
+  <div class="popup__info" *ngIf="!wrongNetwork && isBurnSuccessful == 0">
+    Are you sure to burn this token? This action cannot be undone. Token will be
+    transfered to zero address
+  </div>
+  <div class="popup__info" *ngIf="isBurnSuccessful == 1">
+    This token is burn successfuly. Token is no longer available now.
+  </div>
+  <div class="popup__info" *ngIf="isBurnSuccessful == 2">
+    This token is already burn successfuly. Token is no longer available now.
+  </div>
+  <div *ngIf="!wrongNetwork && isBurnSuccessful == 0">
+    <input
+      type="text"
+      class="popup__input"
+      #supply
+      value="1"
+      [readonly]="!data.isMultiple"
+    />
+  
+  <div class="popup__btns" >
+    <button type="button"
+      class="button text-inherit dark-button mb10 wp100"
+      (click)="burnSave(supply.value)"
+    >
+      Continue
+      <div class="loader text-white" *ngIf="isApiLoading"></div>
+    </button>
+    <!-- <button class="button-stroke popup__button js-popup-close">Cancel</button> -->
+  </div>
+</div>
+<div>
+  <button class="button wp100" type="button"[ngClass]="isBurnSuccessful == 1 ? 'dark-button' : ''" (click)="close()">{{isBurnSuccessful == 0 ? 'close' : 'Done'}}</button>
+
+</div>
+</div>

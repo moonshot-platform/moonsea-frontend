@@ -1,0 +1,302 @@
+@import "includes";
+
+.search-input {
+  position: relative;
+}
+
+.max-price {
+  top: 36px;
+  z-index: 100000000;
+}
+
+.search-input .form-control {
+  font-size: 1rem;
+  border: 1px solid $primary;
+  height: 54px;
+  background: $black;
+  color: $primary;
+  width: 100%;
+  z-index: 10;
+  font-family: "Montserrat";
+  font-weight: 600;
+  padding-left: 5.5rem;
+  margin-top: 9px;
+}
+
+.search-box {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  border-color: $primary;
+  top: 55%;
+  z-index: -1;
+  border: none;
+}
+.center-line {
+  border-color: $primary;
+  margin: 0;
+  height: 2px;
+  border: none;
+  border-bottom: 1px solid $primary;
+}
+.orbitron {
+  font-family: $secondary-font;
+  font-weight: $black-bold;
+}
+
+.search-input .form-control {
+  font-size: 1rem;
+  border: 1px solid $primary;
+  height: 54px;
+  background: transparent;
+  color: $primary;
+  width: 100%;
+  z-index: 10;
+  font-family: "Montserrat";
+  font-weight: 600;
+  padding-left: 0.5rem;
+}
+
+.discover__list {
+  margin: 50px 0 0 0;
+}
+
+.cardpos {
+  position: relative;
+  top: 90px;
+}
+
+.loadmore {
+  width: 100%;
+  color: $primary;
+  border: 2px solid $primary;
+  padding: 20px;
+  margin: 50px 0 15px 0;
+}
+
+.title-name {
+  left: 0;
+}
+
+.z-index-low {
+  z-index: 0;
+}
+
+.z-index {
+  z-index: 9;
+}
+
+@media only screen and (max-width: 62.5rem) {
+  .abcd1 {
+    margin: 0.5rem 0;
+    flex: 0 0 100%;
+    display: contents;
+  }
+
+  .efgh {
+    margin: 0.5rem 0;
+    flex: 0 0 100%;
+    display: contents;
+  }
+
+  .search-box {
+    display: none;
+  }
+
+  .visible {
+    display: block;
+  }
+
+  .field__wrap {
+    width: 100%;
+  }
+
+  .drop_pos {
+    left: 0px;
+  }
+}
+
+.hot-collection {
+  padding: 0px;
+  margin-top: 4rem;
+}
+
+.box {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid;
+  flex: 1;
+  margin: 0 0.5rem;
+}
+
+/*
+  Hower Dropdown CSS Starts
+*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.arrow_down:hover #down_arrow,
+#close:hover {
+  path {
+    fill: $white;
+  }
+}
+
+#down_arrow {
+  width: 26px;
+  height: 26px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  z-index: 1;
+}
+
+// .dropdown:hover .dropdown-content {
+//   display: flow-root;
+// }
+/*
+  Hower Dropdown CSS End
+*/
+
+@media only screen and (max-width: 62.5rem) {
+  .box {
+    margin: 0.5rem 0;
+    flex: 0 0 100%;
+  }
+}
+
+.collections__preview:first-child img {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  object-fit: cover;
+  max-height: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+
+// *********************************************************************//
+// top filter css
+// *********************************************************************//
+
+input.search_word {
+  background: transparent;
+  font-size: 30px;
+  max-width: fit-content;
+}
+
+.max-word {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+//=============Dropdown css start here=============================================================//
+.dropbtn {
+  color: $secondary;
+  font-size: 27px;
+  border: none;
+  cursor: pointer;
+  font-family: "Orbitron";
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $black;
+  min-width: 160px;
+  width: max-content;
+  max-width: 250px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+  z-index: 1;
+  border: solid 1px #fff;
+}
+#myDropdown3 a {
+  text-transform: capitalize;
+}
+.dropdown-content a {
+  color: $white;
+  padding: 18px 0;
+  text-decoration: none;
+  display: block;
+  margin: 0 1rem;
+  border-bottom: solid 1px $white;
+  font-family: $primary-font;
+  font-size: 14px;
+  font-weight: $semi-bold;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.dropdown a:hover {
+  color: $primary;
+}
+
+.show {
+  display: block;
+}
+
+.dropbtn:hover {
+  color: white;
+}
+
+.search_word.orbitron.p3.color-secondary:hover {
+  color: white;
+}
+
+input {
+  width: 100px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.pos-123 {
+  position: absolute !important;
+  right: 0 !important;
+  top: -18px !important;
+  background-color: $black;
+}
+
+.loader-01 {
+  width: 100%;
+  height: 100%;
+}
+
+.loader-01 div {
+  display: flex;
+  justify-content: center;
+}
+
+// [contenteditable=true]:empty:before {
+//   content: attr(placeholder);
+//   pointer-events: none;
+// }
+
+@media (max-width: $md-header) {
+  .catalog__list .grid-4 {
+    flex: 0 0 calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
+}

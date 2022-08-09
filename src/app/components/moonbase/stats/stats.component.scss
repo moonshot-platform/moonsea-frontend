@@ -1,0 +1,53 @@
+@import "includes";
+
+  .border-bottom {
+    border-bottom: 1px solid $primary;
+  }
+
+  .border-bottom-thead {
+    border-bottom: 3px solid $primary;
+  }
+
+.box {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid;
+  flex: 1;
+  max-width: 33.33%;
+}
+.title-container {
+    display: flex;
+    flex: 0 0 100%;
+    flex-direction: row;
+}
+table {
+  th {
+    font-size: 12px;
+  }
+   svg {
+     width: 36px;
+     height: 36px;
+   } 
+}
+
+.small_img {
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  object-fit: cover;
+}
+
+span.orbitron.text-secondary.p16::first-letter {
+  text-transform: capitalize;
+}
+
+@media only screen and (max-width: $md) {
+  .box {
+  margin: 0.5rem 0;
+  flex: 0 0 100%;
+  }
+  .title-container {
+      flex-direction: column;
+  }
+}

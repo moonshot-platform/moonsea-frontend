@@ -1,0 +1,17 @@
+<div>
+  <app-landing-one [newCollection]="newCollection"></app-landing-one>
+  <app-landing-search></app-landing-search>
+  <div class="landing-flex pt-0">
+    <app-landing-statics></app-landing-statics>
+    <!-- Hot Collection -->
+    <!-- <app-landing-hot-collection [hotCollectionList]="newCollection"></app-landing-hot-collection> -->
+    <!-- Top Collection -->
+    <app-landing-top-collection [getTopcollection]="newCollection"></app-landing-top-collection>
+    <!-- New Collection -->
+    <app-landing-new-collections [upCommingCollection]="newCollection"></app-landing-new-collections>
+    <!-- Upcomming Collection  -->
+    <!-- <app-langding-upcoming-collections [upCommingCollection]="newCollection"></app-langding-upcoming-collections> -->
+  </div>
+  <app-landing-footer [hotCollectionList]="newCollection"></app-landing-footer>
+
+</div>

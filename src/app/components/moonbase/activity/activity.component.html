@@ -1,0 +1,80 @@
+<div class="outer__inner">
+    <div class="control">
+      <div class="control__center center">
+          <div class="button-stroke button-small control__button" [routerLink]="['/']">
+          <svg class="icon icon-arrow-prev">
+            <use xlink:href="#icon-arrow-prev"></use>
+          </svg><span>Back to home</span></div>
+        <div class="breadcrumbs">
+          <ul class="breadcrumbs">  
+            <li class="breadcrumbs__item"><a class="breadcrumbs__link"  href="javascript:void(0);" >Profile</a></li>
+            <li class="breadcrumbs__item">Activity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section-pt80 activity">
+      <div class="activity__center center">
+        <div class="activity__top">
+          <h1 class="activity__title h2">Activity</h1>
+          <button class="button-stroke button-small mobile-hide activity__button">Mark all as read</button>
+          <button class="button-circle-stroke button-small tablet-show activity__toggle js-activity-toggle">
+            <svg class="icon icon-filter">
+              <use xlink:href="#icon-filter"></use>
+            </svg>
+            <svg class="icon icon-close">
+              <use xlink:href="#icon-close"></use>
+            </svg>
+          </button>
+        </div>
+        <div class="activity__row">
+          <div class="activity__wrapper">
+            <div class="activity__nav">
+              <div class="activity__link" [ngClass]="showfollowing === false ? 'active' : 'css-class-2'" (click)=NotificationListAll(Address)>My activity</div>
+              <div class="activity__link" [ngClass]="showfollowing === true ? 'active' : 'css-class-2'" (click)=following()>Following</div>
+              <!-- <a class="activity__link" href="#">All activity</a> -->
+            </div>
+            <div class="activity__list" *ngIf="this.showfollowing == false">
+                <div class="loader" *ngIf="loader == true"></div>
+                <div class="activity__item" *ngFor="let item of data">
+                                  <div class="activity__preview"><img src="./../../assets/img/content/bell.jpg" alt="Notification">
+                                    <div class="activity__icon" style="background-color:#EF466F;">
+                                      <img src="./../../assets/img/content/flag.svg" alt="Icon notification"></div>
+                                  </div>
+                                  <div class="activity__details">
+                                    <!-- <div class="activity__subtitle">{{item.content}}</div> -->
+                                    <a class="activity__description" href="{{item.activity == '2' ?'profile/'+item.clickOn:'details/'+item.clickOn}}">{{ item.content }}</a>
+                                    <!-- <div class="activity__description">{{item.content}}</div> -->
+                                    <div class="activity__date">{{item.dayCount}} days ago</div>
+                                  </div></div>
+                            
+            </div>
+          
+
+            <div class="followers" *ngIf="this.showfollowing == true">
+              <div class="followers__list">
+                <div class="followers__item" *ngFor="let item of listItemsFollowing;let i=index">
+                  <div class="followers__user">
+                    <div class="followers__avatar">
+                      <app-avatar [imagePath]="item.profilePic"></app-avatar>
+                    </div>
+                    <div class="followers__details">
+                      <div class="followers__name">{{item.name}}</div>
+                      <div class="followers__counter">{{item.followCount}} followers</div>
+                      <button class="button-stroke button-small followers__button" (click)=unfollow(item.following,i)>Unfollow</button>
+                    </div>
+                  </div>
+                 
+                </div>
+               
+              </div>
+              <!-- <div class="loader" *ngIf="isApiLoading"></div> -->
+            </div>
+
+          </div>
+          <button class="button-stroke button-small mobile-show activity__button">Mark all as read</button>
+       
+        </div>
+      </div>
+    </div>
+  </div>

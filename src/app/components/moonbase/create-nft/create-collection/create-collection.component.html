@@ -1,0 +1,875 @@
+<div id="new_collection" class="popup popup_bid large-poup">
+  <div class="bg-light">
+    <div class="flex justify-space-between mb40">
+      <h5 class="orbitron p24">
+        {{ collectionId ? "Edit" : "Create a" }} Collection
+      </h5>
+
+      <a href="javascript:void(0)" (click)="close()">
+        <svg
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          viewBox="0 0 27 27"
+          height="24px"
+          width="24px"
+        >
+          <title>Close Popup</title>
+          <desc>Created with Sketch.</desc>
+
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <path
+              d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+              id="Combined-Shape"
+              fill="#000000"
+            ></path>
+          </g>
+        </svg>
+      </a>
+    </div>
+    <div>
+      <div class="flex gap" *ngIf="collectionDetails == 1">
+        <form
+          #step01="ngForm"
+          class="wp100"
+          [formGroup]="step01Form"
+          (ngSubmit)="step01.valid && saveStep01(step01.value)"
+        >
+          <div class="flex gap">
+            <div class="flex1">
+              <div class="popup__field mb20">
+                <div class="upload__item">
+                
+                  <div
+                    class="upload__file"
+                    [ngStyle]="{
+                      border: imageErrorMsg ? '1px solid #ff0000' : ''
+                    }"
+                  >
+                    <div></div>
+                    <img
+                      src="{{ imagePath }}"
+                      [ngClass]="{ 'd-none': !imagePath }"
+                      class="absolute object-cover w-100"
+                      height="230"
+                      alt=""
+                    />
+                    <input
+                      class="upload__input z-index-high"
+                      (change)="onLogoFile($event)"
+                      type="file"
+                    />
+
+                    <div class="text-center" [ngClass]="{ opacity: imagePath }">
+                      <svg
+                        version="1.1"
+                        id="stroke_dark"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 40 40"
+                        xml:space="preserve"
+                        style="enable-background: new 0 0 40 40; width: 45px"
+                      >
+                        <g>
+                          <g>
+                            <circle
+                              cx="20"
+                              cy="20"
+                              r="15"
+                              class="stroke_dark"
+                            ></circle>
+                            <g>
+                              <line
+                                x1="20"
+                                y1="23.9"
+                                x2="20"
+                                y2="12.4"
+                                class="stroke_dark"
+                              ></line>
+                              <polyline
+                                points="14.3,17.8 20,12.1 25.7,17.7 			"
+                                class="stroke_dark"
+                              ></polyline>
+                            </g>
+                          </g>
+                          <line
+                            x1="14.3"
+                            y1="28"
+                            x2="25.7"
+                            y2="28"
+                            class="stroke_dark"
+                          ></line>
+                        </g>
+                      </svg>
+                      <div
+                        class="mt40 upload__format"
+                        [ngStyle]="{ color: imageErrorMsg ? '#ff0000' : '' }"
+                      >
+                        Drop item here to upload
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="imageErrorMsg"
+                    class="p12 w-normal mt10 mb10 error"
+                  >
+                    collection image required
+                  </div>
+                  <p class="p14 w-normal mt10 mb10">
+                    This image will be used to feature your collection on the
+                    homepage, category pages and other areas of MoonSea
+                    <br /><br />
+                    350x230 recommended.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex1">
+              <div class="popup__field mb20">
+
+                <div class="mb10 p12">Name</div>
+                <div class="field__wrap">
+                  <input
+                    class="popup__input"
+                    [attr.readonly]="collectionId"
+                    placeholder="Example: Treasures of the Moon"
+                    formControlName="tokenName"
+                    name="newPrice"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      step01FormControls.tokenName.invalid &&
+                      (step01FormControls.tokenName.touched || step01.submitted)
+                    "
+                    class="p12 w-normal mt10 mb10 error"
+                  >
+                    <div *ngIf="step01FormControls.tokenName.errors?.required">
+                      Name is a required field
+                    </div>
+                    <div
+                      class="p12 w-normal mt10 mb10 error"
+                      *ngIf="step01FormControls.tokenName.errors?.incorrect"
+                    >
+                      Collection name already exist
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Description</div>
+                <div class="field__wrap">
+                  <textarea
+                    rows="5"
+                    name="newPrice"
+                    formControlName="description"
+                    placeholder="Max. 350 characters"
+                    class="popup__input wp100 popup__textarea"
+                    cols=""
+                  ></textarea>
+                  <div
+                    *ngIf="
+                      step01FormControls.description.invalid &&
+                      (step01FormControls.description.touched ||
+                        step01.submitted)
+                    "
+                    class="p12 w-normal mt10 mb10 error"
+                  >
+                    Description is a required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap">
+            <div class="flex1"></div>
+            <div class="flex1">
+              <div class="popup__btns flex gap">
+                <button class="button wp100" (click)="close()">Back</button>
+                <button
+                  type="submit"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Next step
+                  <div class="loader text-white" *ngIf="isApiLoading"></div>
+                </button>
+                <button
+                  *ngIf="collectionId"
+                  (click)="skip()"
+                  type="button"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Skip
+                  <div class="loader text-white" *ngIf="isApiLoadingForSkip"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="flex gap" *ngIf="collectionDetails == 2">
+        <form
+          class="wp100"
+          #step02="ngForm"
+          [formGroup]="step02Form"
+          (ngSubmit)="step02.valid && saveStep02(step02.value)"
+        >
+          <div class="flex gap">
+            <div class="flex1">
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Your website</div>
+                <div class="field__wrap">
+                  <input
+                    type="text"
+                    formControlName="yourSite"
+                    name="yourSite"
+                    placeholder="URL"
+                    class="popup__input"
+                  />
+                </div>
+              </div>
+
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Discord</div>
+                <div class="field__wrap">
+                  <input
+                    type="text"
+                    formControlName="discord"
+                    name="discord"
+                    placeholder="Discord"
+                    class="popup__input"
+                  />
+                </div>
+              </div>
+
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Twitter</div>
+                <div class="field__wrap">
+                  <input
+                    type="text"
+                    formControlName="twitter"
+                    name="twitter"
+                    placeholder="Twitter"
+                    class="popup__input"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="flex1">
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Instagram</div>
+                <div class="field__wrap">
+                  <input
+                    type="text"
+                    formControlName="instagram"
+                    name="instagram"
+                    placeholder="Instagram"
+                    class="popup__input"
+                  />
+                </div>
+              </div>
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Medium</div>
+                <div class="field__wrap">
+                  <input
+                    type="text"
+                    formControlName="medium"
+                    name="medium"
+                    placeholder="Medium"
+                    class="popup__input"
+                  />
+                </div>
+              </div>
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Telegram</div>
+                <div class="field__wrap">
+                  <input
+                    type="text"
+                    formControlName="telegram"
+                    name="telegram"
+                    placeholder="Telegram"
+                    class="popup__input"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap">
+            <div class="flex1"></div>
+            <div class="flex1">
+              <div class="popup__btns flex gap">
+                <button class="button wp100" (click)="prev()">Back</button>
+                <button
+                  type="submit"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Next step
+                  <div class="loader text-white" *ngIf="isApiLoading"></div>
+                </button>
+                <button
+                  *ngIf="collectionId"
+                  (click)="skip()"
+                  type="button"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Skip
+                  <div class="loader text-white" *ngIf="isApiLoadingForSkip"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="collectionDetails == 3">
+        <form
+          #step03="ngForm"
+          [formGroup]="step03Form"
+          (ngSubmit)="step03.valid && saveStep03(step03.value)"
+        >
+          <div class="flex gap">
+            <div class="flex1">
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Token Standard</div>
+                <div class="field__wrap">
+                  <select
+                    nice-select
+                    class="select"
+                    formControlName="isMultiple"
+                  >
+                    <option [ngValue]="false">ERC-721 (Non-Fungible)</option>
+                    <option [ngValue]="true">ERC-1155 (Multi-token)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Blockchain</div>
+                <div class="field__wrap">
+                  <select
+                    nice-select
+                    class="select"
+                    formControlName="blockchainId"
+                    [attr.readonly]="collectionId"
+                  >
+                    <option
+                      *ngFor="let itemblock of blockchainList"
+                      [value]="itemblock.blockchainId"
+                    >
+                      <img
+                        class="collection-icon"
+                        src="{{ itemblock.fileUrl }}"
+                      />
+                      {{ itemblock.networkName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Category</div>
+                <div class="field__wrap">
+                  <select
+                    nice-select
+                    class="select"
+                    formControlName="categoryId"
+                    #categoryId
+                  >
+                    <option
+                      *ngFor="let itemcut of categotyList"
+                      [value]="itemcut.categoryId"
+                    >
+                      {{ itemcut.categoryName }}
+                    </option>
+                  </select>
+                </div>
+                <div
+                  *ngIf="
+                    step03FormControls.categoryId.invalid &&
+                    (step03FormControls.categoryId.touched || step03.submitted)
+                  "
+                  class="p12 w-normal mt10 mb10 error"
+                >
+                  Category required
+                </div>
+              </div>
+            </div>
+
+            <div class="flex1">
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Royalties</div>
+                <div class="field__wrap">
+                  <input
+                    class="popup__input"
+                    formControlName="royalties"
+                    name="royalties"
+                    placeholder="5%"
+                    type="text"
+                    #royalties
+                    (keyup)="checkValidaation(royalties.value)"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    step03FormControls.royalties.invalid &&
+                    (step03FormControls.royalties.touched || step03.submitted)
+                  "
+                  class="p12 w-normal mt10 mb10 error"
+                >
+                  <div *ngIf="step03FormControls.royalties.errors?.required">
+                    Fees is a required
+                  </div>
+                  <div *ngIf="step03FormControls.royalties.errors?.max">
+                  Fees above 10% are not allowed
+                  </div>
+                  <div *ngIf="step03FormControls.royalties.errors?.min">
+                    Fees should be in between of 0 to 10%
+                  </div>
+                 
+                </div>
+              </div>
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">
+                  Royalties Receiving Address
+                </div>
+                <div class="field__wrap">
+                  <input
+                    id="wallet"
+                    class="popup__input"
+                    formControlName="royaltiesWalletAddress"
+                    name="royaltiesWalletAddress"
+                    type="text"
+                    placeholder="Wallet Address"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    step03FormControls.royaltiesWalletAddress.invalid &&
+                    (step03FormControls.royaltiesWalletAddress.touched ||
+                      step03.submitted)
+                  "
+                  class="p12 w-normal mt10 mb10 error"
+                >
+                  Royalties receiving address required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap">
+            <div class="flex1"></div>
+            <div class="flex1">
+              <div class="popup__btns flex gap">
+                <button class="button wp100" (click)="prev()">Back</button>
+                <button
+                  type="submit"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Next step
+                  <div class="loader text-white" *ngIf="isApiLoading"></div>
+                </button>
+                <button
+                  *ngIf="collectionId"
+                  (click)="skip()"
+                  type="button"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Skip
+                  <div class="loader text-white" *ngIf="isApiLoadingForSkip"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="nft_details" *ngIf="collectionDetails == 4">
+        <form
+          #step04="ngForm"
+          [formGroup]="step04Form"
+          (ngSubmit)="step04.valid && saveStep04(step04.value)"
+        >
+          <p class="popup__col p14 w-normal p-0 mb20">
+            (Optional) Configure default values for your Items
+          </p>
+
+          <div class="flex gap">
+            <div class="flex1">
+              <div class="popup__field mb20">
+                <div class="popup__col mb10 p12">Title</div>
+                <div class="field__wrap">
+                  <input
+                    class="popup__input"
+                    formControlName="nftDefaultTitle"
+                    placeholder="Title"
+                    name="nftDefaultTitle"
+                    type="text"
+                    [attr.readonly]="collectionId"
+                  />
+                </div>
+               
+              </div>
+
+              <div class="popup__field mb20">
+                <div class="mb10 p12">Description</div>
+                <div class="field__wrap">
+                  <textarea
+                    rows="3"
+                    name="nftDefaultDescription"
+                    placeholder="Max. 140 characters"
+                    class="popup__input wp100 popup__textarea"
+                    cols=""
+                    formControlName="nftDefaultDescription"
+                  ></textarea>
+                </div>
+               
+              </div>
+
+              <p class="popup__col p14 w-normal p-0 mb20">
+                (Optional) Create the Traits
+              </p>
+
+              <div class="popup__field mb20" formArrayName="propertysize">
+                <div
+                  class="first_label"
+                  *ngFor="let skill of propertysize01.controls; let i = index"
+                >
+                  <div [formGroupName]="i" class="flex">
+                    <div class="flex gap mb30 align-center wp100">
+                      <div class="wp100">
+                        <div class="field__wrap">
+                          <div class="popup__col p12 pl-0 mb10 label">
+                            Trait
+                          </div>
+                          <input
+                            class="popup__input"
+                            formControlName="properties"
+                            id="properties{{ i }}"
+                            name="properties"
+                            type="text"
+                            placeholder="Background Color"
+                          />
+                        </div>
+                       
+                      </div>
+
+                      <div class="wp100">
+                        <div class="popup__col p12 pl-0 mb10 label">
+                          Display Type
+                        </div>
+                        <div class="field__wrap">
+                          <input
+                            class="popup__input"
+                            formControlName="size"
+                            id="size{{ i }}"
+                            name="size"
+                            type="text"
+                            placeholder="Text"
+                          />
+                        </div>
+                     
+                      </div>
+                      <div
+                        class="trash"
+                        *ngIf="propertysize01.controls.length > 1"
+                      >
+                        <a
+                          href="javascript:void(0)"
+                          (click)="deletepropertysize01(i)"
+                        >
+                          <svg
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xmlns="http://www.w3.org/2000/svg"
+                            version="1.1"
+                            viewBox="0 0 27 27"
+                            height="24px"
+                            width="24px"
+                          >
+                            <title>Close Popup</title>
+                            <desc>Created with Sketch.</desc>
+                            <g
+                              id="Page-1"
+                              stroke="none"
+                              stroke-width="1"
+                              fill="none"
+                              fill-rule="evenodd"
+                            >
+                              <path
+                                d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+                                id="Combined-Shape"
+                                fill="#000000"
+                              ></path>
+                            </g>
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <a (click)="addpropertysize()">
+                  <svg
+                    version="1.1"
+                    id="Laag_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 26 26"
+                    style="width: 48px; height: 48px"
+                    xml:space="preserve"
+                  >
+                    <circle class="st4" cx="13" cy="13" r="12"></circle>
+                    <g>
+                      <line class="st4" x1="13" y1="8" x2="13" y2="18"></line>
+                      <line class="st4" x1="18" y1="13" x2="8" y2="13"></line>
+                    </g>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="flex1">
+              <div>
+                <div class="popup__field mb20" *ngIf="typeOfNft == 'multiple'">
+                  <div class="popup__col mb10 p12">No of copies</div>
+                  <div class="field__wrap">
+                    <input
+                      class="popup__input"
+                      formControlName="numberOfCopies"
+                      name="numberOfCopies"
+                      type="number"
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      step04FormControls.numberOfCopies.invalid &&
+                      (step04FormControls.numberOfCopies.touched ||
+                        step04.submitted)
+                    "
+                    class="p12 w-normal mt10 mb10 error"
+                  >
+                    numberOfCopies required
+                  </div>
+                </div>
+                <div class="popup__field mb20">
+                  <div class="upload__option">
+                    <div class="upload__box">
+                      <div class="upload__category p12">Put on sale</div>
+                      <div class="upload__text text-dark">
+                        You’ll receive bids on this item
+                      </div>
+                    </div>
+                    <label class="switch">
+                      <input
+                        class="switch__input"
+                        formControlName="putOnSale"
+                        type="checkbox"
+                        checked="checked"
+                      />
+                      <span class="switch__inner"
+                        ><span class="switch__box"></span
+                      ></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div
+                  class="popup__field mb20"
+                  *ngIf="step04FormControls.putOnSale.value"
+                >
+                  <div class="upload__option">
+                    <div class="upload__box">
+                      <div class="upload__category p12">Fixed Price</div>
+                    </div>
+                    <label class="switch">
+                      <input
+                        class="switch__input"
+                        value="1"
+                        formControlName="typeOfSale"
+                        type="radio"
+                        name="typeOfSale"
+                      />
+                      name="typeOfSale" />
+                      <span class="switch__inner"
+                        ><span class="switch__box"></span
+                      ></span>
+                    </label>
+                  </div>
+
+                  <div class="upload__option">
+                    <div class="upload__box">
+                      <div class="upload__category p12">Timed Auction</div>
+                    </div>
+                    <label class="switch">
+                      <input
+                        class="switch__input"
+                        value="2"
+                        formControlName="typeOfSale"
+                        type="radio"
+                        checked="checked"
+                        name="typeOfSale"
+                      />
+                      <span class="switch__inner"
+                        ><span class="switch__box"></span
+                      ></span>
+                    </label>
+                  </div>
+
+                  <div class="upload__option">
+                    <div class="upload__box">
+                      <div class="upload__category p12">Open for bid</div>
+                    </div>
+                    <label class="switch">
+                      <input
+                        class="switch__input"
+                        value="3"
+                        formControlName="typeOfSale"
+                        type="radio"
+                        checked="checked"
+                        name="typeOfSale"
+                      />
+                      <span class="switch__inner"
+                        ><span class="switch__box"></span
+                      ></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div
+                  class="popup__field mb20"
+                  *ngIf="
+                    step04FormControls.putOnSale.value &&
+                    (step04FormControls.typeOfSale.value == 1 ||
+                      step04FormControls.typeOfSale.value == 2 ||
+                      step04FormControls.typeOfSale.value == 3)
+                  "
+                >
+                  <div class="popup__col mb10 p12">
+                    {{
+                      step04FormControls.typeOfSale.value == 1
+                        ? "Price"
+                        : "Minimum Bid Price"
+                    }}
+                  </div>
+                  <div class="field__wrap flex align-center">
+                    <input class="popup__input" pattern="^[+-]?(\d*\.)?\d+$" formControlName="minimunBid" name="minimunBid" type="text" />
+                    <div class="p12 currency">{{step04FormControls.typeOfSale.value == 1 ? blockchainInfo.symbol : blockchainInfo.wsymbol}}</div>
+                  </div>
+                  <div
+                    class="p12 w-normal mt10 mb10 error"
+                    *ngIf="
+                      step04FormControls.minimunBid.invalid &&
+                      (step04FormControls.minimunBid.touched ||
+                        step04.submitted)
+                    "
+                  >
+                  <div *ngIf="step04FormControls.minimunBid.errors?.pattern">Only number required.</div>
+                  <div *ngIf="step04FormControls.minimunBid.errors?.required">  {{
+                    step04FormControls.typeOfSale.value == 1
+                      ? "Price"
+                      : "Minimum Bid Price"
+                  }}
+                  required</div>
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="
+                    step04FormControls.putOnSale.value &&
+                    step04FormControls.typeOfSale.value == 2
+                  "
+                >
+                  <div class="popup__field mb20">
+                    <div class="popup__col mb10 p12">Start Date</div>
+                    <div class="field__wrap">
+                      <ejs-datetimepicker
+                        id="datetimepicker"
+                        name="startDate"
+                        placeholder="Select a date"
+                        formControlName="startDate"
+                        [value]="dateValue"
+                      ></ejs-datetimepicker>
+                    </div>
+                    <div
+                      class="p12 w-normal mt10 mb10 error"
+                      *ngIf="
+                        step04FormControls.startDate.invalid &&
+                        (step04FormControls.startDate.touched ||
+                          step04.submitted)
+                      "
+                    >
+                      Start Date required
+                    </div>
+                  </div>
+
+                
+
+                  <div class="popup__field mb20">
+                    <div class="popup__col mb10 p12">No of Days Auction</div>
+                    <div class="field__wrap">
+                      <select
+                        nice-select
+                        class="select"
+                        formControlName="noOfDaysAuction"
+                      >
+                        <option [ngValue]="3">3 Days</option>
+                        <option [ngValue]="7">7 Days</option>
+                        <option [ngValue]="14">14 Days</option>
+                      </select>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap">
+            <div class="flex1"></div>
+            <div class="flex1">
+              <div class="popup__btns flex gap">
+                <button class="button wp100" (click)="prev()">Back</button>
+                <button
+                  *ngIf="!collectionId"
+                  type="submit"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Confirm
+                  <div class="loader text-white" *ngIf="isApiLoading"></div>
+                </button>
+                <button
+                  *ngIf="collectionId"
+                  type="submit"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Confirm
+                  <div class="loader text-white" *ngIf="isApiLoading"></div>
+                </button>
+                <button
+                  *ngIf="collectionId"
+                  (click)="skip()"
+                  type="button"
+                  class="button text-inherit dark-button mb10 wp100"
+                >
+                  Skip
+                  <div class="loader text-white" *ngIf="isApiLoadingForSkip"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

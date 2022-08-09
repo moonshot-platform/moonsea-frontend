@@ -1,0 +1,170 @@
+@import "includes";
+section.limited {
+    display: flex;
+    flex-direction: column;
+    max-width: 770px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 180px;
+}
+
+section.landing-carousel {
+    max-width: calc(80vw)!important;
+    padding-right: 20px;
+    padding-left: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 0;
+}
+
+swiper {
+    padding-top: 0px !important;
+}
+
+p.slider-name {
+    margin-top: 20px;
+    font-family: $primary-font;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: center;
+    color: $primary;
+}
+
+.nft-image-container {
+    max-height: 250px;
+    max-width: 250px;
+    width: 100%;
+    height: 100%;
+    background: black;
+    border: 1px solid $primary;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    img {
+        height: 100%;
+        width: 100%;
+        align-self: center;
+    }
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    .heading-container {
+        font-family: "Orbitron";
+        font-size: 30px;
+        font-weight: 900;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 36px;
+        letter-spacing: normal;
+        text-align: left;
+        color: #d5a642;
+        border-top: 3px solid $primary;
+        max-width: 370px;
+        width: 100%;
+    }
+    .description-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 270px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid $primary;
+    }
+    .buttons-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .info-text {
+        font-family: $primary-font;
+        font-size: 16px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.69;
+        letter-spacing: normal;
+        text-align: left;
+        color: $primary;
+    }
+    .buy-moonshot-button {
+        display: flex;
+        width: 170px;
+        .button {
+            max-width: 170px;
+            min-width: 170px;
+            width: 100%;
+            font-size: 16px;
+            height: 40px;
+            padding: 0px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.69;
+            letter-spacing: normal;
+            text-align: center;
+        }
+    }
+    .arrow-down {
+        width: 40px;
+        height: 40px;
+        .round-mini-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+}
+
+.break-line-mobile {
+    display: none;
+}
+
+.break-line-desktop {
+    display: flex;
+}
+
+@media only screen and (max-width: 810px) {
+    section.limited {
+        padding-top: 100px;
+    }
+    .detail-container {
+        flex-direction: column;
+        max-width: 370px;
+        width: calc(100vw - 40px);
+        .description-container {
+            border-top: none;
+        }
+    }
+    .break-line-mobile {
+        display: flex;
+    }
+    .break-line-desktop {
+        display: none;
+    }
+}

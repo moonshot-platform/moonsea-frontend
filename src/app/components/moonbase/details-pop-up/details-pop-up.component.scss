@@ -1,0 +1,12 @@
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.hover-primary {
+  color: #090d16;
+  &:hover {
+    color: #50aac5;
+  }
+}

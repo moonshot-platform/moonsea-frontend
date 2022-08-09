@@ -1,0 +1,106 @@
+<div class="popup">
+  <div class="flex justify-space-between">
+    <h5 class="orbitron p24 mb20">Transfer token</h5>
+    <a href="javascript:void(0)" (click)="close()"
+      ><svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        viewBox="0 0 27 27"
+        height="24px"
+        width="24px"
+      >
+        <title>Close</title>
+        <desc>Created with Sketch.</desc>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <path
+            d="M13.9791847,12.8137085 L26.3535534,0.439339828 L27.0606602,1.14644661 L14.6862915,13.5208153 L27.0606602,25.895184 L26.3535534,26.6022907 L13.9791847,14.2279221 L1.60481605,26.6022907 L0.897709268,25.895184 L13.2720779,13.5208153 L0.897709268,1.14644661 L1.60481605,0.439339828 L13.9791847,12.8137085 Z"
+            id="Combined-Shape"
+            fill="#000000"
+          ></path>
+        </g></svg
+    ></a>
+  </div>
+  <div class="popup__info" *ngIf="wrongNetwork">
+    <div class="steps__info">An error occured while interacting with your wallet. Please try again.</div>
+  
+<button class="button steps__button done" (click)="checkNetwork()">Try again</button>
+</div>
+  <form
+    #transferPost="ngForm"
+    [formGroup]="transferform"
+    (ngSubmit)="transferSave(transferPost.value)"
+    *ngIf="!wrongNetwork && istransferTocken == 0"
+  >
+    <div class="popup__info">
+      You can transfer tokens from your address to another
+    </div>
+    <div class="popup__subtitle">Receiver address</div>
+    <div class="popup__field">
+      <div class="mb20">
+        <input
+          class="popup__input"
+          type="text"
+          formControlName="toWalletAddress"
+          name="toWalletAddress"
+          placeholder="Paste address"
+          required
+        />
+        <div
+          *ngIf="isSubmitted && formControls.toWalletAddress.errors"
+          class="help-block _error"
+        >
+          <p
+            *ngIf="formControls.toWalletAddress.errors.required"
+            class="p12 w-normal mt10 mb10"
+          >
+            Address is required
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup__field">
+      <div class="popup__wrap">
+        <input
+          class="popup__input"
+          type="number"
+          formControlName="quantity"
+          name="quantity"
+          placeholder="Enter quantity"
+          required
+        />
+        <div
+          *ngIf="isSubmitted && formControls.quantity.errors"
+          class="help-block _error"
+        >
+          <p
+            *ngIf="formControls.quantity.errors.required"
+            class="p12 w-normal mt10 mb10"
+          >
+            Quantity is required
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="popup__btns">
+      <button type="submit" class="button text-inherit dark-button mb10 wp100">
+        Continue
+        <div class="loader text-white" *ngIf="isApiLoading"></div>
+      </button>
+      
+    </div>
+  </form>
+  <div class="popup__info" *ngIf="istransferTocken == 1">
+    The token is transferred successfully.
+  </div>
+  <div>
+    <button type="button" (click)="close()" [ngClass]="istransferTocken == 1 ? 'dark-button' : '' " class="button wp100">{{istransferTocken == 0 ? 'Cancel' : 'Done'}}</button>
+  </div>
+</div>

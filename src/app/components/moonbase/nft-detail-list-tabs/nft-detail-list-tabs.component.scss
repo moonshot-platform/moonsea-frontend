@@ -1,0 +1,32 @@
+@import "includes";
+
+.showtab {
+  display: inline-flex !important;
+}
+
+.hidetab {
+  display: none !important;
+}
+.color_link {
+  color: black;
+}
+.box {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid;
+  justify-content: space-around;
+}
+.break-word {
+  word-break: break-all;
+}
+
+@media (max-width: $md-header) {
+  .showtab {
+    width: 100%;
+    display: flex !important;
+    flex: 0 0 100%;
+    .item__users {
+      width: 100%;
+    }
+  }
+}

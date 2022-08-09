@@ -1,0 +1,219 @@
+<!-- <app-search-key></app-search-key> -->
+<div>
+  <div class="landing-flex z-index-high">
+    <div class="orbitron p30">
+      <p class="max-word">
+        Search for
+
+        <span #searchText class="content_editable text-secondary" data-maxlength="5" data-minlength="5" id="textSearch"
+          placeholder="Enter text here" (keyup.enter)="filter(searchText.innerText,'col')" [innerHTML]="searchKey"
+          contenteditable="true" (click)="onSearchFieldClicked()"></span>
+
+
+        <span class="ml10">
+          <a (click)="clearSearch()" href="javascript:void(0)">
+            <svg version="1.1" id="close" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px" y="0px" viewBox="0 0 24 24" style="
+              enable-background: new 0 0 24 24;
+              width: 26px;
+              height: 26px;
+            " xml:space="preserve">
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path class="st0" d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
+              s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
+              L8.5,12L3.2,6.7C2.9,6.4,2.7,6,2.7,5.6s0.2-0.9,0.5-1.2l1.2-1.2c0.4-0.3,0.8-0.5,1.2-0.5s0.8,0.2,1.2,0.5L12,8.5l5.3-5.3
+              c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z">
+              </path>
+            </svg>
+          </a>
+        </span>
+      </p>
+      <p>
+        in
+        <span class="color-secondary arrow_down">
+          <!-- all items -->
+          <div class="dropdown pointer" (click)="myFunction3()">
+            <button class="dropbtn">
+              {{regardingDropdown}}
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" id="down_arrow" viewBox="0 0 24 24" style="enable-background: new 0 0 24 24"
+                xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
+              </svg>
+            </button>
+            <div id="myDropdown3" class="dropdown-content">
+              <a (click)="getRegarding('items')">items</a>
+              <a (click)="getRegarding('collections')">collections</a>
+              <a (click)="getRegarding('creators')">creators</a>
+            </div>
+          </div>
+
+        </span>
+
+        on the
+        <span class="color-secondary arrow_down">
+          <!-- all items -->
+          <div class="dropdown pointer" (click)="myFunction()">
+            <button class="dropbtn">{{currencySymbol}}
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" id="down_arrow" viewBox="0 0 24 24" style="enable-background: new 0 0 24 24"
+                xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
+              </svg>
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+              <a class="text-capitalize" *ngFor="let item of blockchainList"
+                (click)="getListofCollection01(item.blockchainId,item.networkName,'col')">{{item.networkName}}</a>
+            </div>
+          </div>
+
+        </span>
+        blockchain categorized as
+        <span class="color-secondary arrow_down">
+          <!-- all categories -->
+          <div class="dropdown pointer" (click)="myFunction1()">
+            <button class="dropbtn text-lowercase">
+              {{categoryName | titlecase }}
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" id="down_arrow" viewBox="0 0 24 24" style="enable-background: new 0 0 24 24"
+                xml:space="preserve">
+                <style type="text/css">
+                  .st0 {
+                    fill: #c5e3ec;
+                  }
+                </style>
+                <path class="st0" d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z" />
+              </svg>
+            </button>
+            <div id="myDropdown1" class="dropdown-content">
+              <a *ngFor="let item of categotyList"
+                (click)="getNftlistbyCategory(item.categoryId,item.categoryName,'col')">{{item.categoryName | titlecase }}</a>
+            </div>
+          </div>
+        </span>
+
+       
+      
+
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<div class="relative mt50 mb50 z-index">
+  <div class="search-box">
+    <hr class="center-line">
+  </div>
+  <div class="landing-flex pt-0 z-index-high position_01">
+    <div class="flex justify-space-between flex100 gap remove__flex">
+      <div class="flex mw-30" *ngIf="regardingDropdown != 'creators'">
+        <div class="search-input">
+          <span class="max-price">Min {{regardingDropdown === 'items' ? 'Price' : 'Volume'}}: </span>
+          <input type="text" (keyup.enter)="filter001()" [(ngModel)]="minPrice" placeholder="0"
+            class="form-control pr-3" />
+        </div>
+        <div class="search-input">
+          <span class="max-price">Max {{regardingDropdown === 'items' ? 'Price' : 'Volume'}}:</span>
+          <input type="text" (keyup.enter)="filter001()" [(ngModel)]="maxPrice" placeholder="500000"
+            class="form-control pr-3" />
+        </div>
+      </div>
+      <div class="flex">
+        <div class="wp100 mt10">
+          <div class="bg-black">
+            <div class="field__wrap pointer" [ngClass]="{'pos-123': regardingDropdown == 'creators'}">
+              <select *ngIf="regardingDropdown == 'items'" nice-select class="select maximum-content" #lkks
+                [value]="sortingType" (change)="sortingType01(lkks.value)">
+                <option value="4">Price: High to low</option>
+                <option value="3">Price: Low to high</option>
+                <option value="6">Last price: High to low</option>
+                <option value="5">Last price: Low to high</option>
+                <option value="2">Recently listed</option>
+                <option value="1">Highest last sale</option>
+              </select>
+
+              <select *ngIf="regardingDropdown == 'collections'" nice-select class="select maximum-content" #lkks
+                [value]="sortingType" (change)="sortingType0101(lkks.value)">
+                <option value="1">Price: High to low</option>
+                <option value="2">Price: Low to high</option>
+                <option value="3">Trending</option>
+                <option value="4">Newest</option>
+                <option value="5">Oldest</option>
+              </select>
+
+              <select *ngIf="regardingDropdown == 'creators'" nice-select class="select maximum-content" #lkks
+                [value]="sortingType" (change)="creator01(lkks.value)">
+                <option value="1">Alphabetically</option>
+                <option value="2">Trending</option>
+                <option value="3">Newest</option>
+                <option value="4">Oldest</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="landing-flex pt30 z-index-low">
+  <div *ngIf="dicoverCollectionList.length > 0 && regardingDropdown == 'collections'">
+    <section class="hot-collection mt-0">
+      <div class="inner">
+        <div class="grid grid-3">
+          <div *ngFor="let item of dicoverCollectionList" class="flex100 mb60">
+            <app-collection-card [item]="item"></app-collection-card>
+          </div>
+        </div>
+        <button class="button text-inherit wp100" type="button" (click)="loadmoreCollectionList()">Load More</button>
+
+      </div>
+    </section>
+  </div>
+
+
+
+
+
+  <div *ngIf="createrList.length > 0 && regardingDropdown == 'creators'">
+    <app-creator [listItemsFollowing]="createrList"></app-creator>
+    <button class="button text-inherit wp100" type="button" (click)="loadmoreCreatorsList()">Load More</button>
+
+  </div>
+
+
+  <div *ngIf="discoverNFTList.length > 0 && regardingDropdown == 'items'">
+
+    <div class="catalog__list" *ngIf="discoverNFTList.length > 0">
+      <div class="grid-4" *ngFor="let item of discoverNFTList ;let i=index;">
+        <div class="loader" *ngIf="isApiLoading"></div>
+        <app-nft-card [items]="item" [index]="i" [ngClass]="{ visibility_hidden: isApiLoading }"></app-nft-card>
+      </div>
+      <button class="button text-inherit wp100" type="button" (click)="loadmoreNftList()">Load More</button>
+    </div>
+
+  </div>
+</div>

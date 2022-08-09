@@ -1,0 +1,163 @@
+@import "includes";
+
+.red-fill #heart path {
+  fill: $primary;
+}
+.cardOfProperty {
+  border: 1px solid $primary;
+  border-radius: 0px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title_name {
+  font-size: 12px;
+}
+
+.item__preview img,
+.item__preview video {
+  width: 100%;
+  border-radius: 0px;
+  min-height: 650px;
+  max-height: 650px;
+  object-fit: cover;
+  border: 1px solid $primary;
+}
+.pos-notforsale {
+  position: relative;
+  left: 52px;
+  top: 2px;
+}
+.more_icon img {
+  background-color: $primary;
+  border-radius: 50px;
+  width: 38px;
+  padding: 8px;
+}
+.drop_container {
+  display: none;
+  width: 10rem;
+  position: absolute;
+  border: 1px solid $primary;
+  padding: 10px;
+  border-radius: 10px;
+}
+.more_icon:hover .drop_container {
+  display: block;
+}
+
+#chart path {
+  fill: $primary;
+}
+
+.not-visible {
+  width: 0px !important;
+  height: 0px !important;
+  min-width: 0px !important;
+  max-width: 0px !important;
+  min-height: 0px !important;
+  max-height: 0px !important;
+}
+
+.video {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  left: 0;
+  background-size: cover;
+  overflow: hidden;
+  top: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.right-auto {
+  right: 5px;
+  left: auto;
+}
+
+.loading-logo-nft {
+  min-width: 86px !important;
+  max-height: 86px !important;
+  max-width: 86px !important;
+  min-height: 86px !important;
+  border: none !important;
+}
+
+.height {
+  min-height: 650px;
+  max-height: 650px;
+  border: 1px solid $primary;
+  width: 100%;
+  min-width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.download_icon:hover,
+.share_icon:hover,
+.card__favorite:hover a {
+  svg path {
+    fill: $secondary;
+  }
+}
+
+@media only screen and (max-width: $md) {
+  .item__preview img,
+  .item__preview video {
+    min-height: 400px;
+    max-height: 400px;
+  }
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: $black;
+  min-width: 160px;
+  display: none;
+  width: max-content;
+  cursor: pointer;
+  max-width: 250px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
+  z-index: 1;
+  border: solid 1px $white;
+  right: 50px;
+  left: auto;
+  &.show {
+    display: block;
+  }
+  a {
+    text-align: left;
+    color: $white;
+    padding: 18px 0;
+    text-decoration: none;
+    display: flex;
+    margin: 0 1rem;
+    border-bottom: solid 1px $white;
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-weight: 600;
+    flex-direction: row;
+    justify-content: space-between;
+  
+    &:hover {
+      color: $primary;
+    }
+  
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+
+.svg-h01 {
+  height: 20px;
+  width: 20px
+}

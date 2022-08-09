@@ -1,0 +1,159 @@
+<div class="top-spacing">
+  <!-- <app-search-key></app-search-key> -->
+
+  <div>
+    <div class="landing-flex z-index-high">
+      <div class="orbitron p30">
+        <p class="max-word">
+          Show me
+          <!-- [innerHTML]="searchKey" -->
+          <span #searchText class="content_editable" data-maxlength="5" data-minlength="5" id="textSearch"
+            (keyup.enter)="searchClient(searchText.innerText)" [innerHTML]="searchKey" contenteditable="true"></span>
+
+
+
+          <span class="ml10">
+            <a (click)="clearSearch()">
+              <svg
+              version="1.1"
+              id="close"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 24 24"
+              style="
+                enable-background: new 0 0 24 24;
+                width: 26px;
+                height: 26px;
+              "
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M15.5,12l5.3,5.3c0.3,0.3,0.5,0.7,0.5,1.2s-0.2,0.9-0.5,1.2l-1.2,1.2c-0.4,0.3-0.8,0.5-1.2,0.5
+                s-0.8-0.2-1.2-0.5L12,15.5l-5.3,5.3c-0.3,0.3-0.7,0.5-1.2,0.5s-0.9-0.2-1.2-0.5l-1.2-1.2c-0.3-0.4-0.5-0.8-0.5-1.2s0.2-0.8,0.5-1.2
+                L8.5,12L3.2,6.7C2.9,6.4,2.7,6,2.7,5.6s0.2-0.9,0.5-1.2l1.2-1.2c0.4-0.3,0.8-0.5,1.2-0.5s0.8,0.2,1.2,0.5L12,8.5l5.3-5.3
+                c0.3-0.3,0.7-0.5,1.2-0.5s0.9,0.2,1.2,0.5l1.2,1.2c0.3,0.4,0.5,0.8,0.5,1.2s-0.2,0.8-0.5,1.2L15.5,12z"
+              ></path>
+            </svg>
+            </a>
+          </span>
+        </p>
+        <p>
+          On the
+          <span class="color-secondary arrow_down">
+            <!-- all items -->
+            <div class="dropdown pointer">
+              <button (click)="myFunction()" class="dropbtn">
+                {{ currencySymbol }}
+              </button>
+              <div id="myDropdown" class="dropdown-content">
+                <a *ngFor="let item of blockchainList"
+                  (click)="getListofCollection01(item.blockchainId,item.networkName)">{{item.networkName}}</a>
+              </div>
+            </div>
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              id="down_arrow"
+              viewBox="0 0 24 24"
+              style="enable-background: new 0 0 24 24"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+              />
+            </svg>
+          </span>
+          blockchain containing
+          <span class="color-secondary arrow_down">
+            <!-- all categories -->
+            <div class="dropdown pointer">
+              <button (click)="myFunction1()" class="dropbtn">
+                {{ categoryName }}
+              </button>
+              <div id="myDropdown1" class="dropdown-content">
+                <a *ngFor="let item of categotyList"
+                  (click)="getNftlistbyCategory(item.categoryId,item.categoryName)">{{item.categoryName}}</a>
+              </div>
+              <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              id="down_arrow"
+              viewBox="0 0 24 24"
+              style="enable-background: new 0 0 24 24"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #c5e3ec;
+                }
+              </style>
+              <path
+                class="st0"
+                d="M20.4,6.1c0.5,0,0.9,0.2,1.2,0.5s0.5,0.7,0.5,1.2S21.9,8.7,21.6,9l-8.4,8.4c-0.3,0.3-0.7,0.5-1.2,0.5
+	s-0.9-0.2-1.2-0.5L2.4,9C2.1,8.7,1.9,8.3,1.9,7.8s0.2-0.9,0.5-1.2s0.7-0.5,1.2-0.5H20.4z"
+              />
+            </svg>
+            </div>
+          </span>
+
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  
+
+  <div class="landing-flex pt30">
+    <div class="discover p-0">
+      <div class="discover__center">
+        <div>
+          <section class="hot-collection">
+            <div class="inner">
+              <div>
+                <div class="flex wrap flex100 gap">
+                  <div class="grid grid-3">
+                
+                    <a class="collections__item" href="javascript:void(0)" *ngFor="let item of collectionlist">
+                    
+                      <app-collection-card [item]="item"></app-collection-card>
+                    </a>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="loadmore-button-pos">
+          <button type="button" (click)="loadmore()">Load More</button>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

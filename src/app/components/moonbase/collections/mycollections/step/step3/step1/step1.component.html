@@ -1,0 +1,125 @@
+<section class="hot-collection pb100">
+    <div class="flex align-center justify-space-between mb20">
+      <p class="orbitron p18">
+        <span class="color-white">My </span><span>Collections</span>
+      </p>
+    </div>
+    <div class="inner">
+      <div class="grid grid-3">
+        <div class="flex100">
+          <a
+            class="collections__item"
+            href="javascript:void(0)"
+            (click)="openDialogCreateCollection()"
+          >
+            <div class="collections__gallery">
+              <div
+                class="collections__preview justify-center align-center flex-col increase-height"
+              >
+                <div class="content-overlay"></div>
+                <div></div>
+                <div></div>
+                <svg
+                  version="1.1"
+                  id="Laag_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 26 26"
+                  style="width: 48px; height: 48px"
+                  xml:space="preserve"
+                >
+                  <circle class="st4" cx="13" cy="13" r="12"></circle>
+                  <g>
+                    <line
+                      class="st4"
+                      x1="13"
+                      y1="8"
+                      x2="13"
+                      y2="18"
+                    ></line>
+                    <line
+                      class="st4"
+                      x1="18"
+                      y1="13"
+                      x2="8"
+                      y2="13"
+                    ></line>
+                  </g>
+                </svg>
+                <h5 class="orbitron p24 mb0 text-primary text-center mt20">
+                  Start a <br />New Collection
+                </h5>
+              </div>
+
+            
+            </div>
+          </a>
+        </div>
+
+        <div class="flex100">
+          <a
+            class="collections__item"
+            href="javascript:void(0)"
+            (click)="openDialogImportCollection()"
+          >
+            <div class="collections__gallery">
+              <div
+                class="collections__preview justify-center align-center flex-col increase-height"
+              >
+                <div class="content-overlay"></div>
+                <div></div>
+                <div></div>
+                <svg
+                  version="1.1"
+                  id="Laag_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 26 26"
+                  style="width: 48px; height: 48px"
+                  xml:space="preserve"
+                >
+                  <circle class="st4" cx="13" cy="13" r="12"></circle>
+                  <g>
+                    <line
+                      class="st4"
+                      x1="13"
+                      y1="8"
+                      x2="13"
+                      y2="18"
+                    ></line>
+                    <line
+                      class="st4"
+                      x1="18"
+                      y1="13"
+                      x2="8"
+                      y2="13"
+                    ></line>
+                  </g>
+                </svg>
+                <h5 class="orbitron p24 mb0 text-primary text-center mt20">
+                  Import an <br />Existing Collection
+                </h5>
+              </div>
+
+         
+            </div>
+          </a>
+        </div>
+
+      
+        <div *ngFor="let item of myCollection" class="flex100">
+          <a class="collections__item" href="javascript:void(0)">
+            <div class="btn-edit">
+              <button type="button" (click)="edit(item)">Edit</button>
+            </div>
+            <app-collection-card [item]="item"></app-collection-card>
+          </a>
+        </div>
+      </div>
+     
+    </div>
+  </section>

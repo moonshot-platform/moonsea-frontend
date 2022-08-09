@@ -1,0 +1,99 @@
+<div class="landing-flex">
+    <div>
+        <div class="head_banner">Save Banner</div>
+        <div class="container_01">
+            <form [formGroup]="bannerSave" (ngSubmit)="formbaner.valid && onSubmit()" #formbaner="ngForm">
+                <div class="d-flex">
+                    <div>
+                        <input type="file" name="" formControlName="bannerImage" (change)="getImagePath($event)" id="">
+                        <div *ngIf="bannerSave.get('bannerImage').invalid && (bannerSave.get('bannerImage').touched ||  formbaner.submitted)"
+                            class="validationError">
+                            <div *ngIf="bannerSave.get('bannerImage').errors.required ">
+                                Image is required
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <span>name :- </span>
+                            <span>
+                                <input type="text" name="bannerName" placeholder="bannerName" id=""
+                                    formControlName="bannerName">
+                                <div *ngIf="bannerSave.get('bannerName').invalid && (bannerSave.get('bannerName').touched ||  formbaner.submitted)"
+                                    class="validationError">
+                                    <div *ngIf="bannerSave.get('bannerName').errors.required ">
+                                        Name is required
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn_submit">
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngFor="let item of bannerList;let i=index;">
+        <ng-container *ngIf="bannerIndex == i">
+            <div class="bannerImage01">
+                <img src="{{item.fileUrl}}" alt="">
+            </div>
+            <div>
+                <p> Banner Name :- {{item.bannerName}}</p>
+            </div>
+        </ng-container>
+    </div>
+    <div>
+        <div class="head_banner">Upload Currency Image</div>
+
+        <div class="container_01">
+            <form [formGroup]="currency" #currencyForm="ngForm" (ngSubmit)="currencyForm.valid && onSubmitCurrency()">
+                <div class="d-flex">
+                    <div>
+                        <input type="file" name="" (change)="addCurrencyImage($event)" id=""
+                            formControlName="currencuImage">
+                        <div *ngIf="currency.get('currencuImage').invalid && (currency.get('currencuImage').touched ||  currencyForm.submitted)"
+                            class="validationError">
+                            <div *ngIf="currency.get('currencuImage').errors.required">
+                                Image is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mr15">
+                        <input type="text" placeholder="Name" name="name" formControlName="name" id="">
+                        <div *ngIf="currency.get('name').invalid && (currency.get('name').touched ||  currencyForm.submitted)"
+                            class="validationError">
+                            <div *ngIf="currency.get('name').errors.required">
+                                Name required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mr15">
+                        <input type="number" placeholder="Decimals" name="decimals" formControlName="decimals" id="">
+                        <div *ngIf="currency.get('decimals').invalid && (currency.get('decimals').touched ||  currencyForm.submitted)"
+                            class="validationError">
+                            <div *ngIf="currency.get('decimals').errors.required">
+                                Decimals required
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="contract Address" name="contractAddress"
+                            formControlName="contractAddress" id="">
+                        <div *ngIf="currency.get('contractAddress').invalid && (currency.get('contractAddress').touched ||  currencyForm.submitted)"
+                            class="validationError">
+                            <div *ngIf="currency.get('contractAddress').errors.required">
+                                Contract Address required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn_submit">
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

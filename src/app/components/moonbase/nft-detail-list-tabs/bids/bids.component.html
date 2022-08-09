@@ -1,0 +1,75 @@
+<div class="item__users">
+  <div class="item__user mt20" *ngFor="let item of data; let i = index">
+    <div class="item__avatar">
+      <app-avatar class="item__avatar" [imagePath]="item.profilePic"></app-avatar>
+      <div class="item__reward" *ngIf="i == 0"></div>
+    </div>
+    <div class="item__description">
+      <div class="item__action">
+        Amount:  <span *ngIf="items.blockchainId == 1">
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000"
+            style="height: 20px;width:20px;margin: 0 5px 0 10px;">
+            <g fill="#f3ba2f">
+              <path
+                d="M611.59 840.42l388.4-388.39 388.6 388.59 226-226L999.99 0 385.6 614.42l225.99 226M.00622 999.968998L226.012718 773.9625l225.992356 225.992356-226.006498 226.006498zM611.59 1159.58l388.4 388.39 388.59-388.58 226.12 225.88-.11.12L999.99 2000l-614.41-614.4-.32-.32 226.33-225.7M1548.01321 1000.093429L1774.01971 774.08693l225.992356 225.992356-226.006498 226.006498z" />
+              <path
+                d="M1229.22 999.88h.1L999.99 770.55 830.51 940.03h-.01l-19.47 19.48-40.16 40.17-.32.31.32.33 229.12 229.13 229.33-229.33.11-.13-.21-.11" />
+            </g>
+          </svg>
+
+        </span>
+        <span *ngIf="items.blockchainId == 2">
+          <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px;width:20px;margin: 0 5px 0 10px;"
+            xml:space="preserve" version="1.1" shape-rendering="geometricPrecision" text-rendering="geometricPrecision"
+            image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 784.37 1277.39"
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer" />
+              <g id="_1421394342400">
+                <g>
+                  <polygon fill="#343434" fill-rule="nonzero"
+                    points="392.07,0 383.5,29.11 383.5,873.74 392.07,882.29 784.13,650.54 " />
+                  <polygon fill="#8C8C8C" fill-rule="nonzero"
+                    points="392.07,0 -0,650.54 392.07,882.29 392.07,472.33 " />
+                  <polygon fill="#3C3C3B" fill-rule="nonzero"
+                    points="392.07,956.52 387.24,962.41 387.24,1263.28 392.07,1277.38 784.37,724.89 " />
+                  <polygon fill="#8C8C8C" fill-rule="nonzero" points="392.07,1277.38 392.07,956.52 -0,724.89 " />
+                  <polygon fill="#141414" fill-rule="nonzero" points="392.07,882.29 784.13,650.54 392.07,472.33 " />
+                  <polygon fill="#393939" fill-rule="nonzero" points="0,650.54 392.07,882.29 392.07,472.33 " />
+                </g>
+              </g>
+            </g>
+          </svg>
+        </span>
+        <span> {{ item.price }} </span>
+       
+      </div>
+      <div class="item__name" *ngIf="item.name">
+        <a [routerLink]="['/profile',item?.customeUrl]" routerLinkActive="router-link-active" >{{ item.name }}</a>
+      </div>
+      <div class="item__name" [routerLink]="['/profile',item?.customeUrl]" *ngIf="!item.name">Anonymous</div>
+    <!-- <button *ngIf="items.isListed && item.isAccepted == 0 && (item.isShowAcceptButton || item.typeOfSale==3)" class="button-stroke item__button" (click)="openDialog(i)"  data-effect="mfp-zoom-in">Accept</button> -->
+    
+    <button
+    *ngIf=" (item.isShowAcceptButton ||
+      (item.isShowAcceptButtonForAll && item.isOwner) ) && !item.isAccepted"
+      class="button text-inherit bg-primary mt10"
+      (click)="openDialog(i)"
+      data-effect="mfp-zoom-in"
+    >
+      Accept
+    </button>
+    <button
+    *ngIf="item.isAccepted == 1"
+      class="button mt10"
+      data-effect="mfp-zoom-in"
+      disabled readonly
+    >
+      Rewarded
+    </button>
+  </div>
+
+  </div>
+  <div *ngIf="data.length == 0">Be the first to place a bid on this item!</div>
+</div>

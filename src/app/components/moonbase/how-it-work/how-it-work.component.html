@@ -1,0 +1,100 @@
+<div class="top-spacing">
+  <div class="landing-flex">
+    <div class="pt100 orbitron p30 mb30">
+      How it <span class="text-white">all Works!</span>
+    </div>
+    <p>
+      Join Stacks community now to get free updates and also alot of freebies
+      are waiting for you or
+      <a href="javascript:void(0);" class="text-primary text-underline">
+        Contact Support.</a>
+    </p>
+    <div class="relative mt100">
+      <div id="how_works" class="flex">
+        <mat-tab-group>
+          <mat-tab label="General">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> How does it work </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>
+                  The Stacks series of products: Stacks: Landing Page Kit,
+                  Stacks: Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
+                  production-ready library of stackable content blocks built in
+                  React Native. Mix-and-match dozens of responsive elements to
+                  quickly configure your favorite landing page layouts or hit
+                  the ground running with 10 pre-built templates, all in light
+                  or dark mode."
+                </p>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> How does it work </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>
+                  The Stacks series of products: Stacks: Landing Page Kit,
+                  Stacks: Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
+                  production-ready library of stackable content blocks built in
+                  React Native. Mix-and-match dozens of responsive elements to
+                  quickly configure your favorite landing page layouts or hit
+                  the ground running with 10 pre-built templates, all in light
+                  or dark mode."
+                </p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-tab>
+          <mat-tab label="Support">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> title 2 </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>This is the primary content of the panel.</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-tab>
+          <mat-tab label="Hosting">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> title 3 </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>This is the primary content of the panel.</p>
+            </mat-expansion-panel>
+          </mat-tab>
+          <mat-tab label="Product">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> title 4 </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>This is the primary content of the panel.</p>
+            </mat-expansion-panel>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+
+      <section class="hot-collection pt50">
+        <div class="inner">
+          <div>
+            <div class="relative">
+              <p class="title-name orbitron p18">
+                <span class="color-white">Hot </span><span>collections </span>
+              </p>
+            </div>
+            <swiper [config]="config" class="mySwiper hover-effect"
+              [navigation]="true">
+              <ng-template *ngFor="let item of hotCollectionList; let i = index" swiperSlide>
+              
+                <app-collection-card [item]="item"></app-collection-card>
+              </ng-template>
+            </swiper>
+
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+  </div>
+</div>

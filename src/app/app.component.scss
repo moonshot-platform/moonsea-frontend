@@ -1,0 +1,282 @@
+@import "includes";
+
+section.frame {
+    flex: 1;
+    z-index: 1;
+    position: relative;
+    height: $full;
+
+    .inner {
+        width: 100%;
+        height: calc(100% - 96px);
+        // border: 48px solid;
+        position: relative;
+    }
+
+    app-sidebar {
+        width: 74px;
+        height: 100%;
+    }
+
+}
+
+.left-corner {
+  clip-path: polygon(0 0, 0% 100%, 100% 100%);
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: $primary;
+  border: none;
+  left: -1px;
+  bottom: -1px;
+}
+
+.right-corner {
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: $primary;
+  border: none;
+  right: -1px;
+  bottom: -1px;
+}
+
+.text-inherit {
+  text-transform: inherit;
+}
+
+.shape {
+  background-color: #d7b13e;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 65px;
+  -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%, 0 100%);
+  clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%, 0 100%);
+  align-items: center;
+}
+
+.shape::before {
+  content: '';
+  width: 100%;
+  height: inherit;
+  -webkit-clip-path: polygon(5% 0, 94.8% 0, 99.7% 100%, 0% 100%);
+  clip-path: polygon(5% 0, 94.8% 0, 99.7% 100%, 0% 100%);
+  background: $body-bg-color;
+  display: block;
+  position: absolute;
+  top: 1px;
+  z-index: -1;
+  left: 1px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.pt-5 {
+  padding-top: 3rem;
+}
+
+.normal_text {
+  line-height: 22px;
+  font-weight: normal;
+}
+
+.box {
+  margin-top: 2px;
+  position: absolute;
+  bottom: 0px;
+  width: calc(100vw - 10rem);
+  left: 0rem;
+}
+
+.down_box {
+  border-bottom: 61px solid $primary;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  height: 0;
+  color: black
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.d_flex_content_between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.prize_pool {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.pt-0 {
+  padding-top: 0;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.mb0 {
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 1600px) {
+  .shape::before {
+    border-top: 1px solid;
+  }
+}
+
+// Responsive Menu for global
+@media only screen and (max-width: $md-header) {
+
+  section.frame {
+    width: 100vw;
+
+    .inner {
+      border: 0;
+    }
+  }
+
+  .navigation {
+
+    nav,
+    .res_class {
+      display: none;
+    }
+  }
+
+  .res_menu {
+    .box {
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+      align-items: center;
+
+      svg {
+        width: 30px;
+      }
+    }
+  }
+
+  section.navigation {
+    padding: 1rem !important;
+    align-items: center;
+  }
+
+  .p34 {
+    font-size: 24px;
+  }
+}
+
+
+
+
+/// 
+
+
+@keyframes move_wave {
+  0% {
+      transform: translateX(0) translateZ(0) scaleY(1)
+  }
+  50% {
+      transform: translateX(-25%) translateZ(0) scaleY(0.55)
+  }
+  100% {
+      transform: translateX(-50%) translateZ(0) scaleY(1)
+  }
+}
+
+
+.waveWrapper {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  // background: url('./../../assets/bg.PNG');
+}
+
+.waveWrapperInner {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  bottom: -1px;
+  background-image: linear-gradient(to top, #50aac514 20%, #090d1600 80%);
+}
+
+.bgTop {
+  z-index: 15;
+  opacity: 0.5;
+}
+
+.bgMiddle {
+  z-index: 10;
+  opacity: 0.75;
+}
+
+.bgBottom {
+  z-index: 5;
+}
+
+.wave {
+  opacity: 0.1;
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat no-repeat;
+  background-position: 0 bottom;
+  transform-origin: center bottom;
+}
+
+.waveTop {
+  background-size: 50% 100px;
+}
+
+.waveAnimation .waveTop {
+  animation: move-wave 3s;
+  -webkit-animation: move-wave 9s;
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
+.waveMiddle {
+  background-size: 50% 120px;
+}
+
+.waveAnimation .waveMiddle {
+  animation: move_wave 15s linear infinite;
+}
+
+.waveBottom {
+  background-size: 50% 100px;
+}
+
+.waveAnimation .waveBottom {
+  animation: move_wave 20s linear infinite;
+}
+
+
+
+.ngx-foreground-spinner .center-center {
+  width: 10% !important;
+  height: 17% !important;
+}

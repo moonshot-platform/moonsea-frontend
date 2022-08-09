@@ -1,0 +1,10 @@
+@import "includes";
+
+.modal-backgrond{
+    background-color: $black;
+    padding: 40px;
+    border-top: 5px solid $primary;
+}
+.transform-none {
+    text-transform: none;
+}
