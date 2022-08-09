@@ -200,6 +200,16 @@
                     </div>
                   </div>
                   <div class="field">
+                    <div class="field__label">Instagram</div>
+                    <div class="field__wrap">
+                      <input class="field__input" formControlName="instagram" type="text" name="url"
+                        placeholder="Your instagram URL width http://" />
+                    </div>
+                    <div class="p12 error" *ngIf="updateProfileControl.instagram.invalid && (updateProfileControl.instagram.touched || ff.submitted)">
+                      <div *ngIf="updateProfileControl.instagram.errors?.invalidUrl">must contain https://</div>
+                    </div>
+                  </div>
+                  <div class="field">
                     <div class="field__label">Discord</div>
                     <div class="field__wrap">
                       <input class="field__input" formControlName="discord" type="text" name="url"

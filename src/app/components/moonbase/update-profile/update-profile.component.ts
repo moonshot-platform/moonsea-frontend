@@ -66,6 +66,7 @@ export class UpdateProfileComponent implements OnInit {
       emailId: [''],
       facebook: [''],
       discord: [''],
+      instagram : ['',[ValidateUrl]]
     });
 
     this.cs.getWalletObs().subscribe((data: any) => {
@@ -163,6 +164,7 @@ export class UpdateProfileComponent implements OnInit {
     );
     this.updateProfile.controls.facebook.setValue(this.userDetails?.facebook);
     this.updateProfile.controls.discord.setValue(this.userDetails?.discord);
+    this.updateProfile.controls.instagram.setValue(this.userDetails?.instagram);
     this.userAddress;
     this.imagePath = this.userDetails?.profilePic;
     this.referralAddress = this.userDetails?.referralAddress;
@@ -251,6 +253,8 @@ export class UpdateProfileComponent implements OnInit {
         discord: this.updateProfile.controls.discord.value,
         walletAddress: this.userAddress,
         profilePic: this.imagePath,
+        twitter :this.updateProfile.controls.twitterUsername.value,
+        instagram :this.updateProfile.controls.instagram.value,
         lodingProPic: './../../assets/img/WPngtreectoruserssicon3762775.png',
       };
       this.updateBtnText = 'Signing message';
@@ -268,6 +272,7 @@ export class UpdateProfileComponent implements OnInit {
           twitterUsername: this.updateProfile.controls.twitterUsername.value,
           facebook: this.updateProfile.controls.facebook.value,
           discord: this.updateProfile.controls.discord.value,
+          instagram : this.updateProfile.controls.instagram.value,
           signature: signature,
         };
         this.getDataService.updateProfile(formDataWithSignature).subscribe(
