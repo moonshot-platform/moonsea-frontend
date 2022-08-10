@@ -23,14 +23,7 @@ export class UpdateProfileComponent implements OnInit {
   submitted: boolean = false;
   referralAddress: string = '';
 
-  updateProfile: FormGroup = new FormGroup({
-    name: new FormControl(),
-    customUrl: new FormControl(),
-    bio: new FormControl(),
-    twitterUsername: new FormControl(),
-    portfolioWebsite: new FormControl(),
-    emailId: new FormControl(),
-  });
+  updateProfile: FormGroup ;
   isButtonDisabled: boolean = false;
   isUploadButtonDisabled: boolean = false;
   imageUrl: any = '';
@@ -62,11 +55,11 @@ export class UpdateProfileComponent implements OnInit {
       customUrl: ['', [Validators.required]],
       bio: [''],
       twitterUsername: [''],
-      portfolioWebsite: ['', [ValidateUrl]],
-      emailId: [''],
+      portfolioWebsite: [''],
+      emailId: ['',[Validators.required]],
       facebook: [''],
       discord: [''],
-      instagram : ['',[ValidateUrl]]
+      instagram : ['']
     });
 
     this.cs.getWalletObs().subscribe((data: any) => {
@@ -199,6 +192,7 @@ export class UpdateProfileComponent implements OnInit {
           let data = response;
           if (data.isSuccess) {
             this.imagePath = data.data.path;
+            debugger
             // this.toastrService.success('Profile Pic Uploaded');
           } else {
             this.imagePath = '';
@@ -214,7 +208,7 @@ export class UpdateProfileComponent implements OnInit {
 
   async uploadProfileImageSignature() {
     let status = await this.cs.createSignature(
-      'updating profile picture on moonsea'
+      `updating profile picture on moonsea, profile picture is ${this.imagePath}`
     );
     if (status.status) {
       let obj = {
