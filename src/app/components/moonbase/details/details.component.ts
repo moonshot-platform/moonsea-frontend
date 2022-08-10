@@ -182,8 +182,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
         (response: any) => {
           this.ngxService.stop();
           this.data = response.data;
-
-          this.asset = this.data.asset;
+          
+          this.asset = this.data?.asset;
           this.getList();
 
           blockjson[environment.configFile].forEach(element => {
@@ -194,16 +194,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
 
           const storetemp = {
-            owner: this.data.title,
-            byOwner: this.data.tokenName,
+            owner: this.data?.title,
+            byOwner: this.data?.tokenName,
           };
           localStorage.setItem('purchaseMode', JSON.stringify(storetemp));
 
           this.apiDataLoaded = true;
-          this.isLikeByYou = this.data.isLikeByYou;
-          this.currentPrice = this.data.price;
-          this.currentSupply = this.data.currentSupply;
-          this.propertyS = this.data.properties;
+          this.isLikeByYou = this.data?.isLikeByYou;
+          this.currentPrice = this.data?.price;
+          this.currentSupply = this.data?.currentSupply;
+          this.propertyS = this.data?.properties;
         },
         (err) => {
           this.ngxService.stop();
@@ -223,8 +223,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
           nftId: nftId,
           walletAddress: this.Address,
           signature: status.signature,
-          nftAddress: this.data.nftAddress,
-          blockchainId: this.data.blockchainId,
+          nftAddress: this.data?.nftAddress,
+          blockchainId: this.data?.blockchainId,
           asset: this.asset
         })
         .subscribe((result: any) => {
