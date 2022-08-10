@@ -194,16 +194,16 @@
                      <div *ngIf="updateProfileControl.facebook.errors?.pattern">Please provide valid url</div>
                     </div>
                   </div>
-                  <!-- <div class="field">
+                  <div class="field">
                     <div class="field__label">Instagram</div>
                     <div class="field__wrap">
                       <input class="field__input" formControlName="instagram" type="text" name="url"
-                        placeholder="Your instagram URL width http://" />
+                        placeholder="Your instagram URL width http://" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"/>
                     </div>
                     <div class="p12 error" *ngIf="updateProfileControl.instagram.touched && updateProfileControl.instagram.invalid">
                       <div *ngIf="updateProfileControl.instagram.errors?.pattern">Please provide valid url</div>
                     </div>
-                  </div> -->
+                  </div>
                   <div class="field">
                     <div class="field__label">Discord</div>
                     <div class="field__wrap">
