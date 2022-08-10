@@ -65,7 +65,7 @@ export class LandingNewCollectionsComponent implements OnInit {
    
      this.homeService.getRequest('home/newCollectionList').subscribe((response: any) => {
       this.ngxService.stop();
-      for (let i = 0; i < response.data.length; i++) {
+      for (let i = 0; i < response?.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
           response.data[i].nftFileUrl01 =
             response.data[i].nftDetailsList[0].nftFileUrl;
