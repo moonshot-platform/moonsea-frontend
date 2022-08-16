@@ -186,7 +186,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
           <div class="user__control flex1">
             <div class="js-user-box">
               <div class="share-btn flex flex-col row-wrap" data-url="https://ui8.net">
-                <a href="{{userDetails?.twitter}}" target="_blank" *ngIf="userDetails?.twitter"
+                <a href="{{userDetails?.twitter}}" target="_blank" rel="noopener noreferrer" *ngIf="userDetails?.twitter"
                   class="user__direction btn-twitter mr10" data-id="tw"><span class="bg-primary icon-small">
                     <svg version="1.1" id="twitter" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 27.1 22"
@@ -204,7 +204,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                     </svg>
                   </span>
                 </a>
-                <a href="{{userDetails?.discord}}" target="_blank" *ngIf="userDetails?.discord"
+                <a href="{{userDetails?.discord}}" target="_blank" rel="noopener noreferrer" *ngIf="userDetails?.discord"
                   class="user__direction btn-facebook mr10" data-id="fb"><span>
                     <svg version="1.1" id="discord" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
@@ -222,7 +222,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                       </g>
                     </svg> </span></a>
                 <a class="user__direction btn-facebook" *ngIf="userDetails?.portfolioWebsite?.length > 0"
-                  href="{{userDetails?.portfolioWebsite}}" data-id="fb" target="_blank"><span>
+                  href="{{userDetails?.portfolioWebsite}}" rel="noopener noreferrer" data-id="fb" target="_blank"><span>
                     <svg version="1.1" id="website" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
                       style="enable-background: new 0 0 40 40" xml:space="preserve">
@@ -243,7 +243,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
           </div>
           <div class="user__socials">
             <a class="user__social" *ngIf="userDetails?.twitterUsername"
-              href="https://twitter.com/{{ userDetails.twitterUsername }}" target="_blank">
+              href="https://twitter.com/{{ userDetails.twitterUsername }}"  target="_blank">
               <svg class="icon icon-twitter">
                 <use xlink:href="#icon-twitter"></use>
               </svg></a>

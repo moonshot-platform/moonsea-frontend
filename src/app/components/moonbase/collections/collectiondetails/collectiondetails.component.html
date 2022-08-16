@@ -133,6 +133,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
               <div class="flex flex-col">
                 <a *ngIf="collectionDetails?.twitter"
                   href="{{ collectionDetails?.twitter }}"
+                  rel="noopener noreferrer"
                   target="_blank"
                   class="user__direction btn-twitter mt-0 justify-end"
                   data-id="tw"
@@ -161,7 +162,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                     </svg>
                   </span>
                 </a>
-                <a *ngIf="collectionDetails?.discord" href="{{ collectionDetails?.discord }}" target="_blank"
+                <a *ngIf="collectionDetails?.discord" href="{{ collectionDetails?.discord }}" rel="noopener noreferrer"  target="_blank"
                   class="user__direction btn-facebook mt-0 justify-end" data-id="fb"><span>
                     <svg version="1.1" id="discord" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
@@ -178,7 +179,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                         <ellipse class="st0" cx="16.8" cy="21.1" rx="1.7" ry="1.9" />
                       </g>
                     </svg> </span></a>
-                <a *ngIf="collectionDetails?.yourSite" href="{{ collectionDetails?.yourSite }}" target="_blank"
+                <a *ngIf="collectionDetails?.yourSite" href="{{ collectionDetails?.yourSite }}" rel="noopener noreferrer" target="_blank"
                   class="user__direction btn-facebook mt-0 justify-end" data-id="fb"><span class="ml-auto">
                     <svg version="1.1" id="website" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
@@ -218,7 +219,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
 
             <div class="flex1 flex-col justify-space-between mobile-only">
               <div class="mt10 flex">
-                <a href="{{ collectionDetails?.twitter }}" target="_blank" class="user__direction btn-twitter margin-top-2"
+                <a href="{{ collectionDetails?.twitter }}" rel="noopener noreferrer" target="_blank" class="user__direction btn-twitter margin-top-2"
                   data-id="tw"><span class="bg-primary icon-small">
                     <svg version="1.1" id="twitter" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 27.1 22"
@@ -236,7 +237,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                     </svg>
                   </span>
                 </a>
-                <a href="{{ collectionDetails?.discord }}" target="_blank" class="user__direction btn-facebook mt-0"
+                <a href="{{ collectionDetails?.discord }}" target="_blank" rel="noopener noreferrer" class="user__direction btn-facebook mt-0"
                   data-id="fb"><span>
                     <svg version="1.1" id="discord" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
@@ -253,7 +254,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                         <ellipse class="st0" cx="16.8" cy="21.1" rx="1.7" ry="1.9" />
                       </g>
                     </svg> </span></a>
-                <a href="{{ collectionDetails?.yourSite }}" target="_blank" class="user__direction btn-facebook mt-0"
+                <a href="{{ collectionDetails?.yourSite }}" target="_blank" rel="noopener noreferrer" class="user__direction btn-facebook mt-0"
                   data-id="fb"><span>
                     <svg version="1.1" id="website" xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 40"
