@@ -232,6 +232,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.toastrService.success(result.message);
 
             this.data.isLikeByYou = 1;
+            this.data.likeCount = this.data.likeCount + 1;
           } else {
             this.toastrService.error(result.message)
           }
@@ -260,6 +261,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.toastrService.success(result.message);
             this.isLikeByYou = 0;
             this.data.isLikeByYou = 0;
+            this.data.likeCount = this.data.likeCount - 1;
           }
         });
     }

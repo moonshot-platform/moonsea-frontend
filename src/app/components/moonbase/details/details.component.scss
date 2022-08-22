@@ -162,6 +162,21 @@
   width: 20px
 }
 .resdf{
-  color: #ba2d2d;
-  margin: 15px 0 0 0;
+  color: #ef466f;
+  position: absolute;
+  top: 15px;
+  right: 8px;
+  width: 36px;
+  z-index: 1;
+  height: 36px;
+  text-align: center;
+}
+.card__favorite01 {
+  position: absolute;
+  top: 8px;
+  right: 50px;
+  width: 36px;
+  z-index: 1;
+  height: 36px;
+  border-radius: 50%;
 }

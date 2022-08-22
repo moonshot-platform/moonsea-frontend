@@ -459,7 +459,7 @@
               </a>
   
             </button>
-            <button *ngIf="data?.isLikeByYou == 1" class="red-fill card__favorite" (click)="UnLiked(data.nftTokenID)">
+            <button *ngIf="data?.isLikeByYou == 1" [ngClass]="{'card__favorite01' : data?.isLikeByYou == 1}" class="red-fill card__favorite" (click)="UnLiked(data.nftTokenID)">
               <svg version="1.1" id="Laag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 x="0px" y="0px" viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve">
                 <style type="text/css">
@@ -478,8 +478,8 @@
   
             </button>
           </div>
-          <div class="resdf">
-            {{data?.likeCount > 0 ? data?.likeCount : ''}}   
+          <div class="resdf" *ngIf="(data?.likeCount > 0 || data?.isLikeByYou > 0)">
+            {{(data?.likeCount > 0 || data?.isLikeByYou > 0) ? data?.likeCount : ''}}   
           </div>
         </div>
         

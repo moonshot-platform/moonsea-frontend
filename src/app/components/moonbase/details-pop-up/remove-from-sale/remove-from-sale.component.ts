@@ -43,17 +43,17 @@ export class RemoveFromSaleComponent implements OnInit {
       nftAddress:  this.data.nftAddress,
       isMultiple: this.data.isMultiple,
       tokenAddress:  this.data.contractAddress,
-      royaltiesOwner:   this.data.royaltiesOwner,
+      royaltiesOwner:   this.data.royaltiesOwner??'0x0000000000000000000000000000000000000000',
       royalties:   this.data.royalties,
-      referralAddress: this.data.referalAddress,
+      referralAddress: this.data.referalAddress??'0x0000000000000000000000000000000000000000',
       blockchainId:this.data.blockchainId
     }
-    //debugger
+//  debugger
     this.isApiLoading = true;
     var status:any= await this.contractService.getOrderData(
       removesaleObj
     );
-
+    // debugger
     if(status.status){
       
     this.data1= {nftId:this.data.ID,walletAddress:this.Address,signature : status.signature};
@@ -61,10 +61,11 @@ export class RemoveFromSaleComponent implements OnInit {
     if(checkNetwork)
     {
     
+  try {
     var txn:any = await this.contractService.cancelOrder(
       status.orderkey
     );
-    //debugger
+    // debugger
     this.isDisableCancelbutton = true;
     await txn.wait(2);
     this.isRemovedSteps = 2;
@@ -72,6 +73,11 @@ export class RemoveFromSaleComponent implements OnInit {
         this.isDisableCancelbutton = false;
         this.isApiLoading = false;
 
+  } catch (error) {
+    console.log(error);
+    this.isDisableCancelbutton = false;
+    this.isApiLoading = false;
+  }
     }
   }else{
     this.isDisableCancelbutton = false;
