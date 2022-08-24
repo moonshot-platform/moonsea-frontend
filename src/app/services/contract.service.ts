@@ -951,7 +951,7 @@ export class ContractService {
       return { hash: promise, status: true };
     } catch (e: any) {
       console.log(e);
-      this.toastr.error(e.message);
+      this.toastr.error(`cannot estimate gas; transaction may fail or may require manual gas limit.`);
       return { hash: '', status: false };
     }
     return promise;

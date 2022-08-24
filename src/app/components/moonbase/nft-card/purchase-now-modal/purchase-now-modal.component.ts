@@ -151,14 +151,14 @@ export class PurchaseNowModalComponent implements OnInit {
     this.exchangeTokenObj.total = this.total;
     this.exchangeTokenObj.signaturePrice = this.signaturePrice;
     this.exchangeTokenObj.quantity = this.quantity;
-    this.exchangeTokenObj.tokenAddress = "0x0000000000000000000000000000000000000000"
+    this.exchangeTokenObj.tokenAddress = "0x0000000000000000000000000000000000000000";
     this.exchangeTokenObj.royalties = this.items.royalties;
-    this.exchangeTokenObj.royaltiesOwner = this.items.royaltiesOwner;
+    this.exchangeTokenObj.royaltiesOwner = this.items.royaltiesOwner ?? "0x0000000000000000000000000000000000000000";
     this.exchangeTokenObj.buyerSignature = '-1' 
     this.exchangeTokenObj.salt = this.items.salt;
-    this.exchangeTokenObj.referalAddress = this.items.referalAddress;
+    this.exchangeTokenObj.referalAddress = this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
     
-    
+    // debugger
     var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {
