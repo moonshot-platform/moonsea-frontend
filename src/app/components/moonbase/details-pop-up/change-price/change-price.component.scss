@@ -5,3 +5,17 @@
 .button-purple.popup__button.js-popup-close{
     color: aquamarine;
 }
+
+.loader01{
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: relative;
+    left: 15px;
+    font-size: 4px;
+    -webkit-animation: loader 1.1s infinite ease;
+    animation: loader 1.1s infinite ease;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}

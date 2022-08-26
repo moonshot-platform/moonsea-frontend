@@ -133,7 +133,7 @@ export class AddInListingComponent implements OnInit {
     if (!this.isContractApproved) {
       await this.startSale();
     }
-    this.btnText = 'Sign signature';
+    this.btnText = 'Sign';
     if (this.createNftForm.valid) {
       this.isApiLoading = true;
       var price = formData.fixedPrice;
@@ -233,7 +233,7 @@ export class AddInListingComponent implements OnInit {
     );
     if (status.status) {
       this.isSaleApproved = true;
-      this.btnText = 'Sign Signature';
+      this.btnText = 'Sign';
     } else {
       this.isSaleApproved = false;
       this.btnText = 'Add now';
