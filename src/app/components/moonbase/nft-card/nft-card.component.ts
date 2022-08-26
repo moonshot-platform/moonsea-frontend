@@ -168,6 +168,7 @@ onMediaLoad(event:any,indexx:any){
   
   
   if (event && event.target) {
+    // debugger
     this.isImageLoaded[indexx] = true;
   } else {
     this.isImageLoaded[indexx] = false;
