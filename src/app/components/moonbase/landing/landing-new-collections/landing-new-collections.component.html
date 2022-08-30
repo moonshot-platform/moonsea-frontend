@@ -13,11 +13,11 @@
               <div class="selection__card" href="javascript:void(0);">
                 <a class="selection__preview" [routerLink]="['/details',item.nftAddress,item.nftTokenID01,item.blockchainId]" routerLinkActive="router-link-active"  >
                   <div class="content-overlay"></div>
-                  <img *ngIf="item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') == -1" srcset="{{item.fileUrl}}"
+                  <img *ngIf="item.nftFileUrl01  && item.nftFileUrl01.indexOf('.webm') == -1 && item.nftFileUrl01.indexOf('.mp4') == -1" srcset="{{item.fileUrl}}"
                     src="{{ item.nftFileUrl01 }}" alt="Selection" />
                   <video class="video" loop autoplay playsinline oncanplay="this.play()"
                     onloadedmetadata="this.muted = true" [muted]="true"
-                    *ngIf=" item.nftFileUrl01 &&  item.nftFileUrl01.search('.mp4') != -1">
+                    *ngIf=" item.nftFileUrl01 && item.nftFileUrl01.indexOf('.webm') != -1 || item.nftFileUrl01.indexOf('.mp4') != -1 ">
                     <source src="{{  item.nftFileUrl01 }}" type="video/mp4">
                   </video>
                   <img *ngIf="!item.nftFileUrl01" src="assets/images/default.jpg" alt="" />
@@ -50,11 +50,11 @@
                 <ng-container *ngIf="j <= 2">
                   <a [routerLink]="['/details',item01.nftAddress,item01.nftTokenID,item.blockchainId]" routerLinkActive="router-link-active"   class="selection__item">
                     <div class="selection__preview">
-                      <img *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') == -1"
+                      <img *ngIf=" item01.nftFileUrl && item01.nftFileUrl.indexOf('.webm') == -1 && item01.nftFileUrl.indexOf('.mp4') == -1"
                         srcset="{{item01.nftFileUrl}}" src="{{ item01.nftFileUrl }}" alt="Selection" />
                       <video class="video" loop autoplay playsinline oncanplay="this.play()"
                         onloadedmetadata="this.muted = true" [muted]="true"
-                        *ngIf=" item01.nftFileUrl &&  item01.nftFileUrl.search('.mp4') != -1">
+                        *ngIf=" item01.nftFileUrl && item01.nftFileUrl.indexOf('.webm') != -1 || item01.nftFileUrl.indexOf('.mp4') != -1">
                         <source src="{{  item01.nftFileUrl }}" type="video/mp4">
                       </video>
 
@@ -71,11 +71,11 @@
                   <a class="collections__item" href="javascript:void(0)">
                     <div class="selection__item mb30">
                       <a [routerLink]="['/details',itemmm.nftAddress, itemmm.nftTokenID01,item.blockchainId]" routerLinkActive="router-link-active"  class="selection__preview" >
-                        <img *ngIf=" itemmm.nftFileUrl01 &&  itemmm.nftFileUrl01.search('.mp4') == -1"
+                        <img *ngIf=" itemmm.nftFileUrl01 && itemmm.nftFileUrl01.indexOf('.webm') == -1 &&  itemmm.nftFileUrl01.indexOf('.mp4') == -1"
                           srcset="{{ itemmm.nftFileUrl01 }}" src="{{ itemmm.nftFileUrl01 }}" alt="Selection" />
                         <video class="video" loop autoplay playsinline oncanplay="this.play()"
                           onloadedmetadata="this.muted = true" [muted]="true"
-                          *ngIf=" itemmm.nftFileUrl01 &&  itemmm.nftFileUrl01.search('.mp4') != -1">
+                          *ngIf=" itemmm.nftFileUrl01 && itemmm.nftFileUrl01.indexOf('.webm') != -1 ||  itemmm.nftFileUrl01.indexOf('.mp4') != -1">
                           <source src="{{  itemmm.nftFileUrl01 }}" type="video/mp4">
                         </video>
                       </a>

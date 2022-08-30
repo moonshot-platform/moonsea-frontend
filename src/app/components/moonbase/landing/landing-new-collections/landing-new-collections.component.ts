@@ -77,6 +77,7 @@ export class LandingNewCollectionsComponent implements OnInit {
       }
 
       this.newCollection = response.data;
+      
     },(err:any)=>{
       this.ngxService.stop();
     });

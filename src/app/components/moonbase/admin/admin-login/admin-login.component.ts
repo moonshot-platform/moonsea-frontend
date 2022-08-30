@@ -47,7 +47,7 @@ export class AdminLoginComponent implements OnInit {
             if(res.status == '200'){
               this.toaster.success(res.message);
               sessionStorage.setItem('isAdminLogin',"true");
-              this.router.navigate(['/admin/home'])
+              this.router.navigate(['/adminauthorization/home'])
             }else{
               sessionStorage.setItem('isAdminLogin',"false");
               this.toaster.error(res.message)

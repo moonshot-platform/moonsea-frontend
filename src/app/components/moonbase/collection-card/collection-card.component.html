@@ -8,12 +8,12 @@
       <source src="assets/media/videos/moonsea-animated-logo.webm" type="video/webm">
     </video>
 
-    <img [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') == -1"
+    <img [lazyLoad]="item.nftFileUrl01" *ngIf="item.nftFileUrl01 && item.nftFileUrl01?.indexOf('.webm') == -1 && item.nftFileUrl01?.indexOf('.mp4') == -1"
       [ngClass]="{'not-visible': !elementsHasLoaded[0]}" (load)="onMediaLoad($event, 0)" />
 
     <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[0]}" 
        (loadeddata)="onMediaLoad($event,0)" onloadedmetadata="this.muted = true" [muted]="true"
-      *ngIf="item.nftFileUrl01 && item.nftFileUrl01.search('.mp4') != -1">
+      *ngIf="item.nftFileUrl01 && item.nftFileUrl01?.indexOf('.webm') != -1 || item.nftFileUrl01?.indexOf('.mp4') != -1">
       <source src="{{ item.nftFileUrl01 }}" type="video/mp4" />
       <source src="{{ item.nftFileUrl01 }}" type="video/webm" />
     </video>
@@ -35,14 +35,14 @@
         <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID,item.blockchainId]"
           routerLinkActive="router-link-active">
           <img [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" [lazyLoad]="inneritem.nftFileUrl" *ngIf="
-          inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') == -1" (load)="onMediaLoad($event, j+1)" />
+          inneritem.nftFileUrl && inneritem.nftFileUrl?.indexOf('.webm') == -1 && inneritem.nftFileUrl?.indexOf('.mp4') == -1" (load)="onMediaLoad($event, j+1)" />
         </a>
 
         <a [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID,item.blockchainId]"  >
           
           <video class="video" [ngClass]="{'not-visible': !elementsHasLoaded[j+1]}" playsinline
              onloadedmetadata="this.muted = true"
-            *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl.search('.mp4') != -1" (load)="onMediaLoad($event, j+1)">
+            *ngIf="inneritem.nftFileUrl && inneritem.nftFileUrl?.indexOf('.webm') != -1 || inneritem.nftFileUrl?.indexOf('.mp4') != -1" (load)="onMediaLoad($event, j+1)">
             <source src="{{ inneritem.nftFileUrl }}" type="video/mp4" />
           </video>
         </a>
