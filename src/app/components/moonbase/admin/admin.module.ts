@@ -4,19 +4,21 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { GetDataService } from 'src/app/services/get-data.service';
+import { MaterialModule } from 'src/app/material/material.module';
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    AdminLoginComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule
-  ]
+    MaterialModule
+  ],
+  providers :[GetDataService]
 })
 export class AdminModule { }

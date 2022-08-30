@@ -9,9 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 
 const matModule =[MatProgressBarModule,MatProgressSpinnerModule,MatCheckboxModule,MatDialogModule,MatButtonModule,
-  MatIconModule,MatExpansionModule,MatTabsModule,MatSelectModule]
+  MatIconModule,MatExpansionModule,MatTabsModule,MatSelectModule,MatTableModule]
 
 @NgModule({
   declarations: [],

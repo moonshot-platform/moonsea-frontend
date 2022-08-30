@@ -10,6 +10,7 @@ const routes: Routes = [
   {path:'details',loadChildren:()=> import('./details/details/details.module').then(m=>m.DetailsModule)},
   {path:'profile',loadChildren:()=> import('./stats/profile-info/profile-info.module').then(m=>m.ProfileInfoModule)},
   {path:'others',loadChildren:()=>import('./other/other.module').then(m=>m.OtherModule)},
+  {path :'admin' , loadChildren:()=> import('./admin/admin.module').then(m=>m.AdminModule)},
   { path: '',   redirectTo: '/home', pathMatch: 'full' }
 ];
 
