@@ -76,14 +76,9 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
           }
         
       },(err:HttpErrorResponse)=>{
-        if(err.status == 400){
-          this.toaster.error(`${err.error.Message}`)
-        }
-        else if(err.status == 500){
-          this.toaster.error(`Enternal Server Error.`)
-        }else{
-          this.toaster.error(`Something went wrong.`)
-        }
+      
+          this.toaster.error(`${err.statusText}`)
+       
       });
     }
     else{

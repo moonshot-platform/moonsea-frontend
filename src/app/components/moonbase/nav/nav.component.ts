@@ -219,14 +219,9 @@ export class NavComponent implements OnInit {
             }
 
           }, (err: HttpErrorResponse) => {
-            if(err.status == 400){
-              this.toastr.error(`${err.error.Message}`)
-            }
-            else if(err.status == 500){
-              this.toastr.error(`Enternal Server Error.`)
-            }else{
-              this.toastr.error(`Something went wrong.`)
-            }
+      
+              this.toastr.error(`${err.statusText}`)
+         
           });
 
         this.balanceInBNB = balance > 0 ? (balance / 1e18).toFixed(4) : 0;
@@ -288,14 +283,9 @@ export class NavComponent implements OnInit {
             this.hideRegisterPopup();
           }
         }, (err: HttpErrorResponse) => {
-          if(err.status == 400){
-            this.toastr.error(`${err.error.Message}`)
-          }
-          else if(err.status == 500){
-            this.toastr.error(`Enternal Server Error.`)
-          }else{
-            this.toastr.error(`Something went wrong.`)
-          }
+         
+            this.toastr.error(`${err.statusText}`)
+        
         });
     }
   }
@@ -429,15 +419,11 @@ export class NavComponent implements OnInit {
             this.flag = false;
           }
         },(err:HttpErrorResponse)=>{
+         
           this.flag = false;
-          if(err.status == 400){
-            this.toastr.error(`${err.error.Message}`)
-          }
-          else if(err.status == 500){
-            this.toastr.error(`Enternal Server Error.`)
-          }else{
-            this.toastr.error(`Something went wrong.`)
-          }
+
+            this.toastr.error(`${err.statusText}`)
+         
           
         });
     } else {
@@ -506,14 +492,8 @@ export class NavComponent implements OnInit {
         }
       },(err:HttpErrorResponse)=>{
       
-        if(err.status == 400){
-          this.toastr.error(`${err.error.Message}`)
-        }
-        else if(err.status == 500){
-          this.toastr.error(`Enternal Server Error.`)
-        }else{
-          this.toastr.error(`Something went wrong.`)
-        }
+          this.toastr.error(`${err.statusText}`)
+      
         
       });
   }

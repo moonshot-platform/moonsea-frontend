@@ -24,14 +24,9 @@ export class LandingStaticsComponent implements OnInit {
     this.homeService.getHompageStatics().subscribe((res: any) => {
       this.statics = res.data;
     },(err:HttpErrorResponse)=>{
-      if(err.status == 400){
-        this.toaster.error(`${err.error.Message}`)
-      }
-      else if(err.status == 500){
-        this.toaster.error(`Enternal Server Error.`)
-      }else{
-        this.toaster.error(`Something went wrong.`)
-      }
+      
+        this.toaster.error(`${err.statusText}`)
+    
     });
   }
 
