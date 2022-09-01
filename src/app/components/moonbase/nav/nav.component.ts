@@ -331,16 +331,17 @@ export class NavComponent implements OnInit {
     serachType: any,
     nftToken: any,
     nftAddress: any,
-    blockchainId: any
+    blockchainId: any,
+    walletAddress:any
   ) {
 
-    //debugger
+    // debugger
     if (serachType == 1) {
       this.route.navigate(['/details', nftAddress, nftToken, blockchainId]);
     } else if (serachType == 2) {
-      this.route.navigate(['/profile', enterText]);
+      this.route.navigate(['/profile', walletAddress]);
     } else if (serachType == 4) {
-      this.route.navigate(['/profile', enterText]);
+      this.route.navigate(['/profile', walletAddress]);
     } else {
       this.route.navigate(['/collection', enterText]);
     }
@@ -399,6 +400,8 @@ export class NavComponent implements OnInit {
         .searchResult(searchText)
         .subscribe(async (response) => {
           // debugger
+          console.log(response.data);
+          
           if (response.data.length > 0) {
             this.flag = true;
             this.searchResult = response.data;

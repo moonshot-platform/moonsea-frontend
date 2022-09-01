@@ -112,7 +112,7 @@ export class UserProfileComponent implements OnInit {
 
   fetchData() {
  
-    
+    debugger
     this.getDataService.getUserDetails(this.username, this.currentWalletAddress).subscribe((response: any) => {
       if (response.data.length > 0) {
         this.userDetails = response.data[0];
