@@ -36,6 +36,8 @@ import { SharedModule } from './commanShared/shared/shared.module';
 
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MaterialModule } from 'src/app/material/material.module';
+import { HttpInterceptorInterceptor } from '../interceptor/http-interceptor.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -86,7 +88,7 @@ import { MaterialModule } from 'src/app/material/material.module';
     RatesComponent,
     WalletConnectComponent,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorInterceptor, multi: true }],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ,NO_ERRORS_SCHEMA]
 })
 export class MoonbaseModule { }

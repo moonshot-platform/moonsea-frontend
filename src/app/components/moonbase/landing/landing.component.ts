@@ -160,11 +160,9 @@ export class LandingComponent implements OnInit, OnDestroy {
 
       this.newCollection = response.data;
     }, (err:any) => {
-      console.log("Rohan======",err);
-      
-      this.ngxService.stop();
     
-        this.toaster.error(`${err.statusText}`)
+      this.ngxService.stop();
+        // this.toaster.error(`${err.statusText}`)
     
       
     });
