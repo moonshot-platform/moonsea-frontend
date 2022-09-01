@@ -22,6 +22,7 @@ import { WalletConnectComponent } from '../wallet-connect/wallet-connect.compone
 import { TokenomicsService } from 'src/app/services/tokenomics.service';
 import { ConnectWalletPopupComponent } from '../connect-wallet/connect-wallet-popup/connect-wallet-popup.component';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-nav',
@@ -64,7 +65,7 @@ export class NavComponent implements OnInit {
   menuItem = false;
   sidebarMenu = false;
   search = false;
-  userProfilePic: any={};
+  userProfilePic: any = {};
   active = false;
   wallet = false;
   activeWallet: boolean = false;
@@ -77,10 +78,10 @@ export class NavComponent implements OnInit {
     1: 'ETH',
   };
   netWorkId = 0;
-  walletAddresss:any;
-  userAddress:any;
-  userDetails:any={};
-  activeWalletAddress:any;
+  walletAddresss: any;
+  userAddress: any;
+  userDetails: any = {};
+  activeWalletAddress: any;
 
   constructor(
     private route: Router,
@@ -91,11 +92,11 @@ export class NavComponent implements OnInit {
     private dialog: MatDialog,
     private tokenomicsService: TokenomicsService,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userProfilePic = JSON.parse(localStorage.getItem('userData'));
-    this.getDataService.profilePic.subscribe((res:any)=>{
+    this.getDataService.profilePic.subscribe((res: any) => {
       this.fetchData();
     })
     this.cs.getWalletObs().subscribe((data: any) => {
@@ -104,8 +105,8 @@ export class NavComponent implements OnInit {
         this.connectedAddress = data;
         this.getUserBalance();
       }
-      
-      if(this.activeWalletAddress != data){
+
+      if (this.activeWalletAddress != data) {
         this.activeWalletAddress = data;
         this.fetchData();
       }
@@ -143,7 +144,7 @@ export class NavComponent implements OnInit {
           this.changeAccountDetected(data);
           this.getUserDetails();
         }
-      } catch (e) {}
+      } catch (e) { }
     });
     this.checkLoggedInUser();
 
@@ -162,7 +163,7 @@ export class NavComponent implements OnInit {
     try {
       this.userBalance = await this.cs.getBalance();
       this.netWorkId = await this.cs.getConnectedNetworkId();
-    } catch (error) {}
+    } catch (error) { }
   }
 
   @HostListener('document:click', ['$event'])
@@ -208,14 +209,23 @@ export class NavComponent implements OnInit {
         this.subscription = this.getDataService
           .getUser(this.walletAddress)
           .subscribe((response: any) => {
-            if (response.isSuccess) {
-              if (response.data) {
-                this.getUser = response.data;
-                this.profilePic =
-                  response.data.profilePic ??
-                  './../../../assets/' + environment.defaultProfilePic;
-                this.name = response.data.name ?? 'Enrico Cole';
-              }
+
+            if (response.data) {
+              this.getUser = response.data;
+              this.profilePic =
+                response.data.profilePic ??
+                './../../../assets/' + environment.defaultProfilePic;
+              this.name = response.data.name ?? 'Enrico Cole';
+            }
+
+          }, (err: HttpErrorResponse) => {
+            if(err.status == 400){
+              this.toastr.error(`${err.error.Message}`)
+            }
+            else if(err.status == 500){
+              this.toastr.error(`Enternal Server Error.`)
+            }else{
+              this.toastr.error(`Something went wrong.`)
             }
           });
 
@@ -235,7 +245,8 @@ export class NavComponent implements OnInit {
         .checkIsRegister(accounts)
         .subscribe(async (response) => {
           var data = response;
-          if (data.isSuccess) {
+          
+          if (data) {
             if (data.isNewUser) {
               // this.showRegisterPopup();
               var signature = await this.cs.signMsgForRegister(
@@ -257,6 +268,8 @@ export class NavComponent implements OnInit {
                     } else {
                       this.toastr.error(data.message);
                     }
+                  },(err:HttpErrorResponse)=>{
+                    this.toastr.error(err.statusText)
                   });
               } else {
                 localStorage.setItem('isRegistered', 'false');
@@ -274,6 +287,15 @@ export class NavComponent implements OnInit {
           } else {
             this.hideRegisterPopup();
           }
+        }, (err: HttpErrorResponse) => {
+          if(err.status == 400){
+            this.toastr.error(`${err.error.Message}`)
+          }
+          else if(err.status == 500){
+            this.toastr.error(`Enternal Server Error.`)
+          }else{
+            this.toastr.error(`Something went wrong.`)
+          }
         });
     }
   }
@@ -289,15 +311,15 @@ export class NavComponent implements OnInit {
   }
 
   searchClient(searchText: any) {
-   
 
-  //  if(this.properties[0].length > 0){
-  //   this.route.navigate(['/detailsCom/details', this.properties[0][0].nftAddress, this.properties[0][0].nftTokenId]);
-  //  }else if(this.properties[1].length > 0){
-  //   this.route.navigate(['/profile', searchText]);
-  //  }else if(this.properties[2].length > 0 && this.properties[2][0].serachType == 3){
-  //   this.route.navigate(['/mycollection/collection', searchText]);
-  //  }
+
+    //  if(this.properties[0].length > 0){
+    //   this.route.navigate(['/detailsCom/details', this.properties[0][0].nftAddress, this.properties[0][0].nftTokenId]);
+    //  }else if(this.properties[1].length > 0){
+    //   this.route.navigate(['/profile', searchText]);
+    //  }else if(this.properties[2].length > 0 && this.properties[2][0].serachType == 3){
+    //   this.route.navigate(['/mycollection/collection', searchText]);
+    //  }
 
     this.route.navigate(['/searchcollection'], {
       queryParams: { searchKey: searchText },
@@ -309,12 +331,12 @@ export class NavComponent implements OnInit {
     serachType: any,
     nftToken: any,
     nftAddress: any,
-    blockchainId:any
+    blockchainId: any
   ) {
 
     //debugger
     if (serachType == 1) {
-      this.route.navigate(['/details', nftAddress, nftToken,blockchainId]);
+      this.route.navigate(['/details', nftAddress, nftToken, blockchainId]);
     } else if (serachType == 2) {
       this.route.navigate(['/profile', enterText]);
     } else if (serachType == 4) {
@@ -331,8 +353,8 @@ export class NavComponent implements OnInit {
     this.getUser = '';
     this.notifyCount = '';
     this.isConnected = false;
-    this.activeWalletAddress =null;
-    this.userProfilePic =null;
+    this.activeWalletAddress = null;
+    this.userProfilePic = null;
     this.getDataService.profilePic.next(1);
   }
 
@@ -353,6 +375,8 @@ export class NavComponent implements OnInit {
       .notificationCount(address)
       .subscribe((response: any) => {
         this.notifyCount = response.data?.notifyCount;
+      },(err:HttpErrorResponse)=>{
+        this.toastr.error(err.statusText)
       });
   }
 
@@ -374,7 +398,8 @@ export class NavComponent implements OnInit {
       this.getDataService
         .searchResult(searchText)
         .subscribe(async (response) => {
-          if (response.isSuccess) {
+          // debugger
+          if (response.data.length > 0) {
             this.flag = true;
             this.searchResult = response.data;
             this.searchResult.forEach((element) => {
@@ -393,13 +418,24 @@ export class NavComponent implements OnInit {
                 }
               });
             });
-     
+
             if (event.key == 'Enter') {
               this.flag = false;
             }
           } else {
             this.flag = false;
           }
+        },(err:HttpErrorResponse)=>{
+          this.flag = false;
+          if(err.status == 400){
+            this.toastr.error(`${err.error.Message}`)
+          }
+          else if(err.status == 500){
+            this.toastr.error(`Enternal Server Error.`)
+          }else{
+            this.toastr.error(`Something went wrong.`)
+          }
+          
         });
     } else {
       this.flag = false;
@@ -442,9 +478,9 @@ export class NavComponent implements OnInit {
 
     // dialogRef.afterClosed().subscribe((result) => {});
     let sd = localStorage.getItem('address');
-    if(!sd || sd == 'null'){
+    if (!sd || sd == 'null') {
       this.connectwallet();
-    }else{
+    } else {
       this.walletOpen();
     }
   }
@@ -465,6 +501,17 @@ export class NavComponent implements OnInit {
         if (this.userDetails) {
           this.userProfilePic = this.userDetails;
         }
+      },(err:HttpErrorResponse)=>{
+      
+        if(err.status == 400){
+          this.toastr.error(`${err.error.Message}`)
+        }
+        else if(err.status == 500){
+          this.toastr.error(`Enternal Server Error.`)
+        }else{
+          this.toastr.error(`Something went wrong.`)
+        }
+        
       });
   }
 }

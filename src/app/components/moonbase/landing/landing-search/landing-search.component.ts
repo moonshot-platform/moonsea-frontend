@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { GetDataService } from 'src/app/services/get-data.service';
 
@@ -14,7 +16,7 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
   @ViewChild('searchText') searchInput01 : ElementRef;
   unSubscribeSubscription:Subscription;
 
-  constructor(private router:Router, private getDataService: GetDataService) { }
+  constructor(private router:Router, private getDataService: GetDataService,private toaster:ToastrService) { }
   ngOnDestroy(): void {
     if(this.unSubscribeSubscription){
       this.unSubscribeSubscription.unsubscribe();
@@ -44,9 +46,12 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
     this.properties= [];
     if (searchText.length > 2) {
       this.unSubscribeSubscription = this.getDataService.searchResult(searchText).subscribe(async (response) => {
-        if (response.isSuccess) {
-          this.flag = true;
-          this.searchResult = response.data;
+    
+         
+          if(response.data.length > 0){
+            this.flag = true;
+
+            this.searchResult = response.data;
           this.searchResult.forEach(element => {
               if(this.uniquedata.indexOf(element.serachType) === -1){
                 this.uniquedata.push(element.serachType);
@@ -66,8 +71,18 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
           });
        
           
+          }else{
+            this.flag = false;
+          }
+        
+      },(err:HttpErrorResponse)=>{
+        if(err.status == 400){
+          this.toaster.error(`${err.error.Message}`)
+        }
+        else if(err.status == 500){
+          this.toaster.error(`Enternal Server Error.`)
         }else{
-          this.flag = false;
+          this.toaster.error(`Something went wrong.`)
         }
       });
     }

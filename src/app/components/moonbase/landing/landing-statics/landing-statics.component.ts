@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { HomeService } from 'src/app/services/home.service';
 import { PricingApiService } from 'src/app/services/pricing-api.service';
 
@@ -12,7 +14,7 @@ export class LandingStaticsComponent implements OnInit {
   statics: any = {};
 
     
-    constructor(private homeService:HomeService,public pricingApi: PricingApiService,private router:Router) { }
+    constructor(private homeService:HomeService,public pricingApi: PricingApiService,private router:Router,private toaster:ToastrService) { }
 
   ngOnInit(): void {
     this.getStatics();
@@ -21,6 +23,15 @@ export class LandingStaticsComponent implements OnInit {
   getStatics(){
     this.homeService.getHompageStatics().subscribe((res: any) => {
       this.statics = res.data;
+    },(err:HttpErrorResponse)=>{
+      if(err.status == 400){
+        this.toaster.error(`${err.error.Message}`)
+      }
+      else if(err.status == 500){
+        this.toaster.error(`Enternal Server Error.`)
+      }else{
+        this.toaster.error(`Something went wrong.`)
+      }
     });
   }
 

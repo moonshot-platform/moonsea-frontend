@@ -13,6 +13,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material/dialog';
 import { BetaversionModalComponent } from './betaversion-modal/betaversion-modal.component';
 import { Meta, Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 SwiperCore.use([Grid, Navigation]);
 
@@ -106,7 +108,8 @@ export class LandingComponent implements OnInit, OnDestroy {
     private ngxService: NgxUiLoaderService,
     public dialog: MatDialog,
     private meta: Meta,
-    private _titleService : Title
+    private _titleService : Title,
+    private toaster :ToastrService
   ) {
     
   }
@@ -156,8 +159,18 @@ export class LandingComponent implements OnInit, OnDestroy {
       }
 
       this.newCollection = response.data;
-    }, (err: any) => {
+    }, (err:HttpErrorResponse) => {
+     
       this.ngxService.stop();
+      if(err.status == 400){
+        this.toaster.error(`${err.error.Message}`)
+      }
+      else if(err.status == 500){
+        this.toaster.error(`Enternal Server Error.`)
+      }else{
+        this.toaster.error(`Something went wrong.`)
+      }
+      
     });
   }
 
