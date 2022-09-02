@@ -78,7 +78,7 @@ export class Step3Component implements OnInit, OnDestroy {
       'api/getCollectionIdWiseNftList?collectionId=' + this.collectionId+'&pageNo='+this.currentPage+'&PageSize='+this.itemsPerPage;
     this.unSubscribeRequest = this._getDataService.getRequest(url).subscribe(
       (res: any) => {
-        if (res.status == 200) {
+        if (res.data.length > 0) {
           this.nftList = res.data;
           this.total = res.totalCount;
           this.ngxLoader.stop();
@@ -100,7 +100,7 @@ export class Step3Component implements OnInit, OnDestroy {
     let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
     this.unSubscribeRequest01 = this._getDataService.getRequest(url).subscribe(
       (res: any) => {
-        if (res.status == 200) {
+        if (res.data) {
           this.collectionDetails = res.data;
           this.imageUrl = this.collectionDetails.fileUrl;
         }

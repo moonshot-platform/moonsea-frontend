@@ -224,7 +224,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     };
     this.unSubscribeSubscription = this.dataService.getRequest(url).subscribe(
       (res: any) => {
-        if (res.status == 200) {
+        if (res.data.length > 0) {
           
           res.data.forEach((element:any) => {
             this.discoverNFTList.push(element)
@@ -286,7 +286,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
 
     this.unSubribeDescoverCollectionList = this.dataService.getRequest(url).subscribe(
       (response: any) => {
-        if (response.status == 200) {
+        if (response.data.length > 0) {
           for (let i = 0; i < response.data.length; i++) {
             for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
               response.data[i].nftFileUrl01 =
@@ -463,7 +463,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
 
     this.dataService.getRequest(url).subscribe(
       (res: any) => {
-        if (res.status == 200) {
+        if (res.data.length > 0) {
           res.data.forEach((element:any) => {
             this.createrList.push(element)
           });
@@ -522,6 +522,5 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
     if (this.searchKey == 'all')
       this.searchKey = '';
   }
-  // document.getElementById("editor").addEventListener("input", inputEvt => {
-  // }, false);
+  
 }

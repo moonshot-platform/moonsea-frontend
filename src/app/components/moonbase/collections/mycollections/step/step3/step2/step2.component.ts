@@ -62,7 +62,7 @@ export class Step2Component implements OnInit {
     this.ngxLoader.start();
     let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
     this._getDataService.getRequest(url).subscribe((res: any) => {
-      if (res.status == 200) {
+      if (res.data) {
         this.ngxLoader.stop();
         this.collectionDetails = res.data;
         this.imageUrl = this.collectionDetails.fileUrl;
@@ -149,7 +149,7 @@ export class Step2Component implements OnInit {
 
           } else if (event instanceof HttpResponse) {
           
-              if(event.body.status == 200){
+              if(event.body.data == 'Added successfully'){
                 if (idx == this.selectedFiles.length - 1) {
                   this.isApiLoading = true;
                   this.toastr.success('upload completed');

@@ -190,7 +190,7 @@ export class CreateCollectionComponent implements OnInit {
       this.isApiLoading = true;
       let url = 'api/getCollectionDetails?collectionId=' + this.collectionId;
       this.getDataService.getRequest(url).subscribe((res: any) => {
-        if (res.status == 200) {
+        if (res.data) {
           this.imagePath = res.data.fileUrl;
           this.isImported = res.data.isImported;
           this.step01PatchValue(res.data);
@@ -412,7 +412,7 @@ export class CreateCollectionComponent implements OnInit {
 
     if (!this.collectionId) {
       this.createNFT.addCollection(data).subscribe(async (result: any) => {
-        if (result.isSuccess) {
+        if (Object.keys(result.data).length > 0) {
 
           setTimeout(() => {
             this.createNFT.subject.next({ tabIndex: 2 ,collectionName:this.step01Form.value.tokenName,collectionId:result.data.collectionId});
@@ -436,7 +436,7 @@ export class CreateCollectionComponent implements OnInit {
     } else {
       let url = 'api/updateCollectionSave';
       this.createNFT.postRequest(url, data).subscribe(async (res: any) => {
-        if (res.status == 200) {
+
 
 
 
@@ -458,10 +458,7 @@ export class CreateCollectionComponent implements OnInit {
             this.getDataService.showToastr(res.message, res.isSuccess);
           }, 5000);
 
-        } else {
-          this.getDataService.showToastr(res.message, res.isSuccess);
-          this.isApiLoading = false;
-        }
+       
       });
     }
 
@@ -508,7 +505,7 @@ export class CreateCollectionComponent implements OnInit {
 
           if (response.type === HttpEventType.UploadProgress) {
           } else if (response instanceof HttpResponse) {
-            if (response.body.isSuccess) {
+            if (Object.keys(response.body.data).length > 0) {
               this.imageErrorMsg = false;
               this.imagePath = response.body.data.path;
             } else {
@@ -527,7 +524,7 @@ export class CreateCollectionComponent implements OnInit {
 
   getCategotyList() {
     this.createNFT.getCategotyList().subscribe((response: any) => {
-      if (response.isSuccess) {
+      if (response.data.length > 0) {
         this.categotyList = response.data;
       }
     });
@@ -544,7 +541,7 @@ export class CreateCollectionComponent implements OnInit {
     let url = 'api/checkCollectionNameValidation';
     if (collection_name.length >= 3) {
       this.createNFT.postRequest(url, body).subscribe((res: any) => {
-        if (res.status == 200) {
+        if (res.message != 'Collection name already exist') {
           this.isShowNameValidation = false;
           this.step01Form.controls.tokenName.setErrors(null)
         } else {
@@ -574,19 +571,6 @@ export class CreateCollectionComponent implements OnInit {
     this.collectionDetails--;
   }
 
-  openDialogSubmitNFT(data: any): void {
-    const dialogRef = this.dialog.open(ModalForCreateNftComponent, {
-      width: 'auto',
-      disableClose: true,
-      data: {
-        details: data,
-        globalService: this.cs,
-        typeOfNft: this.typeOfNft,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => { });
-  }
 
   checkValidaation(value: any) {
     if (parseInt(value) > 0) {
