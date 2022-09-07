@@ -25,7 +25,7 @@ import { SharedModule } from '../commanShared/shared/shared.module';
   ],
   declarations: [
     // CollectiondetailsComponent,
-    AddEditNftComponent,
+    // AddEditNftComponent,
     ModelForCreateCollectionComponent
   ]
 })

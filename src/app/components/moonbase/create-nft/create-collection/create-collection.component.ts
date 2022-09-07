@@ -425,7 +425,7 @@ export class CreateCollectionComponent implements OnInit {
             // });
             this.isApiLoading = false;
             this.dialogRef.close();
-            this.getDataService.showToastr(result.message, result.isSuccess);
+            this.getDataService.showToastr(result.message,true);
           }, 5000)
 
         }
@@ -455,7 +455,7 @@ export class CreateCollectionComponent implements OnInit {
             // });
             this.isApiLoading = false;
             this.dialogRef.close();
-            this.getDataService.showToastr(res.message, res.isSuccess);
+            this.getDataService.showToastr(res.message, true);
           }, 5000);
 
        

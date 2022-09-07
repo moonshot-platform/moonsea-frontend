@@ -256,7 +256,7 @@ export class NavComponent implements OnInit {
                   })
                   .subscribe((response) => {
                     var data = response;
-                    if (data.isSuccess) {
+                    if (data) {
                       this.toastr.success(data.message);
                       localStorage.setItem('isRegistered', 'true');
                       window.location.reload();

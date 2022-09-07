@@ -89,7 +89,7 @@ export class NftCardComponent implements OnInit {
     ).subscribe
     ((result:any)=>{
 
-      if(result.isSuccess){
+      if(result.data){
         this.items.isLikeByYou = 1;
         
       this.toastrService.success(result.message)
@@ -133,7 +133,7 @@ return false;
     ((result:any)=>{
      
       
-      if(result.isSuccess){
+      if(result.data){
         this.items.isLikeByYou = 0;
       this.toastrService.success(result.message)
 

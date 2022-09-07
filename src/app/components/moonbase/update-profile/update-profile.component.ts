@@ -99,7 +99,7 @@ export class UpdateProfileComponent implements OnInit {
     this.getDataService
       .postRequest('api/checkCustomeUrlValidation', data)
       .subscribe((res: any) => {
-        if (res.isSuccess) {
+        if (res.data) {
           // this.updateProfile.controls.customUrl.setErrors(null);
         } else {
           this.updateProfile.controls.customUrl.setErrors({
@@ -190,7 +190,7 @@ export class UpdateProfileComponent implements OnInit {
         (response: any) => {
           this.isUploadButtonDisabled = false;
           let data = response;
-          if (data.isSuccess) {
+          if (data != 'Image not found') {
             this.imagePath = data.data.path;
             debugger
             // this.toastrService.success('Profile Pic Uploaded');
@@ -219,11 +219,7 @@ export class UpdateProfileComponent implements OnInit {
       this.getDataService
         .postRequest('api/updateProfilePhoto', obj)
         .subscribe((res: any) => {
-          if (res.isSuccess) {
             this.toastrService.success(res.message);
-          } else {
-            this.toastrService.error(res.message);
-          }
         });
     }
   }
@@ -271,7 +267,7 @@ export class UpdateProfileComponent implements OnInit {
         };
         this.getDataService.updateProfile(formDataWithSignature).subscribe(
           (response) => {
-            if (response.status == 200) {
+            // if (response.status == 200) {
               var data = response;
               this.toastrService.success('Profile updated successfully');
               this.fetchData();
@@ -283,9 +279,9 @@ export class UpdateProfileComponent implements OnInit {
               ]);
               this.getDataService.profilePic.next(1);
               this.updateBtnText = 'Update Profile';
-            } else {
-              this.toastrService.error(response.message);
-            }
+            // } else {
+            //   this.toastrService.error(response.message);
+            // }
           },
           (err: any) => {
             this.toastrService.error(err);

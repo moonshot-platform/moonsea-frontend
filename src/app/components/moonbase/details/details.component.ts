@@ -228,14 +228,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
           asset: this.asset
         })
         .subscribe((result: any) => {
-          if (result.isSuccess) {
+       
             this.toastrService.success(result.message);
 
             this.data.isLikeByYou = 1;
             this.data.likeCount = this.data.likeCount + 1;
-          } else {
-            this.toastrService.error(result.message)
-          }
+         
         });
     }
     return false;
@@ -257,12 +255,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
           asset: this.asset
         })
         .subscribe((result: any) => {
-          if (result.isSuccess) {
+        
             this.toastrService.success(result.message);
             this.isLikeByYou = 0;
             this.data.isLikeByYou = 0;
             this.data.likeCount = this.data.likeCount - 1;
-          }
+          
         });
     }
     return false;
@@ -294,7 +292,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.unSubscribeRequest01 = this.getDataService
       .getListOwners(this.ID, this.Address, this.nftAddress, this.queryBlockchainId, this.asset)
       .subscribe((response: any) => {
-        if (response.isSuccess) {
+     
 
           this.ownersData = response.data;
 
@@ -313,7 +311,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.apiDataLoaded = true;
 
 
-        }
+        
       });
   }
 

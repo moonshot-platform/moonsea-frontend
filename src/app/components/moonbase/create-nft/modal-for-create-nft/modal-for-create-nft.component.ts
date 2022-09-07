@@ -120,7 +120,7 @@ export class ModalForCreateNftComponent implements OnInit {
         this.getDataService.postRequest(url, this.data.details).subscribe(
           async (res: any) => {
 
-            if (res.status == 200) {
+            if (res.data) {
 
               this.royaltiesDetails = res.data;
               this.isApiLoading = true;
@@ -129,7 +129,7 @@ export class ModalForCreateNftComponent implements OnInit {
               this.isApiLoading = false;
               this.mintStatusText = 'Done';
               this.rejectedMetamask = false;
-              this.getDataService.showToastr(res.message, res.isSuccess);
+              this.getDataService.showToastr(res.message, true);
 
               if (!this.data.details.putOnSale) {
                 this.dialogRef.close();
@@ -201,7 +201,7 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async signSellOrder() {
-    //debugger
+    debugger
     try {
       var status: any;
       let salt = this.data.globalService.randomNo();
@@ -264,7 +264,7 @@ export class ModalForCreateNftComponent implements OnInit {
           .subscribe((response: any) => {
             this.getDataService.showToastr(
               response.message,
-              response.isSuccess
+              true
             );
             this.isApiLoading = false;
             this.signSellorderButton = 'Done';

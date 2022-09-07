@@ -78,7 +78,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.nftInteractionService
     .getNftDetails(this.contractService.userAddress, this.items?.nftDetails?.asset)
     .subscribe((response: any) => {
-      if (response.isSuccess) {
+      if (response.data) {
         
         this.nftDetails = response.data;
         this.shareUrl = location.origin+'/details/'+this.nftDetails.nftId;

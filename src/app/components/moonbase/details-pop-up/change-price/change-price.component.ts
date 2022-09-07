@@ -111,24 +111,24 @@ async checkNetwork()
     ).subscribe((result:any)=>
     {
 
-      if(!result.isSuccess)
-      {
-        this.isSuccess = result.isSuccess;
-        this.errorMsg = result.message;
-        this.isApiLoading = false;
-        this.toastrService.success(result.message);
-        this.isChangePriceMessage = false;
-        this.dialogRef.close();
-      }
-      else
-      {
+      // if(!result.isSuccess)
+      // {
+      //   this.isSuccess = result.isSuccess;
+      //   this.errorMsg = result.message;
+      //   this.isApiLoading = false;
+      //   this.toastrService.success(result.message);
+      //   this.isChangePriceMessage = false;
+      //   this.dialogRef.close();
+      // }
+      // else
+      // {
         this.isSuccess = result.isSuccess;
         this.errorMsg = result.message;
         this.isApiLoading = false;
         this.toastrService.success(result.message);
         this.isChangePriceMessage = true;
         
-      }
+      // }
     
     })
   }else{

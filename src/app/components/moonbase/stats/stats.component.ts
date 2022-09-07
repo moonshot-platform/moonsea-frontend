@@ -100,7 +100,7 @@ export class StatsComponent implements OnInit {
     let url =`api/getSaleChart?collectionId=${collectionId}`;
     this.dataservice.getTemparory(url).subscribe(
       (res: any) => {
-        if (res.status == 200) {
+        // if (res.status == 200) {
           this.chartData = res.data;
 
           for (let i = 0; i < this.chartData.length; i++) {
@@ -111,8 +111,8 @@ export class StatsComponent implements OnInit {
             ]);
           }
           resolve(this.data01);
-        } else {
-        }
+        // } else {
+        // }
       },
       (err) => {
         reject(err);

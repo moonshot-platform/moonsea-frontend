@@ -99,7 +99,7 @@ export class AllcollectionComponent implements OnInit {
         JSON.stringify(this.filterArray)
       )
       .subscribe((response: any) => {
-        if (response.isSuccess) {
+        if (response.data.length > 0) {
           this.nftList = response.data;
           this.totalCount = response.totalCount;
           this.count = response.data.length;
@@ -158,7 +158,7 @@ export class AllcollectionComponent implements OnInit {
   let promise = new Promise((resolve,reject)=>{
     this.collectionApi.getRequest(url).subscribe(
       (res: any) => {
-        if (res.status == 200) {
+      
           this.propetiesArray = res.data;
           
           for (let i = 0; i < this.propetiesArray.length; i++) {
@@ -188,10 +188,7 @@ export class AllcollectionComponent implements OnInit {
             resolve(this.proeprties);
             
           });
-        } else {
-          // alert(res.message);
-          this.toaster.error(res.message)
-        }
+       
       },
       (err) => {
       }

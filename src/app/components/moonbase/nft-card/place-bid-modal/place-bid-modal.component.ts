@@ -255,16 +255,14 @@ export class PlaceBidModalComponent implements OnInit {
             asset:this.items.listing.asset
           })
           .subscribe((response: any) => {
-            ;
-            if (response.isSuccess) {
+            
+          
               this.btnText = 'Done';
               this.closeDialog();
-            } else {
-              this.btnText = 'Place Bid';
-            }
+           
             this.nftInteractionService.showToastr(
               response.message,
-              response.status
+              true
             );
           });
       } else {
@@ -287,16 +285,11 @@ export class PlaceBidModalComponent implements OnInit {
         };
         this.collectionApiService.postRequest(body, url).subscribe(
           (res: any) => {
-            if (res.status == 200) {
+      
               this.btnText = 'Done';
-              this.nftInteractionService.showToastr(res.message, res.status);
+              this.nftInteractionService.showToastr(res.message, true);
               this.closeDialog();
-            } else {
-              this.btnText = 'Place Bid';
-              this.nftInteractionService.showToastr(res.message, false);
-              this.btnText = 'Place Bid';
-              this.invalidValue = false;
-            }
+            
           },
           (err: any) => {
             this.btnText = 'Place Bid';

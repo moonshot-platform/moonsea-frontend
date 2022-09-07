@@ -113,7 +113,7 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
         this.hideShow = false
       }
 
-      if (response.isSuccess) {
+      if ( response.data) {
         this.collectionDetails = response.data;
         this.imageUrl = this.collectionDetails?.collectionCoverPhoto ?? "";
       }
@@ -154,12 +154,9 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
             })
               .subscribe(
                 (response: any) => {
-                  if (response.isSuccess) {
+                  
                     this.toastrService.success("Cover photo saved successfully.");
-                  }
-                  else {
-                    this.imagePath = "";
-                  }
+                 
                 });
 
 

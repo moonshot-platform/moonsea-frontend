@@ -60,19 +60,19 @@ export class ReportComponent implements OnInit {
     data.blockchainId = this.data.data.blockchainId;
     data.asset = this.data.data.asset;
     this.getDataService.reportSave(data).subscribe((result: any) => {
-      if (!result.isSuccess) {
-        this.isSuccess = result.isSuccess;
-        this.errorMsg = result.message;
+      // if (!result.isSuccess) {
+      //   this.isSuccess = result.isSuccess;
+      //   this.errorMsg = result.message;
 
-        this.toastrService.success(result.message);
-        this.isApiLoading = false;
-        this.dialogRef.close();
-      } else {
+      //   this.toastrService.success(result.message);
+      //   this.isApiLoading = false;
+      //   this.dialogRef.close();
+      // } else {
         this.isSuccess = result.isSuccess;
         this.errorMsg = result.message;
         this.isApiLoading = false;
         this.toastrService.success(result.message);
-      }
+      // }
     });
   }
 }

@@ -246,7 +246,7 @@ export class UserProfileComponent implements OnInit {
         .subscribe(
           (response: any) => {
             let data = response;
-            if (data.isSuccess) {
+            // if (data.isSuccess) {
               this.imagePath = data.data.path;
               this.getDataService.updateCoverPhoto({
                 walletAddress: this.currentWalletAddress,
@@ -255,18 +255,18 @@ export class UserProfileComponent implements OnInit {
                 .subscribe(
                   (response: any) => {
                     this.hideEditForm();
-                    if (response.isSuccess) {
+                    // if (response.isSuccess) {
                       this.toastrService.success("Cover photo saved successfully.");
-                    }
-                    else {
-                      this.toastrService.error("Something went wrong");
-                    }
+                    // }
+                    // else {
+                    //   this.toastrService.error("Something went wrong");
+                    // }
                   }
                 );
-            }
-            else {
-              this.imagePath = "";
-            }
+            // }
+            // else {
+            //   this.imagePath = "";
+            // }
 
           },
           (error: any) => {
@@ -329,7 +329,7 @@ export class UserProfileComponent implements OnInit {
         following: address,
         signature: status.signature
       }).subscribe((response: any) => {
-        if (response.isSuccess) {
+        // if (response.isSuccess) {
 
           if (index > 0 && listType == 1) {
             this.listItemsFollowing[index - 1].isFollowByYou = false;
@@ -339,10 +339,10 @@ export class UserProfileComponent implements OnInit {
           }
           this.userDetails.isFollowByYou = false;
           this.toastrService.success(response.message)
-        }
-        else {
+        // }
+        // else {
 
-        }
+        // }
       })
     }
     return false;

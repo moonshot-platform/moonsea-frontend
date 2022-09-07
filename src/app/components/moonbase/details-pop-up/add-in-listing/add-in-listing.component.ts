@@ -201,7 +201,7 @@ export class AddInListingComponent implements OnInit {
         this.getDataService
           .addInListingForSaleSave(this.data1)
           .subscribe((result: any) => {
-            if (result.isSuccess) {
+            // if (result.isSuccess) {
               this.errorMsg = result.message;
               this.getDataService.subjectTo.next({ addlisting: true });
               this.toastrService.success(this.errorMsg);
@@ -209,12 +209,12 @@ export class AddInListingComponent implements OnInit {
               this.isApiLoading = false;
               this.dialogRef.close();
               window.location.reload();
-            } else {
-              this.errorMsg = result.message;
-              this.toastrService.error(this.errorMsg);
-              this.isApiLoading = false;
-              this.dialogRef.close();
-            }
+            // } else {
+            //   this.errorMsg = result.message;
+            //   this.toastrService.error(this.errorMsg);
+            //   this.isApiLoading = false;
+            //   this.dialogRef.close();
+            // }
           });
       } else {
         this.isApiLoading = false;

@@ -69,7 +69,7 @@ getCollectionList() {
   let url = `home/getHotBidCollectionList`;
   
   this.homeService.getRequest(url).subscribe((response: any) => {
-     if(response.status == 200){
+     if(response.data.length > 0){
       for (let i = 0; i < response.data.length; i++) {
         for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
           response.data[i].nftFileUrl01 =
