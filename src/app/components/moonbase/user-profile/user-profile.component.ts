@@ -67,9 +67,9 @@ export class UserProfileComponent implements OnInit {
           this.tabName = 'Created';
         }
         this.setApiLoadingFlag(true);
-        if (this.loaded) {
-          this.fetchData();
-        }
+        // if (this.loaded) {
+        //   this.fetchData();
+        // }
       }
     );
 
@@ -79,10 +79,9 @@ export class UserProfileComponent implements OnInit {
 
     this.cs.getWalletObs().subscribe((data: any) => {
       this.loaded = true;
+
       if(this.currentWalletAddress != data){
         this.currentWalletAddress = data;
-          this.fetchData();
-        }else{
           this.fetchData();
         }
    
@@ -111,8 +110,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchData() {
- 
-    debugger
     this.getDataService.getUserDetails(this.username, this.currentWalletAddress).subscribe((response: any) => {
       if (response.data.length > 0) {
         this.userDetails = response.data[0];
@@ -142,6 +139,8 @@ export class UserProfileComponent implements OnInit {
     if (this.tabName == this.tabHeadingsUrl[0]) {
 
       this.getmyCollectionList();
+
+      this.listItemsOnSale =[];//geting empty nftList Array
     }
     if (this.tabName == this.tabHeadingsUrl[1]) {
       this.getDataService.getItemsForUser(this.userDetails?.walletAddress, 3,this.pageNo,this.PageSize).subscribe((response: any) => {
@@ -158,6 +157,8 @@ export class UserProfileComponent implements OnInit {
       },(err:any)=>{
         this.setApiLoadingFlag(false);
       })
+
+      this.listItemsOnSale =[];//geting empty nftList Array
     }
 
     if (this.tabName == this.tabHeadingsUrl[3]) {
@@ -169,6 +170,8 @@ export class UserProfileComponent implements OnInit {
       },(err:any)=>{
         this.setApiLoadingFlag(false);
       })
+
+      this.listItemsOnSale =[];//geting empty nftList Array
     }
     if (this.tabName == this.tabHeadingsUrl[4]) {
       this.getDataService.getItemsForFollowers(this.userDetails?.walletAddress, this.cs.userAddress).subscribe((response: any) => {
@@ -177,6 +180,8 @@ export class UserProfileComponent implements OnInit {
       },(err:any)=>{
         this.setApiLoadingFlag(false);
       })
+
+      this.listItemsOnSale =[];//geting empty nftList Array
     }
     if (this.tabName == this.tabHeadingsUrl[5]) {
       this.getDataService.getItemsForUser(this.currentWalletAddress, 4,this.pageNo,this.PageSize).subscribe((response: any) => {
@@ -185,6 +190,8 @@ export class UserProfileComponent implements OnInit {
       },(err:any)=>{
         this.setApiLoadingFlag(false);
       })
+
+      this.listItemsOnSale =[];//geting empty nftList Array
     }
   }
 
