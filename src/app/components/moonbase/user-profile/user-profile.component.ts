@@ -67,9 +67,9 @@ export class UserProfileComponent implements OnInit {
           this.tabName = 'Created';
         }
         this.setApiLoadingFlag(true);
-        // if (this.loaded) {
-        //   this.fetchData();
-        // }
+          debugger
+          this.fetchData();
+        
       }
     );
 
@@ -82,7 +82,8 @@ export class UserProfileComponent implements OnInit {
 
       if(this.currentWalletAddress != data){
         this.currentWalletAddress = data;
-          this.fetchData();
+        debugger
+          // this.fetchData();
         }
    
     });
@@ -110,6 +111,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchData() {
+    debugger
     this.getDataService.getUserDetails(this.username, this.currentWalletAddress).subscribe((response: any) => {
       if (response.data.length > 0) {
         this.userDetails = response.data[0];
@@ -163,7 +165,7 @@ export class UserProfileComponent implements OnInit {
 
     if (this.tabName == this.tabHeadingsUrl[3]) {
       this.getDataService.getItemsForFollowing(this.userDetails?.walletAddress, this.cs.userAddress).subscribe((response: any) => {
-        if(response.status == 200){
+        if(response.data.length > 0){
           this.listItemsFollowing.push(...response.data);
         }
         this.setApiLoadingFlag(false);
@@ -198,7 +200,7 @@ export class UserProfileComponent implements OnInit {
   getmyCollectionList() {
     this.myCollection = [];
     this.unSubscribeRequest = this.homeService.myCollectionList(this.userDetails?.walletAddress).subscribe((response: any) => {
-      if (response.status == 200) {
+      if (response.data.length > 0) {
         for (let i = 0; i < response.data.length; i++) {
           for (let j = 0; j < response.data[i].nftDetailsList.length; j++) {
             response.data[i].nftFileUrl01 =

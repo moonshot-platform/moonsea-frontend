@@ -15,6 +15,8 @@ import { BetaversionModalComponent } from './betaversion-modal/betaversion-modal
 import { Meta, Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { environment } from 'src/environments/environment';
 
 SwiperCore.use([Grid, Navigation]);
 
@@ -111,7 +113,15 @@ export class LandingComponent implements OnInit, OnDestroy {
     private _titleService : Title,
     private toaster :ToastrService
   ) {
-    
+    // <meta name="title" content="FreelancerDappradar">
+    // <meta name="description" content="asdasd">
+
+  
+   
+
+    // this.meta.updateTag({property:'og:image' ,content:'https://thumbs.dreamstime.com/b/nft-non-fungible-token-crypto-art-concept-technology-selling-unique-collectibles-games-characters-blockchain-assets-nft-non-214332092.jpg'},"property='og:image'");
+    // this.meta.updateTag({name:'twitter:image' ,content:'https://thumbs.dreamstime.com/b/nft-non-fungible-token-crypto-art-concept-technology-selling-unique-collectibles-games-characters-blockchain-assets-nft-non-214332092.jpg'},"name='twitter:image'")
+  
   }
   ngOnDestroy(): void {
   

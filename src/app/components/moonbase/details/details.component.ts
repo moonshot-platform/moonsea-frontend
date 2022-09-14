@@ -77,6 +77,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
     for (let index = 0; index < 100; index++) {
       this.elementsHasLoaded[index] = false;
     }
+
+    
+
+    // this.meta.updateTag( {property:'og:description' ,content:`Moonsea.io -EEEEEEEE`},"property='og:description'");
+    // this.meta.updateTag( {property:'twitter:description' ,content:`Moonsea.io -EEEEEEEE`},"property='twitter:description'");
+    // this.meta.updateTag( {property:'og:image' ,content:`EEEEEEEEEEEEEEE`},"property='og:image'");
+    // this.meta.updateTag( {property:'twitter:image' ,content:`EEEEEEEEEEEEEEE`},"property='twitter:image'");
+
+
   }
   ngOnDestroy(): void {
     if (this.unSubscribeRequest) {
@@ -90,9 +99,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.titleService.setTitle('Details');
-    this.meta.addTags([
-      { name: 'Details', content: 'You can sea nft details at this page...' },
-    ]);
+    // this.meta.addTags([
+    //   { name: 'Details', content: 'You can sea nft details at this page...' },
+    // ]);
+
+   
+
+
+
+
+
     this.correntRoute = window.location.href;
     window.scrollTo(0, 0);
     this._activatedRoute.params.subscribe((params) => {
@@ -183,6 +199,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.ngxService.stop();
           this.data = response.data;
           
+
+          this.meta.updateTag( {property:'og:description' ,content:`Moonsea.io - ${this.data.title}`},"property='og:description'");
+          this.meta.updateTag( {property:'twitter:description' ,content:`Moonsea.io - ${this.data.title}`},"property='twitter:description'");
+          this.meta.updateTag( {property:'og:image' ,content:`${this.data.fileUrl}`},"property='og:image'");
+          this.meta.updateTag( {property:'twitter:image' ,content:`${this.data.fileUrl}`},"property='twitter:image'");
+
+
+
+
           this.asset = this.data?.asset;
           this.getList();
 

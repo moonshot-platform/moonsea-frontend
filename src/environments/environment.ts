@@ -10,6 +10,7 @@ export const environment = {
   bscTestnetScan:"https://testnet.bscscan.com/tx/",
   paginationSize :12,
   tockenUri:'https://moonsea.io/moonsea/api/api/Metadata/',
+  metaTwitterImage:'https://thumbs.dreamstime.com/b/nft-non-fungible-token-crypto-art-concept-technology-selling-unique-collectibles-games-characters-blockchain-assets-nft-non-214332092.jpg'
 
   };
 
