@@ -67,7 +67,7 @@ export class UserProfileComponent implements OnInit {
           this.tabName = 'Created';
         }
         this.setApiLoadingFlag(true);
-          debugger
+          // debugger
           this.fetchData();
         
       }
@@ -82,7 +82,7 @@ export class UserProfileComponent implements OnInit {
 
       if(this.currentWalletAddress != data){
         this.currentWalletAddress = data;
-        debugger
+        // debugger
           // this.fetchData();
         }
    
@@ -111,7 +111,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   fetchData() {
-    debugger
+    // debugger
     this.getDataService.getUserDetails(this.username, this.currentWalletAddress).subscribe((response: any) => {
       if (response.data.length > 0) {
         this.userDetails = response.data[0];
