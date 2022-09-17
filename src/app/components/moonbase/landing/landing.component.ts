@@ -15,7 +15,6 @@ import { BetaversionModalComponent } from './betaversion-modal/betaversion-modal
 import { Meta, Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { environment } from 'src/environments/environment';
 
 SwiperCore.use([Grid, Navigation]);
