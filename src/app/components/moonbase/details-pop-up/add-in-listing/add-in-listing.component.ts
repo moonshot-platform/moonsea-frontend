@@ -177,13 +177,13 @@ export class AddInListingComponent implements OnInit {
           this.data.isMultiple
         );
       }
-      //debugger
+      debugger
       if (status.status) {
         this.data1 = {
           nftId: this.data.ID,
           walletAddress: this.Address,
           signature: status.signature,
-          currentSupply: this.data.supply,
+          currentSupply: this.data.ownerCurrentSupply,
           price: price,
           collectionId: this.data.collectionId,
           blockchainId: this.data.blockchainId,
