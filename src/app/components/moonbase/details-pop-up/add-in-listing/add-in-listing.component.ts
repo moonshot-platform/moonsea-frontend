@@ -156,7 +156,7 @@ export class AddInListingComponent implements OnInit {
         sig = {
           nftId: this.data.ID,
           price: price,
-          supply: this.data.supply,
+          supply: this.data.ownerCurrentSupply,
           nftAddress: this.data.nftAddress,
           isMultiple: this.data.isMultiple,
           salt: salt,
