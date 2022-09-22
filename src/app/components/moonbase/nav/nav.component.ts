@@ -310,9 +310,11 @@ export class NavComponent implements OnInit {
     //  }else if(this.properties[2].length > 0 && this.properties[2][0].serachType == 3){
     //   this.route.navigate(['/mycollection/collection', searchText]);
     //  }
-
+  
+    let searchedText = searchText.replaceAll('#',' '); 
+    debugger
     this.route.navigate(['/searchcollection'], {
-      queryParams: { searchKey: searchText },
+      queryParams: { searchKey: searchedText },
     });
   }
 

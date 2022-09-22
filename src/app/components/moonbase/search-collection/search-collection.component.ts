@@ -130,6 +130,7 @@ export class SearchCollectionComponent implements OnInit, OnDestroy {
 
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.searchKey = res.searchKey;
+      debugger
       if (!res.searchKey) {
         this.searchKey = 'all';
       }
