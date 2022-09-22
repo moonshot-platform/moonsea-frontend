@@ -33,9 +33,9 @@ export class LandingSearchComponent implements OnInit ,OnDestroy{
     this.searchInput01.nativeElement.value = '';
   }
   searchClient(searchText: any) {
-  
+  let text = searchText.replaceAll('#' , ' ');
     this.router.navigate(['/searchcollection'], {
-      queryParams: { searchKey: searchText },
+      queryParams: { searchKey: text },
     });
   }
 
