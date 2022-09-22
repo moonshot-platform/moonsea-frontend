@@ -129,7 +129,7 @@ export class AddInListingComponent implements OnInit {
 
   async addListingSave(formData: any) {
 
-    // //debugger
+    debugger
     if (!this.isContractApproved) {
       await this.startSale();
     }
@@ -168,7 +168,7 @@ export class AddInListingComponent implements OnInit {
         }
         status = await this.contractService.signSellOrder(sig);
       } else {
-        //debugger
+        debugger
         status = await this.contractService.signBidOrder(
           this.data.ID,
           price,

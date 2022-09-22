@@ -51,7 +51,7 @@
                         },
                         "scripts": [
                             "node_modules/particles.js/particles.js",
-                            "node_modules/jquery/dist/jquery.min.js",
+                            "node_modules/jquery/dist/jquery.min.js"
                         ],
                         "vendorChunk": true,
                         "extractLicenses": false,

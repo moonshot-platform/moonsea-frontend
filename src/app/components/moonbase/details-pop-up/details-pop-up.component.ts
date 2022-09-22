@@ -83,6 +83,7 @@ export class DetailsPopUpComponent implements OnInit {
 
   openDialogAddListing(): void
   {  
+    debugger
     const dialogRef = this.dialog.open(AddInListingComponent, {
       width: 'auto',
       panelClass: 'listingBig',
@@ -97,7 +98,8 @@ export class DetailsPopUpComponent implements OnInit {
        blockchainId : this.data.blockchainId,
        royalties:this.data.royalties,
        royaltiesOwner :this.data.royaltiesOwner,
-       asset:this.data.asset
+       asset:this.data.asset,
+       ownerCurrentSupply :this.data.ownerCurrentSupply
       }
     });
 
