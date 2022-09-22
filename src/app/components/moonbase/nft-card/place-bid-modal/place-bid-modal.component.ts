@@ -69,7 +69,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async checkNetwork() {
-    //debugger
+    ////debugger
     let checkNetwork: boolean = await this.contractService.createContract(
       this.items.listing.blockchainId
     );
@@ -80,7 +80,7 @@ export class PlaceBidModalComponent implements OnInit {
       let chainIdd = this.contractService.chainId;
       // chainIdd = parseInt(chainIdd);
       // chainIdd = chainIdd.toString(16);
-      //debugger
+      ////debugger
     try {
       let switchNetwork = this.contractService.switchNetwork(chainIdd);
 
@@ -115,7 +115,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async getAccount() {
-    //debugger
+    ////debugger
     this.tokenAddress = this.contractService.getAddressWeth(
       this.items.listing.blockchainId
     );
@@ -150,7 +150,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   checkBalance(amount: any) {
-    //debugger
+    ////debugger
     if (
       this.balanceDetailsToken.balance >=
       amount * 10 ** this.balanceDetailsToken.decimals
@@ -163,7 +163,7 @@ export class PlaceBidModalComponent implements OnInit {
     return false;
   }
   async approveToken(amount: any) {
-    //debugger;
+    ////debugger;
 
     if (this.checkBalance(amount)) {
       try {
@@ -194,7 +194,7 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   async PlaceBid(amount: any) {
-    //debugger;
+    ////debugger;
     let salt = this.contractService.randomNo();
     // const params2 = ethers.utils.parseEther(amount.toString());
     this.btnText = 'Waiting for signature';
@@ -228,7 +228,7 @@ export class PlaceBidModalComponent implements OnInit {
       this.items.data.royaltiesOwner ??
       '0x0000000000000000000000000000000000000000';
 
-      //debugger;
+      ////debugger;
     // new method
     var signature: any = await this.contractService.signBuyOrder(
       this.SignBuyerOrderModel

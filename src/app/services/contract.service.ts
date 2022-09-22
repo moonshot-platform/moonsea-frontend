@@ -158,7 +158,7 @@ export class ContractService {
 
     provider.on('accountsChanged', async (accounts: string[]) => {
       var address = await this.signer.getAddress();
-      debugger
+      //debugger
       this.setAddress(address);
     });
 
@@ -169,7 +169,7 @@ export class ContractService {
 
     // Subscribe to session disconnection
     provider.on('networkChanged', (code: number, reason: string) => {
-      debugger
+      //debugger
       this.connectAccountWalletConnect(originpage);
     });
 
@@ -199,7 +199,7 @@ export class ContractService {
     // return sed;
     let sed = new Promise(async (resolve, reject) => {
     try {
-      debugger
+      //debugger
       let w:any = localStorage.getItem('wallet') ?? "1";
       if(w=="1"){
       await this.windowRef.nativeWindow.ethereum.request(this.chainConfigs[parseInt(chainId, 16)].config);
@@ -268,7 +268,7 @@ export class ContractService {
         exchangeV1Abi,
         this.signer
       );
-      debugger
+      //debugger
       this.initializeAddress(chainIdVal);
       return true;
     }
@@ -356,7 +356,7 @@ export class ContractService {
     var message = `I would like to update preferences. Username is ${ formData.name !=null ? formData.name : ""}, picture is  ${formData.profilePic ? formData.profilePic : ""}, short url is ${formData.customUrl ? formData.customUrl : ""}, bio is ${formData.bio ?  formData.bio : ""}, website is ${formData.portfolioWebsite ? formData.portfolioWebsite : ""}, email id is ${formData.emailId ? formData.emailId : ""}, twitter is ${formData.twitter ? formData.twitter : ""}, facebook is ${formData.facebook ? formData.facebook : ""}, discord is ${formData.discord ? formData.discord : ""}, instagram is ${formData.instagram ? formData.instagram : ""};`
     var signature = '';
     try {
-      debugger
+      //debugger
       signature = await this.signer.signMessage(message);
       return signature;
     } catch (e) {
@@ -416,7 +416,7 @@ export class ContractService {
 
   setApprovalForAll(type: boolean, blockchainId: any,nftAddress:any) {
 
-    debugger
+    //debugger
 
     var contractObj: any;
     if (type) {
@@ -443,7 +443,7 @@ export class ContractService {
 
 
   async isApprovedForAll(type: boolean, blockchainId: any,nftAddress:any) {
-    debugger
+    //debugger
     var contractObj: any;
     if (type) {
       contractObj = new ethers.Contract(nftAddress, nft1155Abi, this.signer);
@@ -587,7 +587,7 @@ export class ContractService {
   ) {
 
 
-    debugger
+    //debugger
     try {
       const params2 = ethers.utils.parseEther(price.toString());
       var abiCoder = new ethers.utils.AbiCoder();
@@ -637,7 +637,7 @@ export class ContractService {
   // tokenAddress: any = '0x0000000000000000000000000000000000000000',
   // blockchainId:any
   async signSellOrder(data:SignSellOrder01 ) {
-    debugger
+    //debugger
     try {
       const params2 = ethers.utils.parseEther(data.price.toString());
       var abiCoder = new ethers.utils.AbiCoder();
@@ -700,7 +700,7 @@ export class ContractService {
 
   async signSellOrder01(signSellOrder: SignSellOrder) {
 
-    debugger;
+    //debugger;
     try {
 
 
@@ -867,7 +867,7 @@ export class ContractService {
 
   async exchangeToken01(exchangeToken: exchangeToken, blockchainId: any) {
 
-    debugger;
+    //debugger;
 
     const params2 = ethers.utils.parseEther((exchangeToken.signaturePrice).toString());
     const priceB = BigNumber.from(params2).mul(exchangeToken.quantity).div(exchangeToken.supply);
@@ -904,7 +904,7 @@ export class ContractService {
       params2, //buying
       this.pricingDetails.serviceFees * 100, //sellerFee
     ];
-    debugger
+    //debugger
     let BuyOrder = [
       [
         exchangeToken.isMakeOffer ? "0x0000000000000000000000000000000000000000" : exchangeToken.ownerAddress,//owner
@@ -1000,7 +1000,7 @@ export class ContractService {
         ]
       );
       ;
-      debugger
+      //debugger
       var a = ethers.utils.keccak256(a2).substring(2);
         
       var signature = await this.signer.signMessage(a);
@@ -1012,7 +1012,7 @@ export class ContractService {
   }
 
   async cancelOrder(signature: any) {
-    // debugger
+    // //debugger
     return await this.exchangeAbiContract.cancel(signature);
   }
 

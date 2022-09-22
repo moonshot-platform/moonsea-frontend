@@ -62,7 +62,7 @@ export class ModalForCreateNftComponent implements OnInit {
     let checkNetwork: boolean = await this.data.globalService.createContract(
       this.data.details.blockchainId
     );
-    //debugger
+    ////debugger
     if (!checkNetwork) {
       this.wrongNetwork = true;
       this.mintStatusText = 'Try Again';
@@ -91,13 +91,13 @@ export class ModalForCreateNftComponent implements OnInit {
     }
   }
   async initiateTransaction() {
-    //debugger
+    ////debugger
     try {
       var status: any;
       this.mintStatusText = 'Waiting for confirmation';
 
       if (this.data.details.isMultiple == false) {
-        //debugger
+        ////debugger
         status = await this.data.globalService.mintTokenErc721(
           this.data.details.nftTokenID,
           this.data.details.nftAddress
@@ -109,7 +109,7 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.nftAddress
         );
       }
-      //debugger
+      ////debugger
       if (status?.status) {
         this.isApiLoading = true;
         await status.hash.wait(2);
@@ -158,7 +158,7 @@ export class ModalForCreateNftComponent implements OnInit {
       }
     } catch (e) {
       console.log(e);
-      //debugger
+      ////debugger
       this.rejectedMetamask = true;
       this.mintStatusText = 'Try Again';
       this.isApiLoading = false;
@@ -168,7 +168,7 @@ export class ModalForCreateNftComponent implements OnInit {
 
   async startSale() {
     let status: any;
-    //debugger
+    ////debugger
 
     status = await this.data.globalService.isApprovedForAll(
       this.data.details.isMultiple,
@@ -187,7 +187,7 @@ export class ModalForCreateNftComponent implements OnInit {
       }
 
     }
-//debugger
+////debugger
     if (status.status) {
    
       this.startSaleButton = 'Done';
@@ -201,7 +201,7 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async signSellOrder() {
-    debugger
+    //debugger
     try {
       var status: any;
       let salt = this.data.globalService.randomNo();
@@ -241,7 +241,7 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.isMultiple
         );
       }
-      //debugger
+      ////debugger
       if (status.status) {
         this.signatureStatus = 3;
         this.isApiLoading = true;

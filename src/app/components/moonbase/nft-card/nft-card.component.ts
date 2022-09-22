@@ -76,7 +76,7 @@ export class NftCardComponent implements OnInit {
     }
     var status:any= await this.contractService.signMsgForLiked(nftId);
     if(status.status ){
-    //debugger
+    ////debugger
     this.getDataService.likedNft(
     {
      nftId : nftId,
@@ -168,7 +168,7 @@ onMediaLoad(event:any,indexx:any){
   
   
   if (event && event.target) {
-    // debugger
+    // //debugger
     this.isImageLoaded[indexx] = true;
   } else {
     this.isImageLoaded[indexx] = false;

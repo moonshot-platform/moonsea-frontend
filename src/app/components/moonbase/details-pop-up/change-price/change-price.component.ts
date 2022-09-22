@@ -94,7 +94,7 @@ async checkNetwork()
     var status:any= await this.contractService.signSellOrder(
       sig
       );
-    //debugger;
+    ////debugger;
     if(status.status){
     data.nftId = this.data.ID;
     data.walletAddress = this.Address;

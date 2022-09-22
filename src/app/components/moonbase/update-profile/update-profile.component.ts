@@ -192,7 +192,7 @@ export class UpdateProfileComponent implements OnInit {
           let data = response;
           if (data != 'Image not found') {
             this.imagePath = data.data.path;
-            debugger
+            //debugger
             // this.toastrService.success('Profile Pic Uploaded');
           } else {
             this.imagePath = '';

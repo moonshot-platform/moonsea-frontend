@@ -40,7 +40,7 @@ export class PlaceBidComponent implements OnInit {
         this.connectWallet();
         return false;
     }
-    //debugger
+    ////debugger
     this.dialog.open(PlaceBidModalComponent, {
       width: 'auto',
       data: {

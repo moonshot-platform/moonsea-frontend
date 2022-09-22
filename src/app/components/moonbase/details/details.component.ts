@@ -359,7 +359,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   base64Image: any;
 
   downloadImages(imageUrl: any) {
-    //debugger;
+    ////debugger;
     this.getBase64ImageFromURL(imageUrl).subscribe(base64data => {
       this.base64Image = "data:image/jpg;base64," + base64data;
       // save image to disk
@@ -374,7 +374,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   getBase64ImageFromURL(url: string) {
-    //debugger
+    ////debugger
     return Observable.create((observer: Observer<string>) => {
       const img: HTMLImageElement = new Image();
       img.crossOrigin = "Anonymous";

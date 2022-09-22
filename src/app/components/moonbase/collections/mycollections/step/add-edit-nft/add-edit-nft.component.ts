@@ -121,7 +121,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
 
 
     blockjson[environment.configFile].forEach(element => {
-      //debugger
+      ////debugger
       if(element.blockchainId == this.data.blockchainId){
         this.blockchainInfo = element;
       }
@@ -168,7 +168,7 @@ export class AddEditNftComponent implements OnInit, OnDestroy {
     //   this.addEditNft.controls.endDate.value,
     //   'yyyy-MM-ddTHH:mm:ss'
     // );
-    //debugger
+    ////debugger
     if (this.data.isMinted) {
       let url = 'api/UpdateNftToken';
       this._getDataService.postRequest(url, this.addEditNft.value).subscribe(

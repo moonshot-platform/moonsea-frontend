@@ -44,7 +44,7 @@ export class BidsComponent implements OnInit {
   }
 
   openDialog(index:any){
-    //debugger
+    ////debugger
     const dialogRef = this.dialog.open(AcceptBidPopupComponent, {
    //   width: '250px',
       data:{

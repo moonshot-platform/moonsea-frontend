@@ -113,7 +113,7 @@ export class AcceptBidPopupComponent implements OnInit {
   }
 
   async exchangeToken() {
-    //debugger
+    ////debugger
     
     let salt = this.items.data.salt;
     this.signSellOrder.nftId =  this.items.nftId,
@@ -130,7 +130,7 @@ export class AcceptBidPopupComponent implements OnInit {
     this.signSellOrder.blockchainId = this.items.nftDetails.blockchainId
 
 
-//debugger
+////debugger
     let sign = await this.contractService.signSellOrder01(
       this.signSellOrder
     );
@@ -152,18 +152,18 @@ export class AcceptBidPopupComponent implements OnInit {
     this.exchangeTokenObj.referalAddress =   this.items.data.referralAddress;
     this.exchangeTokenObj.buyer = this.items.data.walletAddress;
     this.exchangeTokenObj.isMakeOffer = this.items.data.isMakeOffer;
-//debugger
+////debugger
     var a:any =await this.contractService.isApprovedForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId,this.items.nftDetails.nftAddress);
     if(a.status==true && a.hash==false){
       let tx:any = await this.contractService.setApprovalForAll(this.exchangeTokenObj.isMultiple,this.items.nftDetails.blockchainId,this.items.nftDetails.nftAddress);
       await tx.hash.wait(1);
     }
     
-      //debugger
+      ////debugger
     var status: any = await this.contractService.exchangeToken01(
       this.exchangeTokenObj,
       this.items.nftDetails.blockchainId);
-//debugger
+////debugger
     if (status.status) {
       this.step = 2;
       await status.hash.wait(5);

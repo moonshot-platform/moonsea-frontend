@@ -312,7 +312,7 @@ export class NavComponent implements OnInit {
     //  }
   
     let searchedText = searchText.replaceAll('#',' '); 
-    debugger
+    //debugger
     this.route.navigate(['/searchcollection'], {
       queryParams: { searchKey: searchedText },
     });
@@ -327,7 +327,7 @@ export class NavComponent implements OnInit {
     walletAddress:any
   ) {
 
-    // debugger
+    // //debugger
     if (serachType == 1) {
       this.route.navigate(['/details', nftAddress, nftToken, blockchainId]);
     } else if (serachType == 2) {
@@ -391,7 +391,7 @@ export class NavComponent implements OnInit {
       this.getDataService
         .searchResult(searchText)
         .subscribe(async (response) => {
-          // debugger
+          // //debugger
           console.log(response.data);
           
           if (response.data.length > 0) {

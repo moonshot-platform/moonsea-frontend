@@ -213,7 +213,7 @@ export class AllcollectionComponent implements OnInit {
   propertiesSelection(key: any,indexing:any) {
     this.size = 12;
     this.foo[indexing] = this.toppings.value;
-    //debugger
+    ////debugger
     let value: any = [];
     let keys: any = [];
     

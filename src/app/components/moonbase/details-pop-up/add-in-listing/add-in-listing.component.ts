@@ -74,7 +74,7 @@ export class AddInListingComponent implements OnInit {
   }
 
   async checkNetwork() {
-    // //debugger
+    // ////debugger
     let checkNetwork: boolean = await this.contractService.createContract(
       this.data.blockchainId
     );
@@ -103,7 +103,7 @@ export class AddInListingComponent implements OnInit {
   }
 
   onNoClick(): void {
-    // //debugger
+    // ////debugger
     this.dialogRef.close();
   }
 
@@ -129,7 +129,7 @@ export class AddInListingComponent implements OnInit {
 
   async addListingSave(formData: any) {
 
-    debugger
+    //debugger
     if (!this.isContractApproved) {
       await this.startSale();
     }
@@ -168,7 +168,7 @@ export class AddInListingComponent implements OnInit {
         }
         status = await this.contractService.signSellOrder(sig);
       } else {
-        debugger
+        //debugger
         status = await this.contractService.signBidOrder(
           this.data.ID,
           price,
@@ -177,7 +177,7 @@ export class AddInListingComponent implements OnInit {
           this.data.isMultiple
         );
       }
-      debugger
+      //debugger
       if (status.status) {
         this.data1 = {
           nftId: this.data.ID,

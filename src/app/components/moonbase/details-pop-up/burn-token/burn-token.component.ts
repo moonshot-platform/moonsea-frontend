@@ -64,7 +64,7 @@ export class BurnTokenComponent implements OnInit {
   async burnSave(quanity:any)
   {
     
-    //debugger
+    ////debugger
     
     try {
     

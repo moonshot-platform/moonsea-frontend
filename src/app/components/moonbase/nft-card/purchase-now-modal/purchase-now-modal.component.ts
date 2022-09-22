@@ -158,7 +158,7 @@ export class PurchaseNowModalComponent implements OnInit {
     this.exchangeTokenObj.salt = this.items.salt;
     this.exchangeTokenObj.referalAddress = this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
     
-    // debugger
+    // //debugger
     var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {
