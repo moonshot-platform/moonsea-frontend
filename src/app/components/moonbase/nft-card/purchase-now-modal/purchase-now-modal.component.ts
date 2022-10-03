@@ -143,7 +143,7 @@ export class PurchaseNowModalComponent implements OnInit {
   async exchangeToken() {
 
     this.exchangeTokenObj.nftTokenID =  this.items.nftTokenID;
-    this.exchangeTokenObj.supply =  this.items.supply;
+    this.exchangeTokenObj.supply =  this.items.listingCurrentSupply;
     this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
     this.exchangeTokenObj.signature =   this.items.signature;
     this.exchangeTokenObj.ownerAddress = this.items.ownerAddress;
@@ -158,7 +158,7 @@ export class PurchaseNowModalComponent implements OnInit {
     this.exchangeTokenObj.salt = this.items.salt;
     this.exchangeTokenObj.referalAddress = this.items.referalAddress ?? "0x0000000000000000000000000000000000000000";
     
-    // //debugger
+  debugger
     var status: any = await this.contractService.exchangeToken01(this.exchangeTokenObj,this.items.blockchainId);
 
     if (status.status) {

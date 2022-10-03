@@ -160,20 +160,20 @@ export class DetailsComponent implements OnInit, OnDestroy {
       data: {
         ID: this.ID,
         currentPrice: this.currentPrice,
-        isListed: this.data.isListed,
-        typeOfSale: this.data.typeOfSale,
-        nftTokenID: this.data.nftTokenID,
-        price: this.data.price,
-        supply: this.data.supply,
-        nftAddress: this.data.nftAddress,
-        isMultiple: this.data.isMultiple,
-        currentSupply: this.data.currentSupply,
-        collectionId: this.data.collectionId,
-        blockchainId: this.data.blockchainId,
-        royalties: this.data.royalties,
-        royaltiesOwner: this.data.royaltiesOwner,
-        tokenAddress: this.data.contractAddress,
-        ownerCurrentSupply: this.data.ownerCurrentSupply,
+        isListed: this.data?.isListed,
+        typeOfSale: this.data?.typeOfSale,
+        nftTokenID: this.data?.nftTokenID,
+        price: this.data?.price,
+        supply: this.data?.supply,
+        nftAddress: this.data?.nftAddress,
+        isMultiple: this.data?.isMultiple,
+        currentSupply: this.data?.currentSupply,
+        collectionId: this.data?.collectionId,
+        blockchainId: this.data?.blockchainId,
+        royalties: this.data?.royalties,
+        royaltiesOwner: this.data?.royaltiesOwner,
+        tokenAddress: this.data?.contractAddress,
+        ownerCurrentSupply: this.data?.ownerCurrentSupply,
         asset: this.asset
       },
     });
@@ -200,10 +200,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.data = response.data;
           
 
-          this.meta.updateTag( {property:'og:description' ,content:`Moonsea.io - ${this.data.title}`},"property='og:description'");
-          this.meta.updateTag( {property:'twitter:description' ,content:`Moonsea.io - ${this.data.title}`},"property='twitter:description'");
-          this.meta.updateTag( {property:'og:image' ,content:`${this.data.fileUrl}`},"property='og:image'");
-          this.meta.updateTag( {property:'twitter:image' ,content:`${this.data.fileUrl}`},"property='twitter:image'");
+          this.meta.updateTag( {property:'og:description' ,content:`Moonsea.io - ${this.data?.title}`},"property='og:description'");
+          this.meta.updateTag( {property:'twitter:description' ,content:`Moonsea.io - ${this.data?.title}`},"property='twitter:description'");
+          this.meta.updateTag( {property:'og:image' ,content:`${this.data?.fileUrl}`},"property='og:image'");
+          this.meta.updateTag( {property:'twitter:image' ,content:`${this.data?.fileUrl}`},"property='twitter:image'");
 
 
 
@@ -347,9 +347,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
   refresh() {
     let url =
       'api/refreshData?nftAddress=' +
-      this.data.nftAddress +
+      this.data?.nftAddress +
       '&nftTokenId=' +
-      this.data.nftTokenID + '&asset=' + this.asset;
+      this.data?.nftTokenID + '&asset=' + this.asset;
     this.collectionApi.getRequest(url).subscribe((response: any) => {
       this.toastrService.success(
         "We've queued this item for an update! Check back in a minute...."
