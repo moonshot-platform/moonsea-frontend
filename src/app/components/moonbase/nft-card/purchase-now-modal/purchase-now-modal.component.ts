@@ -143,7 +143,7 @@ export class PurchaseNowModalComponent implements OnInit {
   async exchangeToken() {
 
     this.exchangeTokenObj.nftTokenID =  this.items.nftTokenID;
-    this.exchangeTokenObj.supply =  this.items.listingCurrentSupply;
+    this.exchangeTokenObj.supply =  this.items.supply;
     this.exchangeTokenObj.nftAddress =   this.items.nftAddress;
     this.exchangeTokenObj.signature =   this.items.signature;
     this.exchangeTokenObj.ownerAddress = this.items.ownerAddress;
