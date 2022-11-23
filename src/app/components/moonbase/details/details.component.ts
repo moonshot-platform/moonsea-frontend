@@ -72,13 +72,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private meta: Meta,
     private titleService: Title,
     private http: HttpClient,
-    private route:Router,
+    private route: Router,
   ) {
     for (let index = 0; index < 100; index++) {
       this.elementsHasLoaded[index] = false;
     }
 
-    
+
 
     // this.meta.updateTag( {property:'og:description' ,content:`Moonsea.io -EEEEEEEE`},"property='og:description'");
     // this.meta.updateTag( {property:'twitter:description' ,content:`Moonsea.io -EEEEEEEE`},"property='twitter:description'");
@@ -103,7 +103,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     //   { name: 'Details', content: 'You can sea nft details at this page...' },
     // ]);
 
-   
+
 
 
 
@@ -115,8 +115,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.nftTokenID = params['nftTokenID'];
       this.nftAddress = params['nftAddress'];
       this.queryBlockchainId = params['blockchainId'];
+      console.log(params);
+
     });
-    this.route.routeReuseStrategy.shouldReuseRoute = function(){return false;};
+    this.route.routeReuseStrategy.shouldReuseRoute = function () { return false; };
     // this._activatedRoute.queryParams.subscribe((res: any) => {
     //   this.queryBlockchainId = res['blockchainId'];
     //   this.asset = res['asset'];
@@ -198,12 +200,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
         (response: any) => {
           this.ngxService.stop();
           this.data = response.data;
-          
 
-          this.meta.updateTag( {property:'og:description' ,content:`Moonsea.io - ${this.data?.title}`},"property='og:description'");
-          this.meta.updateTag( {property:'twitter:description' ,content:`Moonsea.io - ${this.data?.title}`},"property='twitter:description'");
-          this.meta.updateTag( {property:'og:image' ,content:`${this.data?.fileUrl}`},"property='og:image'");
-          this.meta.updateTag( {property:'twitter:image' ,content:`${this.data?.fileUrl}`},"property='twitter:image'");
+
+          this.meta.updateTag({ property: 'og:description', content: `Moonsea.io - ${this.data?.title}` }, "property='og:description'");
+          this.meta.updateTag({ property: 'twitter:description', content: `Moonsea.io - ${this.data?.title}` }, "property='twitter:description'");
+          this.meta.updateTag({ property: 'og:image', content: `${this.data?.fileUrl}` }, "property='og:image'");
+          this.meta.updateTag({ property: 'twitter:image', content: `${this.data?.fileUrl}` }, "property='twitter:image'");
 
 
 
@@ -253,12 +255,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
           asset: this.asset
         })
         .subscribe((result: any) => {
-       
-            this.toastrService.success(result.message);
 
-            this.data.isLikeByYou = 1;
-            this.data.likeCount = this.data.likeCount + 1;
-         
+          this.toastrService.success(result.message);
+
+          this.data.isLikeByYou = 1;
+          this.data.likeCount = this.data.likeCount + 1;
+
         });
     }
     return false;
@@ -280,12 +282,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
           asset: this.asset
         })
         .subscribe((result: any) => {
-        
-            this.toastrService.success(result.message);
-            this.isLikeByYou = 0;
-            this.data.isLikeByYou = 0;
-            this.data.likeCount = this.data.likeCount - 1;
-          
+
+          this.toastrService.success(result.message);
+          this.isLikeByYou = 0;
+          this.data.isLikeByYou = 0;
+          this.data.likeCount = this.data.likeCount - 1;
+
         });
     }
     return false;
@@ -317,26 +319,26 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.unSubscribeRequest01 = this.getDataService
       .getListOwners(this.ID, this.Address, this.nftAddress, this.queryBlockchainId, this.asset)
       .subscribe((response: any) => {
-     
-
-          this.ownersData = response.data;
 
 
-          let i = 0;
-          this.ownersData.forEach((value: any, index: any) => {
-            if (value.typeOfSale == 1 && this.indexForPurchase == -1) {
-              this.indexForPurchase = index;
-            } else if (
-              (value.typeOfSale == 2 || value.typeOfSale == 3) &&
-              this.indexForPlaceBid == -1
-            ) {
-              this.indexForPlaceBid = index;
-            }
-          });
-          this.apiDataLoaded = true;
+        this.ownersData = response.data;
 
 
-        
+        let i = 0;
+        this.ownersData.forEach((value: any, index: any) => {
+          if (value.typeOfSale == 1 && this.indexForPurchase == -1) {
+            this.indexForPurchase = index;
+          } else if (
+            (value.typeOfSale == 2 || value.typeOfSale == 3) &&
+            this.indexForPlaceBid == -1
+          ) {
+            this.indexForPlaceBid = index;
+          }
+        });
+        this.apiDataLoaded = true;
+
+
+
       });
   }
 
@@ -345,11 +347,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   refresh() {
-    let url =
-      'api/refreshData?nftAddress=' +
-      this.data?.nftAddress +
-      '&nftTokenId=' +
-      this.data?.nftTokenID + '&asset=' + this.asset;
+    let url: any;
+    if (this.data) {
+      url ='api/refreshData?nftAddress=' +this.data?.nftAddress +'&nftTokenId=' +this.data?.nftTokenID + '&asset=' + this.asset;
+    }else{
+      url =`api/refreshData?nftAddress=${this.nftAddress}&nftTokenId=${this.nftTokenID}&asset=${null}`;
+    }
+
     this.collectionApi.getRequest(url).subscribe((response: any) => {
       this.toastrService.success(
         "We've queued this item for an update! Check back in a minute...."
