@@ -378,7 +378,7 @@ export class ContractService {
 
 
       this.nft721Contract
-        .mint(nftId.toString(), environment.tockenUri+nftId.toString())
+        .mint(nftId.toString(), environment.tockenUri+nftId.toString())//,{gasLimit:100000}
         .then(function (hash: any) {
           resolve({ hash: hash, status: true });
         })

@@ -31,7 +31,7 @@
                     <div class="collections__user">
                       <div class="text-primary collections__author">
                         by
-                        <a [routerLink]="['/profile', item.ownerWalletAddress]">{{ item?.name ?? item?.customeUrl.slice(0,5)
+                        <a [routerLink]="['/profile', item.ownerWalletAddress]">{{ item?.name ?? item?.customeUrl?.slice(0,5)
                           }}</a>
                       </div>
                     </div>

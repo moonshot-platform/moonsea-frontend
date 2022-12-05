@@ -31,6 +31,14 @@
             "wsymbol":"WMOVR",
             "exploreUrl": "https://blockscout.moonriver.moonbeam.network/",
             "chainId": 1285
+        },
+        {
+            "blockchainId": 5,
+            "name": "Dog",
+            "symbol": "Dog",
+            "wsymbol":"WDog",
+            "exploreUrl": "https://explorer-testnet.dogechain.dog/",
+            "chainId": 568
         }
     ],
     "mainnet":[

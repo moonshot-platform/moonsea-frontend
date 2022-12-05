@@ -23,6 +23,12 @@
           "networkName": "Ethereum",
           "fileUrl": "https://downloads.coindesk.com/arc-hosted-images/eth.png",
           "currencySymbol": "ETH"
+        },
+        {
+          "blockchainId": 5,
+          "networkName": "DogeCoin",
+          "fileUrl": "assets/media/dogecoin-doge-icon.png",
+          "currencySymbol": "Dog"
         }
         
        

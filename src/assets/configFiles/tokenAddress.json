@@ -47,6 +47,17 @@
         "transferProxy":"0xf25a09f73BD630ce05F39079F237E39B9e1415Cd",
         "erc20TransferProxy" : "0xab6b86246EDB6676d71e59247343C659E5369b68",
         "transferProxyD":"0x298846Db98DA6aF719D064a2FAb4A6bc9c8e54bF"
+    },
+    {
+        "chainId":"0x238",
+        "ETH":"",
+        "WETH":"",
+        "nfterc721":"0x740bE82cC2740Ae7827c19D4F7ac98276133124F",
+        "nfterc1155":"0x16Aa1ca952A8696b4b06eeaef37B1fC462ddB5bc",
+        "exchangeAddress":"0xab6b86246EDB6676d71e59247343C659E5369b68",
+        "transferProxy":"0x52A944a704d3066E51f9B42a4446F23B6e4651f3",
+        "erc20TransferProxy" : "0x12B73806970e022F3930de58b0c79e0b1B4b92C9",
+        "transferProxyD":"0xf25a09f73BD630ce05F39079F237E39B9e1415Cd"
     }
 ],
 "mainnet":[

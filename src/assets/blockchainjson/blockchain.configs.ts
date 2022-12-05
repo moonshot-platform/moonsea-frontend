@@ -150,5 +150,18 @@ export const CHAIN_CONFIGS: any = {
         chainId: '0x1'
       }],
     }
-  }
+  },
+  "568": {
+    "name": "Dogechain Testnet",
+    "icon": "assets/media/dogecoin-doge-icon.png",
+    "explorerLink": "https://explorer-testnet.dogechain.dog/",
+    "bg": "white",
+    "symbol": 'dog',
+    "config": {
+      method: 'wallet_switchEthereumChain',
+      params: [{
+        chainId: '0x238'
+      }],
+    }
+  },
 }

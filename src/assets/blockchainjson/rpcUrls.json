@@ -4,7 +4,8 @@
             "3": "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
             "97": "https://data-seed-prebsc-1-s1.binance.org:8545/",
             "80001": "https://rpc-mumbai.maticvigil.com",
-            "1285": "https://moonbase-alpha.public.blastapi.io/"
+            "1285": "https://moonbase-alpha.public.blastapi.io/",
+            "568" :"https://rpc-testnet.dogechain.dog/"
         },
         "chainId": 97
     },
