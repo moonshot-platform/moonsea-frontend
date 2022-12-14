@@ -48,16 +48,15 @@ export class RemoveFromSaleComponent implements OnInit {
       referralAddress: this.data.referalAddress??'0x0000000000000000000000000000000000000000',
       blockchainId:this.data.blockchainId
     }
-//  //debugger
     this.isApiLoading = true;
     var status:any= await this.contractService.getOrderData(
       removesaleObj
     );
-    // //debugger
+    // debugger
     if(status.status){
       
     this.data1= {nftId:this.data.ID,walletAddress:this.Address,signature : status.signature};
-    let checkNetwork : boolean = await this.contractService.createContract(1);
+    let checkNetwork : boolean = await this.contractService.createContract(this.data.blockchainId);
     if(checkNetwork)
     {
     
@@ -65,7 +64,6 @@ export class RemoveFromSaleComponent implements OnInit {
     var txn:any = await this.contractService.cancelOrder(
       status.orderkey
     );
-    // //debugger
     this.isDisableCancelbutton = true;
     await txn.wait(2);
     this.isRemovedSteps = 2;

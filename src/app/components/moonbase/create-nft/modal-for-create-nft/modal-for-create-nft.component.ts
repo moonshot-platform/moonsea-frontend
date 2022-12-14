@@ -40,7 +40,7 @@ export class ModalForCreateNftComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.dialogRef.disableClose = true;
     this.checkNetwork();
     this.contractService.getWalletObs().subscribe((data: any) => {
@@ -51,6 +51,14 @@ export class ModalForCreateNftComponent implements OnInit {
       }
       // this.dialogRef.close();
     });
+
+    if(parseInt(localStorage.getItem('wallet')) == 1){
+    let address = await  this.contractService.connectAccountMetamask(0);
+    }
+
+    if(parseInt(localStorage.getItem('wallet')) == 2){
+      let address = await  this.contractService.connectAccountWalletConnect(0);
+      }
   }
   async getUserBalance() {
     this.netWorkId = await this.contractService.getConnectedNetworkId();
@@ -201,7 +209,7 @@ export class ModalForCreateNftComponent implements OnInit {
   }
 
   async signSellOrder() {
-    //debugger
+    // debugger
     try {
       var status: any;
       let salt = this.data.globalService.randomNo();
@@ -228,7 +236,7 @@ export class ModalForCreateNftComponent implements OnInit {
           tokenAddress:  '0x0000000000000000000000000000000000000000',
           blockchainId: this.data.details.blockchainId
         }
-
+        // debugger
         status = await this.data.globalService.signSellOrder(
           sellOrder
         );
@@ -241,7 +249,7 @@ export class ModalForCreateNftComponent implements OnInit {
           this.data.details.isMultiple
         );
       }
-      ////debugger
+      // debugger
       if (status.status) {
         this.signatureStatus = 3;
         this.isApiLoading = true;

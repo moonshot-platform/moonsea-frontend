@@ -235,9 +235,10 @@ export class ContractService {
     let network: any;
     try {
       network = await this.provider.getNetwork();
+      return network.chainId;
     } catch (error) {
+      
     }
-    return network.chainId;
   }
 
   async createContract(chainIdVal: number) {
@@ -248,7 +249,8 @@ export class ContractService {
       return false;
     }
     this.chainId = config[environment.configFile][chainIdVal].chainId;
-    
+    let df = parseInt(config[environment.configFile][chainIdVal].chainId,16)
+    debugger
     if (
       network &&
       network.chainId == config[environment.configFile][chainIdVal].chainId
@@ -1012,21 +1014,12 @@ export class ContractService {
   }
 
   async cancelOrder(signature: any) {
-    // //debugger
+    // debugger
     return await this.exchangeAbiContract.cancel(signature);
   }
 
 
-  // nftId: number,
-  // price: number,
-  // supply: number,
-  // nftAddress: string,
-  // isMultiple: boolean,
-  // tokenAddress: any,
-  // royaltiesOwner: string,
-  // royalties: any,
-  // referralAddress:any,
-  // blockchainId:any
+ 
   async getOrderData(
     data:removefromsale
   ) {
