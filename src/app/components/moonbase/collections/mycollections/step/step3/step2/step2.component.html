@@ -57,7 +57,7 @@
           </div>
           <div class="flex align-center justify-space-between pb30 pt30 border-bottom" *ngIf="uploadBatchCnt > 0">
             <div class="batch_uploaded flex align-center">
-              <ng-container *ngFor="let uploadlit of progressInfos.slice(0,5);">
+              <ng-container *ngFor="let uploadlit of progressInfos?.slice(0,5);">
                 <img alt="NFT preview" src="{{uploadlit?.imagePath}}" />
               </ng-container>
 
@@ -168,7 +168,7 @@
                         <img class="nftPreview" [hidden]="!isImgLoaded" [src]="uploadlit?.imagePath"
                           (load)="isImgLoaded = true" />
                         <span class="orbitron text-secondary p16 flex align-center">
-                          {{ uploadlit?.fileName.slice(0, 10) }}
+                          {{ uploadlit?.fileName?.slice(0, 10) }}
                         </span></a>
                     </div>
                   </div>

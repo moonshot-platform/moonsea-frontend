@@ -44,7 +44,7 @@
                     </a>
                     <div class="flex flex-wrap flex100 gap15 justify-start">
                       <div class="thumb__preview gap15" *ngFor="
-                            let iner of item.nftDetailsList.slice(1, 4);
+                            let iner of item.nftDetailsList?.slice(1, 4);
                             let j = index
                           ">
                         <ng-container *ngIf="j <= 2">

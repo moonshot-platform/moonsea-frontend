@@ -391,7 +391,7 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                                 </div>
                                 <div class="flex gap wrap wp100 justify-end">
                                   <div class="artist_nft" *ngFor="
-                                      let colle of item.nftDetails.slice(0, 4);
+                                      let colle of item.nftDetails?.slice(0, 4);
                                       let k = index
                                     ">
                                     <a [routerLink]="['/details',colle?.nftAddress,colle?.nftTokenID,colle?.blockchainId]"

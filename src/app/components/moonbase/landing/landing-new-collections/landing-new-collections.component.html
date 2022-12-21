@@ -44,7 +44,7 @@
             </div>
             <div class="selection__col">
               <ng-container *ngFor="
-                  let item01 of item.nftDetailsList.slice(1, 4);
+                  let item01 of item.nftDetailsList?.slice(1, 4);
                   let j = index
                 ">
                 <ng-container *ngIf="j <= 2">

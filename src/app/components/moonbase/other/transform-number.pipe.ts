@@ -7,7 +7,7 @@ export class TransformNumberPipe implements PipeTransform {
 
   transform(value: any, ): any {
     let str = value+' ';
-    return str.slice(0,4);
+    return str?.slice(0,4);
   }
 
 }

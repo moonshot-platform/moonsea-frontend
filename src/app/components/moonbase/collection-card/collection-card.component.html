@@ -22,7 +22,7 @@
   </a>
 
   <div class="flex flex-wrap flex100 gap15 justify-start thumb-grid">
-    <div class="thumb__preview gap15" *ngFor="let inneritem of item.nftDetailsList.slice(1, 4); let j = index"
+    <div class="thumb__preview gap15" *ngFor="let inneritem of item.nftDetailsList?.slice(1, 4); let j = index"
     [routerLink]="['/details', inneritem.nftAddress, inneritem.nftTokenID,item.blockchainId ]">
       <ng-container *ngIf="j <= 2" >
         <div class="content-overlay"></div>

@@ -7,7 +7,7 @@ export class DicimalTransformPipe implements PipeTransform {
 
   transform(value: any): any {
     let str = value+'';
-    return str.slice(0,6);
+    return str?.slice(0,6);
   }
 
 }

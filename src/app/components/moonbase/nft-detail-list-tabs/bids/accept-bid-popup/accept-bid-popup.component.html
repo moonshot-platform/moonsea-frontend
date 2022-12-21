@@ -204,7 +204,7 @@
         <div class="popup__row">
           <div class="popup__col">Transaction ID</div>
           <a href="javascript:void(0)" class="text-primary popup__col" (click)="gotoTestNetBscScan(txnHash)">
-            {{ txnHash.slice(0,5) }}...{{ txnHash.slice(-5)}}
+            {{ txnHash?.slice(0,5) }}...{{ txnHash?.slice(-5)}}
           </a>
         </div>
         <div class="popup__row">
