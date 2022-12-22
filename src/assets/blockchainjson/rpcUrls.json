@@ -14,7 +14,8 @@
             "1": "https://eth-rpc.gateway.pokt.network/",
             "56": "https://bsc-dataseed.binance.org/",
             "97": "https://rpc-mainnet.matic.network/",
-            "1285": "https://rpc.api.moonriver.moonbeam.network/"
+            "1285": "https://rpc.api.moonriver.moonbeam.network/",
+            "2000":"https://rpc03-sg.dogechain.dog"
         },
         "chainId": 56
     }

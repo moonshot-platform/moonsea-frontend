@@ -164,4 +164,17 @@ export const CHAIN_CONFIGS: any = {
       }],
     }
   },
+  "2000": {
+    "name": "Dogechain Mainnet",
+    "icon": "assets/media/dogecoin-doge-icon.png",
+    "explorerLink": "https://explorer.dogechain.dog/",
+    "bg": "white",
+    "symbol": 'DOGE',
+    "config": {
+      method: 'wallet_switchEthereumChain',
+      params: [{
+        chainId: '0x7D0'
+      }],
+    }
+  },
 }
