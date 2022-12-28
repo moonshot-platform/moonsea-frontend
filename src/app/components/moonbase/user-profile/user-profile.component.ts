@@ -112,12 +112,12 @@ export class UserProfileComponent implements OnInit {
 
   fetchData() {
     // //debugger
-    this.getDataService.getUserDetails(this.username, this.currentWalletAddress).subscribe((response: any) => {
+    this.getDataService.getUserDetails(this.username, this.currentWalletAddress).subscribe(async (response: any) => {
       if (response.data.length > 0) {
         this.userDetails = response.data[0];
+       this.userDetails.spaceid_Name = await this.contractService.getSidAddress(this.userDetails?.walletAddress);
 
-
-        let check2 = (localStorage.getItem("address"));
+       let check2 = (localStorage.getItem("address"));
 
         if (this.userDetails?.walletAddress == check2) {
           this.hideShow = true

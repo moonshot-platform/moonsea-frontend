@@ -24,13 +24,19 @@ export class CreatorComponent implements OnInit {
   constructor(  public contractService:ContractService, public dialog: MatDialog, 
      public cs:ContractService,private getDataService:GetDataService, private toastrService:ToastrService,) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     
     this.correntRoute = window.location.href;
     this.cs.getWalletObs().subscribe((data:any)=>
     {
       this.connectedAddress = data;
     });
+    this.listItemsFollowing.forEach(async (element:any) => {
+     element.spaceidName =  await this.contractService.getSidAddress(element.walletAddress);
+    });
+    
+   
+    
   }
 
   async followUser(address:string,index:number,listType:number)

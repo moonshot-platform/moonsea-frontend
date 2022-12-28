@@ -17,6 +17,9 @@ import {
 } from '../model/signBuyerOrder';
 import { CHAIN_CONFIGS } from 'src/assets/blockchainjson/blockchain.configs';
 import rpcUrls from '../../../src/assets/blockchainjson/rpcUrls.json'
+import Web3 from 'web3';
+const SID = require('@siddomains/sidjs').default      
+const SIDfunctions = require('@siddomains/sidjs')    
 
 
 
@@ -290,6 +293,25 @@ export class ContractService {
       return false;
     }
   }
+  sid:any;
+
+
+  async getSidAddress(address:any) {
+   try {
+    const rpc = this.chainConfigs[localStorage.getItem('chainId')].config.params[0].rpcUrls[0];
+    const provider = new Web3.providers.HttpProvider(rpc)
+    const chainId = localStorage.getItem('chainId');
+    this.sid = new SID({ provider, sidAddress: SIDfunctions.getSidAddress(chainId) })
+    const name = await this.sid.getName(address);
+    return name.name;   
+   } catch (error) {
+    console.log(error);
+    
+   }                                                                                    
+  
+  }
+
+
 
   getAddressSingle(chainIdVal: number) {
     return config[environment.configFile][chainIdVal].nfterc721;

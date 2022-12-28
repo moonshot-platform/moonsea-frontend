@@ -15,7 +15,8 @@
       <div class="follower-info flex-col text-primary">
        
         <a [routerLink]="['/profile',item.walletAddress]" class="creatorEllipsis p24 text-secondary"> {{ item.name }}</a>
-        <a (click)="copyMessage(item.walletAddress)" href="javascript:void(0)">{{item.walletAddress.substr(0,5)}}...{{item.walletAddress.substr(item.walletAddress.length-5,item.walletAddress.length)}}</a>
+        <a (click)="copyMessage(item.walletAddress)" *ngIf="!item?.spaceidName" href="javascript:void(0)">{{item.walletAddress.substr(0,5)}}...{{item.walletAddress.substr(item.walletAddress.length-5,item.walletAddress.length)}}</a>
+        <a (click)="copyMessage(item.walletAddress)" *ngIf="item?.spaceidName" href="javascript:void(0)">{{item?.spaceidName}}</a>
 
         <div class="flex mt20">
 

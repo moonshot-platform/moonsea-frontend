@@ -85,9 +85,13 @@
                             item.customeUrl
                           ]" class="multiline-ellipsis text-primary owner_name">
                             <strong class="w600"> by </strong>
-                            <a [routerLink]="['/profile',item.customeUrl]">
+                            <a *ngIf="item?.name" [routerLink]="['/profile',item.customeUrl]">
                               {{ item?.name  | customUrlTransform}}
-                            </a></a>
+                            </a>
+                            <a *ngIf="!item?.name" [routerLink]="['/profile',item.customeUrl]">
+                              Anonymous
+                            </a>
+                          </a>
                           <span> {{ item?.totalNftCount }} items </span>
                         </div>
                       </div>

@@ -134,7 +134,8 @@ export const CHAIN_CONFIGS: any = {
     "config": {
       method: 'wallet_switchEthereumChain',
       params: [{
-        chainId: '0x4'
+        chainId: '0x4',
+        rpcUrls: ['https://rpc.ankr.com/eth_rinkeby'],
       }],
     }
   },
@@ -147,7 +148,8 @@ export const CHAIN_CONFIGS: any = {
     "config": {
       method: 'wallet_switchEthereumChain',
       params: [{
-        chainId: '0x1'
+        chainId: '0x1',
+        rpcUrls: ['https://rpc.ankr.com/eth'],
       }],
     }
   },
@@ -160,7 +162,8 @@ export const CHAIN_CONFIGS: any = {
     "config": {
       method: 'wallet_switchEthereumChain',
       params: [{
-        chainId: '0x238'
+        chainId: '0x238',
+        rpcUrls: ['https://rpc-testnet.dogechain.dog'],
       }],
     }
   },
@@ -173,7 +176,8 @@ export const CHAIN_CONFIGS: any = {
     "config": {
       method: 'wallet_switchEthereumChain',
       params: [{
-        chainId: '0x7D0'
+        chainId: '0x7D0',
+        rpcUrls: ['https://rpc01-sg.dogechain.dog'],
       }],
     }
   },

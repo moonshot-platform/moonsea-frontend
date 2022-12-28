@@ -141,7 +141,12 @@ export class LandingComponent implements OnInit, OnDestroy {
       this.connectedAddress = data;
     });
     this.getUpcomingCollection();
+    this.cs.getSidAddress("0x703632A0b52244fAbca04aaE138fA8EcaF72dCBC");
   }
+
+
+
+
 
   getUpcomingCollection(){
     this.ngxService.start();

@@ -77,9 +77,14 @@
                 </div>
                 <div class="user__code">
                   <div class="text-primary user__number" *ngIf="userDetails?.walletAddress">
+                   <span *ngIf="!userDetails?.spaceid_Name">
                     {{ userDetails?.walletAddress.substring(0, 4) }}...{{
-                    userDetails?.walletAddress.substring(38, 42)
-                    }}
+                      userDetails?.walletAddress.substring(38, 42)
+                      }}
+                   </span>
+                   <span *ngIf="userDetails?.spaceid_Name">
+                    {{ userDetails?.spaceid_Name }}
+                   </span>
                   </div>
                   <button class="user__copy">
                     <svg class="icon icon-copy">

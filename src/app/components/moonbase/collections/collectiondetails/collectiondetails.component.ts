@@ -44,7 +44,6 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
     private collectionApi: CollectionApiService,
     private _activatedRoute: ActivatedRoute,
     private location: Location,
-    private ngxService: NgxUiLoaderService,
     public dialog: MatDialog,
     private router: Router,
     private _titleService : Title
@@ -103,7 +102,7 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
 
   getCollectionDetails() {
 
-    this.unSubscibeRequest = this.collectionApi.getCollectionDetails(this.name).subscribe((response: any) => {
+    this.unSubscibeRequest = this.collectionApi.getCollectionDetails(this.name).subscribe(async (response: any) => {
       this.check = response.data?.walletAddress
       let check2 = (localStorage.getItem("address"));
 
@@ -115,6 +114,7 @@ export class CollectiondetailsComponent implements OnInit, OnDestroy {
 
       if ( response.data) {
         this.collectionDetails = response.data;
+        this.collectionDetails.spaceid_name = await this.cs.getSidAddress(this.collectionDetails?.walletAddress);
         this.imageUrl = this.collectionDetails?.collectionCoverPhoto ?? "";
       }
     });

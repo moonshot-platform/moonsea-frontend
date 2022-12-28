@@ -287,8 +287,8 @@ c0.3-1.7-1.1-3.2-2.8-2.9c-0.9,0.1-1.6,0.8-1.9,1.7c-0.1,0.5-0.1,1,0,1.4l-3.1,1.9C
                 <p class="orbitron">
                   {{ collectionDetails?.collectionName |  titlecase }}
                 </p>
-                <p class="mb30 w400" [routerLink]="['/profile',collectionDetails?.customeUrl]" routerLinkActive="router-link-active"  *ngIf="collectionDetails?.name">by {{ collectionDetails?.name |  titlecase }}</p>
-                <p class="mb30 w400" [routerLink]="['/profile',collectionDetails?.customeUrl]" *ngIf="!collectionDetails?.name">by unknown</p>
+                <p class="mb30 w400" [routerLink]="['/profile',collectionDetails?.customeUrl]" routerLinkActive="router-link-active"  *ngIf="!collectionDetails?.spaceid_name ">by {{ collectionDetails?.walletAddress.slice(0,5)}}...{{ collectionDetails?.walletAddress.slice(-5)}}</p>
+                <p class="mb30 w400" [routerLink]="['/profile',collectionDetails?.customeUrl]" *ngIf="collectionDetails?.spaceid_name ">by {{collectionDetails?.spaceid_name}}</p>
                 <p class="desc-max mb20 w400">
                   {{ collectionDetails?.description }}
                 </p>

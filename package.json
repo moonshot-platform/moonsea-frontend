@@ -27,6 +27,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
         "@fortawesome/free-brands-svg-icons": "^5.15.4",
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
+        "@siddomains/sidjs": "^0.1.17",
         "@swiper/core": "0.0.21",
         "@syncfusion/ej2-angular-calendars": "^19.4.42",
         "@types/hammerjs": "^2.0.41",
